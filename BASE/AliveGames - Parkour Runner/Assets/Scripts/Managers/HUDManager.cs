@@ -133,39 +133,27 @@ namespace ParkourRunner.Scripts.Managers
                     message = "OK";
                     break;
                 case Messages.Great:
-                    message = ParseLocalizationText("great", "GREAT!");
+                    message = "GREAT!";
                     break;
                 case Messages.Perfect:
-                    message = ParseLocalizationText("perfect", "PERFECT!!!");
+                    message = "PERFECT!!!";
                     break;
 
                 case Messages.LevelComplete:
-                    message = ParseLocalizationText("level_complete", "LEVEL COMPLETE!!!");
+                    message = "LEVEL COMPLETE!!!";
                     break;
 
                 case Messages.CurrentLevel:
                     if (PlayerPrefs.GetInt(EnvironmentController.ENDLESS_KEY) == 0 && PlayerPrefs.GetInt(EnvironmentController.TUTORIAL_KEY) == 0)
-                        message = string.Format("{0} {1}", ParseLocalizationText("level", "Level"), PlayerPrefs.GetInt(EnvironmentController.LEVEL_KEY));
+                        message = string.Format("Level {0}", PlayerPrefs.GetInt(EnvironmentController.LEVEL_KEY));
                     else
-                        message = ParseLocalizationText("start", "Start");                    
+                        message = "Start";                    
                     break;
             }
 
             GreatText.text = message;
             GreatTextAnimator.enabled = true;
             GreatTextAnimator.Play("FadeIN_OUT");
-        }
-
-        private string ParseLocalizationText(string key, string defaultText = "")
-        {
-            if (!LocalizationManager.Instance.LockLocalization)
-            {
-                return LocalizationManager.Instance.GetText(key);
-            }
-
-            Debug.Log("Localization key " + key + "was not found or used debug mode");
-
-            return defaultText;
         }
 
         public void Reward(int value)
