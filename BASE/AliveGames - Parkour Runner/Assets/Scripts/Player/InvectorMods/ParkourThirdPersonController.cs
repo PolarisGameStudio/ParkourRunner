@@ -41,6 +41,9 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
         public float CurrAnimSpeed;
 
         public float SpeedMult = 1f;
+        private float _baseSpeed = 1f;
+        private float _bonusBoostSpeed = 0f;
+        private float _buttonSpeed = 0f;
 
         public float HouseWallDelay = 4f;
 
@@ -54,7 +57,23 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
         private bool _airSpeedFreeze = false;
 
+        public float BaseSpeed
+        {
+            get { return _baseSpeed; }
+            set { _baseSpeed = value; SpeedMult = _baseSpeed + _bonusBoostSpeed + _buttonSpeed; }
+        }
 
+        public float BonusBoostSpeed
+        {
+            get { return _bonusBoostSpeed; }
+            set { _bonusBoostSpeed = value; SpeedMult = _baseSpeed + _bonusBoostSpeed + _buttonSpeed; }
+        }
+
+        public float ButtonSpeed
+        {
+            get { return _buttonSpeed; }
+            set { _buttonSpeed = value; SpeedMult = _baseSpeed + _bonusBoostSpeed + _buttonSpeed; }
+        }
 
         //Чисто по приколу сделал чтоб он держался за IK пока едет на тарзанке
         [HideInInspector] public AvatarIKGoal TrolleyHand;
