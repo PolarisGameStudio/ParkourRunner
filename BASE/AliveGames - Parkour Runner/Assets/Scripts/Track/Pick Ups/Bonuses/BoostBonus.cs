@@ -6,7 +6,7 @@
         {
             base.StartEffect();
 
-            _player.SpeedMult = 1.5f;
+            _player.BonusBoostSpeed = 0.5f;
             _player.Immune = true;
 
             CameraEffects.Instance.IsRunningFast = true;
@@ -16,7 +16,7 @@
         {
             base.EndEffect();
 
-            _player.SpeedMult = 1f;
+            _player.BonusBoostSpeed = 0f;
 
             if (!_gameManager.ActiveBonuses.Contains(BonusName.Shield))
                 _player.Immune = false;
