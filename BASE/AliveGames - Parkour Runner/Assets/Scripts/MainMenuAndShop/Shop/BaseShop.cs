@@ -22,8 +22,6 @@ public  class BaseShop : MonoBehaviour
     }
 
     [SerializeField] private GameObject[] _allShops;
-    [SerializeField] private GameObject _notEnoughCoinsWindow;
-    [SerializeField] private Text _notEnougtCoins;
     [SerializeField] private Tab _charTab;
     [SerializeField] private Tab _coinstTab;
     [SerializeField] private Tab _bonusesTab;
@@ -42,19 +40,10 @@ public  class BaseShop : MonoBehaviour
         _coinstTab.button.onClick.AddListener(() => OnSelectShopClisk(ShopsType.coinsShop, true));
         _bonusesTab.button.onClick.AddListener(() => OnSelectShopClisk(ShopsType.bonusShop, true));
         
+        
         OnActivateDefaultTab(false);
     }
-
-    private void OnEnable()
-    {
-        CharacterSelection.OnNotEnouthCoins += OnShowNotEnoughWindow;
-    }
-
-    private void OnDisable()
-    {
-        CharacterSelection.OnNotEnouthCoins -= OnShowNotEnoughWindow;
-    }
-
+    
     private void ActivateTargetShop(GameObject shop)
     {
         foreach (var item in _allShops)
@@ -103,28 +92,6 @@ public  class BaseShop : MonoBehaviour
         {
             _audio.PlaySound(Sounds.Tap);
         }
-    }
-
-    public void OnShowNotEnoughWindow(int coins)
-    {
-        _notEnougtCoins.text = coins.ToString();
-        _notEnoughCoinsWindow.SetActive(true);
-    }
-
-    public void OnBuyNotEnoughWindowClick()
-    {
-        _audio.PlaySound(Sounds.Tap);
-
-        ActivateTargetShop(_allShops[(int)ShopsType.coinsShop]);
-        ActivateTargetTab(_coinstTab);
-
-        _notEnoughCoinsWindow.SetActive(false);
-    }
-
-    public void OnCloseNotEnoughCoinsWindow()
-    {
-        _audio.PlaySound(Sounds.Tap);
-        _notEnoughCoinsWindow.SetActive(false);
     }
     #endregion
 }

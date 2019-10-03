@@ -1,12 +1,11 @@
-﻿//using UnityEngine;
-using GoogleMobileAds.Api;
+﻿using UnityEngine;
+//using GoogleMobileAds.Api;
 
-public class AdMobController : BaseAdController
+public class AdMobController : MonoBehaviour //BaseAdController
 {
-    private const string GAME_ID_IOS = "ca-app-pub-9017460316126624~2209772973";
+    /*
+    private const string AD_MOB_GAME_IOS_ID = "ca-app-pub-9017460316126624~2209772973";
     private const string INTERSTITIAL_IOS_ID = "ca-app-pub-9017460316126624/9208573399";
-    private const string GAME_ID_ANDROID = "ca-app-pub-9017460316126624~4331148594";
-    private const string INTERSTITIAL_ANDROID_ID = "ca-app-pub-9017460316126624/3516760372";
 
     private InterstitialAd _ad;
 
@@ -14,16 +13,15 @@ public class AdMobController : BaseAdController
     {
 
 #if UNITY_IOS
-        MobileAds.Initialize(GAME_ID_IOS);
+        MobileAds.Initialize(AD_MOB_GAME_IOS_ID);
         _ad = new InterstitialAd(INTERSTITIAL_IOS_ID);
 #elif UNITY_ANDROID
-        MobileAds.Initialize(GAME_ID_ANDROID);
-        _ad = new InterstitialAd(INTERSTITIAL_ANDROID_ID);
+        // Рекламный блок под Android еще не создан
 #elif UNITY_EDITOR
         MobileAds.Initialize(AD_MOB_GAME_IOS_ID);
         _ad = new InterstitialAd(INTERSTITIAL_IOS_ID);
 #endif
-
+        
         AdRequest request = new AdRequest.Builder().Build();
         _ad.LoadAd(request);
 
@@ -55,4 +53,5 @@ public class AdMobController : BaseAdController
         HandleAdResult(UnityEngine.Advertisements.ShowResult.Finished);
     }
     #endregion
+    */
 }

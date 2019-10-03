@@ -7,19 +7,14 @@ using AEngine;
 public class PostMortemScreen : MonoBehaviour
 {
     public GameObject ReviveScreen;
-    public GameObject _rateMeWindow;
     [SerializeField] private Image _reviveProgressImg;
     public GameObject WatchAdButton;
     public Text ReviveForMoneyBtnTxt;
 
     public GameObject ResultsScreen;
-    [SerializeField] private LocalizationComponent _distanceLocalization;
-    [SerializeField] private LocalizationComponent _recordLocalization;
-    [SerializeField] private LocalizationComponent _coinsLocalization;
     public Text CoinsText;
     public Text MetresText;
     public Text RecordText;
-    
     public GameObject NewRecordText;
 
     public float TimeToRevive = 5f;
@@ -29,7 +24,6 @@ public class PostMortemScreen : MonoBehaviour
     private bool _alive = true;
     private bool _adSeen; //Игрок уже смотрел рекламу?
     private bool _stopTimer = false;
-    private bool _isRateMeMode;
 
     private AudioManager _audio;
 
@@ -38,8 +32,6 @@ public class PostMortemScreen : MonoBehaviour
         _gm = GameManager.Instance;
         _ad = AdManager.Instance;
         _audio = AudioManager.Instance;
-
-        _isRateMeMode = false;
     }
 
     public void Show()
@@ -48,12 +40,12 @@ public class PostMortemScreen : MonoBehaviour
 
         int revivePrice = _gm.ReviveCost;
 
-        if (Wallet.Instance.AllCoins >= revivePrice || AdManager.Instance.IsAvailable())
+        if (Wallet.Instance.AllCoins >= revivePrice)
         {
             ReviveScreen.SetActive(true);
             ReviveForMoneyBtnTxt.text = revivePrice.ToString();
             
-            if (/*!_adSeen && */AdManager.Instance.IsAvailable())
+            if (!_adSeen && AdManager.Instance.IsAvailable())
             {
                 WatchAdButton.SetActive(true);
             }
@@ -112,35 +104,7 @@ public class PostMortemScreen : MonoBehaviour
             yield return null;
         }
 
-        //CheckRateMe();
         ExitReviveScreen();
-    }
-
-    public void CheckRateMe()
-    {
-        EnvironmentController.CheckKeys();
-        if (!PlayerPrefs.HasKey("WAS_RATE"))
-        {
-            PlayerPrefs.SetInt("WAS_RATE", 0);
-            PlayerPrefs.Save();
-        }
-
-        if (PlayerPrefs.GetInt(EnvironmentController.TUTORIAL_KEY) != 1 && PlayerPrefs.GetInt(EnvironmentController.ENDLESS_KEY) != 1 && PlayerPrefs.GetInt("WAS_RATE") != 1)
-        {
-            if (PlayerPrefs.GetInt(EnvironmentController.LEVEL_KEY) == 3)
-            {
-                PlayerPrefs.SetInt("WAS_RATE", 1);
-                ShowRateMe();
-
-                _audio.PlaySound(Sounds.Result);
-            }
-            else
-                ExitReviveScreen();
-
-            PlayerPrefs.Save();
-        }
-        else
-            ExitReviveScreen();
     }
 
     public void Revive()
@@ -151,29 +115,19 @@ public class PostMortemScreen : MonoBehaviour
         _gm.Revive();
     }
 
-    public void ShowRateMe()
-    {
-        ReviveScreen.SetActive(false);
-        ResultsScreen.SetActive(false);
-
-        _rateMeWindow.SetActive(true);
-    }
-
     public void ExitReviveScreen()
     {
-        Wallet.Instance.Save();
-
         ReviveScreen.SetActive(false);
         ResultsScreen.SetActive(true);
 
         _audio.PlaySound(Sounds.ResultFull);
 
-        MetresText.text = string.Format("{0}  {1} m", _distanceLocalization.Text, (int)_gm.DistanceRun);
+        MetresText.text = "You run " + (int)_gm.DistanceRun + "m";
 
         NewRecordText.SetActive(ProgressManager.IsNewRecord(_gm.DistanceRun));
 
-        RecordText.text = string.Format("{0}  {1} m", _recordLocalization.Text, (int)ProgressManager.DistanceRecord);
-        CoinsText.text = string.Format("{0}  {1}", _coinsLocalization.Text, Wallet.Instance.InGameCoins); //"Coins: " + Wallet.Instance.InGameCoins;
+        RecordText.text = "Best: " + ((int)ProgressManager.DistanceRecord) + "m";
+        CoinsText.text = "Conis: " + Wallet.Instance.InGameCoins;
 
         if (_ad.CheckAdvertisingOrder())
             _ad.ShowAdvertising(null, null, null);
@@ -186,41 +140,5 @@ public class PostMortemScreen : MonoBehaviour
             Revive();
             _audio.PlaySound(Sounds.Tap);
         }
-    }
-
-    private void OnApplicationFocus(bool focus)
-    {
-        if (focus && _isRateMeMode)
-        {
-            _isRateMeMode = false;
-            _rateMeWindow.SetActive(false);
-            ExitReviveScreen();
-        }
-    }
-
-    private void OnApplicationPause(bool pause)
-    {
-        if (pause && _isRateMeMode)
-        {
-            _isRateMeMode = false;
-            _rateMeWindow.SetActive(false);
-            ExitReviveScreen();
-        }
-    }
-
-    public void OnRateButtonClick()
-    {
-        AudioManager.Instance.PlaySound(Sounds.Tap);
-
-        _isRateMeMode = true;
-        Application.OpenURL(StaticConst.IOS_URL);
-    }
-
-    public void OnSkipRateButtonClick()
-    {
-        AudioManager.Instance.PlaySound(Sounds.Tap);
-
-        _rateMeWindow.SetActive(false);
-        ExitReviveScreen();
     }
 }
