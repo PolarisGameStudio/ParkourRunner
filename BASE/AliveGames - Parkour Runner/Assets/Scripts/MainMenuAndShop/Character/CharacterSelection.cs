@@ -6,15 +6,15 @@ using AEngine;
 public class CharacterSelection : MonoBehaviour
 {
     public static event Action<CharacterKinds> OnSelectCharacter;
+    public static event Action<int> OnNotEnouthCoins;
     private static CharacterKinds _currentSelection;
-    
+
     [SerializeField] private CharactersData _configuration;
     [SerializeField] private CharacterKinds _kind;
-    [SerializeField] private Image _selection;
-    [SerializeField] private Sprite _selectedSpite;
-    [SerializeField] private Sprite _activeSprite;
-    [SerializeField] private Sprite _disableSprite;
-    
+    [SerializeField] private GameObject _activeSelection;
+    [SerializeField] private GameObject _selectedSelection;
+    [SerializeField] private GameObject _disableSelection;
+
     [Header("Buy block")]
     [SerializeField] private Text _priceText;
     [SerializeField] private GameObject _priceBlock;
@@ -64,21 +64,25 @@ public class CharacterSelection : MonoBehaviour
     {
         if (_currentSelection == _kind)
         {
-            _selection.sprite = _selectedSpite;
+            _selectedSelection.SetActive(true);
+            _activeSelection.SetActive(false);
+            _disableSelection.SetActive(false);
         }
         else
         {
-            _selection.sprite = _configuration.CurrentCharacter == _kind ? _activeSprite : _disableSprite;
+            _selectedSelection.SetActive(false);
+            _activeSelection.SetActive(_configuration.CurrentCharacter == _kind);
+            _disableSelection.SetActive(!_activeSelection.activeSelf);
         }
 
         _priceBlock.SetActive(!_data.Bought);
         _lockBlock.SetActive(!_data.Bought);
         _buyCaption.SetActive(!_data.Bought);
-        _button.interactable = _data.Bought || _wallet.AllCoins >= _data.price;
+        //_button.interactable = _data.Bought || _wallet.AllCoins >= _data.price;
 
         _selectCaption.SetActive(_data.Bought);
     }
-        
+
     public void OnSelectButtonClick()
     {
         if (_currentSelection != _kind)
@@ -106,11 +110,19 @@ public class CharacterSelection : MonoBehaviour
 
             _currentSelection = _kind;
             _data.Bought = true;
-                        
+
             OnSelectCharacter.SafeInvoke(_kind);
         }
-        else if (_data.Bought)
-            OnSelectButtonClick();
+        else
+        {
+            if (_data.Bought)
+                OnSelectButtonClick();
+            else
+            {
+                AudioManager.Instance.PlaySound(Sounds.Tap);
+                OnNotEnouthCoins.SafeInvoke(Mathf.Abs(_wallet.AllCoins - _data.price));
+            }
+        }
     }
 
     private void OnSelectCharacterHandle(CharacterKinds kind)

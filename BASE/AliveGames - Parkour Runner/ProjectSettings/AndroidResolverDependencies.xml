@@ -5,7 +5,7 @@
   <files />
   <settings>
     <setting name="androidAbis" value="armeabi-v7a,x86" />
-    <setting name="bundleId" value="com.AliveGames.ParkourRunner" />
+    <setting name="bundleId" value="com.AliveGames.ParkourRunner2049" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="True" />
     <setting name="gradleTemplateEnabled" value="False" />
