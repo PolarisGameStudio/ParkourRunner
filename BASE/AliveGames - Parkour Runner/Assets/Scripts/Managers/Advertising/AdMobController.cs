@@ -1,4 +1,5 @@
-﻿using GoogleMobileAds.Api;
+﻿//using UnityEngine;
+using GoogleMobileAds.Api;
 
 public class AdMobController : BaseAdController
 {

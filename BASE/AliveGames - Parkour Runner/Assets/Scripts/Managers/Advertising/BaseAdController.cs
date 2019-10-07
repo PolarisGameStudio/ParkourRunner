@@ -13,7 +13,7 @@ public abstract class BaseAdController : MonoBehaviour
     public abstract bool IsAvailable();
 
     public abstract void ShowAdvertising();
-    
+
     public void InitCallbackHandlers(Action finishedCallback, Action skippedCallback, Action failedCallback)
     {
         _finishedCallback = finishedCallback;
