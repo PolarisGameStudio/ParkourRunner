@@ -20,7 +20,7 @@ public class AdMobController : BaseAdController
         MobileAds.Initialize(GAME_ID_ANDROID);
         _ad = new InterstitialAd(INTERSTITIAL_ANDROID_ID);
 #elif UNITY_EDITOR
-        MobileAds.Initialize(AD_MOB_GAME_IOS_ID);
+        MobileAds.Initialize(GAME_ID_IOS);
         _ad = new InterstitialAd(INTERSTITIAL_IOS_ID);
 #endif
 
