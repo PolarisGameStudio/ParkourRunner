@@ -18,7 +18,7 @@ public class Wallet : MonoSingleton<Wallet>
     public int AllCoins { get; private set; }
 
     public int InGameCoins { get; private set; }
-    
+
     protected override void Init()
     {
         base.Init();
@@ -94,7 +94,7 @@ public class Wallet : MonoSingleton<Wallet>
         }
     }
 
-    private void Save()
+    public void Save()
     {
         PlayerPrefs.SetInt(ALL_COINS_KEY, this.AllCoins);
         PlayerPrefs.Save();
