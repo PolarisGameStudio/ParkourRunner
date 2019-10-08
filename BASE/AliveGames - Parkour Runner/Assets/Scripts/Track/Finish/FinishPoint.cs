@@ -6,7 +6,7 @@ using ParkourRunner.Scripts.Player.InvectorMods;
 public class FinishPoint : MonoBehaviour
 {
     [SerializeField] private float _resultWindowDelay;
-    
+
     private void OnTriggerEnter(Collider other)
     {
         var target = other.GetComponent<ParkourThirdPersonController>();
@@ -22,13 +22,13 @@ public class FinishPoint : MonoBehaviour
         var hud = HUDManager.Instance;
         var player = ParkourThirdPersonController.instance;
         var manager = GameManager.Instance;
-                
+
         var input = player.GetComponent<ParkourThirdPersonInput>();
         input.Stop();
-                
+
         yield return new WaitForSeconds(_resultWindowDelay);
 
-        hud.PostMortemScreen.ExitReviveScreen();
+        hud.PostMortemScreen.CheckRateMe(); //.ExitReviveScreen();
         GameManager.Instance.CompleteLevel();
     }
 }
