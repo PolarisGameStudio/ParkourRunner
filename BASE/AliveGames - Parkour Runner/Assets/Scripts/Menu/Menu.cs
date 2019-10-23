@@ -15,7 +15,7 @@ public enum MenuKinds
 public class Menu : MonoBehaviour
 {
     [Serializable]
-    protected struct MovingAnimation
+    public struct MovingAnimation
     {
         public RectTransform target;
         public RectTransform showPoint;        
