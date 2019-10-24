@@ -9,7 +9,8 @@ public enum MenuKinds
     MainMenu,
     Shop,
     SelectLevelType,
-    SelectLevel
+    SelectLevel,
+    Quests
 }
 
 public class Menu : MonoBehaviour

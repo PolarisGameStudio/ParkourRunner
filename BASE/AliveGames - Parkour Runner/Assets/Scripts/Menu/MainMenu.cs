@@ -81,5 +81,11 @@ public class MainMenu : Menu
         _audio.PlaySound(Sounds.Tap);
         _menuController.OpenMenu(MenuKinds.Shop);
     }
+
+    public void OnQuestButtonClick()
+    {
+        _audio.PlaySound(Sounds.Tap);
+        _menuController.OpenMenu(MenuKinds.Quests);
+    }
     #endregion
 }
