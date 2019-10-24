@@ -4,20 +4,26 @@ using UnityEngine.UI;
 public class DistanceUIController : MonoBehaviour
 {
     [SerializeField] private Text _distanceText;
+    [SerializeField] private LocalizationComponent _captionLocalization;
     [SerializeField] private string _captionText;
     [SerializeField] private int _tabSpace;
     [SerializeField] private bool _enableRound;
     [SerializeField] private bool _enableMetres;
     [SerializeField] private bool _spaceBeforeMetres;
 
-    private void Start()
+    private void OnEnable()
     {
         BuildText();
     }
 
     private void BuildText()
     {
-        string text = string.IsNullOrEmpty(_captionText) ? string.Empty : _captionText;
+        string text = string.Empty;
+
+        if (_captionLocalization != null)
+            text = _captionLocalization.Text;
+        else
+            text = string.IsNullOrEmpty(_captionText) ? string.Empty : _captionText;
 
         for (int i = 0; i < _tabSpace; i++)
             text += " ";
