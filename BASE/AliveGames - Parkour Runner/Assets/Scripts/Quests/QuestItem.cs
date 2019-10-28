@@ -2,10 +2,7 @@
 
 public class QuestItem : MonoBehaviour
 {
-    [SerializeField] private int _id;
-    [SerializeField] private bool _isEnable;
+    [SerializeField] private QuestData _data;
 
-    public int ID { get { return _id; } }
-
-    public bool IsEnable { get { return _isEnable; } }
+    public QuestData Data { get { return _data; } }
 }

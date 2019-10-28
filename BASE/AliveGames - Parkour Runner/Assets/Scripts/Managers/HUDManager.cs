@@ -15,7 +15,8 @@ namespace ParkourRunner.Scripts.Managers
             Perfect,
             NoMessage,
             LevelComplete,
-            CurrentLevel
+            CurrentLevel,
+            QuestComplete
         }
 
         public static HUDManager Instance;
@@ -148,6 +149,10 @@ namespace ParkourRunner.Scripts.Managers
                         message = string.Format("Level {0}", PlayerPrefs.GetInt(EnvironmentController.LEVEL_KEY));
                     else
                         message = "Start";                    
+                    break;
+
+                case Messages.QuestComplete:
+                    message = "QUEST COMPLETE!!!";
                     break;
             }
 

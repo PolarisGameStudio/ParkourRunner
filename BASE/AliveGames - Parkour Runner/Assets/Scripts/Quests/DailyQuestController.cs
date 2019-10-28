@@ -1,44 +1,31 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System;
+using System.Collections;
 using UnityEngine;
 
 public class DailyQuestController : MonoBehaviour
 {
+    [SerializeField] private CanvasGroup _group;
+    [SerializeField] private float _animationDuration;
     [SerializeField] private List<QuestItem> _quests;
-    [SerializeField] private int _activeQuestsCount;
 
+    private QuestManager _manager;
     private List<QuestItem> _activeQuests;
 
     private void OnEnable()
     {
-        SelectRandomQuests();
+        if (_manager == null)
+            _manager = QuestManager.Instance;
+
         ShowActiveQuests();
+        _group.alpha = 1f;
+
+        _manager.OnUpdateActiveQuestsEvent -= OnUpdateQuests;
+        _manager.OnUpdateActiveQuestsEvent += OnUpdateQuests;        
     }
 
-    private void CheckTime()
+    private void OnDisable()
     {
-        var date = DateTime.Now;
-        
-        
-    }
-
-    private void SelectRandomQuests()
-    {
-        if (_activeQuests != null)
-            _activeQuests.Clear();
-        else
-            _activeQuests = new List<QuestItem>();
-
-        List<QuestItem> list = new List<QuestItem>(_quests);
-
-        for (int i = 0; i < _activeQuestsCount; i++)
-        {
-            QuestItem item = list[UnityEngine.Random.Range(0, list.Count)];
-            _activeQuests.Add(item);
-
-            list = list.Where(x => x.IsEnable && x.ID != item.ID).ToList();
-        }
+        _manager.OnUpdateActiveQuestsEvent -= OnUpdateQuests;
     }
 
     private void ShowActiveQuests()
@@ -46,7 +33,60 @@ public class DailyQuestController : MonoBehaviour
         foreach (var item in _quests)
             item.gameObject.SetActive(false);
 
-        foreach (var item in _activeQuests)
-            item.gameObject.SetActive(true);
+
+        foreach (var item in _manager.ActiveQuests)
+        {
+            var target = FindQuest(item.ID);
+
+            if (target != null)
+                target.gameObject.SetActive(true);
+        }
     }
+
+    private IEnumerator ReplaceActiveQuestsProcess()
+    {
+        float duration = _animationDuration / 2f;
+        float time = duration;
+
+        while (time >= 0f)
+        {
+            _group.alpha = Mathf.Clamp01(time / duration);
+            print(_group.alpha);
+            time -= Time.deltaTime;
+
+            yield return null;
+        }
+
+        _group.alpha = 0f;
+        time = 0f;
+        ShowActiveQuests();
+
+        yield return new WaitForSeconds(0.1f);
+
+        while (time <= duration)
+        {
+            _group.alpha = Mathf.Clamp01(time / duration);
+            time += Time.deltaTime;
+
+            yield return null;
+        }
+
+        _group.alpha = 1f;
+    }
+
+    private QuestItem FindQuest(int id)
+    {
+        for (int i = 0; i < _quests.Count; i++)
+            if (_quests[i].Data.ID == id)
+                return _quests[i];
+
+        return null;
+    }
+
+    #region Events
+    private void OnUpdateQuests()
+    {
+        StartCoroutine(ReplaceActiveQuestsProcess());
+    }
+    #endregion
 }
