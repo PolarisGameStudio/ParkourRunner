@@ -23,6 +23,6 @@ public class EndlessTask : QuestTask
         yield return new WaitForSeconds(_duration);
 
         HUDManager.Instance.ShowGreatMessage(HUDManager.Messages.QuestComplete);
-        CompleteQuest();
+        CompleteQuest(true);
     }
 }

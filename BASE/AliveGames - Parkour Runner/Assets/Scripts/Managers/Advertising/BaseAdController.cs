@@ -4,6 +4,8 @@ using UnityEngine.Advertisements;
 
 public abstract class BaseAdController : MonoBehaviour
 {
+    public static event Action OnShowAdsEvent;
+
     protected Action _finishedCallback;
     protected Action _skippedCallback;
     protected Action _failedCallback;
@@ -27,6 +29,7 @@ public abstract class BaseAdController : MonoBehaviour
         {
             case ShowResult.Finished:
                 _finishedCallback.SafeInvoke();
+                OnShowAdsEvent.SafeInvoke();
                 break;
 
             case ShowResult.Skipped:

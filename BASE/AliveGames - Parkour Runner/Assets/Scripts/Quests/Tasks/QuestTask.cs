@@ -7,9 +7,11 @@ public class QuestTask : MonoBehaviour
 
     protected bool IsEnable { get { return QuestManager.Instance.ActiveQuests.Contains(_data); } }
 
-    protected void CompleteQuest()
+    protected void CompleteQuest(bool playSound)
     {
-        AudioManager.Instance.PlaySound(Sounds.Result);
+        if (playSound)
+            AudioManager.Instance.PlaySound(Sounds.Result);
+
         QuestManager.Instance.CompleteQuest(_data.ID);
         Wallet.Instance.AddCoins(_data.Reward, Wallet.WalletMode.InGame);
     }

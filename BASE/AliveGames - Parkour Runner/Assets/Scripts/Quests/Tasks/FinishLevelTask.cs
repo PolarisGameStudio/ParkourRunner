@@ -25,7 +25,7 @@ public class FinishLevelTask : QuestTask
         yield return new WaitForSeconds(_delay);
 
         HUDManager.Instance.ShowGreatMessage(HUDManager.Messages.QuestComplete);
-        CompleteQuest();
+        CompleteQuest(true);
 
         FinishMessage.OnFinishLevelMessage -= OnFinishLevel;
     }
