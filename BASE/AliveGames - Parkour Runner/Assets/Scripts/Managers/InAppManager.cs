@@ -103,7 +103,8 @@ public class InAppManager : MonoBehaviour, IStoreListener
 
     public string GetLocalizedPrice(string id)
     {
-        return IsInitialized() ? _storeController.products.WithID(id).metadata.localizedPriceString : string.Empty;
+        //return IsInitialized() ? _storeController.products.WithID(id).metadata.localizedPriceString : string.Empty;
+        return IsInitialized() ? _storeController.products.WithID(id).metadata.localizedPrice.ToString() : string.Empty;
     }
 
     public string GetLocalizedCurrency(string id)
