@@ -51,7 +51,6 @@ public class DailyQuestController : MonoBehaviour
         while (time >= 0f)
         {
             _group.alpha = Mathf.Clamp01(time / duration);
-            print(_group.alpha);
             time -= Time.deltaTime;
 
             yield return null;
