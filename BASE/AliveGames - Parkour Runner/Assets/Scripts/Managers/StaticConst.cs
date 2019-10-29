@@ -3,6 +3,7 @@
     static class StaticConst
     {
         public const string IOS_URL = "https://apps.apple.com/by/app/parkour-runner-2049/id1436589539";
+        public const string ANDROID_URL = "https://play.google.com/store/apps/details?id=com.play.game.cyber.parkour.endless.runner.robot.bot.subway.tomb.runbot";
 
         public const int InitialReviveCost = 5; //Изначальная цена возрождения
 
