@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
+    public const string JUMP_PROGRESS_KEY = "QUEST_JUMP";
+
     private const string ACTIVE_QUESTS_KEY = "QUEST";
     private const string DATE_YEAR_KEY = "DATE_YEAR";
     private const string DATE_MONTH_KEY = "DATE_MONTH";
@@ -13,6 +15,8 @@ public class QuestManager : MonoBehaviour
     private const string DATE_HOUR_KEY = "DATE_HOUR";
     private const string DATE_MINUTE_KEY = "DATE_MINUTE";
     private const string DATE_SECOND_KEY = "DATE_SECOND";
+
+    private const int JUMP_QUEST_ID = 3;
 
     public static QuestManager Instance;
 
@@ -40,6 +44,7 @@ public class QuestManager : MonoBehaviour
             Destroy(this.gameObject);
     }
 
+    #region Jump Quest Interface
     public void CompleteQuest(int id)
     {
         for (int i = 0; i < this.ActiveQuests.Count; i++)
@@ -52,6 +57,38 @@ public class QuestManager : MonoBehaviour
             }
         }
     }
+
+    private void CheckJumpKeys()
+    {
+        if (!PlayerPrefs.HasKey(JUMP_PROGRESS_KEY))
+        {
+            PlayerPrefs.SetInt(JUMP_PROGRESS_KEY, 0);
+            PlayerPrefs.Save();
+        }
+    }
+
+    public void AddJumpProgressTick()
+    {
+        CheckJumpKeys();
+
+        PlayerPrefs.SetInt(JUMP_PROGRESS_KEY, PlayerPrefs.GetInt(JUMP_PROGRESS_KEY) + 1);
+        PlayerPrefs.Save();
+    }
+
+    public int GetJumpProgress()
+    {
+        CheckJumpKeys();
+        return PlayerPrefs.GetInt(JUMP_PROGRESS_KEY);
+    }
+
+    public void ClearJumpProgress()
+    {
+        CheckJumpKeys();
+
+        PlayerPrefs.SetInt(JUMP_PROGRESS_KEY, 0);
+        PlayerPrefs.Save();
+    }
+    #endregion
 
     private IEnumerator UpdateStateProcess()
     {
@@ -110,7 +147,6 @@ public class QuestManager : MonoBehaviour
     {
         this.ActiveQuests.Clear();
 
-        //List<QuestData> list = new List<QuestData>(_quests);
         List<QuestData> list = _quests.Where(x => x.Enable).ToList();
 
         for (int i = 0; i < _activeQuestsCount; i++)
@@ -118,6 +154,10 @@ public class QuestManager : MonoBehaviour
             QuestData item = list[UnityEngine.Random.Range(0, list.Count)];
             ActiveQuests.Add(item);
 
+            //Jump quest
+            if (item.ID == JUMP_QUEST_ID)
+                ClearJumpProgress();
+                        
             list = list.Where(x => x.Enable && x.ID != item.ID).ToList();
         }
     }

@@ -1,9 +1,12 @@
-﻿using ParkourRunner.Scripts.Managers;
+﻿using System;
+using ParkourRunner.Scripts.Managers;
 
 namespace ParkourRunner.Scripts.Player
 {
     public static class RandomTricks
     {
+        public static event Action OnJumpOverObstacle;
+
         public static string GetRoll()
         {
             var trick = ProgressManager.Instance.GetRandomRoll();
@@ -30,9 +33,9 @@ namespace ParkourRunner.Scripts.Player
                     return trick.AnimationName;
 
                 case ("JumpOverFar"):
-
                     trick = ProgressManager.Instance.GetRandomJumpOver();
                     gm.DoTrick(trick);
+                    OnJumpOverObstacle.SafeInvoke();
                     return trick.AnimationName;
 
                 case ("JumpOverClose"):
