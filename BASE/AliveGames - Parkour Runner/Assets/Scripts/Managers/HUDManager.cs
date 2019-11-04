@@ -182,7 +182,6 @@ namespace ParkourRunner.Scripts.Managers
 
         public void ShowTrickReward(Trick trick, float mult = 1)
         {
-            GameManager.Instance.AddCoin();
             Reward((int)(trick.MoneyReward * mult));
         }
 
