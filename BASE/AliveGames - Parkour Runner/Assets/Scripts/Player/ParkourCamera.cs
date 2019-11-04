@@ -40,6 +40,10 @@ public class ParkourCamera : MonoBehaviour
     public float SlowTimeForSecondsOnFall = 2f;
     [Range(0f, 1f)] public float SlowTimeChance = 0.5f;
 
+    private Transform _fpsCam, _headTarget;
+    [SerializeField] private Vector3 FpsCamRotOffset;
+    [SerializeField] private float FpsCamSmoothSpeed;
+
     public bool LockCamera { get; set; }
 
     private void Awake()
@@ -60,7 +64,9 @@ public class ParkourCamera : MonoBehaviour
 	    {
 	        Offset = -_puppetMaster.muscles[0].transform.position + transform.position;
         }
-	}
+
+        CreateFpsCam();
+    }
 
     private void Update()
     {
@@ -81,7 +87,13 @@ public class ParkourCamera : MonoBehaviour
     private void UpdatePosition()
     {
         if (_followMode == FollowMode.Stop || this.LockCamera) return;
-        
+
+        var rotation = _fpsCam.rotation;
+        rotation         = Quaternion.Slerp(rotation, _headTarget.rotation, FpsCamSmoothSpeed *  Time.deltaTime);
+        rotation         = Quaternion.Euler(rotation.eulerAngles + FpsCamRotOffset);
+        _fpsCam.rotation = rotation;
+        _fpsCam.position = _headTarget.position;
+
         if (_followMode == FollowMode.FollowPuppet)
         {
             Vector3 middle = GetMiddlePos();
@@ -122,6 +134,14 @@ public class ParkourCamera : MonoBehaviour
         }
     }
 
+
+    private void CreateFpsCam() {
+        _headTarget = _puppetMaster.muscles[11].transform;
+        _fpsCam     = new GameObject("FPS Cam").transform;
+        _fpsCam.gameObject.AddComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("FPS Hide"));
+        _fpsCam.gameObject.SetActive(PlayerPrefs.GetInt("FPS_Mode", 0) == 1);
+    }
+
     private Vector3 GetOffsetLookDir(Vector3 mid)
     {
         Vector3 target = mid;
@@ -140,7 +160,7 @@ public class ParkourCamera : MonoBehaviour
         }
 
         pos /= _puppetMaster.muscles.Length;
-        
+
         return pos;
     }
 
@@ -210,5 +230,12 @@ public class ParkourCamera : MonoBehaviour
         if (left && Offset.x > 0
             || !left && Offset.x < 0)
             Offset.x = -Offset.x;
+    }
+
+
+    public void SwitchCam() {
+        var active = !_fpsCam.gameObject.activeSelf;
+        _fpsCam.gameObject.SetActive(active);
+        PlayerPrefs.SetInt("FPS_Mode", active ? 1 : 0);
     }
 }

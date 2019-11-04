@@ -230,5 +230,10 @@ namespace ParkourRunner.Scripts.Managers
 
             _audio.PlaySound(Sounds.Tap);
         }
+
+
+        public void SwitchCam() {
+            ParkourCamera.Instance.SwitchCam();
+        }
     }
 }
