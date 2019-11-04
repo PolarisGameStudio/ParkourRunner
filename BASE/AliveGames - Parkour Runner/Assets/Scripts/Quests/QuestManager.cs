@@ -28,6 +28,8 @@ public class QuestManager : MonoBehaviour
 
     public List<QuestData> ActiveQuests { get; private set; }
 
+    public double LeftSeconds { get; set; }
+
     private void Awake()
     {
         if (Instance == null)
@@ -110,7 +112,12 @@ public class QuestManager : MonoBehaviour
                 DateTime savedDate = new DateTime(PlayerPrefs.GetInt(DATE_YEAR_KEY), PlayerPrefs.GetInt(DATE_MONTH_KEY), PlayerPrefs.GetInt(DATE_DAY_KEY), PlayerPrefs.GetInt(DATE_HOUR_KEY), PlayerPrefs.GetInt(DATE_MINUTE_KEY), PlayerPrefs.GetInt(DATE_SECOND_KEY));
 
                 double deltaTime = (date - savedDate).TotalHours;
-                
+
+                this.LeftSeconds = _questsHoursPeriod * 60 * 60 - (date - savedDate).TotalSeconds;
+
+                if (this.LeftSeconds <= 0)
+                    this.LeftSeconds = 0;
+                                
                 if (deltaTime >= _questsHoursPeriod)
                 {
                     SelectRandomQuests();
@@ -127,7 +134,7 @@ public class QuestManager : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSeconds(15f);
+            yield return new WaitForSeconds(1f);
         }
     }
 
