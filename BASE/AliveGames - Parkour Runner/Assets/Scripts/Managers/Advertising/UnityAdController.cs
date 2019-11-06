@@ -8,19 +8,16 @@ public class UnityAdController : BaseAdController
 
     public override void Initialize()
     {
-        if (Advertisement.isSupported)
-        {
+        //if (Advertisement.isSupported)
+        //{
 #if UNITY_IPHONE || UNITY_IOS
             Advertisement.Initialize(IOS_AD_ID);
 #elif UNITY_ANDROID
             Advertisement.Initialize(ANDROID_AD_ID);
-            //#elif UNITY_EDITOR
-            //        // Условно id под iOS, тестовый режим
-            //        Advertisement.Initialize(IOS_AD_ID, true);
 #endif
-        }
-        else
-            Debug.Log("Advertising platform is not suported");
+        //}
+        //else
+        //    Debug.Log("Advertising platform is not suported");
     }
 
     public override bool IsAvailable()
