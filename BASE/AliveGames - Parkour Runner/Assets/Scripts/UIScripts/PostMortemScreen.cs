@@ -213,7 +213,7 @@ public class PostMortemScreen : MonoBehaviour
         AudioManager.Instance.PlaySound(Sounds.Tap);
 
         _isRateMeMode = true;
-        Application.OpenURL(StaticConst.IOS_URL);
+        GiveLike.OpenStore();
     }
 
     public void OnSkipRateButtonClick()

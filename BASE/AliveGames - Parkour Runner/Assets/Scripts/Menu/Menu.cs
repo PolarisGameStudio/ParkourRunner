@@ -9,13 +9,14 @@ public enum MenuKinds
     MainMenu,
     Shop,
     SelectLevelType,
-    SelectLevel
+    SelectLevel,
+    Quests
 }
 
 public class Menu : MonoBehaviour
 {
     [Serializable]
-    protected struct MovingAnimation
+    public struct MovingAnimation
     {
         public RectTransform target;
         public RectTransform showPoint;        

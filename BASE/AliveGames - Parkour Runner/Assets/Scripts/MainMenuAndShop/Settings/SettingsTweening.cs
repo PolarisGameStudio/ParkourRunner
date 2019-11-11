@@ -15,8 +15,11 @@ public class SettingsTweening : MonoBehaviour
     [SerializeField] private GameObject _AGBtn;
     [SerializeField] private GameObject _likeBtn;
     [SerializeField] private GameObject _soundBtn;
-    [SerializeField] private GameObject _musicBtn;    
+    [SerializeField] private GameObject _musicBtn;
+    [SerializeField] private GameObject _facebookBtn;
     [SerializeField] private Ease _ease;
+
+    [SerializeField] private Menu.MovingAnimation _questBlock;
 
     [Header("Control background")]
     [SerializeField] private GameObject _controll;
@@ -49,8 +52,9 @@ public class SettingsTweening : MonoBehaviour
     {
         _baseBtn.GetComponent<Button>().onClick.RemoveAllListeners();
         RemoveListenersOfSettings();
-        ClosePrevious(_musicBtn, _soundBtn);
-        
+        //ClosePrevious(_musicBtn, _soundBtn);
+        ClosePrevious(_facebookBtn, _musicBtn);
+
         AudioManager.Instance.PlaySound(Sounds.Tap);
         AudioManager.Instance.PlaySound(Sounds.WinSimple);
     }
@@ -65,13 +69,14 @@ public class SettingsTweening : MonoBehaviour
         RectTransform baseRect = baseObj.GetComponent<RectTransform>();
         secuance.Append(current.GetComponent<RectTransform>().DOAnchorPos(new Vector2(baseRect.anchoredPosition.x - baseRect.rect.width - distance, baseRect.anchoredPosition.y), _duration).SetEase(_ease));
         secuance.Insert(0.1f * _duration, current.GetComponent<Image>().DOFillAmount(1, _feelAmountDuration));
-        
+                
         secuance.OnComplete(() =>
         {
             if (current.transform.childCount == 0)
             {
                 var controllsecuance = DOTween.Sequence();
                 controllsecuance.Append(_controll.GetComponent<RectTransform>().DOAnchorPos(_showAnchor.anchoredPosition, 0.2f));
+                controllsecuance.Insert(0f, _questBlock.Hide());
                 _controlBackground.DOColor(_enableColorBg, 0.5f);
 
                 controllsecuance.OnComplete(() =>
@@ -105,6 +110,7 @@ public class SettingsTweening : MonoBehaviour
             {
                 var controllsecuance = DOTween.Sequence();
                 controllsecuance.Append(_controll.GetComponent<RectTransform>().DOAnchorPos(_hideAnchor.anchoredPosition, 0.2f));
+                controllsecuance.Insert(0f, _questBlock.Show());
                 _controlBackground.DOColor(_disableColorBg, 0.5f);
 
                 controllsecuance.OnComplete(() =>
@@ -126,6 +132,7 @@ public class SettingsTweening : MonoBehaviour
         _likeBtn.GetComponent<Button>().onClick.AddListener(() => _likeBtn.GetComponent<SettingsBase>().OnClick());
         _soundBtn.GetComponent<Button>().onClick.AddListener(() => _soundBtn.GetComponent<SettingsBase>().OnClick());
         _musicBtn.GetComponent<Button>().onClick.AddListener(() =>_musicBtn.GetComponent<SettingsBase>().OnClick());
+        _facebookBtn.GetComponent<Button>().onClick.AddListener(() => _facebookBtn.GetComponent<SettingsBase>().OnClick());
     }
 
     private void RemoveListenersOfSettings()
@@ -134,5 +141,6 @@ public class SettingsTweening : MonoBehaviour
         _likeBtn.GetComponent<Button>().onClick.RemoveAllListeners();
         _soundBtn.GetComponent<Button>().onClick.RemoveAllListeners();
         _musicBtn.GetComponent<Button>().onClick.RemoveAllListeners();
+        _facebookBtn.GetComponent<Button>().onClick.RemoveAllListeners();
     }
 }

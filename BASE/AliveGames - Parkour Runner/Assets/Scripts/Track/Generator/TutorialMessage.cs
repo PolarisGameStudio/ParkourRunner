@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class TutorialMessage : MonoBehaviour
 {
@@ -78,11 +77,6 @@ public class TutorialMessage : MonoBehaviour
     public void OnContinueClick()
     {
         StartCoroutine(HideProcess());
-
-        //_background.SetActive(false);
-        //_continueButtonImage.raycastTarget = false;
-        //_caption.enabled = false;
-        //Time.timeScale = 1f;
     }
     #endregion
 }

@@ -13,7 +13,7 @@ public class AdMobController : BaseAdController
     public override void Initialize()
     {
 
-#if UNITY_IOS
+#if UNITY_IPHONE || UNITY_IOS
         MobileAds.Initialize(GAME_ID_IOS);
         _ad = new InterstitialAd(INTERSTITIAL_IOS_ID);
 #elif UNITY_ANDROID

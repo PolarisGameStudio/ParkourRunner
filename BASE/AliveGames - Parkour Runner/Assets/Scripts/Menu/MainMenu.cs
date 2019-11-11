@@ -10,9 +10,11 @@ public class MainMenu : Menu
     [SerializeField] private GameObject _gameLoader;
     [SerializeField] private SettingsTweening _settingsTweening;    
     [SerializeField] private RectTransform _buttonsShowSpringPoint;
+    [SerializeField] private RectTransform _questShowSpringPoint;
     [SerializeField] private MovingAnimation _buttonsBlockAnim;
     [SerializeField] private MovingAnimation _settingsPanelAnim;
     [SerializeField] private MovingAnimation _playerStatusAnim;
+    [SerializeField] private MovingAnimation _questBlock;
         
     protected override void Show()
     {
@@ -23,6 +25,7 @@ public class MainMenu : Menu
                 
         var secuance = DOTween.Sequence();
         secuance.Append(_buttonsBlockAnim.Show(_buttonsShowSpringPoint.anchoredPosition, _buttonsBlockAnim.duration * 0.9f));
+        secuance.Insert(0f, _questBlock.Show(_questShowSpringPoint.anchoredPosition, _questBlock.duration * 0.9f));
 
         secuance.Insert(0, _playerStatusAnim.Show());
                         
@@ -30,6 +33,7 @@ public class MainMenu : Menu
         {
             var finalSecuance = DOTween.Sequence();
             finalSecuance.Append(_buttonsBlockAnim.Show(_buttonsBlockAnim.showPoint.anchoredPosition, _buttonsBlockAnim.duration * 0.1f));
+            finalSecuance.Append(_questBlock.Show(_questBlock.showPoint.anchoredPosition, _questBlock.duration * 0.1f));
         });
     }
         
@@ -53,6 +57,8 @@ public class MainMenu : Menu
         var secuance = DOTween.Sequence();
         
         secuance.Append(_buttonsBlockAnim.Hide());
+        secuance.Insert(0f, _questBlock.Hide());
+
         secuance.Insert(0f, _settingsPanelAnim.Hide());
 
         secuance.Insert(0, _playerStatusAnim.Hide());
@@ -74,6 +80,12 @@ public class MainMenu : Menu
     {
         _audio.PlaySound(Sounds.Tap);
         _menuController.OpenMenu(MenuKinds.Shop);
+    }
+
+    public void OnQuestButtonClick()
+    {
+        _audio.PlaySound(Sounds.Tap);
+        _menuController.OpenMenu(MenuKinds.Quests);
     }
     #endregion
 }

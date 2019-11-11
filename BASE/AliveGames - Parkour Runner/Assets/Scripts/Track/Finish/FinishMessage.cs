@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using ParkourRunner.Scripts.Managers;
 using ParkourRunner.Scripts.Player.InvectorMods;
 
 public class FinishMessage : MonoBehaviour
 {
+    public static event Action OnFinishLevelMessage;
+
     private void OnTriggerEnter(Collider other)
     {
         var target = other.GetComponent<ParkourThirdPersonController>();
@@ -17,6 +20,9 @@ public class FinishMessage : MonoBehaviour
             int maxLevel = PlayerPrefs.GetInt(EnvironmentController.MAX_LEVEL);
 
             bool isBaseLevels = PlayerPrefs.GetInt(EnvironmentController.ENDLESS_KEY) == 0 && PlayerPrefs.GetInt(EnvironmentController.TUTORIAL_KEY) == 0;
+
+            if (isBaseLevels)
+                OnFinishLevelMessage.SafeInvoke();
 
             if (isBaseLevels && level == maxLevel)
             {
