@@ -16,7 +16,8 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener
         Appodeal.setTesting(_isTesting);
         
 #if UNITY_IPHONE || UNITY_IOS
-        Appodeal.initialize(_iosAppKey, Appodeal.NON_SKIPPABLE_VIDEO | Appodeal.INTERSTITIAL);
+        //Appodeal.initialize(_iosAppKey, Appodeal.NON_SKIPPABLE_VIDEO | Appodeal.INTERSTITIAL);
+        Appodeal.initialize(_iosAppKey, Appodeal.INTERSTITIAL);
 #elif UNITY_ANDROID
         Appodeal.initialize(_androidAppKey, Appodeal.INTERSTITIAL);
 #endif
@@ -50,12 +51,14 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener
     // IInterstitialAdListener
     public void onInterstitialFailedToLoad()
     {
-        HandleAdResult(UnityEngine.Advertisements.ShowResult.Failed);
+        //HandleAdResult(UnityEngine.Advertisements.ShowResult.Failed);
+        HandleAdResult(AdResults.Failed);
     }
 
     public void onInterstitialExpired()
     {
-        HandleAdResult(UnityEngine.Advertisements.ShowResult.Failed);
+        //HandleAdResult(UnityEngine.Advertisements.ShowResult.Failed);
+        HandleAdResult(AdResults.Failed);
     }
 
     public void onInterstitialLoaded(bool isPrecache) { }
@@ -64,12 +67,14 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener
 
     public void onInterstitialClosed()
     {
-        HandleAdResult(UnityEngine.Advertisements.ShowResult.Finished);
+        //HandleAdResult(UnityEngine.Advertisements.ShowResult.Finished);
+        HandleAdResult(AdResults.Finished);
     }
 
     public void onInterstitialShown()
     {
-        HandleAdResult(UnityEngine.Advertisements.ShowResult.Finished);
+        //HandleAdResult(UnityEngine.Advertisements.ShowResult.Finished);
+        HandleAdResult(AdResults.Finished);
     }
     #endregion
 }

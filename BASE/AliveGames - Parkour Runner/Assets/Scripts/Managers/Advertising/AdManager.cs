@@ -59,7 +59,8 @@ public class AdManager : MonoBehaviour
                 if (this.EnableAds)
                     ad.ShowAdvertising();
                 else
-                    ad.HandleAdResult(ShowResult.Finished);
+                    //ad.HandleAdResult(ShowResult.Finished);
+                    ad.HandleAdResult(AdResults.Finished);
 
                 isShowingAd = true;
                 break;

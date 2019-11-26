@@ -8,6 +8,7 @@ public class UnityAdController : BaseAdController
 
     public override void Initialize()
     {
+        /*
         //if (Advertisement.isSupported)
         //{
 #if UNITY_IPHONE || UNITY_IOS
@@ -18,15 +19,22 @@ public class UnityAdController : BaseAdController
         //}
         //else
         //    Debug.Log("Advertising platform is not suported");
+        */
     }
 
     public override bool IsAvailable()
     {
-        return /*Advertisement.isSupported &&*/ Advertisement.IsReady();
+        /*
+        //return Advertisement.isSupported && Advertisement.IsReady();
+        return Advertisement.IsReady();
+        */
+        return true;
     }
 
     public override void ShowAdvertising()
     {
+        /*
         Advertisement.Show(new ShowOptions() { resultCallback = HandleAdResult });
+        */
     }
 }
