@@ -30,8 +30,7 @@ namespace AEngine
 
 	public enum Musics
 	{
-		MenuMusic1,
-		MenuMusic2,
-		GameMusic1
+		MenuMusic,
+		GameMusic
 	}
 }

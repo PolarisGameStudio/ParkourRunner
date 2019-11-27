@@ -3,8 +3,7 @@
   <AudioConfiguration SoundSourceCount="4" fade="0" fadeOn="False" />
   <AudioBlock Name="Menu">
     <Music MusicNotReplyLength="1">
-      <Track Name="MenuMusic1" Path="AudioResources/Musics/MenuMusic1" Volume="0,6" />
-      <Track Name="MenuMusic2" Path="AudioResources/Musics/MenuMusic2" Volume="0,6" />
+      <Track Name="MenuMusic" Path="AudioResources/Musics/MenuMusic" Volume="0,9" />
     </Music>
     <Sound>
       <Track Name="Tap" Path="AudioResources/Sounds/Tap" Volume="1" />
@@ -17,7 +16,7 @@
   </AudioBlock>
   <AudioBlock Name="Game">
     <Music DelayBetweenTracks="0,1" MusicNotReplyLength="1">
-      <Track Name="GameMusic1" Path="AudioResources/Musics/GameMusic1" Volume="0,6" />
+      <Track Name="GameMusic" Path="AudioResources/Musics/GameMusic" Volume="0,6" />
     </Music>
     <Sound>
       <Track Name="Tap" Path="AudioResources/Sounds/Tap" Volume="1" />
