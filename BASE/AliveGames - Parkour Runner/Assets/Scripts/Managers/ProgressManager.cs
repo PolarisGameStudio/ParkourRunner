@@ -153,7 +153,7 @@ namespace ParkourRunner.Scripts.Managers
             if (metres > DistanceRecord)
             {
                 DistanceRecord = metres;
-                GooglePlayGamesManager.SetScoreToLeaderboard((long) DistanceRecord);
+                GooglePlayGamesManager.SetScoreToLeaderboard((long) metres);
                 return true;
             }
             return false;
