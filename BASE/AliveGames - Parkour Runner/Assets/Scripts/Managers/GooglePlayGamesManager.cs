@@ -47,7 +47,8 @@ namespace Managers {
 		#region Leaderboards
 
 		public static void SetScoreToLeaderboard(long score) {
-			Social.ReportScore(score, LeaderBoardId, success => { });
+			print($"Trying set leaderboard score: {score}");
+			Social.ReportScore(score, LeaderBoardId, delegate (bool status) { print($"Score is set: {status}"); });
 		}
 
 
