@@ -44,8 +44,7 @@ public class SettingsTweening : MonoBehaviour
         RemoveListenersOfSettings();
         OpenNext(_AGBtn, _baseBtn);
 
-        AudioManager.Instance.PlaySound(Sounds.Tap);
-        AudioManager.Instance.PlaySound(Sounds.WinSimple);
+        AudioManager.Instance.PlaySound(Sounds.ShopSlot);
     }
 
     public void CloseSettings()
@@ -55,8 +54,7 @@ public class SettingsTweening : MonoBehaviour
         //ClosePrevious(_musicBtn, _soundBtn);
         ClosePrevious(_facebookBtn, _musicBtn);
 
-        AudioManager.Instance.PlaySound(Sounds.Tap);
-        AudioManager.Instance.PlaySound(Sounds.WinSimple);
+        AudioManager.Instance.PlaySound(Sounds.ShopSlot);
     }
 
     private void OpenNext(GameObject current,GameObject baseObj)

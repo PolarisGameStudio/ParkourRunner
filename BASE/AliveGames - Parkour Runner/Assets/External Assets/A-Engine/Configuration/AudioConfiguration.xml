@@ -3,27 +3,29 @@
   <AudioConfiguration SoundSourceCount="4" fade="0" fadeOn="False" />
   <AudioBlock Name="Menu">
     <Music MusicNotReplyLength="1">
-      <Track Name="MenuMusic" Path="AudioResources/Musics/MenuMusic" Volume="0,9" />
+      <Track Name="MenuMusic" Path="AudioResources/Musics/MenuMusic" Volume="0,85" />
     </Music>
     <Sound>
       <Track Name="Tap" Path="AudioResources/Sounds/Tap" Volume="1" />
       <Track Name="WinSimple" Path="AudioResources/Sounds/WinSimple" Volume="1" />
-      <Track Name="ShopSlot" Path="AudioResources/Sounds/ShopSlot" Volume="1" />
-      <Track Name="UpgradeBonus" Path="AudioResources/Sounds/UpgradeBonus" Volume="1" />
+      <Track Name="ShopSlot" Path="AudioResources/Sounds/Menu/ShopSlot" Volume="1" />
       <Track Name="Bonus" Path="AudioResources/Sounds/Bonus" Volume="1" />
       <Track Name="Result" Path="AudioResources/Sounds/Result" Volume="1" />
+      <Track Name="MenuCharacterBlock" Path="AudioResources/Sounds/Menu/MenuCharacterBlock" Volume="1" />
+      <Track Name="TapControl" Path="AudioResources/Sounds/Menu/TapControl" Volume="1" />
+      <Track Name="TapShopBonus" Path="AudioResources/Sounds/Menu/TapShopBonus" Volume="1" />
     </Sound>
   </AudioBlock>
   <AudioBlock Name="Game">
-    <Music DelayBetweenTracks="0,1" MusicNotReplyLength="1">
-      <Track Name="GameMusic" Path="AudioResources/Musics/GameMusic" Volume="0,6" />
+    <Music MusicNotReplyLength="1">
+      <Track Name="GameMusic" Path="AudioResources/Musics/GameMusic" Volume="0,65" />
     </Music>
     <Sound>
       <Track Name="Tap" Path="AudioResources/Sounds/Tap" Volume="1" />
       <Track Name="Coin" Path="AudioResources/Sounds/Coin" Volume="1" />
       <Track Name="WinSimple" Path="AudioResources/Sounds/WinSimple" Volume="1" />
-      <Track Name="GameOver" Path="AudioResources/Sounds/GameOver" Volume="1" />
-      <Track Name="ResultFull" Path="AudioResources/Sounds/ResultFull" Volume="1" />
+      <Track Name="GameOver" Path="AudioResources/Sounds/Gameplay/GameOver" Volume="1" />
+      <Track Name="ResultFull" Path="AudioResources/Sounds/Gameplay/ResultFull" Volume="1" />
       <Track Name="Jump" Path="AudioResources/Sounds/Jump" Volume="1" />
       <Track Name="Rift" Path="AudioResources/Sounds/Rift" Volume="1" />
       <Track Name="Bonus" Path="AudioResources/Sounds/Bonus" Volume="1" />
