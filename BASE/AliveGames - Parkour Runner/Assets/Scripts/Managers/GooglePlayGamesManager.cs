@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Managers {
 	public class GooglePlayGamesManager : MonoBehaviour {
-		public const string LeaderBoardId = "CgkIi6r778MEEAIQAQ ";
+		public const string LeaderBoardId = "CgkIi6r778MEEAIQAQ";
 		private void Start () {
 			PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
 			PlayGamesPlatform.DebugLogEnabled = true;
