@@ -13,7 +13,6 @@ namespace AEngine
 		Tap,
 		WinSimple,
 		ShopSlot,
-		Bonus,
 		Result,
 		MenuCharacterBlock,
 		TapControl,
@@ -22,14 +21,18 @@ namespace AEngine
 		Coin,
 		GameOver,
 		ResultFull,
-		Jump,
+		JumpStrong,
 		Rift,
+		Bonus,
 		Explosion,
 		CollisionHit,
 		Laser,
 		PlatformUp,
 		Bridge,
-		BonusX2
+		BonusX2,
+		BonusMed,
+		BonusShield,
+		Jump
 	}
 
 	public enum Musics

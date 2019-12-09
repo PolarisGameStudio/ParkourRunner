@@ -15,12 +15,16 @@ namespace ParkourRunner.Scripts.Track.Pick_Ups.Bonuses
             PoolManager.Instance.Remove(gameObject);
 
             _audio = AudioManager.Instance;
-            //AudioManager.Instance.PlaySound(Sounds.Bonus);
-
+            
             switch (this.BonusName)
             {
                 case BonusName.DoubleCoins:
                     _audio.PlaySound(Sounds.BonusX2);
+                    break;
+
+                case BonusName.Shield:
+                    _audio.PlaySound(Sounds.Bonus);
+                    _audio.PlaySound(Sounds.BonusShield);
                     break;
 
                 default:

@@ -7,7 +7,7 @@ namespace ParkourRunner.Scripts.Track.Pick_Ups
 
         protected override void Pick()
         {
-            AudioManager.Instance.PlaySound(Sounds.Bonus);
+            AudioManager.Instance.PlaySound(Sounds.BonusMed);
 
             if (GameManager.Instance.HealLimb())
             {

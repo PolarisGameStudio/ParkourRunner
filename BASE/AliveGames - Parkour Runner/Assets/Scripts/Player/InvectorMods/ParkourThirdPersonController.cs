@@ -311,7 +311,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
             StartCoroutine(FreezeInAir(speed, height));
 
-            AudioManager.Instance.PlaySound(Sounds.Jump);
+            AudioManager.Instance.PlayUniqueSound(Sounds.JumpStrong);
         }
 
         //Это нужно чтобы на прыжке с батута всегда была постоянная скорость
