@@ -18,6 +18,7 @@ namespace AEngine
 		MenuCharacterBlock,
 		TapControl,
 		TapShopBonus,
+		ShopSelect,
 		Coin,
 		GameOver,
 		ResultFull,
@@ -27,7 +28,8 @@ namespace AEngine
 		CollisionHit,
 		Laser,
 		PlatformUp,
-		Bridge
+		Bridge,
+		BonusX2
 	}
 
 	public enum Musics

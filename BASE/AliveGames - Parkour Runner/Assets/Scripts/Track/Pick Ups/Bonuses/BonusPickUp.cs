@@ -7,11 +7,26 @@ namespace ParkourRunner.Scripts.Track.Pick_Ups.Bonuses
     {
         public BonusName BonusName;
 
+        private AudioManager _audio;
+
         protected override void Pick()
         {
             GameManager.Instance.AddBonus(BonusName);
             PoolManager.Instance.Remove(gameObject);
-            AudioManager.Instance.PlaySound(Sounds.Bonus);
+
+            _audio = AudioManager.Instance;
+            //AudioManager.Instance.PlaySound(Sounds.Bonus);
+
+            switch (this.BonusName)
+            {
+                case BonusName.DoubleCoins:
+                    _audio.PlaySound(Sounds.BonusX2);
+                    break;
+
+                default:
+                    _audio.PlaySound(Sounds.Bonus);
+                    break;
+            }
         }
     }
 }

@@ -86,7 +86,7 @@ public class CharacterSelection : MonoBehaviour
     public void OnSelectButtonClick()
     {
         if (_currentSelection != _kind)
-            AudioManager.Instance.PlaySound(Sounds.Bonus);
+            AudioManager.Instance.PlaySound(Sounds.ShopSelect);
 
         _currentSelection = _kind;
 

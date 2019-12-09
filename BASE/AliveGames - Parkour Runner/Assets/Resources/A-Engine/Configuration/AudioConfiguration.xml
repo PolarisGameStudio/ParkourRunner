@@ -14,6 +14,7 @@
       <Track Name="MenuCharacterBlock" Path="AudioResources/Sounds/Menu/MenuCharacterBlock" Volume="1" />
       <Track Name="TapControl" Path="AudioResources/Sounds/Menu/TapControl" Volume="1" />
       <Track Name="TapShopBonus" Path="AudioResources/Sounds/Menu/TapShopBonus" Volume="1" />
+      <Track Name="ShopSelect" Path="AudioResources/Sounds/Menu/ShopSelect" Volume="1" />
     </Sound>
   </AudioBlock>
   <AudioBlock Name="Game">
@@ -35,6 +36,7 @@
       <Track Name="Laser" Path="AudioResources/Sounds/Laser" Volume="1" />
       <Track Name="PlatformUp" Path="AudioResources/Sounds/PlatformUp" Volume="1" />
       <Track Name="Bridge" Path="AudioResources/Sounds/Bridge" Volume="1" />
+      <Track Name="BonusX2" Path="AudioResources/Sounds/Gameplay/BonusX2" Volume="1" />
     </Sound>
   </AudioBlock>
 </AudioData>
