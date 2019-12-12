@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using ParkourRunnerEnvironment;
 
 [CreateAssetMenu(fileName = "Environment Controller", menuName = "ParkouRunner/Environment Controller")]
 public class EnvironmentController : ScriptableObject

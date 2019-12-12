@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Managers;
 using ParkourRunner.Scripts.Player;
 using UnityEngine;
 
@@ -152,6 +153,7 @@ namespace ParkourRunner.Scripts.Managers
             if (metres > DistanceRecord)
             {
                 DistanceRecord = metres;
+                GooglePlayGamesManager.SetScoreToLeaderboard((long) metres);
                 return true;
             }
             return false;

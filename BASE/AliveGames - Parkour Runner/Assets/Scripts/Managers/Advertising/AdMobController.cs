@@ -47,12 +47,14 @@ public class AdMobController : BaseAdController
     #region Events
     private void OnAdClosed(object sender, System.EventArgs args)
     {
-        HandleAdResult(UnityEngine.Advertisements.ShowResult.Finished);
+        //HandleAdResult(UnityEngine.Advertisements.ShowResult.Finished);
+        HandleAdResult(AdResults.Finished);
     }
 
     private void OnAdFailed(object sender, System.EventArgs args)
     {
-        HandleAdResult(UnityEngine.Advertisements.ShowResult.Finished);
+        //HandleAdResult(UnityEngine.Advertisements.ShowResult.Finished);
+        HandleAdResult(AdResults.Finished);
     }
     #endregion
 }

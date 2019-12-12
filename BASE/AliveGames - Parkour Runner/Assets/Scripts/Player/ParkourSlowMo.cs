@@ -68,7 +68,8 @@ public class ParkourSlowMo : MonoBehaviour
 
     private IEnumerator SmoothContinue()
     {
-        while (Time.timeScale < 1)
+        float delay = 0.4f;
+        while (Time.timeScale < delay)
         {
             Time.timeScale += 0.005f;
             yield return null;

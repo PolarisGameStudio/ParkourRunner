@@ -70,7 +70,7 @@ public abstract class BaseControlInputSelection : MonoBehaviour
         if (!_lockTouch)
         {
             Configuration.Instance.SaveInputConfiguration(_controlMode);
-            AudioManager.Instance.PlaySound(Sounds.Tap);
+            AudioManager.Instance.PlaySound(Sounds.TapControl);
 
             OnCheckMode.SafeInvoke(true);
         }

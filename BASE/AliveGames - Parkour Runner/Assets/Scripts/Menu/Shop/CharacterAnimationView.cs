@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using AEngine;
 
 public class CharacterAnimationView : MonoBehaviour
 {
@@ -27,7 +28,9 @@ public class CharacterAnimationView : MonoBehaviour
     private IEnumerator AnimationProcess()
     {
         float time = _duration;
-        
+
+        AudioManager.Instance.PlaySound(Sounds.MenuCharacterBlock);
+
         while (time > 0f)
         {
             _animator.Play(_appearClip, 0, 1f - Mathf.Clamp01(time / _duration));

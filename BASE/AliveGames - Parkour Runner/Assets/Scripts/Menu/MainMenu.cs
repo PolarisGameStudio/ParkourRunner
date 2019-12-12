@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using DG.Tweening;
 using AEngine;
+using Managers;
 
 public class MainMenu : Menu
 {
@@ -86,6 +87,11 @@ public class MainMenu : Menu
     {
         _audio.PlaySound(Sounds.Tap);
         _menuController.OpenMenu(MenuKinds.Quests);
+    }
+
+    public void OnLeaderboardButtonClick()
+    {
+        GooglePlayGamesManager.ShowLeaderboardsUI();
     }
     #endregion
 }

@@ -10,6 +10,8 @@ public class TutorialMessage : MonoBehaviour
     [SerializeField] private Text _caption;
     [SerializeField] private float _appearDuration;
     [SerializeField] private float _hideDuration;
+
+    public static bool IsShowMessage;
         
     private void OnEnable()
     {
@@ -19,11 +21,15 @@ public class TutorialMessage : MonoBehaviour
         _canvasGroup.alpha = 0f;
         _continueButtonImage.raycastTarget = false;
         Time.timeScale = 1f;
+
+        IsShowMessage = false;
     }
 
     private void OnDisable()
     {
         TutorialMessageTrigger.OnSendMessage -= OnGetMessage;
+
+        IsShowMessage = false;
     }
 
     private IEnumerator ShowProcess(string text)
@@ -31,6 +37,8 @@ public class TutorialMessage : MonoBehaviour
         _caption.text = text;
 
         float time = _appearDuration;
+
+        IsShowMessage = true;
 
         while (time > 0f)
         {
@@ -44,7 +52,7 @@ public class TutorialMessage : MonoBehaviour
         _continueButtonImage.raycastTarget = true;
 
         yield return new WaitForEndOfFrame();
-
+        
         Time.timeScale = 0f;
     }
 
@@ -66,6 +74,8 @@ public class TutorialMessage : MonoBehaviour
         _canvasGroup.alpha = 0f;
         
         yield return new WaitForEndOfFrame();
+
+        IsShowMessage = false;
     }
 
     #region Events

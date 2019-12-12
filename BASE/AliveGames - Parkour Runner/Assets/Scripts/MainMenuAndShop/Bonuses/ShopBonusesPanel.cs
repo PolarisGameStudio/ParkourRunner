@@ -30,7 +30,7 @@ public class ShopBonusesPanel : MonoBehaviour
 
             if (Wallet.Instance.SpendCoins(price))
             {
-                AudioManager.Instance.PlaySound(Sounds.UpgradeBonus);
+                AudioManager.Instance.PlaySound(Sounds.TapShopBonus);
 
                 Shoping.GetBonus(_data.BonusKind.ToString());
                 SetProgressState();                

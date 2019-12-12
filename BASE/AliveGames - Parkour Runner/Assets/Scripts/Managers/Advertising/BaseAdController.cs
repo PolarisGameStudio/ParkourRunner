@@ -2,6 +2,13 @@
 using UnityEngine;
 using UnityEngine.Advertisements;
 
+public enum AdResults
+{
+    Finished,
+    Skipped,
+    Failed
+}
+
 public abstract class BaseAdController : MonoBehaviour
 {
     public static event Action OnShowAdsEvent;
@@ -23,20 +30,24 @@ public abstract class BaseAdController : MonoBehaviour
         _failedCallback = failedCallback;
     }
 
-    public void HandleAdResult(ShowResult result)
+    //public void HandleAdResult(ShowResult result)
+    public void HandleAdResult(AdResults result)
     {
         switch (result)
         {
-            case ShowResult.Finished:
+            //case ShowResult.Finished:
+            case AdResults.Finished:
                 _finishedCallback.SafeInvoke();
                 OnShowAdsEvent.SafeInvoke();
                 break;
 
-            case ShowResult.Skipped:
+            case AdResults.Skipped:
+            //case ShowResult.Skipped:
                 _skippedCallback.SafeInvoke();
                 break;
 
-            case ShowResult.Failed:
+            //case ShowResult.Failed:
+            case AdResults.Failed:
                 _finishedCallback.SafeInvoke();
                 break;
         }

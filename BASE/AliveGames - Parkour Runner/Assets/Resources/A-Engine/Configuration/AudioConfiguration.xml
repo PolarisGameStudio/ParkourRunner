@@ -1,39 +1,50 @@
 <AudioData>
   <AudioSettings useMusic="True" musicVolume="0,6" useSound="True" soundVolume="1" />
-  <AudioConfiguration SoundSourceCount="4" fade="0" fadeOn="False" />
+  <AudioConfiguration SoundSourceCount="6" fade="0" fadeOn="False" />
   <AudioBlock Name="Menu">
     <Music MusicNotReplyLength="1">
-      <Track Name="MenuMusic1" Path="AudioResources/Musics/MenuMusic1" Volume="0,6" />
-      <Track Name="MenuMusic2" Path="AudioResources/Musics/MenuMusic2" Volume="0,6" />
+      <Track Name="MenuMusic" Path="AudioResources/Musics/MenuMusic" Volume="0,85" />
     </Music>
     <Sound>
       <Track Name="Tap" Path="AudioResources/Sounds/Tap" Volume="1" />
       <Track Name="WinSimple" Path="AudioResources/Sounds/WinSimple" Volume="1" />
-      <Track Name="ShopSlot" Path="AudioResources/Sounds/ShopSlot" Volume="1" />
-      <Track Name="UpgradeBonus" Path="AudioResources/Sounds/UpgradeBonus" Volume="1" />
-      <Track Name="Bonus" Path="AudioResources/Sounds/Bonus" Volume="1" />
+      <Track Name="ShopSlot" Path="AudioResources/Sounds/Menu/ShopSlot" Volume="1" />
       <Track Name="Result" Path="AudioResources/Sounds/Result" Volume="1" />
+      <Track Name="MenuCharacterBlock" Path="AudioResources/Sounds/Menu/MenuCharacterBlock" Volume="1" />
+      <Track Name="TapControl" Path="AudioResources/Sounds/Menu/TapControl" Volume="1" />
+      <Track Name="TapShopBonus" Path="AudioResources/Sounds/Menu/TapShopBonus" Volume="1" />
+      <Track Name="ShopSelect" Path="AudioResources/Sounds/Menu/ShopSelect" Volume="1" />
     </Sound>
   </AudioBlock>
   <AudioBlock Name="Game">
-    <Music DelayBetweenTracks="0,1" MusicNotReplyLength="1">
-      <Track Name="GameMusic1" Path="AudioResources/Musics/GameMusic1" Volume="0,6" />
+    <Music MusicNotReplyLength="1">
+      <Track Name="GameMusic" Path="AudioResources/Musics/GameMusic" Volume="0,65" />
     </Music>
     <Sound>
       <Track Name="Tap" Path="AudioResources/Sounds/Tap" Volume="1" />
-      <Track Name="Coin" Path="AudioResources/Sounds/Coin" Volume="1" />
+      <Track Name="Coin" Path="AudioResources/Sounds/Gameplay/Coin" Volume="1" />
       <Track Name="WinSimple" Path="AudioResources/Sounds/WinSimple" Volume="1" />
-      <Track Name="GameOver" Path="AudioResources/Sounds/GameOver" Volume="1" />
-      <Track Name="ResultFull" Path="AudioResources/Sounds/ResultFull" Volume="1" />
-      <Track Name="Jump" Path="AudioResources/Sounds/Jump" Volume="1" />
-      <Track Name="Rift" Path="AudioResources/Sounds/Rift" Volume="1" />
-      <Track Name="Bonus" Path="AudioResources/Sounds/Bonus" Volume="1" />
-      <Track Name="Explosion" Path="AudioResources/Sounds/Explosion" Volume="1" />
+      <Track Name="GameOver" Path="AudioResources/Sounds/Gameplay/GameOver" Volume="1" />
+      <Track Name="ResultFull" Path="AudioResources/Sounds/Gameplay/ResultFull" Volume="1" />
+      <Track Name="JumpStrong" Path="AudioResources/Sounds/Gameplay/JumpStrong" Volume="1" />
+      <Track Name="Rift" Path="AudioResources/Sounds/Gameplay/Rift" Volume="1" />
+      <Track Name="Bonus" Path="AudioResources/Sounds/Gameplay/Bonus" Volume="1" />
+      <Track Name="Explosion" Path="AudioResources/Sounds/Gameplay/Explosion" Volume="1" />
       <Track Name="Result" Path="AudioResources/Sounds/Result" Volume="1" />
-      <Track Name="CollisionHit" Path="AudioResources/Sounds/CollisionHit" Volume="1" />
-      <Track Name="Laser" Path="AudioResources/Sounds/Laser" Volume="1" />
-      <Track Name="PlatformUp" Path="AudioResources/Sounds/PlatformUp" Volume="1" />
+      <Track Name="Laser" Path="AudioResources/Sounds/Gameplay/Laser" Volume="1" />
+      <Track Name="PlatformUp" Path="AudioResources/Sounds/Gameplay/PlatformUp" Volume="1" />
       <Track Name="Bridge" Path="AudioResources/Sounds/Bridge" Volume="1" />
+      <Track Name="BonusX2" Path="AudioResources/Sounds/Gameplay/BonusX2" Volume="1" />
+      <Track Name="BonusMed" Path="AudioResources/Sounds/Menu/BonusMed" Volume="1" />
+      <Track Name="BonusShield" Path="AudioResources/Sounds/Gameplay/BonusShield" Volume="1" />
+      <Track Name="Jump" Path="AudioResources/Sounds/Gameplay/Jump" Volume="1" />
+      <Track Name="Run" Path="AudioResources/Sounds/Gameplay/Run" Volume="1" />
+      <Track Name="RunOneLeg" Path="AudioResources/Sounds/Gameplay/RunOneLeg" Volume="1" />
+      <Track Name="Rift2" Path="AudioResources/Sounds/Gameplay/Rift2" Volume="1" />
+      <Track Name="Death" Path="AudioResources/Sounds/Gameplay/Death" Volume="1" />
+      <Track Name="WinLevel" Path="AudioResources/Sounds/Gameplay/WinLevel" Volume="1" />
+      <Track Name="Damage1" Path="AudioResources/Sounds/Gameplay/Damage1" Volume="1" />
+      <Track Name="Damage2" Path="AudioResources/Sounds/Gameplay/Damage2" Volume="1" />
     </Sound>
   </AudioBlock>
 </AudioData>

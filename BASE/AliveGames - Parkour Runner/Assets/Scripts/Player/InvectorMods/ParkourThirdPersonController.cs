@@ -21,6 +21,8 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
             instance = this;
         }
 
+        public bool IsPlayingAnimation { get; set; }
+        public bool LoseBalance { get; set; }
         public bool IsOnJumpPlatform;
 
         public bool IsSlidingDown = false;
@@ -30,7 +32,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
         public bool Immune = false;
         public bool RestoreImmune { get; set; }
-                
+
         public float RollKnockOutDistance = 4f;
         public float _oldKnockOutDistance;
 
@@ -92,7 +94,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
         private LayerMask _oldCollisions;
         private Weight _oldCollisionResistance;
-        
+
         private new void Start()
         {
             _damageLayers = LayerMask.NameToLayer("HouseWall");
@@ -100,16 +102,22 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
             ResetSpeed();
 
             base.Start();
-            
+
             //почему то туда нельзя добавить ивент из этого класса, можно только из родительского
             BehavPuppet.onLoseBalance.unityEvent.AddListener(delegate {
                 IsSlidingTrolley = false;
                 _capsuleCollider.isTrigger = false;
+                this.LoseBalance = true;
                 if (PuppetMaster.state != PuppetMaster.State.Dead)
-                    AudioManager.Instance.PlaySound(Sounds.CollisionHit);
+                    AudioManager.Instance.PlayRandomSound(Sounds.Damage1, Sounds.Damage2);
             });
             BehavPuppet.onLoseBalance.unityEvent.AddListener(ResetSpeed);
 
+            BehavPuppet.onRegainBalance.unityEvent.AddListener(delegate {
+                //this.LoseBalance = false;
+                StartCoroutine(ResetBalanceProcess());
+            });
+                        
             _damageLayers = BehavPuppet.collisionLayers;
         }
 
@@ -117,6 +125,12 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
         {
             CurrRunSpeed = StaticConst.MinRunSpeed;
             CurrAnimSpeed = StaticConst.MinAnimSpeed;
+        }
+                
+        private IEnumerator ResetBalanceProcess()
+        {
+            yield return new WaitForSeconds(0.7f);  // Вычислено опытным путем
+            this.LoseBalance = false;
         }
 
         private void Update()
@@ -131,8 +145,10 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
             {
                 CameraEffects.Instance.IsHighJumping = false;
             }
+
+            var a = animator;
         }
-                
+
         private void ControllStopMove()
         {
             if (stopMove)
@@ -194,6 +210,19 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
         private void FixedUpdate()
         {
+            AudioManager audio = AudioManager.Instance;
+            bool isBaseAction = isJumping || isRolling || isSliding || IsSlidingDown || IsSlidingTrolley || this.IsPlayingAnimation;
+
+            if (isGrounded && !isBaseAction && !this.LoseBalance && !_gm.IsLevelComplete && _gm.gameState != GameManager.GameState.Pause && !TutorialMessage.IsShowMessage)
+            {
+                audio.PlayUniqueSound(_gm.IsOneLeg ? Sounds.RunOneLeg : Sounds.Run);
+            }
+            else
+            {
+                audio.StopSound(Sounds.RunOneLeg);
+                audio.StopSound(Sounds.Run);
+            }
+
             if (IsSlidingTrolley)
             {
                 float speed = 18f;
@@ -205,7 +234,6 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
                 transform.rotation = newRot;
 
                 PuppetMaster.mode = PuppetMaster.Mode.Active;
-
                 return;
             }
 
@@ -255,7 +283,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
             ParkourCamera.Instance.OnRoll();
 
-            AudioManager.Instance.PlaySound(Sounds.Rift);
+            AudioManager.Instance.PlayRandomSound(Sounds.Rift, Sounds.Rift2);
         }
 
         public override void Jump()
@@ -311,7 +339,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
             StartCoroutine(FreezeInAir(speed, height));
 
-            AudioManager.Instance.PlaySound(Sounds.Jump);
+            AudioManager.Instance.PlayUniqueSound(Sounds.JumpStrong);
         }
 
         //Это нужно чтобы на прыжке с батута всегда была постоянная скорость

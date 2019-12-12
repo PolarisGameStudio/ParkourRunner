@@ -1,19 +1,15 @@
 ﻿using Basic_Locomotion.Scripts.CharacterController.Actions;
-using ParkourRunner.Scripts.Managers;
 using RootMotion.Dynamics;
 using UnityEngine;
 
 namespace ParkourRunner.Scripts.Player.InvectorMods
 {
-
     class GenericActionPlusPuppet : vGenericAction
     {
         public PuppetMaster puppetMaster;
         public BehaviourPuppet behaviourPuppet;
         [SerializeField] private string _randomAnimation;
-
         
-
         protected override void ApplyPlayerSettings()
         {
             base.ApplyPlayerSettings();
@@ -42,8 +38,9 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
                         OnDoAction.Invoke(triggerAction);
                         TriggerAnimation();
                         if (triggerAction.playAnimation == "Stand")
-                         Destroy(triggerAction.gameObject)
-                        ;
+                        {
+                            Destroy(triggerAction.gameObject);
+                        }
                     }
                 }
             }
@@ -138,6 +135,8 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
         {
             if (playingAnimation)
             {
+                ParkourThirdPersonController.instance.IsPlayingAnimation = true;
+
                 if (triggerAction.useTriggerRotation)
                 {
                     if (debugMode) Debug.Log("Rotate to Target...");
@@ -146,6 +145,8 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
                     transform.rotation = Quaternion.Lerp(transform.rotation, triggerAction.transform.rotation, tpInput.cc.animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
                 }
             }
+            else
+                ParkourThirdPersonController.instance.IsPlayingAnimation = false;
         }
 
     }
