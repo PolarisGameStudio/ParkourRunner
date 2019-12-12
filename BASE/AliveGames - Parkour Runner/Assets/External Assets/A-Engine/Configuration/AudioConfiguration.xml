@@ -1,6 +1,6 @@
 <AudioData>
   <AudioSettings useMusic="True" musicVolume="0,6" useSound="True" soundVolume="1" />
-  <AudioConfiguration SoundSourceCount="4" fade="0" fadeOn="False" />
+  <AudioConfiguration SoundSourceCount="6" fade="0" fadeOn="False" />
   <AudioBlock Name="Menu">
     <Music MusicNotReplyLength="1">
       <Track Name="MenuMusic" Path="AudioResources/Musics/MenuMusic" Volume="0,85" />
@@ -31,14 +31,20 @@
       <Track Name="Bonus" Path="AudioResources/Sounds/Gameplay/Bonus" Volume="1" />
       <Track Name="Explosion" Path="AudioResources/Sounds/Gameplay/Explosion" Volume="1" />
       <Track Name="Result" Path="AudioResources/Sounds/Result" Volume="1" />
-      <Track Name="CollisionHit" Path="AudioResources/Sounds/CollisionHit" Volume="1" />
-      <Track Name="Laser" Path="AudioResources/Sounds/Laser" Volume="1" />
+      <Track Name="Laser" Path="AudioResources/Sounds/Gameplay/Laser" Volume="1" />
       <Track Name="PlatformUp" Path="AudioResources/Sounds/Gameplay/PlatformUp" Volume="1" />
       <Track Name="Bridge" Path="AudioResources/Sounds/Bridge" Volume="1" />
       <Track Name="BonusX2" Path="AudioResources/Sounds/Gameplay/BonusX2" Volume="1" />
       <Track Name="BonusMed" Path="AudioResources/Sounds/Menu/BonusMed" Volume="1" />
       <Track Name="BonusShield" Path="AudioResources/Sounds/Gameplay/BonusShield" Volume="1" />
       <Track Name="Jump" Path="AudioResources/Sounds/Gameplay/Jump" Volume="1" />
+      <Track Name="Run" Path="AudioResources/Sounds/Gameplay/Run" Volume="1" />
+      <Track Name="RunOneLeg" Path="AudioResources/Sounds/Gameplay/RunOneLeg" Volume="1" />
+      <Track Name="Rift2" Path="AudioResources/Sounds/Gameplay/Rift2" Volume="1" />
+      <Track Name="Death" Path="AudioResources/Sounds/Gameplay/Death" Volume="1" />
+      <Track Name="WinLevel" Path="AudioResources/Sounds/Gameplay/WinLevel" Volume="1" />
+      <Track Name="Damage1" Path="AudioResources/Sounds/Gameplay/Damage1" Volume="1" />
+      <Track Name="Damage2" Path="AudioResources/Sounds/Gameplay/Damage2" Volume="1" />
     </Sound>
   </AudioBlock>
 </AudioData>

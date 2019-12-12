@@ -42,7 +42,6 @@ namespace ParkourRunner.Scripts.Player
                     return "JumpOver";
 
                 case ("Stand"):
-
                     //TODO proc reward
                     HUDManager.Instance.Flash();
                     trick = ProgressManager.Instance.GetRandomStand();

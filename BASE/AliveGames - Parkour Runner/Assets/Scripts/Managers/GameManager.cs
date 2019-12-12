@@ -72,6 +72,8 @@ namespace ParkourRunner.Scripts.Managers
             }
         }
 
+        public bool IsLevelComplete { get; set; }
+
         public float DistanceRun;
         private float _distanceRunOffset; //TODO origin reset
 
@@ -93,7 +95,9 @@ namespace ParkourRunner.Scripts.Managers
         private Wallet _wallet;
 
         public float RestoreImmuneDuration { get { return _restoreImmuneDuration; } }
-        
+
+        public bool IsOneLeg { get { return !_leftLeg || !_rightLeg; } }
+
         private void Start()
         {
             FindObjectOfType<BehaviourPuppet>().onLoseBalance.unityEvent.AddListener(ResetSpeed);
@@ -116,6 +120,7 @@ namespace ParkourRunner.Scripts.Managers
 
         private void StartGame()
         {
+            this.IsLevelComplete = false;
             StartCoroutine(IncreaseGameSpeed());
             gameState = GameState.Run;
         }
@@ -183,7 +188,7 @@ namespace ParkourRunner.Scripts.Managers
                     Die();
                 }
         }
-
+        
         private void Die()
         {
             if (gameState != GameState.Dead)
@@ -198,7 +203,7 @@ namespace ParkourRunner.Scripts.Managers
 
                 Invoke("ShowPostMortem", 4f);
 
-                _audio.PlaySound(Sounds.GameOver);
+                _audio.PlaySound(Sounds.Death);
             }
         }
         
@@ -207,6 +212,7 @@ namespace ParkourRunner.Scripts.Managers
             this.ActiveBonuses.Clear();
             _player.Immune = false;
             _player.RestoreImmune = false;
+            this.IsLevelComplete = true;
         }
 
         public void ShowPostMortem()
@@ -339,8 +345,15 @@ namespace ParkourRunner.Scripts.Managers
 
         public void UnPause()
         {
-            gameState = GameState.Run;
+            //gameState = GameState.Run;
             ParkourSlowMo.Instance.SmoothlyContinueTime();
+            StartCoroutine(UnpauseProcess());
+        }
+
+        private IEnumerator UnpauseProcess()
+        {
+            yield return new WaitForSeconds(0.3f);
+            gameState = GameState.Run;
         }
     }
 }

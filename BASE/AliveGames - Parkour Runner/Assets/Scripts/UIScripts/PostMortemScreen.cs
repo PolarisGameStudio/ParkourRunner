@@ -62,7 +62,7 @@ public class PostMortemScreen : MonoBehaviour
                 WatchAdButton.SetActive(false);
             }
 
-            _audio.PlaySound(Sounds.Result);
+            _audio.PlaySound(Sounds.GameOver);
 
             StartCoroutine(CountTimer());
         }

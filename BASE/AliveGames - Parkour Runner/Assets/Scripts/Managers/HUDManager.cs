@@ -142,6 +142,7 @@ namespace ParkourRunner.Scripts.Managers
 
                 case Messages.LevelComplete:
                     message = ParseLocalizationText("level_complete", "LEVEL COMPLETE!!!");
+                    _audio.PlayUniqueSound(Sounds.WinLevel);
                     break;
 
                 case Messages.CurrentLevel:

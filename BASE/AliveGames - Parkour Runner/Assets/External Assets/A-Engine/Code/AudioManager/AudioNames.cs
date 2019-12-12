@@ -25,14 +25,20 @@ namespace AEngine
 		Rift,
 		Bonus,
 		Explosion,
-		CollisionHit,
 		Laser,
 		PlatformUp,
 		Bridge,
 		BonusX2,
 		BonusMed,
 		BonusShield,
-		Jump
+		Jump,
+		Run,
+		RunOneLeg,
+		Rift2,
+		Death,
+		WinLevel,
+		Damage1,
+		Damage2
 	}
 
 	public enum Musics

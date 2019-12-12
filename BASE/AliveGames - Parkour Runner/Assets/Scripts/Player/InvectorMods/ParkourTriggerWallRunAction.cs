@@ -17,9 +17,10 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
         private GameObject _arrowTutorialPrefab;
 
-        private void Start()
+        override protected void Start()
         {
             base.Start();
+
             OnDoAction.AddListener(Play);
             Path.Waypoints[1].reached.AddListener(JumpOff);
             //TODO script exec order
@@ -32,12 +33,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
             Destroy(arrowGo, 15f);
         }
-
-        private void Update()
-        {
-
-        }
-
+                
         private void Play()
         {
             if (IsLeft)
