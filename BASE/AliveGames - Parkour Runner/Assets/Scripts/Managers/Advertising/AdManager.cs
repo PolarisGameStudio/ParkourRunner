@@ -28,7 +28,8 @@ public class AdManager : MonoBehaviour
 
     private int _gameSessionCount;
 
-    public bool EnableAds { get { return true; } } // PlayerPrefs.GetInt("NoAds") != 1; } }
+    public bool EnableAds => true; // PlayerPrefs.GetInt("NoAds") != 1; } }
+
 
     public void Start()
     {
