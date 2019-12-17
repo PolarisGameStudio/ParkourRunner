@@ -2,7 +2,6 @@
 using Basic_Locomotion.Scripts.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using ParkourRunner.Scripts.Player.InvectorMods;
 
 namespace Basic_Locomotion.Scripts.CharacterController.Actions
 {
@@ -55,14 +54,8 @@ namespace Basic_Locomotion.Scripts.CharacterController.Actions
             GetComponent<Collider>().isTrigger = true;
         }
 
-        private void OnDisable()
-        {
-            ParkourThirdPersonController.instance.IsDoAction = false;
-        }
-
         public virtual IEnumerator OnDoActionDelay(GameObject obj)
         {
-            ParkourThirdPersonController.instance.IsDoAction = true;
             yield return new WaitForSeconds(onDoActionDelay);
             OnDoAction.Invoke();
         }
@@ -72,7 +65,6 @@ namespace Basic_Locomotion.Scripts.CharacterController.Actions
             if (other.gameObject.CompareTag("Player"))
             {
                 OnPlayerExit.Invoke();
-                ParkourThirdPersonController.instance.IsDoAction = false;
             }
         }
     }

@@ -38,8 +38,7 @@ namespace AEngine
 		Death,
 		WinLevel,
 		Damage1,
-		Damage2,
-		Landing
+		Damage2
 	}
 
 	public enum Musics

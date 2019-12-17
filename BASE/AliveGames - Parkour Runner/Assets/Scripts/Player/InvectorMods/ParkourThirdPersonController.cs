@@ -9,8 +9,6 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 {
     public class ParkourThirdPersonController : vThirdPersonController
     {
-        private const float MIN_LANDING_DELAY = 0.25f;
-
         public BehaviourPuppet BehavPuppet;
         public PuppetMaster PuppetMaster;
         public Weight RollPuppetCollisionResistance;
@@ -25,8 +23,6 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
         public bool IsPlayingAnimation { get; set; }
         public bool LoseBalance { get; set; }
-        public bool InAir { get; set; }
-        public bool IsDoAction { get; set; }
         public bool IsOnJumpPlatform;
 
         public bool IsSlidingDown = false;
@@ -50,7 +46,6 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
         private float _baseSpeed = 1f;
         private float _bonusBoostSpeed = 0f;
         private float _buttonSpeed = 0f;
-        private float _minLandingDelay;
 
         public float HouseWallDelay = 4f;
 
@@ -124,9 +119,6 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
             });
                         
             _damageLayers = BehavPuppet.collisionLayers;
-
-            this.InAir = false;
-            _minLandingDelay = MIN_LANDING_DELAY;
         }
 
         private void ResetSpeed()
@@ -152,11 +144,6 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
             if (isGrounded && !isJumping)
             {
                 CameraEffects.Instance.IsHighJumping = false;
-            }
-
-            if (_minLandingDelay >= 0f)
-            {
-                _minLandingDelay = Mathf.Clamp(_minLandingDelay - Time.deltaTime, 0f, MIN_LANDING_DELAY);
             }
 
             var a = animator;
@@ -226,7 +213,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
             AudioManager audio = AudioManager.Instance;
             bool isBaseAction = isJumping || isRolling || isSliding || IsSlidingDown || IsSlidingTrolley || this.IsPlayingAnimation;
 
-            if (isGrounded && !isBaseAction && !this.LoseBalance && !_gm.IsLevelComplete && _gm.gameState != GameManager.GameState.Pause && !TutorialMessage.IsShowMessage && !this.IsDoAction)
+            if (isGrounded && !isBaseAction && !this.LoseBalance && !_gm.IsLevelComplete && _gm.gameState != GameManager.GameState.Pause && !TutorialMessage.IsShowMessage)
             {
                 audio.PlayUniqueSound(_gm.IsOneLeg ? Sounds.RunOneLeg : Sounds.Run);
             }
@@ -235,20 +222,6 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
                 audio.StopSound(Sounds.RunOneLeg);
                 audio.StopSound(Sounds.Run);
             }
-
-            bool nowInAir = isJumping || !isGrounded;
-            if (nowInAir != this.InAir)
-            {
-                if (nowInAir)
-                    _minLandingDelay = MIN_LANDING_DELAY;
-
-                if (!nowInAir && _minLandingDelay == 0f)
-                {
-                    audio.PlayUniqueSound(Sounds.Landing);
-                }
-            }
-
-            this.InAir = nowInAir;
 
             if (IsSlidingTrolley)
             {

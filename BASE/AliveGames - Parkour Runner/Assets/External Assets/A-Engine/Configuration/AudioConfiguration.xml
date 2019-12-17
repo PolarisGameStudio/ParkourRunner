@@ -45,7 +45,6 @@
       <Track Name="WinLevel" Path="AudioResources/Sounds/Gameplay/WinLevel" Volume="1" />
       <Track Name="Damage1" Path="AudioResources/Sounds/Gameplay/Damage1" Volume="1" />
       <Track Name="Damage2" Path="AudioResources/Sounds/Gameplay/Damage2" Volume="1" />
-      <Track Name="Landing" Path="AudioResources/Sounds/Gameplay/Landing" Volume="1" />
     </Sound>
   </AudioBlock>
 </AudioData>
