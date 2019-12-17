@@ -83,6 +83,7 @@ public class PostMortemScreen : MonoBehaviour
 
     private void AdFinishedCallback()
     {
+        print("Ad is ended. Revive...");
         //_adSeen = true;
         Revive();
         _stopTimer = false;
@@ -91,6 +92,7 @@ public class PostMortemScreen : MonoBehaviour
     private void AdSkippedCallback()
     {
         _stopTimer = false;
+        print("Skipped or cancelled revive AD");
     }
 
     private IEnumerator CountTimer()
