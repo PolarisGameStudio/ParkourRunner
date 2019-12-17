@@ -11,7 +11,7 @@ namespace AEngine
 	public enum Sounds
 	{
 		Tap,
-		WinSimple,
+		WinQuest,
 		ShopSlot,
 		Result,
 		MenuCharacterBlock,
@@ -19,16 +19,17 @@ namespace AEngine
 		TapShopBonus,
 		ShopSelect,
 		Coin,
+		WinSimple,
 		GameOver,
 		ResultFull,
 		JumpStrong,
 		Rift,
-		Bonus,
+		BonusX2,
 		Explosion,
 		Laser,
 		PlatformUp,
 		Bridge,
-		BonusX2,
+		Bonus,
 		BonusMed,
 		BonusShield,
 		Jump,
@@ -39,7 +40,9 @@ namespace AEngine
 		WinLevel,
 		Damage1,
 		Damage2,
-		Landing
+		Landing,
+		Caption,
+		JumpOver
 	}
 
 	public enum Musics

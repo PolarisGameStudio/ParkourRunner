@@ -132,12 +132,15 @@ namespace ParkourRunner.Scripts.Managers
                     break;
                 case Messages.Ok:
                     message = "OK";
+                    _audio.PlaySound(Sounds.Caption);
                     break;
                 case Messages.Great:
                     message = ParseLocalizationText("great", "GREAT!");
+                    _audio.PlaySound(Sounds.Caption);
                     break;
                 case Messages.Perfect:
                     message = ParseLocalizationText("perfect", "PERFECT!!!");
+                    _audio.PlaySound(Sounds.Caption);
                     break;
 
                 case Messages.LevelComplete:

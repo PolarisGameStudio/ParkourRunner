@@ -132,7 +132,7 @@ public class PostMortemScreen : MonoBehaviour
                 PlayerPrefs.SetInt("WAS_RATE", 1);
                 ShowRateMe();
 
-                _audio.PlaySound(Sounds.Result);
+                _audio.PlaySound(Sounds.WinQuest);
             }
             else
                 ExitReviveScreen();
