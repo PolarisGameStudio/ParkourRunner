@@ -91,7 +91,9 @@ public class MainMenu : Menu
 
     public void OnLeaderboardButtonClick()
     {
+#if UNITY_ANDROID
         GooglePlayGamesManager.ShowLeaderboardsUI();
+#endif
     }
-    #endregion
+#endregion
 }

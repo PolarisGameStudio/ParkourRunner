@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace Managers {
 	public class GooglePlayGamesManager : MonoBehaviour {
-		public const string LeaderBoardId = "CgkIi6r778MEEAIQAQ";
+#if UNITY_ANDROID
+        public const string LeaderBoardId = "CgkIi6r778MEEAIQAQ";
 		private void Start () {
 			PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
 			PlayGamesPlatform.DebugLogEnabled = true;
@@ -41,10 +42,10 @@ namespace Managers {
 			Social.ShowAchievementsUI();
 		}
 
-		#endregion /Achievements*/
+//#endregion /Achievements*/
 
 
-		#region Leaderboards
+        #region Leaderboards
 
 		public static void SetScoreToLeaderboard(long score) {
 			print($"Trying set leaderboard score: {score}");
@@ -60,6 +61,7 @@ namespace Managers {
 			Social.ShowLeaderboardUI();
 		}
 
-		#endregion /Leaderboards
-	}
+        #endregion /Leaderboards
+#endif
+    }
 }
