@@ -235,7 +235,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
                 audio.StopSound(Sounds.RunOneLeg);
                 audio.StopSound(Sounds.Run);
             }
-
+                        
             bool nowInAir = isJumping || !isGrounded;
             if (nowInAir != this.InAir)
             {
