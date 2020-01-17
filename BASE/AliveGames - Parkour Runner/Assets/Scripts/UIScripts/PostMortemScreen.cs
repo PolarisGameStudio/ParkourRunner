@@ -1,18 +1,18 @@
-﻿using System.Collections;
-using ParkourRunner.Scripts.Managers;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using ParkourRunner.Scripts.Managers;
 using AEngine;
 
 public class PostMortemScreen : MonoBehaviour
 {
     public GameObject ReviveScreen;
     public GameObject _rateMeWindow;
-    [SerializeField] private Image _reviveProgressImg;
     public GameObject WatchAdButton;
     public Text ReviveForMoneyBtnTxt;
 
     public GameObject ResultsScreen;
+    [SerializeField] private ReviveDialogController _revive;
     [SerializeField] private LocalizationComponent _distanceLocalization;
     [SerializeField] private LocalizationComponent _recordLocalization;
     [SerializeField] private LocalizationComponent _coinsLocalization;
@@ -26,7 +26,6 @@ public class PostMortemScreen : MonoBehaviour
 
     private GameManager _gm;
     private AdManager _ad;
-    private bool _alive = true;
     private bool _adSeen; //Игрок уже смотрел рекламу?
     private bool _stopTimer = false;
     private bool _isRateMeMode;
@@ -44,31 +43,30 @@ public class PostMortemScreen : MonoBehaviour
 
     public void Show()
     {
-        _alive = false;
+        _revive.Show(ReviveResult);
+    }
 
-        int revivePrice = _gm.ReviveCost;
-
-        if (Wallet.Instance.AllCoins >= revivePrice || AdManager.Instance.IsAvailable())
+    private void ReviveResult(ReviveDialogController.Results result)
+    {
+        switch (result)
         {
-            ReviveScreen.SetActive(true);
-            ReviveForMoneyBtnTxt.text = revivePrice.ToString();
+            case ReviveDialogController.Results.ShowAdvertising:
+                WatchAd();
+                break;
 
-            if (/*!_adSeen && */AdManager.Instance.IsAvailable())
-            {
-                WatchAdButton.SetActive(true);
-            }
-            else
-            {
-                WatchAdButton.SetActive(false);
-            }
+            case ReviveDialogController.Results.ReviveByCoins:
+                if (_revive.IsPriceCondition && Wallet.Instance.SpendCoins(_gm.ReviveCost))
+                    Revive();
+                break;
 
-            _audio.PlaySound(Sounds.GameOver);
+            case ReviveDialogController.Results.OpenShopMenu:
+                MenuController.TransitionTarget = MenuKinds.Shop;
+                SceneManager.LoadScene("Menu");
+                break;
 
-            StartCoroutine(CountTimer());
-        }
-        else
-        {
-            ExitReviveScreen();
+            case ReviveDialogController.Results.TimeIsOut:
+                ExitReviveScreen();
+                break;
         }
     }
 
@@ -77,7 +75,6 @@ public class PostMortemScreen : MonoBehaviour
         _ad.SkipAdInOrder();
 
         _stopTimer = true;
-        _audio.PlaySound(Sounds.Tap);
         _ad.ShowAdvertising(AdFinishedCallback, AdSkippedCallback, AdSkippedCallback);
     }
 
@@ -94,30 +91,7 @@ public class PostMortemScreen : MonoBehaviour
         _stopTimer = false;
         print("Skipped or cancelled revive AD");
     }
-
-    private IEnumerator CountTimer()
-    {
-        float time = 0f;
-        while (time < TimeToRevive)
-        {
-            if (_alive)
-            {
-                yield break;
-            }
-
-            if (!_stopTimer)
-                time += Time.deltaTime;
-
-            float mappedTime = Utility.MapValue(time, 0f, TimeToRevive, 1f, 0f);
-            _reviveProgressImg.fillAmount = mappedTime;
-
-            yield return null;
-        }
-
-        //CheckRateMe();
-        ExitReviveScreen();
-    }
-
+        
     public void CheckRateMe()
     {
         EnvironmentController.CheckKeys();
@@ -147,15 +121,14 @@ public class PostMortemScreen : MonoBehaviour
 
     public void Revive()
     {
-        _alive = true;
-        ReviveScreen.SetActive(false);
         ResultsScreen.SetActive(false);
+        _revive.Hide();
         _gm.Revive();
     }
 
     public void ShowRateMe()
     {
-        ReviveScreen.SetActive(false);
+        _revive.Hide();
         ResultsScreen.SetActive(false);
 
         _rateMeWindow.SetActive(true);
@@ -165,7 +138,7 @@ public class PostMortemScreen : MonoBehaviour
     {
         Wallet.Instance.Save();
 
-        ReviveScreen.SetActive(false);
+        _revive.Hide();
         ResultsScreen.SetActive(true);
 
         _audio.PlaySound(Sounds.ResultFull);
@@ -179,15 +152,6 @@ public class PostMortemScreen : MonoBehaviour
 
         if (_ad.CheckAdvertisingOrder())
             _ad.ShowAdvertising(null, null, null);
-    }
-
-    public void ReviveForMoney()
-    {
-        if (Wallet.Instance.SpendCoins(_gm.ReviveCost))
-        {
-            Revive();
-            _audio.PlaySound(Sounds.Tap);
-        }
     }
 
     private void OnApplicationFocus(bool focus)
