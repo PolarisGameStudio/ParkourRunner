@@ -10,7 +10,6 @@ using ParkourRunner.Scripts.Track.Pick_Ups.Bonuses;
 using RootMotion.Dynamics;
 using UnityEngine;
 using AEngine;
-using Managers;
 
 namespace ParkourRunner.Scripts.Managers
 {

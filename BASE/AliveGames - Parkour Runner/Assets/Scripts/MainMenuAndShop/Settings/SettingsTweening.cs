@@ -45,13 +45,13 @@ public class SettingsTweening : MonoBehaviour
         OpenNext(_AGBtn, _baseBtn);
 
         AudioManager.Instance.PlaySound(Sounds.ShopSlot);
+        AdManager.Instance.HideBanner();
     }
 
     public void CloseSettings()
     {
         _baseBtn.GetComponent<Button>().onClick.RemoveAllListeners();
         RemoveListenersOfSettings();
-        //ClosePrevious(_musicBtn, _soundBtn);
         ClosePrevious(_facebookBtn, _musicBtn);
 
         AudioManager.Instance.PlaySound(Sounds.ShopSlot);
@@ -108,7 +108,13 @@ public class SettingsTweening : MonoBehaviour
             {
                 var controllsecuance = DOTween.Sequence();
                 controllsecuance.Append(_controll.GetComponent<RectTransform>().DOAnchorPos(_hideAnchor.anchoredPosition, 0.2f));
-                controllsecuance.Insert(0f, _questBlock.Show());
+
+                if (MenuController.LastTransition == MenuKinds.MainMenu)
+                {
+                    controllsecuance.Insert(0f, _questBlock.Show());
+                    AdManager.Instance.ShowBanner();
+                }
+                
                 _controlBackground.DOColor(_disableColorBg, 0.5f);
 
                 controllsecuance.OnComplete(() =>

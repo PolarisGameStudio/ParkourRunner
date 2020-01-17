@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Advertisements;
 
 public class AdManager : MonoBehaviour
 {
@@ -24,6 +23,7 @@ public class AdManager : MonoBehaviour
     }
     #endregion
 
+    [SerializeField] private AppodealAdController _ad;
     [SerializeField] private BaseAdController[] _advertisings;
 
     private int _gameSessionCount;
@@ -33,23 +33,28 @@ public class AdManager : MonoBehaviour
 
     public void Start()
     {
-        foreach (BaseAdController ad in _advertisings)
-            ad.Initialize();
+        _ad.Initialize();
+
+        //foreach (BaseAdController ad in _advertisings)
+        //    ad.Initialize();
     }
 
     public bool IsAvailable()
     {
-        foreach (BaseAdController ad in _advertisings)
-            if (ad.IsAvailable())
-                return true;
+        return _ad.IsAvailable();
 
-        return false;
+        //foreach (BaseAdController ad in _advertisings)
+        //    if (ad.IsAvailable())
+        //        return true;
+
+        //return false;
     }
 
     public void ShowAdvertising(Action finishedCallback, Action skippedCallback, Action failedCallback)
     {
         bool isShowingAd = false;
 
+        /*
         foreach (BaseAdController ad in _advertisings)
         {
             if (ad.IsAvailable())
@@ -60,12 +65,25 @@ public class AdManager : MonoBehaviour
                 if (this.EnableAds)
                     ad.ShowAdvertising();
                 else
-                    //ad.HandleAdResult(ShowResult.Finished);
                     ad.HandleAdResult(AdResults.Finished);
 
                 isShowingAd = true;
                 break;
             }
+        }
+        */
+
+        if (_ad.IsAvailable())
+        {
+            Debug.Log("Show " + _ad.gameObject.name);
+            _ad.InitCallbackHandlers(finishedCallback, skippedCallback, failedCallback);
+
+            if (this.EnableAds)
+                _ad.ShowAdvertising();
+            else
+                _ad.HandleAdResult(AdResults.Finished);
+
+            isShowingAd = true;
         }
 
         if (!isShowingAd)
@@ -73,6 +91,16 @@ public class AdManager : MonoBehaviour
             Debug.Log("Ad not show");
             finishedCallback.SafeInvoke();
         }
+    }
+
+    public void ShowBanner()
+    {
+        _ad.ShowBanner();
+    }
+
+    public void HideBanner()
+    {
+        _ad.HideBanner();
     }
 
     #region Advertising Order

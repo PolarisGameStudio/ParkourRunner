@@ -35,6 +35,8 @@ public class MainMenu : Menu
             var finalSecuance = DOTween.Sequence();
             finalSecuance.Append(_buttonsBlockAnim.Show(_buttonsBlockAnim.showPoint.anchoredPosition, _buttonsBlockAnim.duration * 0.1f));
             finalSecuance.Append(_questBlock.Show(_questBlock.showPoint.anchoredPosition, _questBlock.duration * 0.1f));
+
+            AdManager.Instance.ShowBanner();
         });
     }
         
@@ -42,6 +44,8 @@ public class MainMenu : Menu
     {
         base.StartHide(callback);
         StartCoroutine(HideProcess(callback));
+
+        AdManager.Instance.HideBanner();
     }
 
     private IEnumerator HideProcess(Action callback)
