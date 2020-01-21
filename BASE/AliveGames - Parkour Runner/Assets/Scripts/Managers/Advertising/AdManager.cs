@@ -24,8 +24,7 @@ public class AdManager : MonoBehaviour
     #endregion
 
     [SerializeField] private AppodealAdController _ad;
-    [SerializeField] private BaseAdController[] _advertisings;
-
+    
     private int _gameSessionCount;
 
     public bool EnableAds => true; // PlayerPrefs.GetInt("NoAds") != 1; } }
@@ -34,45 +33,17 @@ public class AdManager : MonoBehaviour
     public void Start()
     {
         _ad.Initialize();
-
-        //foreach (BaseAdController ad in _advertisings)
-        //    ad.Initialize();
     }
 
     public bool IsAvailable()
     {
-        return _ad.IsAvailable();
-
-        //foreach (BaseAdController ad in _advertisings)
-        //    if (ad.IsAvailable())
-        //        return true;
-
-        //return false;
+        return _ad != null ? _ad.IsAvailable() : false;
     }
 
     public void ShowAdvertising(Action finishedCallback, Action skippedCallback, Action failedCallback)
     {
         bool isShowingAd = false;
-
-        /*
-        foreach (BaseAdController ad in _advertisings)
-        {
-            if (ad.IsAvailable())
-            {
-                Debug.Log("Show " + ad.gameObject.name);
-                ad.InitCallbackHandlers(finishedCallback, skippedCallback, failedCallback);
-
-                if (this.EnableAds)
-                    ad.ShowAdvertising();
-                else
-                    ad.HandleAdResult(AdResults.Finished);
-
-                isShowingAd = true;
-                break;
-            }
-        }
-        */
-
+        
         if (_ad.IsAvailable())
         {
             Debug.Log("Show " + _ad.gameObject.name);

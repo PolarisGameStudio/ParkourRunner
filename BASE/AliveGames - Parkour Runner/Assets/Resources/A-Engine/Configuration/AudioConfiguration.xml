@@ -18,7 +18,7 @@
   </AudioBlock>
   <AudioBlock Name="Game">
     <Music MusicNotReplyLength="1">
-      <Track Name="GameMusic" Path="AudioResources/Musics/GameMusic" Volume="0,2" />
+      <Track Name="GameMusic" Path="AudioResources/Musics/GameMusic" Volume="0,25" />
     </Music>
     <Sound>
       <Track Name="Tap" Path="AudioResources/Sounds/Tap" Volume="1" />

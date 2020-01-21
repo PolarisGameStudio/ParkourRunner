@@ -28,6 +28,8 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 	public override void Initialize()
     {
 		Appodeal.setTesting(_isTesting);
+        Appodeal.setSmartBanners(false);
+        Appodeal.setTabletBanners(true);
 
 #if UNITY_IPHONE || UNITY_IOS
         Appodeal.initialize(_iosAppKey, Appodeal.INTERSTITIAL | Appodeal.BANNER_BOTTOM);
