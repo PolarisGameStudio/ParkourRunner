@@ -128,5 +128,11 @@ public class MainMenu : Menu
 #endif
         }
     }
-#endregion
+
+    public void OnMultiplayerButtonClick()
+    {
+        _audio.PlaySound(Sounds.Tap);
+        _menuController.OpenMenu(MenuKinds.Multiplayer);
+    }
+    #endregion
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Photon.Pun;
 using UnityEngine;
 
 public class CharacterKindController : MonoBehaviour
@@ -22,7 +23,13 @@ public class CharacterKindController : MonoBehaviour
                 
         if (targetData != null)
         {
-            GameObject character = GameObject.Instantiate(targetData.targetPrefab, _startPosition, Quaternion.identity);
+            if (PlayerPrefs.GetInt(EnvironmentController.MULTIPLAYER_KEY) == 1 && PhotonNetwork.IsConnectedAndReady) {
+                print($"Spawning player: {"Character/" + targetData.targetPrefab.name}");
+                PhotonNetwork.Instantiate("Character/" + targetData.targetPrefab.name, _startPosition, Quaternion.identity);
+            }
+            else {
+                Instantiate(targetData.targetPrefab, _startPosition, Quaternion.identity);
+            }
         }
 
         _camera.SetActive(true);

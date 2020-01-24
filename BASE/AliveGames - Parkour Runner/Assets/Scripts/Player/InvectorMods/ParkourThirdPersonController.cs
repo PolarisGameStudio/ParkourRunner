@@ -199,7 +199,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
         private void CheckImmunity()
         {
-            if (customAction || Immune || this.RestoreImmune)
+            if (customAction || Immune || RestoreImmune)
             {
                 BehavPuppet.collisionLayers = _immuneLayers;
                 _gm.PlayerCanBeDismembered = false;
