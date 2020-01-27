@@ -43,10 +43,10 @@ public class PostMortemScreen : MonoBehaviour
 
     public void Show()
     {
-        _revive.Show(ReviveResult);
+        _revive.Show(ReviveResultCallback);
     }
 
-    private void ReviveResult(ReviveDialogController.Results result)
+    private void ReviveResultCallback(ReviveDialogController.Results result)
     {
         switch (result)
         {
@@ -60,6 +60,7 @@ public class PostMortemScreen : MonoBehaviour
                 break;
 
             case ReviveDialogController.Results.OpenShopMenu:
+                ProgressManager.SaveRecordInLeaderboards(_gm.DistanceRun);
                 MenuController.TransitionTarget = MenuKinds.Shop;
                 SceneManager.LoadScene("Menu");
                 break;

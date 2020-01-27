@@ -95,7 +95,9 @@ public class MainMenu : Menu
 
     public void OnLeaderboardButtonClick()
     {
-#if UNITY_ANDROID
+#if UNITY_IPHONE || UNITY_IOS
+        AppleGameCenterManager.ShowLeaderboardsUI();
+#elif UNITY_ANDROID
         GooglePlayGamesManager.ShowLeaderboardsUI();
 #endif
     }

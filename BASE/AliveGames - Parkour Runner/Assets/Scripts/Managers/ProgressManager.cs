@@ -150,15 +150,35 @@ namespace ParkourRunner.Scripts.Managers
 
         public static bool IsNewRecord(float metres)
         {
+            SaveRecordInLeaderboards(metres);
+
             if (metres > DistanceRecord)
             {
                 DistanceRecord = metres;
-#if UNITY_ANDROID
-                GooglePlayGamesManager.SetScoreToLeaderboard((long) metres);
-#endif
+
+                //SaveRecordInLeaderboards(metres);
+
                 return true;
             }
             return false;
+        }
+
+        public static void SaveRecordInLeaderboards(float metres)
+        {
+            EnvironmentController.CheckKeys();
+            PlayerPrefs.SetInt(EnvironmentController.TUTORIAL_KEY, 0);
+            PlayerPrefs.SetInt(EnvironmentController.ENDLESS_KEY, 1);
+                        
+            if (PlayerPrefs.GetInt(EnvironmentController.TUTORIAL_KEY) == 0 && PlayerPrefs.GetInt(EnvironmentController.ENDLESS_KEY) == 1)
+            {
+                long bestResult = metres > DistanceRecord ? (long)metres : (long)DistanceRecord;
+
+#if UNITY_IPHONE || UNITY_IOS
+                AppleGameCenterManager.SetScoreToLeaderboard((long)metres);
+#elif UNITY_ANDROID
+                GooglePlayGamesManager.SetScoreToLeaderboard((long) metres);
+#endif
+            }
         }
     }
 }

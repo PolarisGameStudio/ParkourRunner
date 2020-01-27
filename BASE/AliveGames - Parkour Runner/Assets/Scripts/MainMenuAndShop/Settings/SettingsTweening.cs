@@ -95,7 +95,7 @@ public class SettingsTweening : MonoBehaviour
     private void ClosePrevious(GameObject current , GameObject baseObj)
     {
         IsInProcess = true;
-         current.transform.SetParent ( baseObj.transform);
+        current.transform.SetParent ( baseObj.transform);
 
         var secuance = DOTween.Sequence();
         secuance.Append(current.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, 0), _duration).SetEase(_ease));
