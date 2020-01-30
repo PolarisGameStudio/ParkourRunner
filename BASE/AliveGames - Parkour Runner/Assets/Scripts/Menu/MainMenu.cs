@@ -9,9 +9,7 @@ public class MainMenu : Menu
 {
     public static bool IsPlayingOpenMenuAnimation;
     public static bool IsPlayingSettingsAnimation;
-
-    public SettingsTweening tween; // Test
-
+        
     [Header("Animation settings")]
     [SerializeField] private GameObject _gameLoader;
     [SerializeField] private SettingsTweening _settingsTweening;    
@@ -92,8 +90,6 @@ public class MainMenu : Menu
 
             _audio.PlaySound(Sounds.Tap);
             _menuController.OpenMenu(MenuKinds.SelectLevelType);
-            
-            tween.OpenSettings();
         }
     }
 
