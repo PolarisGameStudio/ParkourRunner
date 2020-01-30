@@ -7,6 +7,11 @@ using Managers;
 
 public class MainMenu : Menu
 {
+    public static bool IsPlayingOpenMenuAnimation;
+    public static bool IsPlayingSettingsAnimation;
+
+    public SettingsTweening tween; // Test
+
     [Header("Animation settings")]
     [SerializeField] private GameObject _gameLoader;
     [SerializeField] private SettingsTweening _settingsTweening;    
@@ -20,6 +25,9 @@ public class MainMenu : Menu
     protected override void Show()
     {
         base.Show();
+
+        IsPlayingOpenMenuAnimation = false;
+        IsPlayingSettingsAnimation = false;
         
         var settingsSecuance = DOTween.Sequence();
         settingsSecuance.Append(_settingsPanelAnim.Show());
@@ -54,11 +62,12 @@ public class MainMenu : Menu
         {
             yield return new WaitForEndOfFrame();
         }
+
         if (_settingsTweening.IsOpend)
         {
             _settingsTweening.CloseSettings();
         }
-        
+
         var secuance = DOTween.Sequence();
         
         secuance.Append(_buttonsBlockAnim.Hide());
@@ -66,7 +75,7 @@ public class MainMenu : Menu
 
         secuance.Insert(0f, _settingsPanelAnim.Hide());
 
-        secuance.Insert(0, _playerStatusAnim.Hide());
+        secuance.Insert(0f, _playerStatusAnim.Hide());
         
         secuance.OnComplete(() =>
         {
@@ -77,29 +86,51 @@ public class MainMenu : Menu
     #region Events
     public void OnPlayButtonClick()
     {
-        _audio.PlaySound(Sounds.Tap);
-        _menuController.OpenMenu(MenuKinds.SelectLevelType);
+        if (!IsPlayingOpenMenuAnimation && !IsPlayingSettingsAnimation)
+        {
+            IsPlayingOpenMenuAnimation = true;
+
+            _audio.PlaySound(Sounds.Tap);
+            _menuController.OpenMenu(MenuKinds.SelectLevelType);
+            
+            tween.OpenSettings();
+        }
     }
 
     public void OnShopButtonClick()
     {
-        _audio.PlaySound(Sounds.Tap);
-        _menuController.OpenMenu(MenuKinds.Shop);
+        if (!IsPlayingOpenMenuAnimation && !IsPlayingSettingsAnimation)
+        {
+            IsPlayingOpenMenuAnimation = true;
+
+            _audio.PlaySound(Sounds.Tap);
+            _menuController.OpenMenu(MenuKinds.Shop);
+        }
     }
 
     public void OnQuestButtonClick()
     {
-        _audio.PlaySound(Sounds.Tap);
-        _menuController.OpenMenu(MenuKinds.Quests);
+        if (!IsPlayingOpenMenuAnimation && !IsPlayingSettingsAnimation)
+        {
+            IsPlayingOpenMenuAnimation = true;
+
+            _audio.PlaySound(Sounds.Tap);
+            _menuController.OpenMenu(MenuKinds.Quests);
+        }
     }
 
     public void OnLeaderboardButtonClick()
     {
+        if (!IsPlayingOpenMenuAnimation && !IsPlayingSettingsAnimation)
+        {
+            _audio.PlaySound(Sounds.Tap);
+
 #if UNITY_IPHONE || UNITY_IOS
-        AppleGameCenterManager.ShowLeaderboardsUI();
+            AppleGameCenterManager.ShowLeaderboardsUI();
 #elif UNITY_ANDROID
-        GooglePlayGamesManager.ShowLeaderboardsUI();
+            GooglePlayGamesManager.ShowLeaderboardsUI();
 #endif
+        }
     }
 #endregion
 }

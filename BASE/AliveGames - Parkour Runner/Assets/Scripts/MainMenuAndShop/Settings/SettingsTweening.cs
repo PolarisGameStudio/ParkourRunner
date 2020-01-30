@@ -38,18 +38,25 @@ public class SettingsTweening : MonoBehaviour
         _baseBtn.GetComponent<Button>().onClick.AddListener(() => OpenSettings());
     }
     
-    private void OpenSettings()
+    public void OpenSettings()
     {
-        _baseBtn.GetComponent<Button>().onClick.RemoveAllListeners();
-        RemoveListenersOfSettings();
-        OpenNext(_AGBtn, _baseBtn);
+        if (!MainMenu.IsPlayingOpenMenuAnimation && !MainMenu.IsPlayingSettingsAnimation)
+        {
+            MainMenu.IsPlayingSettingsAnimation = true;
 
-        AudioManager.Instance.PlaySound(Sounds.ShopSlot);
-        AdManager.Instance.HideBanner();
+            _baseBtn.GetComponent<Button>().onClick.RemoveAllListeners();
+            RemoveListenersOfSettings();
+            OpenNext(_AGBtn, _baseBtn);
+
+            AudioManager.Instance.PlaySound(Sounds.ShopSlot);
+            AdManager.Instance.HideBanner();
+        }
     }
 
     public void CloseSettings()
     {
+        MainMenu.IsPlayingSettingsAnimation = true;
+
         _baseBtn.GetComponent<Button>().onClick.RemoveAllListeners();
         RemoveListenersOfSettings();
         ClosePrevious(_facebookBtn, _musicBtn);
@@ -84,6 +91,7 @@ public class SettingsTweening : MonoBehaviour
                     AddListenersForSettings();
                     IsOpend = true;
                     IsInProcess = false;
+                    MainMenu.IsPlayingSettingsAnimation = false;
                     return;
                 });
             }
@@ -95,7 +103,7 @@ public class SettingsTweening : MonoBehaviour
     private void ClosePrevious(GameObject current , GameObject baseObj)
     {
         IsInProcess = true;
-        current.transform.SetParent ( baseObj.transform);
+        current.transform.SetParent(baseObj.transform);
 
         var secuance = DOTween.Sequence();
         secuance.Append(current.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0, 0), _duration).SetEase(_ease));
@@ -108,7 +116,7 @@ public class SettingsTweening : MonoBehaviour
             {
                 var controllsecuance = DOTween.Sequence();
                 controllsecuance.Append(_controll.GetComponent<RectTransform>().DOAnchorPos(_hideAnchor.anchoredPosition, 0.2f));
-
+                
                 if (MenuController.LastTransition == MenuKinds.MainMenu)
                 {
                     controllsecuance.Insert(0f, _questBlock.Show());
@@ -123,6 +131,7 @@ public class SettingsTweening : MonoBehaviour
                     _baseBtn.GetComponent<Button>().onClick.AddListener(() => OpenSettings());
                     IsOpend = false;
                     IsInProcess = false;
+                    MainMenu.IsPlayingSettingsAnimation = false;
                     return;
                 });
             }
