@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using ParkourRunnerEnvironment;
 
+public enum GameModes
+{
+    Tutorial,
+    Endless,
+    Levels
+}
+
 [CreateAssetMenu(fileName = "Environment Controller", menuName = "ParkouRunner/Environment Controller")]
 public class EnvironmentController : ScriptableObject
 {
@@ -15,6 +22,39 @@ public class EnvironmentController : ScriptableObject
     [Header("Debug mode")]
     [SerializeField] private bool _debug;
     [SerializeField] private Environment _target;
+
+    public static GameModes CurrentMode
+    {
+        get
+        {
+            CheckKeys();
+            return (PlayerPrefs.GetInt(TUTORIAL_KEY) == 1) ? (GameModes.Tutorial) : (PlayerPrefs.GetInt(ENDLESS_KEY) == 1 ? GameModes.Endless : GameModes.Levels);
+        }
+
+        set
+        {
+            CheckKeys();
+            switch (value)
+            {
+                case GameModes.Tutorial:
+                    PlayerPrefs.SetInt(TUTORIAL_KEY, 1);
+                    PlayerPrefs.SetInt(ENDLESS_KEY, 0);
+                    break;
+
+                case GameModes.Endless:
+                    PlayerPrefs.SetInt(TUTORIAL_KEY, 0);
+                    PlayerPrefs.SetInt(ENDLESS_KEY, 1);
+                    break;
+
+                case GameModes.Levels:
+                    PlayerPrefs.SetInt(TUTORIAL_KEY, 0);
+                    PlayerPrefs.SetInt(ENDLESS_KEY, 0);
+                    break;
+            }
+
+            PlayerPrefs.Save();
+        }
+    }
 
     public static void CheckKeys()
     {
