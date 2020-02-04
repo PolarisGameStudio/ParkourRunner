@@ -166,9 +166,7 @@ namespace ParkourRunner.Scripts.Managers
         public static void SaveRecordInLeaderboards(float metres)
         {
             EnvironmentController.CheckKeys();
-            PlayerPrefs.SetInt(EnvironmentController.TUTORIAL_KEY, 0);
-            PlayerPrefs.SetInt(EnvironmentController.ENDLESS_KEY, 1);
-                        
+            
             if (PlayerPrefs.GetInt(EnvironmentController.TUTORIAL_KEY) == 0 && PlayerPrefs.GetInt(EnvironmentController.ENDLESS_KEY) == 1)
             {
                 long bestResult = metres > DistanceRecord ? (long)metres : (long)DistanceRecord;

@@ -17,6 +17,11 @@ public class NextGameTransition : MonoBehaviour
         
         bool isBaseLevels = PlayerPrefs.GetInt(EnvironmentController.ENDLESS_KEY) == 0 && PlayerPrefs.GetInt(EnvironmentController.TUTORIAL_KEY) == 0;
 
+        print(string.Format("Max level = {0}, current level = {1}", maxLevel, level));
+        print("IS BASE = " + isBaseLevels);
+        print(string.Format("Endless = {0}, Tutorial = {1}", PlayerPrefs.GetInt(EnvironmentController.ENDLESS_KEY) != 0, PlayerPrefs.GetInt(EnvironmentController.TUTORIAL_KEY) != 0));
+        print("Tutorial key value = " + PlayerPrefs.GetInt(EnvironmentController.TUTORIAL_KEY));
+        print("Endless key value = " + PlayerPrefs.GetInt(EnvironmentController.ENDLESS_KEY));
         if (isBaseLevels && level <= maxLevel)
         {
             AudioManager.Instance.PlaySound(Sounds.Tap);

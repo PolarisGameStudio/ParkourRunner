@@ -66,12 +66,12 @@ public class AdManager : MonoBehaviour
 
     public void ShowBanner()
     {
-        _ad.ShowBanner();
+        //_ad.ShowBanner();
     }
 
     public void HideBanner()
     {
-        _ad.HideBanner();
+        //_ad.HideBanner();
     }
 
     #region Advertising Order
