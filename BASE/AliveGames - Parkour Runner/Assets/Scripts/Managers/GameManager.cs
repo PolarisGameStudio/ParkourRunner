@@ -10,6 +10,7 @@ using ParkourRunner.Scripts.Track.Pick_Ups.Bonuses;
 using RootMotion.Dynamics;
 using UnityEngine;
 using AEngine;
+using Photon.Pun;
 
 namespace ParkourRunner.Scripts.Managers
 {
@@ -129,9 +130,15 @@ namespace ParkourRunner.Scripts.Managers
 
         private void StartGame()
         {
-            this.IsLevelComplete = false;
+            if (PlayerPrefs.GetInt(EnvironmentController.MULTIPLAYER_KEY) == 1 && PhotonNetwork.IsConnectedAndReady) {
+                gameState = GameState.Pause;
+            }
+            else {
+                gameState = GameState.Run;
+            }
+
+            IsLevelComplete = false;
             StartCoroutine(IncreaseGameSpeed());
-            gameState = GameState.Run;
         }
 
         // Update is called once per frame
@@ -330,8 +337,10 @@ namespace ParkourRunner.Scripts.Managers
         {
             while (true)
             {
-                GameSpeed += StaticConst.SpeedGrowPerSec * Time.deltaTime;
-                GameSpeed = Math.Min(GameSpeed, StaticConst.MaxGameSpeed);
+                if (gameState == GameState.Run) {
+                    GameSpeed += StaticConst.SpeedGrowPerSec * Time.deltaTime;
+                    GameSpeed =  Math.Min(GameSpeed, StaticConst.MaxGameSpeed);
+                }
                 yield return null;
             }
         }

@@ -52,6 +52,7 @@ public class SelectLevelTypeMenu : Menu
         _audio.PlaySound(Sounds.Tap);
 
         EnvironmentController.CheckKeys();
+        PlayerPrefs.SetInt(EnvironmentController.MULTIPLAYER_KEY, 0);
         PlayerPrefs.SetInt(EnvironmentController.TUTORIAL_KEY, 1);
         PlayerPrefs.SetInt(EnvironmentController.ENDLESS_KEY, 0);
         PlayerPrefs.Save();
@@ -64,6 +65,7 @@ public class SelectLevelTypeMenu : Menu
         _audio.PlaySound(Sounds.Tap);
 
         EnvironmentController.CheckKeys();
+        PlayerPrefs.SetInt(EnvironmentController.MULTIPLAYER_KEY, 0);
         PlayerPrefs.SetInt(EnvironmentController.TUTORIAL_KEY, 0);
         PlayerPrefs.SetInt(EnvironmentController.ENDLESS_KEY, 1);
         PlayerPrefs.Save();

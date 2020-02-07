@@ -1,4 +1,5 @@
 ﻿using System;
+using ParkourRunner.Scripts.Player.InvectorMods;
 using Photon.Pun;
 using UnityEngine;
 
@@ -32,6 +33,7 @@ public class CharacterKindController : MonoBehaviour
             }
         }
 
+        ParkourThirdPersonController.instance.StartPosition = _startPosition;
         _camera.SetActive(true);
     }
 

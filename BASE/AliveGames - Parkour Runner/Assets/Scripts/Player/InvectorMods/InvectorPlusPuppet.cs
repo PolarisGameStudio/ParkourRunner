@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using ParkourRunner.Scripts.Managers;
 using Basic_Locomotion.Scripts.CharacterController;
+using Photon.Pun;
 using RootMotion.Dynamics;
 using UnityEngine;
 

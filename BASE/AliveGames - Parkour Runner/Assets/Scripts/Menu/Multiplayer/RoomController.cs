@@ -74,6 +74,10 @@ public class RoomController : MonoBehaviourPunCallbacks {
 		var players = PhotonNetwork.CurrentRoom.Players.Select(p => p.Value.NickName).ToArray();
 		if (players.Length == 1) _bet = 0;
 
+		// TODO: Раскомметировать после разработки
+		// PhotonNetwork.CurrentRoom.IsOpen = false;
+		// PhotonNetwork.CurrentRoom.IsVisible = false;
+
 		MultiplayerMenu.Hide(MultiplayerMenu.OpenGame);
 	}
 

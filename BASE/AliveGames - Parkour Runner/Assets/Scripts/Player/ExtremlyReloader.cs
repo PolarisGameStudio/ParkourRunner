@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Managers;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ public class ExtremlyReloader : MonoBehaviour
 
     private void Start()
     {
+        if(PhotonGameManager.IsMultiplayer) return;
         StartCoroutine(CheckFallErrorProcess());
     }
 

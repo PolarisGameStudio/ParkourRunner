@@ -170,7 +170,7 @@ namespace ParkourRunner.Scripts.Track.Generator
 
             Block startBlock = (defaultBlock == null) ? startList.Find(x => x.Type == Block.BlockType.Start) : defaultBlock;
                         
-            var startBlockGo = Instantiate(startBlock, _player.position + StartBlockOffset, Quaternion.identity);
+            var startBlockGo = Instantiate(startBlock, ParkourThirdPersonController.instance.StartPosition + StartBlockOffset, Quaternion.identity);
 
             _environmentLength--;
                         
@@ -226,6 +226,7 @@ namespace ParkourRunner.Scripts.Track.Generator
             
             if (block.Next == null)
             {
+                print($"Instantiate on {block.transform.position + block.transform.forward * _blockSize}");
                 var nextBlock = Instantiate(GetNextBlock(), block.transform.position + block.transform.forward * _blockSize, block.transform.rotation);
 
                 _blockPool.Add(nextBlock);
@@ -292,13 +293,18 @@ namespace ParkourRunner.Scripts.Track.Generator
 
         private Block GetBlockFromList(List<Block> list)
         {
-            var blocks = new List<Block>(list);
-            foreach (var blockName in _lastBlocks)
-            {
-                blocks = blocks.Where(x => x.name != blockName).ToList();
+            if (_environment.RandomBlocks) {
+                var blocks = new List<Block>(list);
+                foreach (var blockName in _lastBlocks) {
+                    blocks = blocks.Where(x => x.name != blockName).ToList();
+                }
+
+                return blocks[Random.Range(0, blocks.Count)];
             }
-            
-            return blocks[Random.Range(0, blocks.Count)];
+
+            var index = list.Count - Mathf.Abs(_environmentLength);
+            index = index < 0 ? list.Count + index : index;
+            return list[index];
         }
 
         private Block DefaultBlockGeneration()
@@ -402,6 +408,7 @@ namespace ParkourRunner.Scripts.Track.Generator
             {
                 result = GetBlockFromList(_levelEnvironment.blocks);
                 _environmentLength--;
+                print(_environmentLength + ", " + result.gameObject.name);
             }
             else
             {
