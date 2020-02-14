@@ -27,7 +27,10 @@ public class PhotonPlayer : MonoBehaviour {
 			return;
 		}
 
-		DestroyComponents();
+		if (!PhotonView.IsMine) {
+			DestroyComponents();
+			gameObject.tag = "Untagged";
+		}
 
 		PhotonGameManager.Players.Add(this);
 		if (PhotonView.IsMine) PhotonGameManager.LocalPlayer = this;
@@ -35,9 +38,24 @@ public class PhotonPlayer : MonoBehaviour {
 	}
 
 
-	public void DestroyComponents() {
-		if (PhotonView.IsMine) return;
+    private void Update()
+    {
+        if (!PhotonView.IsMine) return;
 
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            var controller = GetComponent<ParkourThirdPersonController>();
+            if(controller.PuppetMaster.state == PuppetMaster.State.Alive) controller.Die();
+            else controller.Revive();
+        }
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            PlayerInput.LockRunning = !PlayerInput.LockRunning;
+        }
+    }
+
+
+	public void DestroyComponents() {
 		DestroyOtherPlayersObjects.ToList().ForEach(Destroy);
 		DestroyOtherPlayersComponents.ToList().ForEach(Destroy);
 		// DestroyOtherPlayersComponents.ToList().ForEach(c => c.enabled = false);
@@ -72,8 +90,21 @@ public class PhotonPlayer : MonoBehaviour {
 
 	[PunRPC]
 	public void Die() {
+		print("Other Die");
 		_animator.SetBool("isDead", true);
-		// gameObject.GetComponent<Rigidbody>().isKinematic = false;
-		// PuppetMaster.state = PuppetMaster.State.Dead;
+	}
+
+
+	[PunRPC]
+	public void LoseBalance() {
+		print("Other lose balance");
+		_animator.SetBool("isDead", true);
+	}
+
+
+	[PunRPC]
+	public void RegainBalance() {
+		print("Other regain balance");
+		_animator.SetBool("isDead", false);
 	}
 }

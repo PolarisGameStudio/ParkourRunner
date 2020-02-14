@@ -41,6 +41,11 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
         {
             _pCamera.OnLoseBalance();
             InvectorInput.SetLockBasicInput(true);
+
+            var pView = GetComponent<PhotonView>();
+            if (pView.IsMine) {
+                pView.RPC("LoseBalance", RpcTarget.Others);
+            }
         }
 
         public void OnRegainBalance()
@@ -48,6 +53,11 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
             _pCamera.OnRegainBalance();
             Invoke("Unlock", RegainBalanceInputDelay);
             StartCoroutine(RestoreImmuneProcess(GameManager.Instance.RestoreImmuneDuration));
+
+            var pView = GetComponent<PhotonView>();
+            if (pView.IsMine) {
+                pView.RPC("RegainBalance", RpcTarget.Others);
+            }
         }
 
         private void Unlock()

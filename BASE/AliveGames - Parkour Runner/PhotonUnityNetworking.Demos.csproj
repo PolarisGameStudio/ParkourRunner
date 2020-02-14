@@ -4,6 +4,7 @@
     <LangVersion>latest</LangVersion>
     <CscToolPath>D:\Program Files\Unity Editors\2019.2.18f1\Editor\Data\Tools\RoslynScripts</CscToolPath>
     <CscToolExe>unity_csc.bat</CscToolExe>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <_TargetFrameworkDirectories>non_empty_path_generated_by_rider_editor_plugin</_TargetFrameworkDirectories>
     <_FullFrameworkReferenceAssemblyPaths>non_empty_path_generated_by_rider_editor_plugin</_FullFrameworkReferenceAssemblyPaths>
     <DisableHandlePackageFileConflicts>true</DisableHandlePackageFileConflicts>
@@ -169,6 +170,15 @@
     <None Include="Assets\Photon\PhotonUnityNetworking\Demos\DemoSlotRacer\Kenney Assets\Copyrights.txt" />
     <None Include="Assets\Photon\PhotonUnityNetworking\Demos\Shared Assets\Skin\eurof_tt.txt" />
     <None Include="Assets\Photon\PhotonUnityNetworking\Demos\Shared Assets\Skin\3dText.shader" />
+    <Reference Include="UnityEditor.UI">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Tilemap.Editor">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Program Files/Unity Editors/2019.2.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -358,6 +368,9 @@
     <Reference Include="UnityEditor.Android.Extensions">
       <HintPath>D:/Program Files/Unity Editors/2019.2.18f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
+      <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
+    </Reference>
     <Reference Include="DOTween">
       <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Assets/External Assets/Demigiant/DOTween/DOTween.dll</HintPath>
     </Reference>
@@ -450,9 +463,6 @@
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
       <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
-    </Reference>
-    <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
-      <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>D:/Program Files/Unity Editors/2019.2.18f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -812,18 +822,6 @@
     <ProjectReference Include="PhotonUnityNetworking.Utilities.csproj">
       <Project>{3990BA9F-1E54-4C82-7320-F48060944EB9}</Project>
       <Name>PhotonUnityNetworking.Utilities</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEditor.UI.csproj">
-      <Project>{F2DA57F5-5E92-2479-0C32-9713AAEC8F8D}</Project>
-      <Name>UnityEditor.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.Tilemap.Editor.csproj">
-      <Project>{5C05257F-A851-7B79-25F1-10A13C3C76D7}</Project>
-      <Name>Unity.2D.Tilemap.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEngine.UI.csproj">
-      <Project>{8189E7A2-D836-E479-9EEE-0F95B845188A}</Project>
-      <Name>UnityEngine.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

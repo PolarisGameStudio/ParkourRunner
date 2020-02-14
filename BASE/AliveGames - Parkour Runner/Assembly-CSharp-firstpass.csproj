@@ -4,6 +4,7 @@
     <LangVersion>latest</LangVersion>
     <CscToolPath>D:\Program Files\Unity Editors\2019.2.18f1\Editor\Data\Tools\RoslynScripts</CscToolPath>
     <CscToolExe>unity_csc.bat</CscToolExe>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <_TargetFrameworkDirectories>non_empty_path_generated_by_rider_editor_plugin</_TargetFrameworkDirectories>
     <_FullFrameworkReferenceAssemblyPaths>non_empty_path_generated_by_rider_editor_plugin</_FullFrameworkReferenceAssemblyPaths>
     <DisableHandlePackageFileConflicts>true</DisableHandlePackageFileConflicts>
@@ -397,6 +398,57 @@
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
     <None Include="Assets\Plugins\Android\appodeal\res\xml\network_security_config.xml" />
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
+    <Reference Include="Unity.Timeline.Editor">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VSCode.Editor">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro.Editor">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Timeline">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.CollabProxy.Editor">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Postprocessing.Editor">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.XR.LegacyInputHelpers">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Postprocessing.Runtime">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Tilemap.Editor">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.SpatialTracking">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpatialTracking">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.DataPrivacy">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.XR.LegacyInputHelpers">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>D:/Unity/Projects/ParkourRunner2/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Program Files/Unity Editors/2019.2.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -999,10 +1051,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Unity.Timeline.Editor.csproj">
-      <Project>{04395458-BF8A-AF8C-F351-CCD43BB021A5}</Project>
-      <Name>Unity.Timeline.Editor</Name>
-    </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.csproj">
       <Project>{4C392E8C-C2A3-1F3D-E8FC-A0E3CFD2290D}</Project>
       <Name>PhotonUnityNetworking.Utilities.PhotonPlayer.Editor</Name>
@@ -1015,10 +1063,6 @@
       <Project>{3B548C17-8F51-6E0F-AC5B-1203A9B81659}</Project>
       <Name>PunDemos.DemoSlotcarEditor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.VSCode.Editor.csproj">
-      <Project>{4F34BC36-C3A4-73D4-B319-5E22B3EF9B22}</Project>
-      <Name>Unity.VSCode.Editor</Name>
-    </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Demos.csproj">
       <Project>{5BF2AA04-1D71-C5AA-3A48-1B2D72B0F572}</Project>
       <Name>PhotonUnityNetworking.Demos</Name>
@@ -1027,89 +1071,29 @@
       <Project>{3990BA9F-1E54-4C82-7320-F48060944EB9}</Project>
       <Name>PhotonUnityNetworking.Utilities</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
-      <Project>{6DCF2C8E-7E2E-1856-E218-0E4BA449C548}</Project>
-      <Name>Unity.TextMeshPro.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEngine.UI.csproj">
-      <Project>{8189E7A2-D836-E479-9EEE-0F95B845188A}</Project>
-      <Name>UnityEngine.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Timeline.csproj">
-      <Project>{F7668DEB-74E0-2F0D-A21A-144374675DC4}</Project>
-      <Name>Unity.Timeline</Name>
-    </ProjectReference>
     <ProjectReference Include="PhotonWebSocket.csproj">
       <Project>{33C90AB3-90A8-DD32-6B3A-AFA336D17619}</Project>
       <Name>PhotonWebSocket</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.CollabProxy.Editor.csproj">
-      <Project>{0428F5CE-ABBB-5931-6635-3DA5ECDBDC05}</Project>
-      <Name>Unity.CollabProxy.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Postprocessing.Editor.csproj">
-      <Project>{FD59009A-C581-E15B-D04C-5BA920CBB517}</Project>
-      <Name>Unity.Postprocessing.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonRealtime.csproj">
       <Project>{33927693-588C-9E7A-B568-4696C437AFFA}</Project>
       <Name>PhotonRealtime</Name>
     </ProjectReference>
-    <ProjectReference Include="UnityEngine.XR.LegacyInputHelpers.csproj">
-      <Project>{A74EE768-B606-83D2-345C-E4590047E4B8}</Project>
-      <Name>UnityEngine.XR.LegacyInputHelpers</Name>
-    </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.csproj">
       <Project>{E05D4A9F-9DEA-B35C-C6F5-CCE5B631BD9D}</Project>
       <Name>PhotonUnityNetworking</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.Sprite.Editor.csproj">
-      <Project>{8C058CDF-2D75-4D60-FC3B-B270D7A34EF6}</Project>
-      <Name>Unity.2D.Sprite.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Postprocessing.Runtime.csproj">
-      <Project>{F9992FF7-4717-780A-BC3B-A15DF954B7BD}</Project>
-      <Name>Unity.Postprocessing.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.Tilemap.Editor.csproj">
-      <Project>{5C05257F-A851-7B79-25F1-10A13C3C76D7}</Project>
-      <Name>Unity.2D.Tilemap.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEditor.SpatialTracking.csproj">
-      <Project>{9F617612-9254-563A-88F7-439132407017}</Project>
-      <Name>UnityEditor.SpatialTracking</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEngine.SpatialTracking.csproj">
-      <Project>{820FA89C-1158-D4CA-5289-F10968AFCEF1}</Project>
-      <Name>UnityEngine.SpatialTracking</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonChat.csproj">
       <Project>{54EEAED7-6264-3EB8-B9E3-F7567E8F4814}</Project>
       <Name>PhotonChat</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.TextMeshPro.csproj">
-      <Project>{1B84BC5B-4B73-353C-5D74-666FE23A5C29}</Project>
-      <Name>Unity.TextMeshPro</Name>
-    </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.Culling.Editor.csproj">
       <Project>{3F10FA51-BF10-CB39-D32F-574CF4576956}</Project>
       <Name>PhotonUnityNetworking.Utilities.Culling.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.Analytics.DataPrivacy.csproj">
-      <Project>{3F133BB0-34BE-8DC8-B740-B469F31E043F}</Project>
-      <Name>Unity.Analytics.DataPrivacy</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEditor.XR.LegacyInputHelpers.csproj">
-      <Project>{35DD401C-3ADC-0180-3DA6-250A2A836D3A}</Project>
-      <Name>UnityEditor.XR.LegacyInputHelpers</Name>
-    </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Editor.csproj">
       <Project>{89A20D5E-2E59-6DB7-CF82-3BB886C9FAB2}</Project>
       <Name>PhotonUnityNetworking.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEditor.UI.csproj">
-      <Project>{F2DA57F5-5E92-2479-0C32-9713AAEC8F8D}</Project>
-      <Name>UnityEditor.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

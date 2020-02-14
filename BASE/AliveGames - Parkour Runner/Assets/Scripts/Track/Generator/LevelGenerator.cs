@@ -125,20 +125,6 @@ namespace ParkourRunner.Scripts.Track.Generator
             StartCoroutine(ShowLevelDataProcess(_levelCaptionDelay));
         }
 
-        private void Update()
-        {
-            if (_debugMode && Input.GetKeyUp(KeyCode.Alpha1))
-            {
-                print(string.Format("Generated {0} blocks", _history.Count));
-                foreach (var block in _history)
-                {
-                    print(block);
-                }
-
-                Debug.Break();
-            }
-        }
-
         private IEnumerator ShowLevelDataProcess(float delay)
         {
             yield return new WaitForSeconds(delay);
@@ -226,7 +212,6 @@ namespace ParkourRunner.Scripts.Track.Generator
             
             if (block.Next == null)
             {
-                print($"Instantiate on {block.transform.position + block.transform.forward * _blockSize}");
                 var nextBlock = Instantiate(GetNextBlock(), block.transform.position + block.transform.forward * _blockSize, block.transform.rotation);
 
                 _blockPool.Add(nextBlock);
@@ -408,7 +393,6 @@ namespace ParkourRunner.Scripts.Track.Generator
             {
                 result = GetBlockFromList(_levelEnvironment.blocks);
                 _environmentLength--;
-                print(_environmentLength + ", " + result.gameObject.name);
             }
             else
             {
