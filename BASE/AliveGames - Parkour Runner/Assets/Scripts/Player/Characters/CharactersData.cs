@@ -4,10 +4,16 @@ using UnityEngine;
 public enum CharacterKinds
 {
     Base,
+    Character1,
+    Character1Fem,
     Character2,
+    Character2Fem,
     Character3,
+    Character3Fem,
     Character4,
-    CaptainAmerica
+    Character4Fem,
+    CaptainAmerica,
+    CaptainAmericaFem
 }
 
 [CreateAssetMenu(fileName = "Character Configuration", menuName = "Character Data", order = 50)]
