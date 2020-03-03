@@ -1,5 +1,6 @@
 ﻿using System;
 using ParkourRunner.Scripts.Managers;
+using AEngine;
 
 namespace ParkourRunner.Scripts.Player
 {
@@ -25,20 +26,24 @@ namespace ParkourRunner.Scripts.Player
                 case ("Roll"):
                     trick = ProgressManager.Instance.GetRandomRoll();
                     gm.DoTrick(trick);
+                    AudioManager.Instance.PlayUniqueSound(Sounds.Rift2);
                     return trick.AnimationName;
 
                 case ("Slide"):
                     trick = ProgressManager.Instance.GetRandomSlide();
                     gm.DoTrick(trick);
+                    AudioManager.Instance.PlayUniqueSound(Sounds.Rift2);
                     return trick.AnimationName;
 
                 case ("JumpOverFar"):
                     trick = ProgressManager.Instance.GetRandomJumpOver();
                     gm.DoTrick(trick);
                     OnJumpOverObstacle.SafeInvoke();
+                    AudioManager.Instance.PlayUniqueSound(Sounds.JumpOver);
                     return trick.AnimationName;
 
                 case ("JumpOverClose"):
+                    //AudioManager.Instance.PlaySound(Sounds.Caption);
                     return "JumpOver";
 
                 case ("Stand"):

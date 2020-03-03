@@ -69,7 +69,7 @@ public class EveryDayTask : QuestTask
 
         yield return new WaitForEndOfFrame();
 
-        AudioManager.Instance.PlaySound(Sounds.Result);
+        AudioManager.Instance.PlaySound(Sounds.WinQuest);
 
         duration = _rewardDuration;
         time = _rewardDuration;

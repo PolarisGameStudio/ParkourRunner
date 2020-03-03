@@ -235,7 +235,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
                 audio.StopSound(Sounds.RunOneLeg);
                 audio.StopSound(Sounds.Run);
             }
-
+                        
             bool nowInAir = isJumping || !isGrounded;
             if (nowInAir != this.InAir)
             {
@@ -310,7 +310,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
             ParkourCamera.Instance.OnRoll();
 
-            AudioManager.Instance.PlayRandomSound(Sounds.Rift, Sounds.Rift2);
+            AudioManager.Instance.PlayUniqueSound(Sounds.Rift);
         }
 
         public override void Jump()

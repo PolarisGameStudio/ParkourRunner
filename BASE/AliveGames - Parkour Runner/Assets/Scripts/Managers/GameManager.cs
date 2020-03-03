@@ -10,7 +10,6 @@ using ParkourRunner.Scripts.Track.Pick_Ups.Bonuses;
 using RootMotion.Dynamics;
 using UnityEngine;
 using AEngine;
-using Managers;
 
 namespace ParkourRunner.Scripts.Managers
 {
@@ -67,6 +66,16 @@ namespace ParkourRunner.Scripts.Managers
             {
                 float distance = Mathf.Clamp(((int)DistanceRun / 10), 1f, Mathf.Infinity);
                 int cost = (StaticConst.InitialReviveCost + (int)distance / 10) * (_revives + 1);
+                float distanceCostFactor = 0.15f;
+
+                if (distance <= 50)
+                    distanceCostFactor = 0.18f;
+                else if (distance <= 100)
+                    distanceCostFactor = 0.15f;
+                else
+                    distanceCostFactor = 0.12f;
+
+                cost = StaticConst.InitialReviveCost + Mathf.RoundToInt((StaticConst.ReviveGrowCost + distance * distanceCostFactor) * (_revives + 1));
 
                 return Mathf.RoundToInt(Mathf.Clamp(cost, StaticConst.InitialReviveCost, Mathf.Infinity));
             }

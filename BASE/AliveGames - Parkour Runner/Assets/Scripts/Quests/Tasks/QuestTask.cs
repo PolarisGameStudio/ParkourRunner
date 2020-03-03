@@ -10,7 +10,7 @@ public class QuestTask : MonoBehaviour
     protected void CompleteQuest(bool playSound)
     {
         if (playSound)
-            AudioManager.Instance.PlaySound(Sounds.Result);
+            AudioManager.Instance.PlaySound(Sounds.WinQuest);
 
         QuestManager.Instance.CompleteQuest(_data.ID);
         Wallet.Instance.AddCoins(_data.Reward, Wallet.WalletMode.InGame);

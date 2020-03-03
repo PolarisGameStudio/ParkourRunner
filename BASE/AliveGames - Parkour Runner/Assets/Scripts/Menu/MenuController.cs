@@ -5,6 +5,7 @@ using AEngine;
 public class MenuController : MonoBehaviour
 {
     public static MenuKinds TransitionTarget { get; set; }
+    public static MenuKinds LastTransition { get; private set; }
 
     public event Action<MenuKinds> OnShowMenu;
     public event Action<MenuKinds, Action> OnHideMenu;
@@ -36,6 +37,7 @@ public class MenuController : MonoBehaviour
     public void OpenMenu(MenuKinds menu)
     {
         this.TargetMenu = menu;
+        LastTransition = menu;
 
         if (this.CurrentMenu != null)
             OnHideMenu(this.CurrentMenu.Kind, ShowMenu);

@@ -249,7 +249,11 @@ namespace AEngine
 
 		public void StopSound(Sounds soundTrack)
 		{
-			StopSound(soundTrack.ToString());
+            try
+            {
+                StopSound(soundTrack.ToString());
+            }
+            catch { }
 		}
 
         void Update ()

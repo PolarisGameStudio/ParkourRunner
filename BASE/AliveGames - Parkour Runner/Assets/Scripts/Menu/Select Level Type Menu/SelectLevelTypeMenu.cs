@@ -76,5 +76,11 @@ public class SelectLevelTypeMenu : Menu
         _audio.PlaySound(Sounds.Tap);
         _menuController.OpenMenu(MenuKinds.SelectLevel);
     }
+
+    public void OnComingSoonClick()
+    {
+        _audio.PlaySound(Sounds.Tap);
+        AdManager.Instance.ShowAdvertising(null, null, null);
+    }
     #endregion
 }

@@ -22,11 +22,13 @@ public class Configuration : MonoSingleton<Configuration>
 
     public ControlsMode GetInputConfiguration()
     {
-        ControlsMode mode = ControlsMode.TiltAndSwipe;
+        // Default value
+        ControlsMode mode = ControlsMode.HalfScreenButtonsAndSwipe;
 
         if (!PlayerPrefs.HasKey(INPUT_MODE_KEY))
         {
             PlayerPrefs.SetString(INPUT_MODE_KEY, mode.ToString());
+            PlayerPrefs.Save();
         }
         else
         {

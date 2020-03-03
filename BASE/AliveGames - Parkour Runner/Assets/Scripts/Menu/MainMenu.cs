@@ -7,6 +7,9 @@ using Managers;
 
 public class MainMenu : Menu
 {
+    public static bool IsPlayingOpenMenuAnimation;
+    public static bool IsPlayingSettingsAnimation;
+        
     [Header("Animation settings")]
     [SerializeField] private GameObject _gameLoader;
     [SerializeField] private SettingsTweening _settingsTweening;    
@@ -20,6 +23,9 @@ public class MainMenu : Menu
     protected override void Show()
     {
         base.Show();
+
+        IsPlayingOpenMenuAnimation = false;
+        IsPlayingSettingsAnimation = false;
         
         var settingsSecuance = DOTween.Sequence();
         settingsSecuance.Append(_settingsPanelAnim.Show());
@@ -35,6 +41,8 @@ public class MainMenu : Menu
             var finalSecuance = DOTween.Sequence();
             finalSecuance.Append(_buttonsBlockAnim.Show(_buttonsBlockAnim.showPoint.anchoredPosition, _buttonsBlockAnim.duration * 0.1f));
             finalSecuance.Append(_questBlock.Show(_questBlock.showPoint.anchoredPosition, _questBlock.duration * 0.1f));
+
+            AdManager.Instance.ShowBanner();
         });
     }
         
@@ -42,6 +50,8 @@ public class MainMenu : Menu
     {
         base.StartHide(callback);
         StartCoroutine(HideProcess(callback));
+
+        AdManager.Instance.HideBanner();
     }
 
     private IEnumerator HideProcess(Action callback)
@@ -50,11 +60,12 @@ public class MainMenu : Menu
         {
             yield return new WaitForEndOfFrame();
         }
+
         if (_settingsTweening.IsOpend)
         {
             _settingsTweening.CloseSettings();
         }
-        
+
         var secuance = DOTween.Sequence();
         
         secuance.Append(_buttonsBlockAnim.Hide());
@@ -62,7 +73,7 @@ public class MainMenu : Menu
 
         secuance.Insert(0f, _settingsPanelAnim.Hide());
 
-        secuance.Insert(0, _playerStatusAnim.Hide());
+        secuance.Insert(0f, _playerStatusAnim.Hide());
         
         secuance.OnComplete(() =>
         {
@@ -73,25 +84,49 @@ public class MainMenu : Menu
     #region Events
     public void OnPlayButtonClick()
     {
-        _audio.PlaySound(Sounds.Tap);
-        _menuController.OpenMenu(MenuKinds.SelectLevelType);
+        if (!IsPlayingOpenMenuAnimation && !IsPlayingSettingsAnimation)
+        {
+            IsPlayingOpenMenuAnimation = true;
+
+            _audio.PlaySound(Sounds.Tap);
+            _menuController.OpenMenu(MenuKinds.SelectLevelType);
+        }
     }
 
     public void OnShopButtonClick()
     {
-        _audio.PlaySound(Sounds.Tap);
-        _menuController.OpenMenu(MenuKinds.Shop);
+        if (!IsPlayingOpenMenuAnimation && !IsPlayingSettingsAnimation)
+        {
+            IsPlayingOpenMenuAnimation = true;
+
+            _audio.PlaySound(Sounds.Tap);
+            _menuController.OpenMenu(MenuKinds.Shop);
+        }
     }
 
     public void OnQuestButtonClick()
     {
-        _audio.PlaySound(Sounds.Tap);
-        _menuController.OpenMenu(MenuKinds.Quests);
+        if (!IsPlayingOpenMenuAnimation && !IsPlayingSettingsAnimation)
+        {
+            IsPlayingOpenMenuAnimation = true;
+
+            _audio.PlaySound(Sounds.Tap);
+            _menuController.OpenMenu(MenuKinds.Quests);
+        }
     }
 
     public void OnLeaderboardButtonClick()
     {
-        GooglePlayGamesManager.ShowLeaderboardsUI();
+        if (!IsPlayingOpenMenuAnimation && !IsPlayingSettingsAnimation)
+        {
+            _audio.PlaySound(Sounds.Tap);
+
+#if UNITY_IPHONE || UNITY_IOS
+            AppleGameCenterManager.ShowLeaderboardsUI();
+#elif UNITY_ANDROID
+            GooglePlayGamesManager.ShowLeaderboardsUI();
+#endif
+        }
     }
-    #endregion
+#endregion
 }
