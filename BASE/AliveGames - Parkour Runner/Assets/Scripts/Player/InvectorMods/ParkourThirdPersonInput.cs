@@ -75,7 +75,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
         public void Stop()
         {
-            cc.input = Vector2.zero;
+            if(cc) cc.input = Vector2.zero;
             LockRunning = true;
             lockInput = true;
         }

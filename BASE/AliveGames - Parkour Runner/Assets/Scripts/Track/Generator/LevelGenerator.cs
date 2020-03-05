@@ -5,6 +5,7 @@ using ParkourRunner.Scripts.Player.InvectorMods;
 using ParkourRunnerEnvironment;
 using UnityEngine;
 using AEngine;
+using Managers;
 
 namespace ParkourRunner.Scripts.Track.Generator
 {
@@ -32,7 +33,7 @@ namespace ParkourRunner.Scripts.Track.Generator
         [SerializeField] private float _levelCaptionDelay = 1f;
 
         [SerializeField] private Vector3 StartBlockOffset;
-        [SerializeField] private List<Block> _blockPool;
+        public List<Block> _blockPool;
 
         private Environment _environment;
         public Block CenterBlock;
@@ -225,9 +226,17 @@ namespace ParkourRunner.Scripts.Track.Generator
             List<Block> blocksToDestroy = new List<Block>();
             foreach (var block in _blockPool)
             {
-                if (block.transform.position.z < _player.position.z - (_blockSize/2f + 2f)) //Если игрок сощёл с предыдущего блока на 2 метра
-                {
-                    blocksToDestroy.Add(block);
+                if (PhotonGameManager.IsMultiplayer) {
+                    if (block.transform.position.z < _player.position.z - (_blockSize)) //Если игрок прошел с предыдущего блока половину его длины
+                    {
+                        blocksToDestroy.Add(block);
+                    }
+                }
+                else {
+                    if (block.transform.position.z < _player.position.z - (_blockSize / 2f + 2f)) //Если игрок сощёл с предыдущего блока на 2 метра
+                    {
+                        blocksToDestroy.Add(block);
+                    }
                 }
             }
             foreach (var block in blocksToDestroy)

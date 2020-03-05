@@ -32,4 +32,14 @@ public class PlayerCanvas : MonoBehaviour {
 	public void HideReady() {
 		ReadyText.SetActive(false);
 	}
+
+
+	public void ShowNickname() {
+		Nickname.gameObject.SetActive(true);
+	}
+
+
+	public void HideNickname() {
+		Nickname.gameObject.SetActive(false);
+	}
 }

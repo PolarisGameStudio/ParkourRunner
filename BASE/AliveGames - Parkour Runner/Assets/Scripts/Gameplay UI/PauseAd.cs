@@ -14,9 +14,10 @@ public class PauseAd : MonoBehaviour
 
     public void OnButtonClick()
     {
+        AudioManager.Instance.PlaySound(Sounds.Tap);
+
         if (AdManager.Instance.IsAvailable())
         {
-            AudioManager.Instance.PlaySound(Sounds.Tap);
             AdManager.Instance.ShowAdvertising(AdFinishedCallback, AdSkippedCallback, AdSkippedCallback);
         }
     }

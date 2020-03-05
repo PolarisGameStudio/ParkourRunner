@@ -144,7 +144,7 @@ namespace ParkourRunner.Scripts.Track
             //Выясняем, не пробежал ли игрок уже мимо триггера
             if (playerX0pos.z + 0.5f > triggerPos.z)
             {
-                print("passed");
+                // print("passed");
                 msg = HUDManager.Messages.Ok;
                 hm.ShowGreatMessage(msg);
                 gm.TrickMultipiler = 1f;
@@ -155,19 +155,19 @@ namespace ParkourRunner.Scripts.Track
             float dist = Vector3.Distance(playerX0pos, triggerPos);
             if (dist < 1.5f)
             {
-                print("dist < 1f");
+                // print("dist < 1f");
                 msg = HUDManager.Messages.Perfect;
                 gm.TrickMultipiler = 1.5f;
             }
             else if (dist < 2.5f)
             {
-                print("dist < 2.5f");
+                // print("dist < 2.5f");
                 gm.TrickMultipiler = 1f;
                 msg = HUDManager.Messages.Great;
             }
             else
             {
-                print("dist > 2.5f");
+                // print("dist > 2.5f");
                 gm.TrickMultipiler = 0.5f;
                 msg = HUDManager.Messages.Ok;
             }

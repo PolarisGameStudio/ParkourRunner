@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Linq;
+using Managers;
 using UnityEngine;
 
 public class DistanceAnimation : BaseAnimatorController
@@ -54,12 +56,23 @@ public class DistanceAnimation : BaseAnimatorController
 
     private float GetDistance()
     {
-        if (_animationType == AnimationTypes.Default)
-        {
+        if (_animationType == AnimationTypes.Default) {
+            if (PhotonGameManager.IsMultiplayer) {
+                var positions = PhotonGameManager.Players.Select(p => p.transform.position);
+                var distances = positions.Select(p => Vector3.Distance(transform.position, p));
+                return distances.Min();
+            }
+
             return Vector3.Distance(transform.position, _player.position);
         }
         else
         {
+            if (PhotonGameManager.IsMultiplayer) {
+                var positions = PhotonGameManager.Players.Select(p => p.transform.position.z);
+                var distances = positions.Select(p => transform.position.z - p);
+                return distances.Min();
+            }
+
             return (transform.position.z - _player.position.z);
         }
     }

@@ -14,7 +14,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{8121B5AB-0035-F1EB-D865-1FC2E75A4FDF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -505,7 +506,6 @@
     <Compile Include="Assets\Scripts\Menu\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Menu\Menu.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuController.cs" />
-    <Compile Include="Assets\Scripts\Menu\Multiplayer\MultiplayerController.cs" />
     <Compile Include="Assets\Scripts\Menu\Multiplayer\MultiplayerMenu.cs" />
     <Compile Include="Assets\Scripts\Menu\Multiplayer\PlayerRow.cs" />
     <Compile Include="Assets\Scripts\Menu\Multiplayer\RoomController.cs" />

@@ -10,6 +10,7 @@ using ParkourRunner.Scripts.Track.Pick_Ups.Bonuses;
 using RootMotion.Dynamics;
 using UnityEngine;
 using AEngine;
+using Managers;
 using Photon.Pun;
 
 namespace ParkourRunner.Scripts.Managers
@@ -217,7 +218,12 @@ namespace ParkourRunner.Scripts.Managers
                 _player.Immune = false;
                 _player.RestoreImmune = false;
 
-                Invoke("ShowPostMortem", 4f);
+                if (PhotonGameManager.IsMultiplayer) {
+                    Invoke("Revive", 2f);
+                }
+                else {
+                    Invoke("ShowPostMortem", 4f);
+                }
 
                 _audio.PlaySound(Gender.Kind == Gender.GenderKinds.Male ? Sounds.Death : Sounds.DeathFem);
             }
@@ -239,6 +245,7 @@ namespace ParkourRunner.Scripts.Managers
         public void Revive()
         {
             var cb = LevelGenerator.Instance.CenterBlock;
+            if (PhotonGameManager.IsMultiplayer) cb = LevelGenerator.Instance._blockPool[0];
             Vector3 newPos = cb.transform.position;
             newPos.z -= LevelGenerator.Instance.BlockSize / 2f - 2f;
 
@@ -260,12 +267,12 @@ namespace ParkourRunner.Scripts.Managers
                     newPos = target.CachedTransform.position;
                 }
             }
-            
-            FindObjectOfType<PuppetMaster>().enabled = false; //mode = PuppetMaster.Mode.Disabled;
-            _player.transform.position = newPos;
-            FindObjectOfType<PuppetMaster>().enabled = true; //.mode = PuppetMaster.Mode.Kinematic;
+
+            _player.PuppetMaster.enabled = false; //mode = PuppetMaster.Mode.Disabled;
             _player.transform.root.position = newPos;
-            
+            _player.transform.position = newPos;
+            _player.PuppetMaster.enabled = true; //.mode = PuppetMaster.Mode.Kinematic;
+
             //Heal player
             gameState = GameState.Run;
             HealFull();

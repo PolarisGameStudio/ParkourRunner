@@ -164,9 +164,10 @@ public class RoomController : MonoBehaviourPunCallbacks {
 		Hashtable roomProperties = new Hashtable() {{"bet", _bet}, };
 
 		RoomOptions roomOptions = new RoomOptions {
-			CustomRoomPropertiesForLobby = new [] {"map", "scene", "bet", "laps"},
+			CustomRoomPropertiesForLobby = new [] {"map", "scene", "bet"},
 			CustomRoomProperties         = roomProperties,
-			MaxPlayers                   = MaxPlayers
+			MaxPlayers                   = MaxPlayers,
+			CleanupCacheOnLeave          = false
 		};
 
 		PhotonNetwork.CreateRoom(PhotonNetwork.LocalPlayer.NickName, roomOptions);
@@ -206,6 +207,11 @@ public class RoomController : MonoBehaviourPunCallbacks {
 
 
 	#region Pun Callbacks
+
+	public void OnConnectedToServer() {
+		PhotonNetwork.JoinLobby();
+	}
+
 
 	public override void OnPlayerEnteredRoom(Player newPlayer) {
 		print($"Player {newPlayer.NickName} joined to room");

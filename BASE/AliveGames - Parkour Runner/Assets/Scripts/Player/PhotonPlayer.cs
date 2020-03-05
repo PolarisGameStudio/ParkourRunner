@@ -9,57 +9,77 @@ using UnityEngine.Serialization;
 
 public class PhotonPlayer : MonoBehaviour {
 	public PlayerCanvas PlayerCanvas;
-	public PhotonView   PhotonView;
-	public PuppetMaster PuppetMaster;
 
-	[HideInInspector] public bool Ready;
+	[HideInInspector] public PhotonView PhotonView;
+	[HideInInspector] public bool       IsFinished;
+	[HideInInspector] public bool       Ready;
 
-	[SerializeField] private GameObject[]            DestroyOtherPlayersObjects;
-	[SerializeField] private Behaviour[]             DestroyOtherPlayersComponents;
-	[SerializeField] private ParkourThirdPersonInput PlayerInput;
+	[SerializeField] private GameObject[] DestroyOtherPlayersObjects;
 
-	private Animator _animator;
+	private ParkourThirdPersonInput _playerInput;
+	private Animator                _animator;
 
 
 	private void Awake() {
-		if (!PhotonGameManager.IsMultiplayer) {
-			PlayerInput.LockRunning = false;
-			return;
-		}
+		if (!PhotonGameManager.IsMultiplayer) return;
 
+		GetComponents();
 		if (!PhotonView.IsMine) {
 			DestroyComponents();
-			gameObject.tag = "Untagged";
+			gameObject.GetComponent<Rigidbody>().isKinematic = true;
 		}
 
-		PhotonGameManager.Players.Add(this);
-		if (PhotonView.IsMine) PhotonGameManager.LocalPlayer = this;
-		_animator = GetComponent<Animator>();
+		StopRun();
+		PhotonGameManager.AddPlayer(this);
 	}
 
 
-    private void Update()
-    {
-        if (!PhotonView.IsMine) return;
+	private void GetComponents() {
+		PhotonView   = GetComponent<PhotonView>();
+		_playerInput = GetComponent<ParkourThirdPersonInput>();
+		_animator    = GetComponent<Animator>();
+	}
 
-        if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            var controller = GetComponent<ParkourThirdPersonController>();
-            if(controller.PuppetMaster.state == PuppetMaster.State.Alive) controller.Die();
-            else controller.Revive();
-        }
-        else if (Input.GetKeyDown(KeyCode.P))
-        {
-            PlayerInput.LockRunning = !PlayerInput.LockRunning;
-        }
-    }
+
+	private void Update() {
+		if (!PhotonView.IsMine) return;
+
+		if (Input.GetKeyDown(KeyCode.Backspace)) {
+			var controller = GetComponent<ParkourThirdPersonController>();
+			if (controller.PuppetMaster.state == PuppetMaster.State.Alive) controller.Die();
+			else controller.Revive();
+		}
+		else if (Input.GetKeyDown(KeyCode.P)) {
+			_playerInput.LockRunning = !_playerInput.LockRunning;
+		}
+	}
 
 
 	public void DestroyComponents() {
 		DestroyOtherPlayersObjects.ToList().ForEach(Destroy);
-		DestroyOtherPlayersComponents.ToList().ForEach(Destroy);
-		// DestroyOtherPlayersComponents.ToList().ForEach(c => c.enabled = false);
-		gameObject.GetComponent<Rigidbody>().isKinematic = true;
+
+		Destroy(GetComponent<ParkourThirdPersonController>());
+		Destroy(GetComponent<ParkourThirdPersonInput>());
+		Destroy(GetComponent<GenericActionPlusPuppet>());
+		Destroy(GetComponent<InvectorPlusPuppet>());
+		Destroy(GetComponent<CharacterEffects>());
+		Destroy(transform.parent.GetComponent<ExtremlyReloader>());
+	}
+
+
+	public void StopRun() {
+		_playerInput.Stop();
+	}
+
+
+	public void StopInput() {
+		_playerInput.lockInput = false;
+	}
+
+
+	public void StartRun() {
+		_playerInput.LockRunning = false;
+		_playerInput.lockInput   = false;
 	}
 
 
@@ -70,15 +90,17 @@ public class PhotonPlayer : MonoBehaviour {
 
 		PhotonGameManager.CheckReady();
 	}
-	
-	
+
+
+	[PunRPC]
 	public void StartGame() {
+		if(!PhotonView.IsMine) return;
+
 		var startPosition = ParkourThirdPersonController.instance.StartPosition;
-		startPosition.x = transform.position.x;
-		transform.position = startPosition;
+		startPosition.x         = transform.position.x;
+		transform.position      = startPosition;
 		transform.localRotation = Quaternion.identity;
-		PlayerInput.LockRunning = false;
-		PlayerCanvas.HideReady();
+		StartRun();
 	}
 
 
@@ -90,21 +112,26 @@ public class PhotonPlayer : MonoBehaviour {
 
 	[PunRPC]
 	public void Die() {
-		print("Other Die");
 		_animator.SetBool("isDead", true);
 	}
 
 
 	[PunRPC]
 	public void LoseBalance() {
-		print("Other lose balance");
 		_animator.SetBool("isDead", true);
 	}
 
 
 	[PunRPC]
 	public void RegainBalance() {
-		print("Other regain balance");
 		_animator.SetBool("isDead", false);
+	}
+
+
+	[PunRPC]
+	public void Finish() {
+		if (PhotonView.IsMine) {
+			StopInput();
+		}
 	}
 }
