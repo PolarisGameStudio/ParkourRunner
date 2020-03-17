@@ -3,7 +3,7 @@
   <AudioConfiguration SoundSourceCount="6" fade="0" fadeOn="False" />
   <AudioBlock Name="Menu">
     <Music MusicNotReplyLength="1">
-      <Track Name="MenuMusic" Path="AudioResources/Musics/MenuMusic" Volume="0,25" />
+      <Track Name="MenuMusic" Path="AudioResources/New/MenuMusic" Volume="1" />
     </Music>
     <Sound>
       <Track Name="Tap" Path="AudioResources/Sounds/Tap" Volume="1" />
