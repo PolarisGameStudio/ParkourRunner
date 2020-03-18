@@ -7,7 +7,7 @@ namespace ParkourRunner.Scripts.Track.Pick_Ups
 
         protected override void Pick()
         {
-            AudioManager.Instance.PlaySound(Sounds.BonusMed);
+            AudioManager.Instance.PlaySound(Gender.Kind == Gender.GenderKinds.Male ? Sounds.BonusMed : Sounds.BonusMedFem);
 
             if (GameManager.Instance.HealLimb())
             {

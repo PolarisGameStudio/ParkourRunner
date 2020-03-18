@@ -212,7 +212,7 @@ namespace ParkourRunner.Scripts.Managers
 
                 Invoke("ShowPostMortem", 4f);
 
-                _audio.PlaySound(Sounds.Death);
+                _audio.PlaySound(Gender.Kind == Gender.GenderKinds.Male ? Sounds.Death : Sounds.DeathFem);
             }
         }
         

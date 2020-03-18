@@ -114,7 +114,12 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
                 _capsuleCollider.isTrigger = false;
                 this.LoseBalance = true;
                 if (PuppetMaster.state != PuppetMaster.State.Dead)
-                    AudioManager.Instance.PlayRandomSound(Sounds.Damage1, Sounds.Damage2);
+                {
+                    if (Gender.Kind == Gender.GenderKinds.Male)
+                        AudioManager.Instance.PlayRandomSound(Sounds.Damage1, Sounds.Damage2);
+                    else
+                        AudioManager.Instance.PlayRandomSound(Sounds.FemDamage1, Sounds.FemDamage2);
+                }
             });
             BehavPuppet.onLoseBalance.unityEvent.AddListener(ResetSpeed);
 
@@ -366,7 +371,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
             StartCoroutine(FreezeInAir(speed, height));
 
-            AudioManager.Instance.PlayUniqueSound(Sounds.JumpStrong);
+            AudioManager.Instance.PlayUniqueSound(Gender.Kind == Gender.GenderKinds.Male ? Sounds.JumpStrong : Sounds.JumpStrongFem);
         }
 
         //Это нужно чтобы на прыжке с батута всегда была постоянная скорость

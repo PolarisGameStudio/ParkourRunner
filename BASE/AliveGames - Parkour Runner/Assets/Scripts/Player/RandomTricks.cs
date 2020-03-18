@@ -26,20 +26,20 @@ namespace ParkourRunner.Scripts.Player
                 case ("Roll"):
                     trick = ProgressManager.Instance.GetRandomRoll();
                     gm.DoTrick(trick);
-                    AudioManager.Instance.PlayUniqueSound(Sounds.Rift2);
+                    AudioManager.Instance.PlayUniqueSound(Gender.Kind == Gender.GenderKinds.Male ? Sounds.Rift2 : Sounds.RiftFem);
                     return trick.AnimationName;
 
                 case ("Slide"):
                     trick = ProgressManager.Instance.GetRandomSlide();
                     gm.DoTrick(trick);
-                    AudioManager.Instance.PlayUniqueSound(Sounds.Rift2);
+                    AudioManager.Instance.PlayUniqueSound(Gender.Kind == Gender.GenderKinds.Male ? Sounds.Rift2 : Sounds.RiftFem);
                     return trick.AnimationName;
 
                 case ("JumpOverFar"):
                     trick = ProgressManager.Instance.GetRandomJumpOver();
                     gm.DoTrick(trick);
                     OnJumpOverObstacle.SafeInvoke();
-                    AudioManager.Instance.PlayUniqueSound(Sounds.JumpOver);
+                    AudioManager.Instance.PlayUniqueSound(Gender.Kind == Gender.GenderKinds.Male ? Sounds.JumpOver : Sounds.JumpOverFem);
                     return trick.AnimationName;
 
                 case ("JumpOverClose"):
