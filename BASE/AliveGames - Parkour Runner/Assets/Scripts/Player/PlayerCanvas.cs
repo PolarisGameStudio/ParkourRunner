@@ -5,14 +5,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerCanvas : MonoBehaviour {
-	[SerializeField] private PhotonView PhotonView;
-	[SerializeField] private Canvas Canvas;
-	[SerializeField] private Text Nickname;
+	public PhotonView PhotonView;
+
+	[SerializeField] private Canvas     Canvas;
+	[SerializeField] private Text       Nickname;
+	[SerializeField] private GameObject Reward;
+	[SerializeField] private Text       RewardValue;
 	[SerializeField] private GameObject LoadedText, ReadyText;
 
 
 	private void Start() {
-		if(!PhotonGameManager.IsMultiplayer) return;
+		if (!PhotonGameManager.IsMultiplayer) return;
 
 		Canvas.worldCamera = Camera.current;
 		Nickname.gameObject.SetActive(true);
@@ -41,5 +44,11 @@ public class PlayerCanvas : MonoBehaviour {
 
 	public void HideNickname() {
 		Nickname.gameObject.SetActive(false);
+	}
+
+
+	public void SetReward(int reward) {
+		Reward.gameObject.SetActive(true);
+		RewardValue.text = reward.ToString();
 	}
 }

@@ -8,6 +8,7 @@ public class MultiplayerUI : MonoBehaviour {
 
 	[SerializeField] private GameObject WaitingText;
 	[SerializeField] private GameObject ReadyButton;
+	[SerializeField] private GameObject ContinueFinishButton;
 	[SerializeField] private Text       Timer;
 	[SerializeField] private Text       PositionText;
 
@@ -45,6 +46,11 @@ public class MultiplayerUI : MonoBehaviour {
 
 	public void SetReadyButton(bool isOn) {
 		ReadyButton.SetActive(isOn);
+	}
+
+
+	public void SetContinueFinishButton(bool isOn) {
+		ContinueFinishButton.SetActive(isOn);
 	}
 
 

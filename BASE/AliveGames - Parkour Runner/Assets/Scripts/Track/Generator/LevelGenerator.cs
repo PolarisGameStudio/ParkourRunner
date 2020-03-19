@@ -130,7 +130,9 @@ namespace ParkourRunner.Scripts.Track.Generator
         {
             yield return new WaitForSeconds(delay);
 
-            Managers.HUDManager.Instance.ShowGreatMessage(Managers.HUDManager.Messages.CurrentLevel);
+            if (!PhotonGameManager.IsMultiplayer) {
+                Managers.HUDManager.Instance.ShowGreatMessage(Managers.HUDManager.Messages.CurrentLevel);
+            }
         }
                         
         private IEnumerator Generate()

@@ -12,6 +12,7 @@ public class PhotonPlayer : MonoBehaviour {
 
 	[HideInInspector] public PhotonView PhotonView;
 	[HideInInspector] public bool       IsFinished;
+	[HideInInspector] public int        FinishPlace;
 	[HideInInspector] public bool       Ready;
 
 	[SerializeField] private GameObject[] DestroyOtherPlayersObjects;
@@ -73,7 +74,7 @@ public class PhotonPlayer : MonoBehaviour {
 
 
 	public void StopInput() {
-		_playerInput.lockInput = false;
+		_playerInput.lockInput = true;
 	}
 
 
@@ -94,7 +95,7 @@ public class PhotonPlayer : MonoBehaviour {
 
 	[PunRPC]
 	public void StartGame() {
-		if(!PhotonView.IsMine) return;
+		if (!PhotonView.IsMine) return;
 
 		var startPosition = ParkourThirdPersonController.instance.StartPosition;
 		startPosition.x         = transform.position.x;
@@ -133,5 +134,47 @@ public class PhotonPlayer : MonoBehaviour {
 		if (PhotonView.IsMine) {
 			StopInput();
 		}
+	}
+
+
+	[PunRPC]
+	public void SetPosition(Vector3 position) {
+		if (!PhotonView.IsMine) return;
+
+		transform.position = position;
+	}
+
+
+	[PunRPC]
+	public void SetLocalRotation(Quaternion rotation) {
+		if (!PhotonView.IsMine) return;
+		transform.localRotation = rotation;
+	}
+
+
+	[PunRPC]
+	public void LockCamera() {
+		ParkourCamera.Instance.LockCamera = true;
+	}
+
+
+	[PunRPC]
+	public void UnlockCamera() {
+		ParkourCamera.Instance.LockCamera = false;
+	}
+
+
+	[PunRPC]
+	public void SetReward(int reward) {
+		PlayerCanvas.SetReward(reward);
+		if (PhotonView.IsMine) {
+			Wallet.Instance.AddCoins(reward, Wallet.WalletMode.InGame);
+		}
+	}
+
+
+	[PunRPC]
+	public void SetFinishPlace(int place) {
+		FinishPlace = place;
 	}
 }

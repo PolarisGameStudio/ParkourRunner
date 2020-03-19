@@ -4,6 +4,7 @@ using System.Linq;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Random = System.Random;
@@ -21,8 +22,22 @@ public class RoomController : MonoBehaviourPunCallbacks {
 
 
 	private void Start() {
-		PhotonNetwork.NickName     =  "Player" + UnityEngine.Random.Range(100000, 999999);
-		MultiplayerMenu.OnShowMenu += StartMultiplayer;
+		if (PhotonNetwork.IsConnectedAndReady) {
+			OnConnectedToMaster();
+		}
+		else {
+			PhotonNetwork.NickName     =  "Player" + UnityEngine.Random.Range(100000, 999999);
+			MultiplayerMenu.OnShowMenu += StartMultiplayer;
+		}
+	}
+
+
+	private void Update() {
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			PhotonNetwork.LeaveRoom();
+			PhotonNetwork.LeaveLobby();
+			SceneManager.LoadScene("Menu");
+		}
 	}
 
 
@@ -39,6 +54,7 @@ public class RoomController : MonoBehaviourPunCallbacks {
 
 	public override void OnConnectedToMaster() {
 		MultiplayerMenu.HideStatusPanel();
+		PhotonNetwork.JoinLobby();
 		ShowRoomListPanel();
 	}
 
@@ -74,10 +90,10 @@ public class RoomController : MonoBehaviourPunCallbacks {
 		var players = PhotonNetwork.CurrentRoom.Players.Select(p => p.Value.NickName).ToArray();
 		if (players.Length == 1) _bet = 0;
 
-		// TODO: Раскомметировать после разработки
-		// PhotonNetwork.CurrentRoom.IsOpen = false;
-		// PhotonNetwork.CurrentRoom.IsVisible = false;
+		PhotonNetwork.CurrentRoom.IsOpen = false;
+		PhotonNetwork.CurrentRoom.IsVisible = false;
 
+		PhotonNetwork.LeaveLobby();
 		MultiplayerMenu.Hide(MultiplayerMenu.OpenGame);
 	}
 
@@ -207,10 +223,6 @@ public class RoomController : MonoBehaviourPunCallbacks {
 
 
 	#region Pun Callbacks
-
-	public void OnConnectedToServer() {
-		PhotonNetwork.JoinLobby();
-	}
 
 
 	public override void OnPlayerEnteredRoom(Player newPlayer) {

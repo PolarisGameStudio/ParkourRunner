@@ -18,9 +18,7 @@ public class FinishMessage : MonoBehaviour
                     HUDManager.Instance.ShowGreatMessage(HUDManager.Messages.LevelComplete);
                 }
 
-                if (PhotonNetwork.IsMasterClient) {
-                    PhotonGameManager.OnPlayerFinish(other.gameObject);
-                }
+                PhotonGameManager.OnPlayerFinish(other.gameObject);
                 return;
             }
             HUDManager.Instance.ShowGreatMessage(HUDManager.Messages.LevelComplete);

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using ParkourRunner.Scripts.Managers;
 using AEngine;
+using Managers;
 
 public class PostMortemScreen : MonoBehaviour
 {
@@ -11,9 +12,21 @@ public class PostMortemScreen : MonoBehaviour
     public Text ReviveForMoneyBtnTxt;
 
     public GameObject ResultsScreen;
+    public GameObject MultiplayerResultsScreen;
     [SerializeField] private ResultDialogController _result;
     [SerializeField] private ReviveDialogController _revive;
-    
+    [SerializeField] private LocalizationComponent _distanceLocalization;
+    [SerializeField] private LocalizationComponent _recordLocalization;
+    [SerializeField] private LocalizationComponent _coinsLocalization;
+
+    [SerializeField] private LocalizationComponent _multiplayerPlaceLocalization;
+    public Text CoinsText;
+    public Text MetresText;
+    public Text RecordText;
+
+    public Text multiplayerPlaceText;
+    public Text multiplayerCoinsText;
+
     public GameObject NewRecordText;
 
     public float TimeToRevive = 5f;
@@ -142,6 +155,22 @@ public class PostMortemScreen : MonoBehaviour
                 
         if (_ad.CheckAdvertisingOrder())
             _ad.ShowAdvertising(null, null, null);
+    }
+
+    public void ShowMultiplayerResultScreen()
+    {
+        Wallet.Instance.Save();
+
+        MultiplayerResultsScreen.SetActive(true);
+
+        _audio.PlaySound(Sounds.ResultFull);
+
+        multiplayerPlaceText.text = string.Format("{0}  {1}", _multiplayerPlaceLocalization.Text, PhotonGameManager.LocalPlayer.FinishPlace);
+        multiplayerCoinsText.text = string.Format("{0}  {1}", _coinsLocalization.Text, Wallet.Instance.InGameCoins);
+
+        if (_ad && _ad.CheckAdvertisingOrder()) {
+            _ad.ShowAdvertising(null, null, null);
+        }
     }
 
     private void OnApplicationFocus(bool focus)

@@ -22,7 +22,6 @@ public class NextGameTransition : MonoBehaviour
     #region Events
     public void OnTransitionButtonClick()
     {
-        switch (EnvironmentController.CurrentMode)
         {
             case GameModes.Tutorial:
                 LoadScene(!GameManager.Instance.IsLevelComplete);

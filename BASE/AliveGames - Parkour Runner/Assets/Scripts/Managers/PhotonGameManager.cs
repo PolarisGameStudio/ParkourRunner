@@ -6,6 +6,7 @@ using ParkourRunner.Scripts.Managers;
 using ParkourRunner.Scripts.Player.InvectorMods;
 using Photon.Pun;
 using Photon.Realtime;
+using RootMotion.Dynamics;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -21,22 +22,24 @@ namespace Managers {
 											PhotonNetwork.InRoom;
 		public static  bool              GameIsStarted;
 		public static  bool              GameEnded;
-		private static Vector3           StartCameraOffset;
 		private static PhotonGameManager Instance;
 
 		public Transform[] StartPositions;
 		public Transform[] PedestalPositions;
 
 		private List<GameObject> FinishedPlayers = new List<GameObject>();
-		private Coroutine _startTimerCoroutine, _finishTimerCoroutine;
+		private Coroutine        _startTimerCoroutine, _finishTimerCoroutine;
 
 		private PhotonView PhotonView;
 
 
 		private void Start() {
 			if (!IsMultiplayer) return;
-			Instance = this;
+			if(PhotonNetwork.InLobby) PhotonNetwork.LeaveLobby();
+
+			Instance   = this;
 			PhotonView = GetComponent<PhotonView>();
+			LocalPlayer.LockCamera();
 
 			var playerIndex = PhotonNetwork.LocalPlayer.ActorNumber;
 			var startPlace  = StartPositions[playerIndex - 1];
@@ -44,16 +47,20 @@ namespace Managers {
 			LocalPlayer.transform.position      = startPlace.position;
 			LocalPlayer.transform.localRotation = startPlace.rotation;
 
-			StartCameraOffset = ParkourCamera.Instance.Offset;
+			var cameraPosition    = StartPositions[0].position + new Vector3(1, 0.25f, -5);
+			var lookPosition   = StartPositions[0].position + new Vector3(0, 1.5f,  0);
+			ParkourCamera.Instance.transform.position = cameraPosition;
+			ParkourCamera.Instance.transform.LookAt(lookPosition);
+		}
 
-			var newPos    = StartPositions[0].position + new Vector3(1, 0.25f, -5);
-			var newOffset = newPos                     - LocalPlayer.transform.position;
-			ParkourCamera.Instance.Offset = newOffset;
+
+		private void OnDestroy() {
+			Reset();
 		}
 
 
 		public static void AddPlayer(PhotonPlayer player) {
-			if(Players.Contains(player)) return;
+			if (Players.Contains(player)) return;
 
 			Players.Add(player);
 			if (player.PhotonView.IsMine) LocalPlayer = player;
@@ -67,15 +74,30 @@ namespace Managers {
 		}
 
 
+		public void OnContinueFinishButton() {
+			HUDManager.Instance.PostMortemScreen.ShowMultiplayerResultScreen();
+			MultiplayerUI.Instance.SetContinueFinishButton(false);
+			PhotonNetwork.LeaveRoom();
+		}
+
+
+		private void Reset() {
+			Players.Clear();
+			LocalPlayer   = null;
+			GameIsStarted = false;
+			GameEnded     = false;
+		}
+
+
 		public override void OnPlayerLeftRoom(Player otherPlayer) {
 			Players.Remove(null);
-			if(!GameIsStarted && !GameEnded) CheckReady();
+			if (!GameIsStarted && !GameEnded) CheckReady();
 		}
 
 
 		public static void CheckReady() {
 			// Выход если загрузились не все
-			if(Players.Count < PhotonNetwork.CurrentRoom.PlayerCount) return;
+			if (Players.Count < PhotonNetwork.CurrentRoom.PlayerCount) return;
 
 			// Установка кнопки (вкл/выкл) в зависимости от готовности игрока
 			MultiplayerUI.Instance.SetReadyButton(!LocalPlayer.Ready);
@@ -85,8 +107,14 @@ namespace Managers {
 
 			MultiplayerUI.Instance.HideWaitingText();
 			HUDManager.Instance.FadeIn(delegate {
+				LocalPlayer.UnlockCamera();
+				LocalPlayer.transform.localRotation = Quaternion.identity;
+				foreach (var player in Players) {
+					player.PlayerCanvas.HideReady();
+					player.PlayerCanvas.HideNickname();
+				}
+
 				// Установка смещения камеры в режим для бега
-				ParkourCamera.Instance.Offset = StartCameraOffset;
 				HUDManager.Instance.FadeOut(delegate {
 					Instance._startTimerCoroutine = LocalPlayer.StartCoroutine(Instance.RunStartTimer());
 				});
@@ -100,8 +128,8 @@ namespace Managers {
 				return Instance.FinishedPlayers.IndexOf(player.gameObject) + 1;
 			}
 			var runningPlayers = Players.Where(p => !p.IsFinished);
-			var playersOrder    = runningPlayers.OrderByDescending(p => p.transform.position.z);
-			var position        = playersOrder.ToList().IndexOf(player ? player : LocalPlayer);
+			var playersOrder   = runningPlayers.OrderByDescending(p => p.transform.position.z);
+			var position       = playersOrder.ToList().IndexOf(player ? player : LocalPlayer);
 			return position + Instance.FinishedPlayers.Count + 1;
 		}
 
@@ -109,12 +137,6 @@ namespace Managers {
 		private IEnumerator RunStartTimer() {
 			var timer = StartTimer;
 			MultiplayerUI.Instance.ShowTimer();
-			LocalPlayer.transform.localRotation = Quaternion.identity;
-
-			foreach (var player in Players) {
-				player.PlayerCanvas.HideReady();
-				player.PlayerCanvas.HideNickname();
-			}
 
 			while (timer > 0) {
 				MultiplayerUI.Instance.SetTimerTextValue((timer--).ToString());
@@ -135,74 +157,150 @@ namespace Managers {
 		public void StartGame() {
 			GameIsStarted = true;
 			MultiplayerUI.Instance.ShowPosition();
-
-			if(!PhotonNetwork.IsMasterClient) return;
-			Players.ForEach(p => p.PhotonView.RPC("StartGame", RpcTarget.All));
+			LocalPlayer.StartGame();
 		}
 
 
 		public static void OnPlayerFinish(GameObject player) {
-			if(!PhotonNetwork.IsMasterClient) return;
+			Instance.FinishedPlayers.Add(player);
+			if (!PhotonNetwork.IsMasterClient) return;
 
 			var photonPlayer = player.GetComponent<PhotonPlayer>();
-			photonPlayer.IsFinished  = true;
-			photonPlayer.PhotonView.RPC("Finish", RpcTarget.All);
-
-			Instance.FinishedPlayers.Add(player);
+			photonPlayer.IsFinished = true;
+			// photonPlayer.PhotonView.RPC("Finish", RpcTarget.All);
 
 			// Если финишировал первый игрок, то запуск обратного отсчета
 			if (Instance.FinishedPlayers.Count <= 1) {
-				Instance.StartCoroutine(FinishTimerCoroutine());
+				Instance.PhotonView.RPC("RunFinishTimer", RpcTarget.All);
 			}
 		}
 
 
-		private static IEnumerator FinishTimerCoroutine() {
+		[PunRPC]
+		public void RunFinishTimer() {
+			_finishTimerCoroutine = StartCoroutine(FinishTimerCoroutine());
+		}
+
+
+		private IEnumerator FinishTimerCoroutine() {
 			print("Run finish timer");
 			var timer = FinishTimer;
 			MultiplayerUI.Instance.ShowTimer();
 
-			while (timer > 0 && Instance.FinishedPlayers.Count < 3 && Instance.FinishedPlayers.Count < Players.Count) {
+			while (timer > 0 && FinishedPlayers.Count < 3 && FinishedPlayers.Count < Players.Count) {
 				MultiplayerUI.Instance.SetTimerTextValue((timer--).ToString());
 				yield return new WaitForSeconds(1f);
 			}
 
 			print("End timer");
-			EndGame();
+			if (PhotonNetwork.IsMasterClient) {
+				PhotonView.RPC("EndGame", RpcTarget.All);
+			}
 		}
 
 
-		private static void EndGame() {
+		[PunRPC]
+		public void EndGame() {
 			GameIsStarted = false;
 			GameEnded     = true;
-			LocalPlayer.StopRun();
-			MultiplayerUI.Instance.HidePosition();
-			MultiplayerUI.Instance.HideTimer();
 
 			HUDManager.Instance.FadeIn(delegate {
 				ShowPedestal();
+				LocalPlayer.GetComponent<ParkourThirdPersonController>().PuppetMaster.enabled = false;
+				LocalPlayer.StopRun();
+				LocalPlayer.PlayerCanvas.ShowNickname();
+				MultiplayerUI.Instance.HidePosition();
+				MultiplayerUI.Instance.HideTimer();
+				if(_finishTimerCoroutine != null) StopCoroutine(_finishTimerCoroutine);
+
+				if (PhotonNetwork.IsMasterClient) {
+					SetFinishPositions();
+				}
 				HUDManager.Instance.FadeOut(null);
 			});
 		}
 
 
-		private static void ShowPedestal() {
+		public void SetFinishPositions() {
+			foreach (var player in Players) {
+				var position = GetPlayerPosition(player);
+
+				player.PhotonView.RPC("SetFinishPlace", RpcTarget.All, position);
+
+				if (position > 3) continue;
+				var reward = GetReward(position);
+				print($"Reward for {position} place: {reward}");
+
+				var pedestalPlace = Instance.PedestalPositions[position - 1];
+				player.PhotonView.RPC("SetPosition",      RpcTarget.All, pedestalPlace.position);
+				player.PhotonView.RPC("SetLocalRotation", RpcTarget.All, pedestalPlace.rotation);
+				if (reward > 0) player.PhotonView.RPC("SetReward", RpcTarget.All, reward);
+			}
+		}
+
+
+		private int GetReward(int position) {
+			var properties = PhotonNetwork.CurrentRoom.CustomProperties;
+			var bet = (int) properties["bet"];
+			var bank = bet * Players.Count;
+			var winMultiplier = 1f;
+
+			switch (Players.Count) {
+				case 0: return 0;
+				case 1: return 0;
+				case 2:
+					switch (position) {
+						case 1:
+							winMultiplier = 1f;
+							break;
+						case 2:
+							winMultiplier = 0;
+							break;
+					}
+					break;
+				case 3:
+					switch (position) {
+						case 1:
+							winMultiplier = 0.65f;
+							break;
+						case 2:
+							winMultiplier = 0.35f;
+							break;
+						case 3:
+							winMultiplier = 0;
+							break;
+					}
+					break;
+				default:
+					switch (position) {
+						case 1:
+							winMultiplier = 0.5f;
+							break;
+						case 2:
+							winMultiplier = 0.35f;
+							break;
+						case 3:
+							winMultiplier = 0.15f;
+							break;
+					}
+					break;
+			}
+			return (int) (bank * winMultiplier);
+		}
+
+
+		private void ShowPedestal() {
 			print("Show pedestal");
-			var position = GetPlayerPosition(LocalPlayer);
-			if (position > 3) return;
-
-			var pedestalPlace = Instance.PedestalPositions[position - 1];
-			LocalPlayer.transform.position      = pedestalPlace.position;
-			LocalPlayer.transform.localRotation = pedestalPlace.rotation;
-			print($"Set position {pedestalPlace.position}");
-			print($"Set local rotation {pedestalPlace.rotation}");
-
 			LocalPlayer.PlayerCanvas.ShowNickname();
+			LocalPlayer.LockCamera();
 
 			// Перемещение камеры
-			var newPos    = Instance.PedestalPositions[0].position + new Vector3(1, 0.25f, -5);
+			var newPos = Instance.PedestalPositions[0].position + new Vector3(0, 0.25f, -5);
+			var lookPos = Instance.PedestalPositions[0].position + new Vector3(0, 1.5f, 0);
 			ParkourCamera.Instance.transform.position = newPos;
-			ParkourCamera.Instance.transform.LookAt(Instance.FinishedPlayers[0].transform);
+			ParkourCamera.Instance.transform.LookAt(lookPos);
+
+			MultiplayerUI.Instance.SetContinueFinishButton(true);
 		}
 	}
 }
