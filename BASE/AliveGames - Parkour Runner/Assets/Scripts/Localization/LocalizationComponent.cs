@@ -7,7 +7,7 @@ public class LocalizationComponent : MonoBehaviour
 
     private LocalizationManager _locManager;
 
-    private void Awake()
+    private void Start()
     {
         _locManager = LocalizationManager.Instance;
     }

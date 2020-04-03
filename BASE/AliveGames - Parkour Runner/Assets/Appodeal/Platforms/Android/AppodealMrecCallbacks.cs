@@ -1,39 +1,52 @@
-﻿using AppodealAds.Unity.Common;
-using UnityEngine;
+﻿using System.Diagnostics.CodeAnalysis;
+using AppodealAds.Unity.Common;
 
-namespace AppodealAds.Unity.Android {
-	public class AppodealMrecCallbacks
+namespace AppodealAds.Unity.Android
+{
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "UnusedParameter.Local")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    public class AppodealMrecCallbacks
 #if UNITY_ANDROID
-		: AndroidJavaProxy {
-			IMrecAdListener listener;
+        : UnityEngine.AndroidJavaProxy
+    {
+        private readonly IMrecAdListener listener;
 
-			internal AppodealMrecCallbacks (IMrecAdListener listener) : base ("com.appodeal.ads.MrecCallbacks") {
-				this.listener = listener;
-			}
+        internal AppodealMrecCallbacks(IMrecAdListener listener) : base("com.appodeal.ads.MrecCallbacks")
+        {
+            this.listener = listener;
+        }
 
-			void onMrecLoaded (bool isPrecache) {
-				listener.onMrecLoaded (isPrecache);
-			}
+        public void onMrecLoaded(bool isPrecache)
+        {
+            listener.onMrecLoaded(isPrecache);
+        }
 
-			void onMrecFailedToLoad () {
-				listener.onMrecFailedToLoad ();
-			}
+        public void onMrecFailedToLoad()
+        {
+            listener.onMrecFailedToLoad();
+        }
 
-			void onMrecShown () {
-				listener.onMrecShown ();
-			}
+        public void onMrecShown()
+        {
+            listener.onMrecShown();
+        }
 
-			void onMrecClicked () {
-				listener.onMrecClicked ();
-			}
+        public void onMrecClicked()
+        {
+            listener.onMrecClicked();
+        }
 
-			void onMrecExpired () {
-				listener.onMrecExpired ();
-			}
-		}
+        public void onMrecExpired()
+        {
+            listener.onMrecExpired();
+        }
+    }
 #else
-	{
-		public AppodealMrecCallbacks (IMrecAdListener listener) { }
-	}
+    {
+        public AppodealMrecCallbacks(IMrecAdListener listener)
+        {
+        }
+    }
 #endif
 }

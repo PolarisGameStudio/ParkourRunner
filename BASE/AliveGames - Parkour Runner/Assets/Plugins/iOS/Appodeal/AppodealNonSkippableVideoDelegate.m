@@ -20,12 +20,6 @@
     }
 }
 
--(void) nonSkippableVideoDidFinish {
-    if(self.nonSkippableVideoDidFinishCallback) {
-        self.nonSkippableVideoDidFinishCallback();
-    }
-}
-
 -(void) nonSkippableVideoDidPresent {
     if(self.nonSkippableVideoDidPresentCallback) {
         self.nonSkippableVideoDidPresentCallback();
@@ -35,6 +29,12 @@
 -(void) nonSkippableVideoWillDismissAndWasFullyWatched:(BOOL)wasFullyWatched {
     if(self.nonSkippableVideoWillDismissCallback) {
         self.nonSkippableVideoWillDismissCallback(wasFullyWatched);
+    }
+}
+
+-(void) nonSkippableVideoDidFinish {
+    if(self.nonSkippableVideoDidFinishCallback) {
+        self.nonSkippableVideoDidFinishCallback();
     }
 }
 

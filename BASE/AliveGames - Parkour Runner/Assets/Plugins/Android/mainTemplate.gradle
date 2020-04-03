@@ -13,11 +13,11 @@ buildscript {
 
 allprojects {
     repositories {**ARTIFACTORYREPOSITORY**
-        google()
-        jcenter()
-        flatDir {
+		flatDir {
             dirs 'libs'
         }
+        google()
+        jcenter()
     }
 }
 
@@ -35,7 +35,7 @@ allprojects {
             url "https://maven.google.com"
         }
         maven {
-            url "https://maven.google.com" // Assets/Editor/AppodealDependencies.xml:10, Assets/Editor/AppodealDependencies.xml:18, Assets/Editor/AppodealDependencies.xml:26, Assets/Editor/AppodealDependencies.xml:34, Assets/Editor/AppodealDependencies.xml:39
+            url "https://artifactory.appodeal.com/appodeal" // Assets/Appodeal/Editor/AppodealDependencies.xml:7
         }
         maven {
             url "https://maven.google.com/" // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:7
@@ -58,19 +58,38 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:25.3.1' // Facebook.Unity.Editor.AndroidSupportLibraryResolver.addSupportLibraryDependency
     implementation 'com.android.support:cardview-v7:25.3.1' // Facebook.Unity.Editor.AndroidSupportLibraryResolver.addSupportLibraryDependency
     implementation 'com.android.support:customtabs:25.3.1' // Facebook.Unity.Editor.AndroidSupportLibraryResolver.addSupportLibraryDependency
-    implementation 'com.android.support:recyclerview-v7:26.1.0' // Assets/Editor/AppodealDependencies.xml:34
     implementation 'com.android.support:support-v4:25.3.1' // Facebook.Unity.Editor.AndroidSupportLibraryResolver.addSupportLibraryDependency
-    implementation 'com.android.support:support-v4:26.1.0' // Assets/Editor/AppodealDependencies.xml:26
+    implementation 'com.appodeal.ads.sdk.networks:adcolony:2.6.0.2' // Assets/Appodeal/Editor/AppodealDependencies.xml:13
+    implementation 'com.appodeal.ads.sdk.networks:admob:2.6.0.1' // Assets/Appodeal/Editor/AppodealDependencies.xml:14
+    implementation 'com.appodeal.ads.sdk.networks:amazon_ads:2.6.0.1' // Assets/Appodeal/Editor/AppodealDependencies.xml:15
+    implementation 'com.appodeal.ads.sdk.networks:applovin:2.6.0.3' // Assets/Appodeal/Editor/AppodealDependencies.xml:16
+    implementation 'com.appodeal.ads.sdk.networks:appodeal:2.6.0.1' // Assets/Appodeal/Editor/AppodealDependencies.xml:8
+    implementation 'com.appodeal.ads.sdk.networks:appodealx:2.6.0.1' // Assets/Appodeal/Editor/AppodealDependencies.xml:9
+    implementation 'com.appodeal.ads.sdk.networks:chartboost:2.6.0.1' // Assets/Appodeal/Editor/AppodealDependencies.xml:17
+    implementation 'com.appodeal.ads.sdk.networks:facebook:2.6.0.3' // Assets/Appodeal/Editor/AppodealDependencies.xml:18
+    implementation 'com.appodeal.ads.sdk.networks:inmobi:2.6.0.1' // Assets/Appodeal/Editor/AppodealDependencies.xml:19
+    implementation 'com.appodeal.ads.sdk.networks:inner-active:2.6.0.1' // Assets/Appodeal/Editor/AppodealDependencies.xml:20
+    implementation 'com.appodeal.ads.sdk.networks:ironsource:2.6.0.2' // Assets/Appodeal/Editor/AppodealDependencies.xml:21
+    implementation 'com.appodeal.ads.sdk.networks:mraid:2.6.0.1' // Assets/Appodeal/Editor/AppodealDependencies.xml:10
+    implementation 'com.appodeal.ads.sdk.networks:my_target:2.6.0.3' // Assets/Appodeal/Editor/AppodealDependencies.xml:22
+    implementation 'com.appodeal.ads.sdk.networks:nast:2.6.0.1' // Assets/Appodeal/Editor/AppodealDependencies.xml:11
+    implementation 'com.appodeal.ads.sdk.networks:ogury:2.6.0.2' // Assets/Appodeal/Editor/AppodealDependencies.xml:23
+    implementation 'com.appodeal.ads.sdk.networks:smaato:2.6.0.2' // Assets/Appodeal/Editor/AppodealDependencies.xml:24
+    implementation 'com.appodeal.ads.sdk.networks:startapp:2.6.0.3' // Assets/Appodeal/Editor/AppodealDependencies.xml:25
+    implementation 'com.appodeal.ads.sdk.networks:tapjoy:2.6.0.2' // Assets/Appodeal/Editor/AppodealDependencies.xml:26
+    implementation 'com.appodeal.ads.sdk.networks:unity_ads:2.6.0.2' // Assets/Appodeal/Editor/AppodealDependencies.xml:27
+    implementation 'com.appodeal.ads.sdk.networks:vast:2.6.0.1' // Assets/Appodeal/Editor/AppodealDependencies.xml:12
+    implementation 'com.appodeal.ads.sdk.networks:vungle:2.6.0.1' // Assets/Appodeal/Editor/AppodealDependencies.xml:28
+    implementation 'com.appodeal.ads.sdk.networks:yandex:2.6.0.2' // Assets/Appodeal/Editor/AppodealDependencies.xml:29
+    implementation 'com.appodeal.ads.sdk:core:2.6.3' // Assets/Appodeal/Editor/AppodealDependencies.xml:7
     implementation 'com.facebook.android:facebook-applinks:[5,6)' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:6
     implementation 'com.facebook.android:facebook-core:[5,6)' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:5
     implementation 'com.facebook.android:facebook-login:[5,6)' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:7
     implementation 'com.facebook.android:facebook-share:[5,6)' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:8
-    implementation 'com.google.android.exoplayer:exoplayer:2.8.4' // Assets/Editor/AppodealDependencies.xml:39
-    implementation 'com.google.android.gms:play-services-ads:15.0.1' // Assets/Editor/AppodealDependencies.xml:10
     implementation 'com.google.android.gms:play-services-ads:18.1.0' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:7
-    implementation 'com.google.android.gms:play-services-location:15.0.1' // Assets/Editor/AppodealDependencies.xml:18
     implementation 'com.google.games:gpgs-plugin-support:0.10.06' // Assets/GooglePlayGames/Editor/GooglePlayGamesPluginDependencies.xml:11
     implementation 'com.parse.bolts:bolts-android:1.4.0' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:4
+	implementation 'androidx.multidex:multidex:2.0.1'
 // Android Resolver Dependencies End
 **DEPS**}
 

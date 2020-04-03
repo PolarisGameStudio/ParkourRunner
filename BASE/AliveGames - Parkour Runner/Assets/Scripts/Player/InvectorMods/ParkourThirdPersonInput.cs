@@ -135,6 +135,9 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
                         cc.Jump();
                     }
                 }
+                else {
+                    cc.Jump();
+                }
             }
         }
 

@@ -8,20 +8,18 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 public class PhotonPlayer : MonoBehaviour {
-	public PlayerCanvas PlayerCanvas;
-
-	[HideInInspector] public PhotonView PhotonView;
-	[HideInInspector] public bool       IsFinished;
-	[HideInInspector] public int        FinishPlace;
-	[HideInInspector] public bool       Ready;
-
-	[SerializeField] private GameObject[] DestroyOtherPlayersObjects;
+	[HideInInspector] public PlayerCanvas PlayerCanvas;
+	[HideInInspector] public PhotonView   PhotonView;
+	[HideInInspector] public bool         IsFinished;
+	[HideInInspector] public int          FinishPlace;
+	[HideInInspector] public bool         Ready;
 
 	private ParkourThirdPersonInput _playerInput;
 	private Animator                _animator;
 
 
 	private void Awake() {
+		PhotonView = GetComponent<PhotonView>();
 		if (!PhotonGameManager.IsMultiplayer) return;
 
 		GetComponents();
@@ -31,14 +29,27 @@ public class PhotonPlayer : MonoBehaviour {
 		}
 
 		StopRun();
+	}
+
+
+	private void Start() {
+		if (!PhotonGameManager.IsMultiplayer) return;
 		PhotonGameManager.AddPlayer(this);
 	}
 
 
 	private void GetComponents() {
-		PhotonView   = GetComponent<PhotonView>();
 		_playerInput = GetComponent<ParkourThirdPersonInput>();
 		_animator    = GetComponent<Animator>();
+
+		for (int i = 0; i < transform.childCount; i++) {
+			var child = transform.GetChild(i);
+			if (child.name.Equals("MultiplayerCanvas")) {
+				PlayerCanvas = child.GetComponent<PlayerCanvas>();
+				PlayerCanvas.PhotonView = PhotonView;
+				break;
+			}
+		}
 	}
 
 
@@ -57,8 +68,14 @@ public class PhotonPlayer : MonoBehaviour {
 
 
 	public void DestroyComponents() {
-		DestroyOtherPlayersObjects.ToList().ForEach(Destroy);
-
+		var parent = transform.parent;
+		for (int i = 0; i < parent.childCount; i++) {
+			var child = parent.GetChild(i);
+			if (child.name.Equals("Behaviours") || child.name.Equals("PuppetMaster")) {
+				Destroy(child.gameObject);
+				i -= 1;
+			}
+		}
 		Destroy(GetComponent<ParkourThirdPersonController>());
 		Destroy(GetComponent<ParkourThirdPersonInput>());
 		Destroy(GetComponent<GenericActionPlusPuppet>());

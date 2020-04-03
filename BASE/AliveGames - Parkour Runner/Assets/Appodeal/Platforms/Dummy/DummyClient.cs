@@ -1,9 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
 using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
 using UnityEngine;
 
 namespace AppodealAds.Unity.Dummy
 {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class DummyClient : IAppodealAdsClient
     {
         public void initialize(string appKey, int adTypes)
@@ -126,11 +128,6 @@ namespace AppodealAds.Unity.Dummy
         public void updateConsent(bool value)
         {
             Debug.Log("Call to Appodeal.updateConsent on not supported platform");
-        }
-
-        public void resetFilterMatureContentFlag()
-        {
-            Debug.Log("Call to Appodeal.resetFilterMatureContentFlag on not supported platform");
         }
 
         public void disableNetwork(string network)
@@ -301,12 +298,12 @@ namespace AppodealAds.Unity.Dummy
             Debug.Log("Call to Appodeal.setUserId on not supported platform");
         }
 
-        public void setAge(int age)
+        public void setUserAge(int age)
         {
-            Debug.Log("Call to Appodeal.setAge on not supported platform");
+            Debug.Log("Call to Appodeal.setUserAge on not supported platform");
         }
 
-        public void setGender(UserSettings.Gender gender)
+        public void setUserGender(UserSettings.Gender gender)
         {
             Debug.Log("Call to Appodeal.setGender on not supported platform");
         }

@@ -1,43 +1,64 @@
-﻿using AppodealAds.Unity.Common;
-using UnityEngine;
+﻿using System.Diagnostics.CodeAnalysis;
+using AppodealAds.Unity.Common;
 
-namespace AppodealAds.Unity.Android {
-	public class AppodealInterstitialCallbacks
+
+namespace AppodealAds.Unity.Android
+{
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "UnusedParameter.Local")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    public class AppodealInterstitialCallbacks
 #if UNITY_ANDROID
-		: AndroidJavaProxy {
-			IInterstitialAdListener listener;
+        : UnityEngine.AndroidJavaProxy
+    {
+        private readonly IInterstitialAdListener listener;
 
-			internal AppodealInterstitialCallbacks (IInterstitialAdListener listener) : base ("com.appodeal.ads.InterstitialCallbacks") {
-				this.listener = listener;
-			}
+        internal AppodealInterstitialCallbacks(IInterstitialAdListener listener) : base(
+            "com.appodeal.ads.InterstitialCallbacks")
+        {
+            this.listener = listener;
+        }
 
-			void onInterstitialLoaded (bool isPrecache) {
-				listener.onInterstitialLoaded (isPrecache);
-			}
+        public void onInterstitialLoaded(bool isPrecache)
+        {
+            listener.onInterstitialLoaded(isPrecache);
+        }
 
-			void onInterstitialFailedToLoad () {
-				listener.onInterstitialFailedToLoad ();
-			}
+        public void onInterstitialFailedToLoad()
+        {
+            listener.onInterstitialFailedToLoad();
+        }
 
-			void onInterstitialShown () {
-				listener.onInterstitialShown ();
-			}
+        public void onInterstitialShowFailed()
+        {
+            listener.onInterstitialShowFailed();
+        }
 
-			void onInterstitialClicked () {
-				listener.onInterstitialClicked ();
-			}
+        public void onInterstitialShown()
+        {
+            listener.onInterstitialShown();
+        }
 
-			void onInterstitialClosed () {
-				listener.onInterstitialClosed ();
-			}
+        public void onInterstitialClicked()
+        {
+            listener.onInterstitialClicked();
+        }
 
-			void onInterstitialExpired () {
-				listener.onInterstitialExpired ();
-			}
-		}
+        public void onInterstitialClosed()
+        {
+            listener.onInterstitialClosed();
+        }
+
+        public void onInterstitialExpired()
+        {
+            listener.onInterstitialExpired();
+        }
+    }
 #else
-	{
-		public AppodealInterstitialCallbacks (IInterstitialAdListener listener) { }
-	}
+    {
+        public AppodealInterstitialCallbacks(IInterstitialAdListener listener)
+        {
+        }
+    }
 #endif
 }

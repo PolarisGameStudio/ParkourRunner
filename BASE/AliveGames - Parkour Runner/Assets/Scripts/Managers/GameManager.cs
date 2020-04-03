@@ -131,7 +131,7 @@ namespace ParkourRunner.Scripts.Managers
 
         private void StartGame()
         {
-            if (PlayerPrefs.GetInt(EnvironmentController.MULTIPLAYER_KEY) == 1 && PhotonNetwork.IsConnectedAndReady) {
+            if (PhotonGameManager.IsMultiplayer) {
                 gameState = GameState.Pause;
             }
             else {

@@ -22,26 +22,16 @@ public class RoomController : MonoBehaviourPunCallbacks {
 
 
 	private void Start() {
-		if (PhotonNetwork.IsConnectedAndReady) {
-			OnConnectedToMaster();
-		}
-		else {
-			PhotonNetwork.NickName     =  "Player" + UnityEngine.Random.Range(100000, 999999);
-			MultiplayerMenu.OnShowMenu += StartMultiplayer;
-		}
+		MultiplayerMenu.OnShowMenu += StartMultiplayer;
 	}
-
-
-	private void Update() {
-		if (Input.GetKeyDown(KeyCode.Escape)) {
-			PhotonNetwork.LeaveRoom();
-			PhotonNetwork.LeaveLobby();
-			SceneManager.LoadScene("Menu");
-		}
-	}
-
 
 	private void StartMultiplayer() {
+		if (PhotonNetwork.IsConnectedAndReady) {
+			OnConnectedToMaster();
+			return;
+		}
+
+		print("StartMultiplayer");
 		PhotonNetwork.ConnectUsingSettings();
 		MultiplayerMenu.SetStatus("Connecting...");
 	}
@@ -53,9 +43,38 @@ public class RoomController : MonoBehaviourPunCallbacks {
 
 
 	public override void OnConnectedToMaster() {
+		print("Connected");
+		_bet = 100;
 		MultiplayerMenu.HideStatusPanel();
+		print("In lobby: " + PhotonNetwork.InLobby);
 		PhotonNetwork.JoinLobby();
+
+		Hashtable playerProperties = new Hashtable { { "money", Wallet.Instance.AllCoins } };
+		PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
+	}
+
+
+	public override void OnJoinedLobby() {
 		ShowRoomListPanel();
+	}
+
+
+	public override void OnDisconnected(DisconnectCause cause) {
+		print($"Disconneted: {cause.ToString()}");
+		if(cause == DisconnectCause.DisconnectByClientLogic) return;
+
+		MultiplayerMenu.Hide(delegate {
+			HideRoomListPanel();
+			DestroyRoomButtons();
+			StartMultiplayer();
+		});
+	}
+
+
+	private int GetMinBalanceInRoom() {
+		if (!PhotonNetwork.InRoom) return 0;
+
+		return (int) PhotonNetwork.CurrentRoom.Players.Values.ToList().Min(p => p.CustomProperties["money"]);
 	}
 
 
@@ -87,11 +106,14 @@ public class RoomController : MonoBehaviourPunCallbacks {
 
 	public void OnStartBtn() {
 		RoomPanelObject.HideError();
-		var players = PhotonNetwork.CurrentRoom.Players.Select(p => p.Value.NickName).ToArray();
-		if (players.Length == 1) _bet = 0;
 
 		PhotonNetwork.CurrentRoom.IsOpen = false;
 		PhotonNetwork.CurrentRoom.IsVisible = false;
+
+		if (PhotonNetwork.CurrentRoom.PlayerCount == 1) {
+			_bet = 0;
+			UpdateCustomProperties();
+		}
 
 		PhotonNetwork.LeaveLobby();
 		MultiplayerMenu.Hide(MultiplayerMenu.OpenGame);
@@ -108,12 +130,19 @@ public class RoomController : MonoBehaviourPunCallbacks {
 
 
 	public void OnBetPlusBtn() {
-		/*if (User.Data.Money < _bet + 100) {
-			RoomPanelObject.SetErrorText("Недостаточно средств для увеличения ставки");
+		if (Wallet.Instance.AllCoins < _bet + 100) {
+			RoomPanelObject.SetErrorText(RoomPanelObject.NotEnoughMoneyText.Text);
 			return;
-		}*/
+		}
+
+		print($"Min balance: {GetMinBalanceInRoom()}");
+		if (GetMinBalanceInRoom() < _bet + 100) {
+			RoomPanelObject.SetErrorText(RoomPanelObject.NotEnoughMoneyOtherText.Text);
+			return;
+		}
 		_bet += 100;
 		_bet =  (_bet <= MaxBet) ? _bet : MaxBet;
+
 		UpdateCustomProperties();
 	}
 
@@ -175,7 +204,7 @@ public class RoomController : MonoBehaviourPunCallbacks {
 
 	public void CreateRoom() {
 		_bet = 100;
-		// if (User.Data.Money < _bet) _bet = 0;
+		if (Wallet.Instance.AllCoins < _bet) _bet = 0;
 
 		Hashtable roomProperties = new Hashtable() {{"bet", _bet}, };
 
@@ -188,6 +217,10 @@ public class RoomController : MonoBehaviourPunCallbacks {
 
 		PhotonNetwork.CreateRoom(PhotonNetwork.LocalPlayer.NickName, roomOptions);
 		RoomPanelObject.SetStatus("LOBBY SEARCH");
+
+		RoomPanelObject.UnblockControlButton();
+		RoomPanelObject.UnBlockStartButton();
+		RoomPanelObject.HideError();
 	}
 
 
@@ -198,6 +231,8 @@ public class RoomController : MonoBehaviourPunCallbacks {
 
 
 	private void CreateRoomRow(RoomInfo room) {
+		if (room.PlayerCount <= 0) return;
+
 		foreach (var p in room.CustomProperties) print($"{p.Key}:{p.Value}");
 		var bet = (room.CustomProperties.ContainsKey("bet")) ? (int) room.CustomProperties["bet"] : 0;
 
@@ -208,7 +243,7 @@ public class RoomController : MonoBehaviourPunCallbacks {
 		roomRow.SetPlayers(room.PlayerCount, room.MaxPlayers);
 		roomRow.SetBet(bet);
 		roomRow.SetOnClickListener(OnJoinRoomBtn);
-		// if(User.Data.Money < bet) roomRow.BlockConnectButton();
+		if(Wallet.Instance.AllCoins < bet) roomRow.BlockConnectButton();
 
 		RoomListObject.RoomListButtons.Add(go);
 	}
@@ -238,6 +273,11 @@ public class RoomController : MonoBehaviourPunCallbacks {
 		RoomPanelObject.UpdatePlayers();
 
 		if (PhotonNetwork.IsMasterClient) RoomPanelObject.UnblockControlButton();
+		if (PhotonNetwork.CurrentRoom.PlayerCount == 1) {
+			RoomPanelObject.SetReadyOnLocalPlayer(true);
+			RoomPanelObject.UnblockControlButton();
+			RoomPanelObject.UnBlockStartButton();
+		}
 	}
 
 
@@ -257,12 +297,20 @@ public class RoomController : MonoBehaviourPunCallbacks {
 		ShowRoomPanel();
 		RoomPanelObject.GetLocalPlayerRow().SetNickname(PhotonNetwork.NickName);
 		RoomPanelObject.UpdatePlayers();
+		RoomPanelObject.HideError();
 
-		if (!PhotonNetwork.IsMasterClient) RoomPanelObject.BlockControlButtons();
-		else {
+		if (PhotonNetwork.IsMasterClient) {
 			RoomPanelObject.SetReadyOnLocalPlayer(true);
 			RoomPanelObject.CheckPlayersReady();
 			RoomPanelObject.CheckPlayersCount();
+		}
+		else {
+			var roomProps = PhotonNetwork.CurrentRoom.CustomProperties;
+			if (roomProps.ContainsKey("bet")) {
+				_bet = (int) roomProps["bet"];
+				RoomPanelObject.SetBet(_bet);
+			}
+			RoomPanelObject.BlockControlButtons();
 		}
 	}
 
@@ -289,6 +337,11 @@ public class RoomController : MonoBehaviourPunCallbacks {
 		RoomPanelObject.CheckPlayersCount();
 	}
 
+
+	public override void OnCreatedRoom() {
+		UpdateCustomProperties();
+	}
+
 	#endregion
 
 
@@ -306,6 +359,9 @@ public class RoomController : MonoBehaviourPunCallbacks {
 		[SerializeField] private Button BetPlusButton;
 		[SerializeField] private Button BetMinusButton;
 		[SerializeField] private Button ReadyButton;
+
+		public LocalizationComponent NotEnoughMoneyText;
+		public LocalizationComponent NotEnoughMoneyOtherText;
 
 		private Dictionary<int, PlayerRow> _otherPlayersRows = new Dictionary<int, PlayerRow>();
 

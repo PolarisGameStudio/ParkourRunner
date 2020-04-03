@@ -13,7 +13,7 @@ using UnityEngine.Serialization;
 namespace Managers {
 	public class PhotonGameManager : MonoBehaviourPunCallbacks {
 		public const int StartTimer  = 3;
-		public const int FinishTimer = 5;
+		public const int FinishTimer = 30;
 
 		public static List<PhotonPlayer> Players = new List<PhotonPlayer>();
 		public static PhotonPlayer       LocalPlayer;
@@ -28,7 +28,7 @@ namespace Managers {
 		public Transform[] PedestalPositions;
 
 		private List<GameObject> FinishedPlayers = new List<GameObject>();
-		private Coroutine        _startTimerCoroutine, _finishTimerCoroutine;
+		private Coroutine _finishTimerCoroutine;
 
 		private PhotonView PhotonView;
 
@@ -36,6 +36,10 @@ namespace Managers {
 		private void Start() {
 			if (!IsMultiplayer) return;
 			if(PhotonNetwork.InLobby) PhotonNetwork.LeaveLobby();
+
+			var room = PhotonNetwork.CurrentRoom;
+			var bet = (room.CustomProperties.ContainsKey("bet")) ? (int) room.CustomProperties["bet"] : 0;
+			Wallet.Instance.AddCoins(-bet, Wallet.WalletMode.InGame);
 
 			Instance   = this;
 			PhotonView = GetComponent<PhotonView>();
@@ -82,6 +86,7 @@ namespace Managers {
 
 
 		private void Reset() {
+			PhotonNetwork.Disconnect();
 			Players.Clear();
 			LocalPlayer   = null;
 			GameIsStarted = false;
@@ -90,6 +95,7 @@ namespace Managers {
 
 
 		public override void OnPlayerLeftRoom(Player otherPlayer) {
+			print($"Player {otherPlayer.NickName} left the room");
 			Players.Remove(null);
 			if (!GameIsStarted && !GameEnded) CheckReady();
 		}
@@ -107,6 +113,7 @@ namespace Managers {
 
 			MultiplayerUI.Instance.HideWaitingText();
 			HUDManager.Instance.FadeIn(delegate {
+				GameManager.Instance.UnPause();
 				LocalPlayer.UnlockCamera();
 				LocalPlayer.transform.localRotation = Quaternion.identity;
 				foreach (var player in Players) {
@@ -116,7 +123,7 @@ namespace Managers {
 
 				// Установка смещения камеры в режим для бега
 				HUDManager.Instance.FadeOut(delegate {
-					Instance._startTimerCoroutine = LocalPlayer.StartCoroutine(Instance.RunStartTimer());
+					LocalPlayer.StartCoroutine(Instance.RunStartTimer());
 				});
 			});
 		}
@@ -247,7 +254,7 @@ namespace Managers {
 
 			switch (Players.Count) {
 				case 0: return 0;
-				case 1: return 0;
+				case 1: return bet;
 				case 2:
 					switch (position) {
 						case 1:

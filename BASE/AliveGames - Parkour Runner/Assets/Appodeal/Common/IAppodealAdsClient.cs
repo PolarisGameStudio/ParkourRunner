@@ -1,7 +1,10 @@
-﻿using AppodealAds.Unity.Api;
+﻿using System.Diagnostics.CodeAnalysis;
+using AppodealAds.Unity.Api;
 
 namespace AppodealAds.Unity.Common
 {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public interface IAppodealAdsClient
     {
         void initialize(string appKey, int type);
@@ -27,7 +30,6 @@ namespace AppodealAds.Unity.Common
         void setLogLevel(Appodeal.LogLevel level);
         void setChildDirectedTreatment(bool value);
         void updateConsent(bool value);
-        void resetFilterMatureContentFlag();
         void disableNetwork(string network);
         void disableNetwork(string network, int type);
         void disableLocationPermissionCheck();
@@ -52,8 +54,8 @@ namespace AppodealAds.Unity.Common
         double getPredictedEcpm(int adTypes);
         void setTriggerOnLoadedOnPrecache(int adTypes, bool onLoadedTriggerBoth);
         void getUserSettings();
-        void setAge(int age);
-        void setGender(UserSettings.Gender gender);
+        void setUserAge(int age);
+        void setUserGender(UserSettings.Gender gender);
         void setUserId(string id);
         void trackInAppPurchase(double amount, string currency);
         void setInterstitialCallbacks(IInterstitialAdListener listener);

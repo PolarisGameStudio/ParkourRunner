@@ -94,7 +94,7 @@ public class MultiplayerMenu : Menu {
 
 	public void OnHomeButtonClick() {
 		_audio.PlaySound(Sounds.Tap);
-		_menuController.OpenMenu(MenuKinds.MainMenu);
+		_menuController.OpenMenu(MenuKinds.SelectLevelType);
 	}
 
 	#endregion

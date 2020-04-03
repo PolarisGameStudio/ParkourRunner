@@ -216,7 +216,6 @@ namespace ParkourRunner.Scripts.Player
         public void Left()
         {
             CrossPlatformInputManager.SetAxis("Horizontal", -1);
-            print("Left");
         }
 
         public void Right()

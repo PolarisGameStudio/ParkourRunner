@@ -84,7 +84,13 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
     {
 		_failed = true;
 	}
-    
+
+
+	public void onInterstitialShowFailed() {
+
+	}
+
+
 	public void onInterstitialExpired()
     {
 		_failed = true;
@@ -104,7 +110,13 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 
 
     #region Banner Interface
-    public void onBannerFailedToLoad()
+
+	public void onBannerLoaded(int height, bool isPrecache) {
+
+	}
+
+
+	public void onBannerFailedToLoad()
     {
         _failed = true;
     }

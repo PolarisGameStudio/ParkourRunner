@@ -25,8 +25,8 @@ public class CharacterKindController : MonoBehaviour
         if (targetData != null)
         {
             if (PlayerPrefs.GetInt(EnvironmentController.MULTIPLAYER_KEY) == 1 && PhotonNetwork.IsConnectedAndReady) {
-                print($"Spawning player: {"Character/" + targetData.targetPrefab.name}");
-                PhotonNetwork.Instantiate("Character/" + targetData.targetPrefab.name, _startPosition, Quaternion.identity);
+                print($"Spawning player: {"Character/Final Characters/" + targetData.targetPrefab.name}");
+                PhotonNetwork.Instantiate("Character/Final Characters/" + targetData.targetPrefab.name, _startPosition, Quaternion.identity);
             }
             else {
                 Instantiate(targetData.targetPrefab, _startPosition, Quaternion.identity);

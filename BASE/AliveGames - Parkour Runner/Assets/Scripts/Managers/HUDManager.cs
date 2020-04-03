@@ -3,6 +3,7 @@ using System.Collections;
 using ParkourRunner.Scripts.Player;
 using ParkourRunner.Scripts.UIScripts;
 using AEngine;
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -54,6 +55,7 @@ namespace ParkourRunner.Scripts.Managers {
 		public Text       RewardText;
 		public Animator   PauseAnimator;
 		public GameObject PauseGo;
+		public GameObject PauseButton;
 		public Image      Fade;
 
 		public  int ShowDistanceEvery = 500;
@@ -203,12 +205,12 @@ namespace ParkourRunner.Scripts.Managers {
 
 
 		public void TogglePause() {
-			if (GameManager.Instance.gameState == GameManager.GameState.Pause) {
+			/*if (GameManager.Instance.gameState == GameManager.GameState.Pause) {
 				HidePause();
 			}
-			else {
+			else {*/
 				ShowPause();
-			}
+			// }
 		}
 
 
@@ -216,7 +218,7 @@ namespace ParkourRunner.Scripts.Managers {
 			PauseGo.SetActive(true);
 			PauseAnimator.enabled = true;
 			PauseAnimator.SetBool("IsDisplayed", true);
-			GameManager.Instance.Pause();
+			if(!PhotonGameManager.IsMultiplayer) GameManager.Instance.Pause();
 
 			_audio.PlaySound(Sounds.Tap);
 			_audio.PlaySound(Sounds.WinSimple);
@@ -224,7 +226,7 @@ namespace ParkourRunner.Scripts.Managers {
 
 
 		public void HidePause() {
-			GameManager.Instance.UnPause();
+			if(!PhotonGameManager.IsMultiplayer) GameManager.Instance.UnPause();
 			PauseAnimator.SetBool("IsDisplayed", false);
 
 			_audio.PlaySound(Sounds.Tap);
@@ -264,7 +266,7 @@ namespace ParkourRunner.Scripts.Managers {
 			var alpha = color.a;
 
 			while (alpha < 1) {
-				alpha      += Time.deltaTime;
+				alpha      += Time.unscaledDeltaTime;
 				color.a    =  alpha;
 				Fade.color =  color;
 				yield return null;
@@ -279,7 +281,7 @@ namespace ParkourRunner.Scripts.Managers {
 			var alpha = color.a;
 
 			while (alpha > 0) {
-				alpha      -= Time.deltaTime;
+				alpha      -= Time.unscaledDeltaTime;
 				color.a    =  alpha;
 				Fade.color =  color;
 				yield return null;
