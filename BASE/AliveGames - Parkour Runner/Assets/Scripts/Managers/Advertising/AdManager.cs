@@ -1,101 +1,127 @@
 ﻿using System;
+using Managers.Advertising;
 using UnityEngine;
 
-public class AdManager : MonoBehaviour
-{
-    #region Singleton
-    public static AdManager Instance;
+public class AdManager : MonoBehaviour {
+	#region Singleton
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-
-            ResetAdvertisingOrder();
-
-            DontDestroyOnLoad(this);
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-    }
-    #endregion
-
-    [SerializeField] private AppodealAdController _ad;
-    
-    private int _gameSessionCount;
-
-    public bool EnableAds => true; // PlayerPrefs.GetInt("NoAds") != 1; } }
+	public static AdManager Instance;
 
 
-    public void Start()
-    {
-        _ad.Initialize();
-    }
+	private void Awake() {
+		if (Instance == null) {
+			Instance = this;
 
-    public bool IsAvailable()
-    {
-        return _ad != null ? _ad.IsAvailable() : false;
-    }
+			ResetAdvertisingOrder();
 
-    public void ShowAdvertising(Action finishedCallback, Action skippedCallback, Action failedCallback)
-    {
-        bool isShowingAd = false;
-        
-        if (_ad.IsAvailable())
-        {
-            Debug.Log("Show " + _ad.gameObject.name);
-            _ad.InitCallbackHandlers(finishedCallback, skippedCallback, failedCallback);
+			DontDestroyOnLoad(this);
+		}
+		else {
+			Destroy(this.gameObject);
+		}
+	}
 
-            if (this.EnableAds)
-                _ad.ShowAdvertising();
-            else
-                _ad.HandleAdResult(AdResults.Finished);
 
-            isShowingAd = true;
-        }
+	#endregion
 
-        if (!isShowingAd)
-        {
-            Debug.Log("Ad not show");
-            finishedCallback.SafeInvoke();
-        }
-    }
 
-    public void ShowBanner()
-    {
-        //_ad.ShowBanner();
-    }
+	[SerializeField] private AppodealAdController _ad;
 
-    public void HideBanner()
-    {
-        //_ad.HideBanner();
-    }
+	private int _gameSessionCount;
 
-    #region Advertising Order
-    public bool CheckAdvertisingOrder()
-    {
-        if (PlayerPrefs.GetInt(EnvironmentController.TUTORIAL_KEY) == 1 || _gameSessionCount % 3 == 0 || !AdManager.Instance.IsAvailable())
-        {
-            ResetAdvertisingOrder();
-            return false;
-        }
+	public static bool EnableAds => PlayerPrefs.GetInt("NoAds", 0) != 1;
 
-        _gameSessionCount++;
 
-        return true;
-    }
+	public void Start() {
+		_ad.Initialize();
+		ShowInterstitial(null, null, null);
+	}
 
-    public void ResetAdvertisingOrder()
-    {
-        _gameSessionCount = 1;
-    }
 
-    public void SkipAdInOrder()
-    {
-        _gameSessionCount = 3;
-    }
-    #endregion
+	public bool InterstitialIsAvailable() {
+		return _ad != null && _ad.InterstitialIsLoaded();
+	}
+
+
+	public bool RewardedVideoIsAvailable() {
+		return _ad != null && _ad.RewardedVideoLoaded();
+	}
+
+
+	public bool NonSkippableVideoIsAvailable() {
+		return _ad != null && _ad.NonSkippableVideoIsLoaded();
+	}
+
+
+	public void ShowInterstitial(Action finishedCallback = null, Action skippedCallback = null, Action failedCallback = null) {
+		// Debug.Log("Show Interstitial");
+		_ad.InitCallbackHandlers(finishedCallback, skippedCallback, failedCallback, AdType.Interstitial);
+
+		if (EnableAds) _ad.ShowInterstitial();
+		else _ad.HandleAdResult(AdResults.Finished, AdType.Interstitial);
+	}
+
+
+	public void ShowRewardedVideo(Action finishedCallback, Action skippedCallback, Action failedCallback) {
+		// Debug.Log("Show Rewarded Video");
+		_ad.InitCallbackHandlers(finishedCallback, skippedCallback, failedCallback, AdType.RewardedVideo);
+		_ad.ShowRewardedVideo();
+	}
+
+
+	public void ShowNonSkippableVideo(Action finishedCallback, Action skippedCallback, Action failedCallback) {
+		// Debug.Log("Show Non Skippable Video");
+		_ad.InitCallbackHandlers(finishedCallback, skippedCallback, failedCallback, AdType.NonSkippableVideo);
+		_ad.ShowNonSkippableVideo();
+	}
+
+
+	public void ShowBanner() {
+		if (!EnableAds) return;
+		// Debug.Log("Show Banner");
+		_ad.ShowBanner();
+	}
+
+
+	public void ShowBottomBanner() {
+		if (!EnableAds) return;
+		// Debug.Log("Show Bottom Banner");
+		_ad.ShowBottomBanner();
+	}
+
+
+	public void HideBottomBanner() {
+		// Debug.Log("Hide Bottom Banner");
+		_ad.HideBottomBanner();
+	}
+
+
+	#region Advertising Order
+
+
+	/// <summary>
+	/// Как я понял, можно ли показывать рекламу.
+	/// Нужен, чтобы не показывать рекламу каждый забег
+	/// </summary>
+	public bool CheckAdvertisingOrder() {
+		if (PlayerPrefs.GetInt(EnvironmentController.TUTORIAL_KEY) == 1 || _gameSessionCount % 3 == 0) {
+			ResetAdvertisingOrder();
+			return false;
+		}
+
+		_gameSessionCount++;
+		return true;
+	}
+
+
+	public void ResetAdvertisingOrder() {
+		_gameSessionCount = 1;
+	}
+
+
+	public void SkipAdInOrder() {
+		_gameSessionCount = 3;
+	}
+
+	#endregion
 }

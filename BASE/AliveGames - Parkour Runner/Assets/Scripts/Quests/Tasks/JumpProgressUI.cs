@@ -10,6 +10,6 @@ public class JumpProgressUI : MonoBehaviour
     private void OnEnable()
     {
         int progress = QuestManager.Instance.GetJumpProgress();
-        _label.text = progress.ToString() + "/" + _maxJumps.ToString();
+        _label.text = progress + "/" + _maxJumps;
     }
 }

@@ -1,18 +1,21 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Managers;
 using ParkourRunner.Scripts.Player.InvectorMods;
 using Photon.Pun;
+using Photon.Realtime;
 using RootMotion.Dynamics;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class PhotonPlayer : MonoBehaviour {
+public class PhotonPlayer : MonoBehaviourPunCallbacks {
 	[HideInInspector] public PlayerCanvas PlayerCanvas;
 	[HideInInspector] public PhotonView   PhotonView;
 	[HideInInspector] public bool         IsFinished;
 	[HideInInspector] public int          FinishPlace;
 	[HideInInspector] public bool         Ready;
+	[HideInInspector] public string       UserId;
 
 	private ParkourThirdPersonInput _playerInput;
 	private Animator                _animator;
@@ -20,7 +23,7 @@ public class PhotonPlayer : MonoBehaviour {
 
 	private void Awake() {
 		PhotonView = GetComponent<PhotonView>();
-		if (!PhotonGameManager.IsMultiplayer) return;
+		if (!PhotonGameManager.IsMultiplayerAndConnected) return;
 
 		GetComponents();
 		if (!PhotonView.IsMine) {
@@ -33,7 +36,7 @@ public class PhotonPlayer : MonoBehaviour {
 
 
 	private void Start() {
-		if (!PhotonGameManager.IsMultiplayer) return;
+		if (!PhotonGameManager.IsMultiplayerAndConnected) return;
 		PhotonGameManager.AddPlayer(this);
 	}
 
@@ -45,8 +48,9 @@ public class PhotonPlayer : MonoBehaviour {
 		for (int i = 0; i < transform.childCount; i++) {
 			var child = transform.GetChild(i);
 			if (child.name.Equals("MultiplayerCanvas")) {
-				PlayerCanvas = child.GetComponent<PlayerCanvas>();
+				PlayerCanvas            = child.GetComponent<PlayerCanvas>();
 				PlayerCanvas.PhotonView = PhotonView;
+				UserId                  = PhotonView.Owner.UserId;
 				break;
 			}
 		}
@@ -69,13 +73,14 @@ public class PhotonPlayer : MonoBehaviour {
 
 	public void DestroyComponents() {
 		var parent = transform.parent;
+
+		var childs = new List<Transform>();
 		for (int i = 0; i < parent.childCount; i++) {
-			var child = parent.GetChild(i);
-			if (child.name.Equals("Behaviours") || child.name.Equals("PuppetMaster")) {
-				Destroy(child.gameObject);
-				i -= 1;
-			}
+			childs.Add(parent.GetChild(i));
 		}
+		childs.Where(c => c.name == "Behaviours" || c.name == "PuppetMaster").ToList()
+			.ForEach(c => Destroy(c.gameObject));
+
 		Destroy(GetComponent<ParkourThirdPersonController>());
 		Destroy(GetComponent<ParkourThirdPersonInput>());
 		Destroy(GetComponent<GenericActionPlusPuppet>());
@@ -98,6 +103,15 @@ public class PhotonPlayer : MonoBehaviour {
 	public void StartRun() {
 		_playerInput.LockRunning = false;
 		_playerInput.lockInput   = false;
+	}
+
+
+	public override void OnPlayerLeftRoom(Player otherPlayer) {
+		var player = PhotonGameManager.Players.FirstOrDefault(p => p.UserId == otherPlayer.UserId);
+		if (!player) return;
+
+		PhotonGameManager.Players.Remove(player);
+		Destroy(player.gameObject);
 	}
 
 

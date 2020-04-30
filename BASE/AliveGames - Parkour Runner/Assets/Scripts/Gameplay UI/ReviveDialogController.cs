@@ -25,9 +25,9 @@ public class ReviveDialogController : MonoBehaviour
     [SerializeField] private GameObject _reviveCostButton;
     [SerializeField] private GameObject _reviveAdButtion;
 
-    public bool IsPriceCondition { get { return Wallet.Instance.InGameCoins >= GameManager.Instance.ReviveCost; } }
-    public bool IsAdCondition { get { return AdManager.Instance.IsAvailable(); } }
-    public bool CanShow { get { return this.IsPriceCondition || this.IsAdCondition; } }
+    public bool IsPriceCondition => Wallet.Instance.AllCoins >= GameManager.Instance.ReviveCost;
+    public bool IsAdCondition => AdManager.Instance.InterstitialIsAvailable();
+    public bool CanShow => this.IsPriceCondition || this.IsAdCondition;
 
     private AudioManager _audio;
     private Action<Results> _callbackHandler;
@@ -42,7 +42,7 @@ public class ReviveDialogController : MonoBehaviour
         {
             _audio.PlaySound(Sounds.GameOver);
 
-            _revivePriceLabel.text = GameManager.Instance.ReviveCost.ToString();
+            _revivePriceLabel.text = (-GameManager.Instance.ReviveCost).ToString();
             _reviveCostButton.SetActive(this.IsPriceCondition);
             _reviveAdButtion.SetActive(this.IsAdCondition);
 

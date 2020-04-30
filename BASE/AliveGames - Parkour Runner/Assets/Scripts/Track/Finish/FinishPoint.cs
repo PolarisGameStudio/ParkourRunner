@@ -13,7 +13,7 @@ using ParkourRunner.Scripts.Player.InvectorMods;
     {
         if (other.CompareTag("Player"))
         {
-            if (PhotonGameManager.IsMultiplayer) return;
+            if (PhotonGameManager.IsMultiplayerAndConnected) return;
 
             StartCoroutine(FinishLevelProcess(other));
         }

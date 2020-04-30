@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerCanvas : MonoBehaviour {
-	public PhotonView PhotonView;
+	[HideInInspector] public PhotonView PhotonView;
 
 	[SerializeField] private Canvas     Canvas;
 	[SerializeField] private Text       Nickname;
@@ -15,7 +15,7 @@ public class PlayerCanvas : MonoBehaviour {
 
 
 	private void Start() {
-		if (!PhotonGameManager.IsMultiplayer) return;
+		if (!PhotonGameManager.IsMultiplayerAndConnected) return;
 
 		Canvas.worldCamera = Camera.current;
 		Nickname.gameObject.SetActive(true);

@@ -17,9 +17,12 @@ namespace Managers {
 
 		public static List<PhotonPlayer> Players = new List<PhotonPlayer>();
 		public static PhotonPlayer       LocalPlayer;
-		public static bool IsMultiplayer => PlayerPrefs.GetInt(EnvironmentController.MULTIPLAYER_KEY) == 1 &&
-											PhotonNetwork.IsConnectedAndReady                              &&
-											PhotonNetwork.InRoom;
+		public static bool IsMultiplayer =>
+			PlayerPrefs.GetInt(EnvironmentController.MULTIPLAYER_KEY) == 1;
+		public static bool IsConnected =>
+			PhotonNetwork.IsConnectedAndReady && PhotonNetwork.InRoom;
+		public static bool IsMultiplayerAndConnected => IsMultiplayer && IsConnected;
+
 		public static  bool              GameIsStarted;
 		public static  bool              GameEnded;
 		private static PhotonGameManager Instance;
@@ -28,21 +31,26 @@ namespace Managers {
 		public Transform[] PedestalPositions;
 
 		private List<GameObject> FinishedPlayers = new List<GameObject>();
-		private Coroutine _finishTimerCoroutine;
+		private Coroutine        _finishTimerCoroutine;
 
 		private PhotonView PhotonView;
+		private int        _bank;
+
+
+		private void Awake() {
+			Instance   = this;
+			PhotonView = GetComponent<PhotonView>();
+		}
 
 
 		private void Start() {
-			if (!IsMultiplayer) return;
-			if(PhotonNetwork.InLobby) PhotonNetwork.LeaveLobby();
+			if (!IsMultiplayerAndConnected) return;
+			if (PhotonNetwork.InLobby) PhotonNetwork.LeaveLobby();
 
 			var room = PhotonNetwork.CurrentRoom;
-			var bet = (room.CustomProperties.ContainsKey("bet")) ? (int) room.CustomProperties["bet"] : 0;
+			var bet  = (room.CustomProperties.ContainsKey("bet")) ? (int) room.CustomProperties["bet"] : 0;
 			Wallet.Instance.AddCoins(-bet, Wallet.WalletMode.InGame);
 
-			Instance   = this;
-			PhotonView = GetComponent<PhotonView>();
 			LocalPlayer.LockCamera();
 
 			var playerIndex = PhotonNetwork.LocalPlayer.ActorNumber;
@@ -51,7 +59,7 @@ namespace Managers {
 			LocalPlayer.transform.position      = startPlace.position;
 			LocalPlayer.transform.localRotation = startPlace.rotation;
 
-			var cameraPosition    = StartPositions[0].position + new Vector3(1, 0.25f, -5);
+			var cameraPosition = StartPositions[0].position + new Vector3(1, 0.25f, -5);
 			var lookPosition   = StartPositions[0].position + new Vector3(0, 1.5f,  0);
 			ParkourCamera.Instance.transform.position = cameraPosition;
 			ParkourCamera.Instance.transform.LookAt(lookPosition);
@@ -70,6 +78,10 @@ namespace Managers {
 			if (player.PhotonView.IsMine) LocalPlayer = player;
 
 			CheckReady();
+
+			var properties = PhotonNetwork.CurrentRoom.CustomProperties;
+			var bet        = (int) properties["bet"];
+			Instance._bank += bet;
 		}
 
 
@@ -122,9 +134,7 @@ namespace Managers {
 				}
 
 				// Установка смещения камеры в режим для бега
-				HUDManager.Instance.FadeOut(delegate {
-					LocalPlayer.StartCoroutine(Instance.RunStartTimer());
-				});
+				HUDManager.Instance.FadeOut(delegate { LocalPlayer.StartCoroutine(Instance.RunStartTimer()); });
 			});
 		}
 
@@ -169,6 +179,7 @@ namespace Managers {
 
 
 		public static void OnPlayerFinish(GameObject player) {
+			ParkourCamera.Instance.SetFpsCamActive(false);
 			Instance.FinishedPlayers.Add(player);
 			if (!PhotonNetwork.IsMasterClient) return;
 
@@ -218,7 +229,7 @@ namespace Managers {
 				LocalPlayer.PlayerCanvas.ShowNickname();
 				MultiplayerUI.Instance.HidePosition();
 				MultiplayerUI.Instance.HideTimer();
-				if(_finishTimerCoroutine != null) StopCoroutine(_finishTimerCoroutine);
+				if (_finishTimerCoroutine != null) StopCoroutine(_finishTimerCoroutine);
 
 				if (PhotonNetwork.IsMasterClient) {
 					SetFinishPositions();
@@ -247,9 +258,8 @@ namespace Managers {
 
 
 		private int GetReward(int position) {
-			var properties = PhotonNetwork.CurrentRoom.CustomProperties;
-			var bet = (int) properties["bet"];
-			var bank = bet * Players.Count;
+			var properties    = PhotonNetwork.CurrentRoom.CustomProperties;
+			var bet           = (int) properties["bet"];
 			var winMultiplier = 1f;
 
 			switch (Players.Count) {
@@ -292,7 +302,7 @@ namespace Managers {
 					}
 					break;
 			}
-			return (int) (bank * winMultiplier);
+			return (int) (_bank * winMultiplier);
 		}
 
 
@@ -302,8 +312,8 @@ namespace Managers {
 			LocalPlayer.LockCamera();
 
 			// Перемещение камеры
-			var newPos = Instance.PedestalPositions[0].position + new Vector3(0, 0.25f, -5);
-			var lookPos = Instance.PedestalPositions[0].position + new Vector3(0, 1.5f, 0);
+			var newPos  = Instance.PedestalPositions[0].position + new Vector3(0, 0.25f, -5);
+			var lookPos = Instance.PedestalPositions[0].position + new Vector3(0, 1.5f,  0);
 			ParkourCamera.Instance.transform.position = newPos;
 			ParkourCamera.Instance.transform.LookAt(lookPos);
 

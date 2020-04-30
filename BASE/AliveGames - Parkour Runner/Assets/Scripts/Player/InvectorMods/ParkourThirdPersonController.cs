@@ -17,6 +17,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
         public PuppetMaster PuppetMaster;
         public Weight RollPuppetCollisionResistance;
         public Vector3 StartPosition;
+        public GameObject Head;
 
         public new static ParkourThirdPersonController instance;
 
@@ -83,7 +84,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
         protected override void Awake()
         {
-            if (PhotonGameManager.IsMultiplayer && !GetComponent<PhotonView>().IsMine) {
+            if (PhotonGameManager.IsMultiplayerAndConnected && !GetComponent<PhotonView>().IsMine) {
                 Destroy(this);
                 return;
             }
@@ -347,7 +348,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
             ReduceStamina(jumpStamina, false);
             currentStaminaRecoveryDelay = 1f;
 
-            ParkourCamera.Instance.OnJump(0.01f);
+            ParkourCamera.Instance.OnJump(0.1f);
 
             AudioManager.Instance.PlaySound(Sounds.Jump);
         }
@@ -376,7 +377,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
             animator.CrossFadeInFixedTime("JumpMove", .2f);
 
             CameraEffects.Instance.IsHighJumping = true;
-            ParkourCamera.Instance.OnJump(0.001f);
+            ParkourCamera.Instance.OnJump(0.1f, 0.5f);
 
             StartCoroutine(FreezeInAir(speed, height));
 

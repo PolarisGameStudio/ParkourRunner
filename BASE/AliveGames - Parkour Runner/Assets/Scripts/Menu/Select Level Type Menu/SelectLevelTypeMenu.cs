@@ -79,11 +79,19 @@ public class SelectLevelTypeMenu : Menu
         _menuController.OpenMenu(MenuKinds.SelectLevel);
     }
 
-    public void OnComingSoonClick()
+    public void OnMultiplayerClick()
     {
         _audio.PlaySound(Sounds.Tap);
-        _menuController.OpenMenu(MenuKinds.Multiplayer);
-        // AdManager.Instance.ShowAdvertising(null, null, null);
+        void Action() => _menuController.OpenMenu(MenuKinds.Multiplayer);
+        Action();
+        return;
+
+        if (AdManager.Instance.InterstitialIsAvailable()) {
+            AdManager.Instance.ShowInterstitial(Action, Action, Action);
+        }
+        else {
+            Action();
+        }
     }
     #endregion
 }

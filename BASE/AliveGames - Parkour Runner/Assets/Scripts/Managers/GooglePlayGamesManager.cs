@@ -21,7 +21,7 @@ namespace Managers {
 
 		private static void SignIn() {
 #if UNITY_ANDROID
-			print("GP Games Authenticate");
+			// print("GP Games Authenticate");
 			PlayGamesPlatform.Instance.Authenticate(delegate (bool b, string s) {
 				print(b);
 				print(s);
@@ -34,7 +34,7 @@ namespace Managers {
 		#region Leaderboards
 
 		public static void SetScoreToLeaderboard(long score) {
-			print($"Trying set leaderboard score: {score}");
+			// print($"Trying set leaderboard score: {score}");
 			Social.ReportScore(score, LeaderBoardId, delegate (bool status) { print($"Score is set: {status}"); });
 		}
 

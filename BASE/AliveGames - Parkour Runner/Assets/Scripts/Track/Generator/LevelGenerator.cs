@@ -130,7 +130,7 @@ namespace ParkourRunner.Scripts.Track.Generator
         {
             yield return new WaitForSeconds(delay);
 
-            if (!PhotonGameManager.IsMultiplayer) {
+            if (!PhotonGameManager.IsMultiplayerAndConnected) {
                 Managers.HUDManager.Instance.ShowGreatMessage(Managers.HUDManager.Messages.CurrentLevel);
             }
         }
@@ -228,7 +228,7 @@ namespace ParkourRunner.Scripts.Track.Generator
             List<Block> blocksToDestroy = new List<Block>();
             foreach (var block in _blockPool)
             {
-                if (PhotonGameManager.IsMultiplayer) {
+                if (PhotonGameManager.IsMultiplayerAndConnected) {
                     if (block.transform.position.z < _player.position.z - (_blockSize)) //Если игрок прошел с предыдущего блока половину его длины
                     {
                         blocksToDestroy.Add(block);

@@ -96,6 +96,7 @@ public class EveryDayTask : QuestTask
         CompleteQuest(false);
 
         _targetQuest.localScale = Vector3.one;
+        _targetQuest.gameObject.SetActive(false);
     }
 
     #region Events

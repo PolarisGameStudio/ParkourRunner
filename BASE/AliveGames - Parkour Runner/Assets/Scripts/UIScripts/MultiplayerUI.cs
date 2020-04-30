@@ -15,7 +15,7 @@ public class MultiplayerUI : MonoBehaviour {
 
 	private void Awake() {
 		Instance = this;
-		if (!PhotonGameManager.IsMultiplayer) {
+		if (!PhotonGameManager.IsMultiplayerAndConnected) {
 			gameObject.SetActive(false);
 			return;
 		}

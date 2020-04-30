@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using ParkourRunner.Scripts.Player.InvectorMods;
 using Photon.Pun;
 using UnityEngine;
@@ -27,6 +28,8 @@ public class CharacterKindController : MonoBehaviour
             if (PlayerPrefs.GetInt(EnvironmentController.MULTIPLAYER_KEY) == 1 && PhotonNetwork.IsConnectedAndReady) {
                 print($"Spawning player: {"Character/Final Characters/" + targetData.targetPrefab.name}");
                 PhotonNetwork.Instantiate("Character/Final Characters/" + targetData.targetPrefab.name, _startPosition, Quaternion.identity);
+                // print($"Spawning player: Character/Test");
+                // PhotonNetwork.Instantiate("Character/Test", _startPosition, Quaternion.identity);
             }
             else {
                 Instantiate(targetData.targetPrefab, _startPosition, Quaternion.identity);

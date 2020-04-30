@@ -56,6 +56,8 @@ namespace ParkourRunner.Scripts.Managers {
 		public Animator   PauseAnimator;
 		public GameObject PauseGo;
 		public GameObject PauseButton;
+		public GameObject PauseRestartButton;
+		public GameObject PauseShopButton;
 		public Image      Fade;
 
 		public  int ShowDistanceEvery = 500;
@@ -215,10 +217,15 @@ namespace ParkourRunner.Scripts.Managers {
 
 
 		public void ShowPause() {
+			var isMultiplayer = PhotonGameManager.IsMultiplayerAndConnected;
+
 			PauseGo.SetActive(true);
 			PauseAnimator.enabled = true;
 			PauseAnimator.SetBool("IsDisplayed", true);
-			if(!PhotonGameManager.IsMultiplayer) GameManager.Instance.Pause();
+			PauseRestartButton.SetActive(!isMultiplayer);
+			PauseShopButton.SetActive(!isMultiplayer);
+
+			if(!isMultiplayer) GameManager.Instance.Pause();
 
 			_audio.PlaySound(Sounds.Tap);
 			_audio.PlaySound(Sounds.WinSimple);
@@ -226,7 +233,7 @@ namespace ParkourRunner.Scripts.Managers {
 
 
 		public void HidePause() {
-			if(!PhotonGameManager.IsMultiplayer) GameManager.Instance.UnPause();
+			if(!PhotonGameManager.IsMultiplayerAndConnected) GameManager.Instance.UnPause();
 			PauseAnimator.SetBool("IsDisplayed", false);
 
 			_audio.PlaySound(Sounds.Tap);

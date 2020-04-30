@@ -9,7 +9,7 @@ public class FinishCamera : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (PhotonGameManager.IsMultiplayer) {
+            if (PhotonGameManager.IsMultiplayerAndConnected) {
                 if(!other.GetComponent<PhotonView>().IsMine) return;
             }
 

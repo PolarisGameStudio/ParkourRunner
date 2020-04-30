@@ -18,7 +18,7 @@ namespace ParkourRunner.Scripts.Track.Pick_Ups
         {
             if (other.tag == "Player")
             {
-                if (PhotonGameManager.IsMultiplayer && !other.GetComponent<PhotonView>().IsMine) return;
+                if (PhotonGameManager.IsMultiplayerAndConnected && !other.GetComponent<PhotonView>().IsMine) return;
                 ParkourThirdPersonController _player = ParkourThirdPersonController.instance;
                 _player.PlatformJump(JumpSpeed, JumpHeight);
             }

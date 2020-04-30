@@ -9,16 +9,16 @@ public class PauseAd : MonoBehaviour
 
     private void OnEnable()
     {
-        _buttonImage.enabled = AdManager.Instance.IsAvailable();
+        // _buttonImage.enabled = AdManager.Instance.InterstitialIsAvailable();
     }
 
     public void OnButtonClick()
     {
         AudioManager.Instance.PlaySound(Sounds.Tap);
 
-        if (AdManager.Instance.IsAvailable())
+        // if (AdManager.Instance.InterstitialIsAvailable())
         {
-            AdManager.Instance.ShowAdvertising(AdFinishedCallback, AdSkippedCallback, AdSkippedCallback);
+            AdManager.Instance.ShowRewardedVideo(AdFinishedCallback, AdSkippedCallback, AdSkippedCallback);
         }
     }
 

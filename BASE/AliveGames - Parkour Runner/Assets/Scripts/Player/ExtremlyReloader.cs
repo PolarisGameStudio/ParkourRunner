@@ -7,9 +7,11 @@ using UnityEngine;
 
 public class ExtremlyReloader : MonoBehaviour
 {
+    private const float MinY = -100f;
+    private const float CheckTime = 2f;
+
     [SerializeField] private Transform _target;
-    [SerializeField] private float _minY;
-    [SerializeField] private float _checkTime;
+
 
     private void Start()
     {
@@ -18,16 +20,16 @@ public class ExtremlyReloader : MonoBehaviour
 
     private IEnumerator CheckFallErrorProcess()
     {
-        float duration = _checkTime;
+        float duration = CheckTime;
 
         while (true)
         {
             if(!_target) yield break;
 
             duration -= Time.deltaTime;
-            if (duration <= 0 && _target.position.y < _minY)
+            if (duration <= 0 && _target.position.y < MinY)
             {
-                if(PhotonGameManager.IsMultiplayer && PhotonGameManager.GameEnded) yield break;
+                if(PhotonGameManager.IsMultiplayerAndConnected && PhotonGameManager.GameEnded) yield break;
                 Debug.LogError("Fall player muscles (colliders). Camera under floor");
                 Reload();
             }
@@ -38,20 +40,19 @@ public class ExtremlyReloader : MonoBehaviour
 
     private void Reload()
     {
-        if (PhotonGameManager.IsMultiplayer) {
-            GameManager.Instance.Revive();
+        GameManager.Instance.Revive();
+        if (PhotonGameManager.IsMultiplayerAndConnected) {
             PhotonGameManager.LocalPlayer.StartRun();
-            return;
         }
 
-        int index = SceneManager.GetActiveScene().buildIndex;
+        /*int index = SceneManager.GetActiveScene().buildIndex;
         AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(index);
-        
+
         while (unloadOperation != null && !unloadOperation.isDone)
         {
         }
 
         ParkourSlowMo.Instance.UnSlow();
-        SceneManager.LoadScene(index);
+        SceneManager.LoadScene(index);*/
     }
 }

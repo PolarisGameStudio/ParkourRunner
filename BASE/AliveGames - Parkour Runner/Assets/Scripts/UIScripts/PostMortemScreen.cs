@@ -8,11 +8,10 @@ using Managers;
 public class PostMortemScreen : MonoBehaviour
 {
     public GameObject _rateMeWindow;
-    public GameObject WatchAdButton;
-    public Text ReviveForMoneyBtnTxt;
 
     public GameObject ResultsScreen;
     public GameObject MultiplayerResultsScreen;
+
     [SerializeField] private ResultDialogController _result;
     [SerializeField] private ReviveDialogController _revive;
     [SerializeField] private LocalizationComponent _distanceLocalization;
@@ -20,9 +19,6 @@ public class PostMortemScreen : MonoBehaviour
     [SerializeField] private LocalizationComponent _coinsLocalization;
 
     [SerializeField] private LocalizationComponent _multiplayerPlaceLocalization;
-    public Text CoinsText;
-    public Text MetresText;
-    public Text RecordText;
 
     public Text multiplayerPlaceText;
     public Text multiplayerCoinsText;
@@ -83,7 +79,7 @@ public class PostMortemScreen : MonoBehaviour
         _ad.SkipAdInOrder();
 
         _stopTimer = true;
-        _ad.ShowAdvertising(AdFinishedCallback, AdSkippedCallback, AdSkippedCallback);
+        _ad.ShowRewardedVideo(AdFinishedCallback, AdSkippedCallback, AdSkippedCallback);
     }
 
     private void AdFinishedCallback()
@@ -97,7 +93,7 @@ public class PostMortemScreen : MonoBehaviour
     private void AdSkippedCallback()
     {
         _stopTimer = false;
-        print("Skipped or cancelled revive AD");
+        print("Skipped or failed revive AD");
     }
         
     public void CheckRateMe()
@@ -154,7 +150,7 @@ public class PostMortemScreen : MonoBehaviour
         NewRecordText.SetActive(ProgressManager.IsNewRecord(_gm.DistanceRun));
                 
         if (_ad.CheckAdvertisingOrder())
-            _ad.ShowAdvertising(null, null, null);
+            _ad.ShowInterstitial();
     }
 
     public void ShowMultiplayerResultScreen()
@@ -168,8 +164,8 @@ public class PostMortemScreen : MonoBehaviour
         multiplayerPlaceText.text = string.Format("{0}  {1}", _multiplayerPlaceLocalization.Text, PhotonGameManager.LocalPlayer.FinishPlace);
         multiplayerCoinsText.text = string.Format("{0}  {1}", _coinsLocalization.Text, Wallet.Instance.InGameCoins);
 
-        if (_ad && _ad.CheckAdvertisingOrder()) {
-            _ad.ShowAdvertising(null, null, null);
+        if (_ad.CheckAdvertisingOrder()) {
+            _ad.ShowInterstitial(null, null, null);
         }
     }
 

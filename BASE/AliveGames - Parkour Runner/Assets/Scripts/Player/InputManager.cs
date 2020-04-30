@@ -35,7 +35,7 @@ namespace ParkourRunner.Scripts.Player
 
         private void Awake()
         {
-            DontDestroyOnLoad(this);
+            // DontDestroyOnLoad(this);
             if (Instance == null)
             {
                 Instance = this;

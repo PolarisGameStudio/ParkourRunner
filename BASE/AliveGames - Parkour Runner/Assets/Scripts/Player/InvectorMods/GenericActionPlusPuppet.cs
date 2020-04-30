@@ -59,7 +59,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
                 _randomAnimation = RandomTricks.GetTrick(triggerAction.playAnimation);
 
                 tpInput.cc.animator.CrossFadeInFixedTime(_randomAnimation, 0.1f); // trigger the action animation clip
-                if (PhotonGameManager.IsMultiplayer) {
+                if (PhotonGameManager.IsMultiplayerAndConnected) {
                     var pView = GetComponent<PhotonView>();
                     if (pView.IsMine) {
                         pView.RPC("PlayAnimation", RpcTarget.Others, _randomAnimation);

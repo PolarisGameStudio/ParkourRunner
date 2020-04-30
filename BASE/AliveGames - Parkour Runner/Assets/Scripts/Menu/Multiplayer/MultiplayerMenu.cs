@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using AEngine;
@@ -25,9 +26,9 @@ public class MultiplayerMenu : Menu {
 
 
 	private void Update() {
-		if (!PhotonNetwork.IsMasterClient && PhotonNetwork.InRoom && PhotonNetwork.LevelLoadingProgress > 0) {
+		if (!PhotonNetwork.IsMasterClient && PhotonNetwork.InRoom && PhotonNetwork.LevelLoadingProgress > 0 && !_gameLoader.activeSelf) {
 			OpenGame();
-			Destroy(this);
+			Hide(null);
 		}
 	}
 

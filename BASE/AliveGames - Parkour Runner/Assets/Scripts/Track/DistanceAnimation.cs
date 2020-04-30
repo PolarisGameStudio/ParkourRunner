@@ -57,7 +57,7 @@ public class DistanceAnimation : BaseAnimatorController
     private float GetDistance()
     {
         if (_animationType == AnimationTypes.Default) {
-            if (PhotonGameManager.IsMultiplayer) {
+            if (PhotonGameManager.IsMultiplayerAndConnected) {
                 var positions = PhotonGameManager.Players.Select(p => p.transform.position);
                 var distances = positions.Select(p => Vector3.Distance(transform.position, p));
                 return distances.Min();
@@ -67,7 +67,7 @@ public class DistanceAnimation : BaseAnimatorController
         }
         else
         {
-            if (PhotonGameManager.IsMultiplayer) {
+            if (PhotonGameManager.IsMultiplayerAndConnected) {
                 var positions = PhotonGameManager.Players.Select(p => p.transform.position.z);
                 var distances = positions.Select(p => transform.position.z - p);
                 return distances.Min();

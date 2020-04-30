@@ -1,4 +1,6 @@
-﻿public class WatchAdsTask : QuestTask
+﻿using Managers.Advertising;
+
+public class WatchAdsTask : QuestTask
 {
     private void OnEnable()
     {

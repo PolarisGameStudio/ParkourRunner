@@ -1,10 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 
 public class TrickTriggerController : MonoBehaviour
 {
     [SerializeField] private Collider _collider;
+
+
+    private void Awake() {
+        if(PhotonGameManager.IsMultiplayerAndConnected) gameObject.SetActive(false);
+    }
+
 
     private void OnEnable()
     {

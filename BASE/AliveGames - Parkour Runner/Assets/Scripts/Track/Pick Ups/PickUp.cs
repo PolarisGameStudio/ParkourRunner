@@ -20,7 +20,7 @@ namespace ParkourRunner.Scripts.Track.Pick_Ups
         {
             if (other.CompareTag("Player"))
             {
-                if (!PhotonGameManager.IsMultiplayer || other.GetComponent<PhotonView>().IsMine) {
+                if (!PhotonGameManager.IsMultiplayerAndConnected || other.GetComponent<PhotonView>().IsMine) {
                     Pick();
                 }
 

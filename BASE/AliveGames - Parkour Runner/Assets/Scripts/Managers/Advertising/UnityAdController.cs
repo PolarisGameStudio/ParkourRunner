@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Managers.Advertising;
+using UnityEngine;
 using UnityEngine.Advertisements;
 
 public class UnityAdController : BaseAdController
@@ -22,19 +23,48 @@ public class UnityAdController : BaseAdController
         */
     }
 
-    public override bool IsAvailable()
-    {
-        /*
-        //return Advertisement.isSupported && Advertisement.IsReady();
-        return Advertisement.IsReady();
-        */
-        return true;
+
+    public override bool InterstitialIsLoaded() {
+        throw new System.NotImplementedException();
     }
 
-    public override void ShowAdvertising()
-    {
-        /*
-        Advertisement.Show(new ShowOptions() { resultCallback = HandleAdResult });
-        */
+
+    public override bool RewardedVideoLoaded() {
+        throw new System.NotImplementedException();
+    }
+
+
+    public override bool NonSkippableVideoIsLoaded() {
+        throw new System.NotImplementedException();
+    }
+
+
+    public override void ShowInterstitial() {
+        // Advertisement.Show(new ShowOptions() { resultCallback = HandleAdResult });
+    }
+
+
+    public override void ShowBanner() {
+        throw new System.NotImplementedException();
+    }
+
+
+    public override void ShowBottomBanner() {
+        throw new System.NotImplementedException();
+    }
+
+
+    public override void HideBottomBanner() {
+        throw new System.NotImplementedException();
+    }
+
+
+    public override void ShowRewardedVideo() {
+        throw new System.NotImplementedException();
+    }
+
+
+    public override void ShowNonSkippableVideo() {
+        throw new System.NotImplementedException();
     }
 }

@@ -131,7 +131,7 @@ namespace ParkourRunner.Scripts.Managers
 
         private void StartGame()
         {
-            if (PhotonGameManager.IsMultiplayer) {
+            if (PhotonGameManager.IsMultiplayerAndConnected) {
                 gameState = GameState.Pause;
             }
             else {
@@ -145,8 +145,10 @@ namespace ParkourRunner.Scripts.Managers
         // Update is called once per frame
         void Update ()
         {
-            DistanceRun = _player.transform.position.z;
-            _hud.UpdateDistance(DistanceRun + _distanceRunOffset);
+            if (_player) {
+                DistanceRun = _player.transform.position.z;
+                _hud.UpdateDistance(DistanceRun + _distanceRunOffset);
+            }
         }
 
         //Оторвать конечность (или приклеить обратно)
@@ -245,7 +247,7 @@ namespace ParkourRunner.Scripts.Managers
         public void Revive()
         {
             var cb = LevelGenerator.Instance.CenterBlock;
-            if (PhotonGameManager.IsMultiplayer) cb = LevelGenerator.Instance._blockPool[0];
+            if (PhotonGameManager.IsMultiplayerAndConnected) cb = LevelGenerator.Instance._blockPool[0];
             Vector3 newPos = cb.transform.position;
             newPos.z -= LevelGenerator.Instance.BlockSize / 2f - 2f;
 

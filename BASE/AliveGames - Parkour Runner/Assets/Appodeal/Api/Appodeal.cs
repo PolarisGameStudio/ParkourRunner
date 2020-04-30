@@ -57,7 +57,7 @@ namespace AppodealAds.Unity.Api
         public const int BANNER_VIEW = 64;
         public const int MREC = 512;
         public const int REWARDED_VIDEO = 128;
-#if UNITY_ANDROID || UNITY_EDITOR
+#if UNITY_ANDROID || UNITY_EDITOR || UNITY_STANDALONE_WIN
         public const int NON_SKIPPABLE_VIDEO = 128;
 #elif UNITY_IPHONE
 		public const int NON_SKIPPABLE_VIDEO = 256;

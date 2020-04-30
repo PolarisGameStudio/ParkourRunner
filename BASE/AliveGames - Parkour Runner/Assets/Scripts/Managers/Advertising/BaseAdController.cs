@@ -1,55 +1,95 @@
 ﻿using System;
+using Assets.ParkourRunner.Scripts.Track.Generator;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-public enum AdResults
-{
-    Finished,
-    Skipped,
-    Failed
-}
+namespace Managers.Advertising {
+	public abstract class BaseAdController : MonoBehaviour {
+		public static event Action OnShowAdsEvent;
 
-public abstract class BaseAdController : MonoBehaviour
-{
-    public static event Action OnShowAdsEvent;
+		private AdResultCallback InterstitialResultCallback      = new AdResultCallback();
+		private AdResultCallback RewardedResultCallback          = new AdResultCallback();
+		private AdResultCallback NonSkippableVideoResultCallback = new AdResultCallback();
 
-    protected Action _finishedCallback;
-    protected Action _skippedCallback;
-    protected Action _failedCallback;
+		public abstract void Initialize();
 
-    public abstract void Initialize();
+		public abstract bool InterstitialIsLoaded();
+		public abstract bool RewardedVideoLoaded();
+		public abstract bool NonSkippableVideoIsLoaded();
 
-    public abstract bool IsAvailable();
+		public abstract void ShowInterstitial();
+		public abstract void ShowBanner();
+		public abstract void ShowBottomBanner();
+		public abstract void HideBottomBanner();
+		public abstract void ShowRewardedVideo();
+		public abstract void ShowNonSkippableVideo();
 
-    public abstract void ShowAdvertising();
 
-    public void InitCallbackHandlers(Action finishedCallback, Action skippedCallback, Action failedCallback)
-    {
-        _finishedCallback = finishedCallback;
-        _skippedCallback = skippedCallback;
-        _failedCallback = failedCallback;
-    }
+		public void InitCallbackHandlers(Action finishedCallback, Action skippedCallback, Action failedCallback,
+										AdType  adType) {
+			var result = GetCallbacks(adType);
 
-    //public void HandleAdResult(ShowResult result)
-    public void HandleAdResult(AdResults result)
-    {
-        switch (result)
-        {
-            //case ShowResult.Finished:
-            case AdResults.Finished:
-                _finishedCallback.SafeInvoke();
-                OnShowAdsEvent.SafeInvoke();
-                break;
+			result.FinishedCallback = finishedCallback;
+			result.SkippedCallback  = skippedCallback;
+			result.FailedCallback   = failedCallback;
+		}
 
-            case AdResults.Skipped:
-            //case ShowResult.Skipped:
-                _skippedCallback.SafeInvoke();
-                break;
 
-            //case ShowResult.Failed:
-            case AdResults.Failed:
-                _finishedCallback.SafeInvoke();
-                break;
-        }
-    }
+		private AdResultCallback GetCallbacks(AdType adType) {
+			switch (adType) {
+				case AdType.Interstitial:      return InterstitialResultCallback;
+				case AdType.RewardedVideo:     return RewardedResultCallback;
+				case AdType.NonSkippableVideo: return NonSkippableVideoResultCallback;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(adType), adType, null);
+			}
+		}
+
+
+		public void HandleAdResult(AdResults result, AdType adType) {
+			var callbacks = GetCallbacks(adType);
+			switch (result) {
+				case AdResults.Finished:
+					callbacks.FinishedCallback.SafeInvoke();
+					OnShowAdsEvent.SafeInvoke();
+					break;
+				case AdResults.Skipped:
+					callbacks.SkippedCallback.SafeInvoke();
+					break;
+				case AdResults.Failed:
+					callbacks.FailedCallback.SafeInvoke();
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(result), result, null);
+			}
+			callbacks.Reset();
+		}
+	}
+
+	public class AdResultCallback {
+		public Action FinishedCallback;
+		public Action FailedCallback;
+		public Action SkippedCallback;
+
+
+		public void Reset() {
+			FinishedCallback = null;
+			FailedCallback   = null;
+			SkippedCallback  = null;
+		}
+	}
+
+	public enum AdType {
+		Interstitial,
+		RewardedVideo,
+		NonSkippableVideo,
+		Banner,
+		BannerBottom,
+	}
+
+	public enum AdResults {
+		Finished,
+		Skipped,
+		Failed
+	}
 }

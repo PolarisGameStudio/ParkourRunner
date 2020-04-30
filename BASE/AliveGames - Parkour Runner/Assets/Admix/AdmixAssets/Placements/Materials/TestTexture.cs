@@ -1,18 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Linq;
 using UnityEngine;
 
-public class TestTexture : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+public class TestTexture : MonoBehaviour {
+	void Start() {
+		var mr       = GetComponent<MeshRenderer>();
+		var material = mr.material;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+		var width  = 600;
+		var height = 500;
+		var txt    = new Texture2D(width, height, TextureFormat.ARGB32, false);
+		var colors = Enumerable.Repeat(new Color32(255, 0, 0, 255), width * height);
+		txt.SetPixels32(colors.ToArray());
+		txt.Apply();
+
+		material.mainTexture = txt;
+	}
 }

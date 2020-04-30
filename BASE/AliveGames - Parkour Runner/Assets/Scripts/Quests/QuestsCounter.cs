@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,11 @@ namespace Quests {
 		private void Start() {
 			QuestManager.Instance.OnUpdateActiveQuestsEvent += UpdateCounter;
 			UpdateCounter();
+		}
+
+
+		private void OnDestroy() {
+			QuestManager.Instance.OnUpdateActiveQuestsEvent -= UpdateCounter;
 		}
 
 
