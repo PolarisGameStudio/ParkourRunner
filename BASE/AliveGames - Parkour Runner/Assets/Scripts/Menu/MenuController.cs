@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using AEngine;
 
@@ -33,7 +34,11 @@ public class MenuController : MonoBehaviour
 
         OpenMenu(TransitionTarget == MenuKinds.None ? MenuKinds.MainMenu : TransitionTarget);
     }
-        
+
+
+    private void Start() { }
+
+
     public void OpenMenu(MenuKinds menu)
     {
         this.TargetMenu = menu;

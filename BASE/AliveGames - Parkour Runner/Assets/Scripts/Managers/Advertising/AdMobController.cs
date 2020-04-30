@@ -1,5 +1,9 @@
 ﻿//using UnityEngine;
+
+using System.Collections;
 using GoogleMobileAds.Api;
+using Managers.Advertising;
+using UnityEngine;
 
 public class AdMobController : BaseAdController
 {
@@ -28,33 +32,70 @@ public class AdMobController : BaseAdController
         _ad.LoadAd(request);
 
         // Без награды. Это не Rewarded, по идее видео не должен просто так закрыть пока не закончится, так что любой показ - как награда.
-        _ad.OnAdClosed -= OnAdClosed;
-        _ad.OnAdFailedToLoad -= OnAdFailed;
-        _ad.OnAdClosed += OnAdClosed;
-        _ad.OnAdFailedToLoad += OnAdFailed;
+        _ad.OnAdClosed -= OnInterstitialClosed;
+        _ad.OnAdFailedToLoad -= OnInterstitialFailed;
     }
 
-    public override bool IsAvailable()
-    {
+
+    public override bool InterstitialIsLoaded() {
         return _ad.IsLoaded();
     }
 
-    public override void ShowAdvertising()
-    {
+
+    public override bool RewardedVideoLoaded() {
+        throw new System.NotImplementedException();
+    }
+
+
+    public override bool NonSkippableVideoIsLoaded() {
+        throw new System.NotImplementedException();
+    }
+
+
+    public override void ShowInterstitial() {
+        StartCoroutine(ShowInterstitialProcess());
+    }
+
+
+    public override void ShowBanner() {
+        throw new System.NotImplementedException();
+    }
+
+
+    public override void ShowBottomBanner() {
+        throw new System.NotImplementedException();
+    }
+
+
+    public override void HideBottomBanner() {
+        throw new System.NotImplementedException();
+    }
+
+
+    public override void ShowRewardedVideo() {
+        throw new System.NotImplementedException();
+    }
+
+
+    public override void ShowNonSkippableVideo() {
+        throw new System.NotImplementedException();
+    }
+
+
+    private IEnumerator ShowInterstitialProcess() {
+        yield return new WaitUntil(() => _ad.IsLoaded());
         _ad.Show();
     }
 
     #region Events
-    private void OnAdClosed(object sender, System.EventArgs args)
+    private void OnInterstitialClosed(object sender, System.EventArgs args)
     {
-        //HandleAdResult(UnityEngine.Advertisements.ShowResult.Finished);
-        HandleAdResult(AdResults.Finished);
+        HandleAdResult(AdResults.Finished, AdType.Interstitial);
     }
 
-    private void OnAdFailed(object sender, System.EventArgs args)
+    private void OnInterstitialFailed(object sender, System.EventArgs args)
     {
-        //HandleAdResult(UnityEngine.Advertisements.ShowResult.Finished);
-        HandleAdResult(AdResults.Finished);
+        HandleAdResult(AdResults.Failed, AdType.Interstitial);
     }
     #endregion
 }

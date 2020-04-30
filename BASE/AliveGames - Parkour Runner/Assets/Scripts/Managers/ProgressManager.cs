@@ -130,7 +130,12 @@ namespace ParkourRunner.Scripts.Managers
         public static void SaveSettings()
         {
             PlayerPrefs.SetInt("GameLaunches", GameLaunches);
-            PlayerPrefs.SetFloat("DistanceRecord", (int)DistanceRecord);
+
+            EnvironmentController.CheckKeys();
+            if (PlayerPrefs.GetInt(EnvironmentController.TUTORIAL_KEY) == 0 && PlayerPrefs.GetInt(EnvironmentController.ENDLESS_KEY) == 1)
+            {
+                PlayerPrefs.SetFloat("DistanceRecord", (int)DistanceRecord);
+            }
         }
 
         public static void ResetSettings()
@@ -150,16 +155,18 @@ namespace ParkourRunner.Scripts.Managers
 
         public static bool IsNewRecord(float metres)
         {
-            SaveRecordInLeaderboards(metres);
-
-            if (metres > DistanceRecord)
+            EnvironmentController.CheckKeys();
+            if (PlayerPrefs.GetInt(EnvironmentController.TUTORIAL_KEY) == 0 && PlayerPrefs.GetInt(EnvironmentController.ENDLESS_KEY) == 1)
             {
-                DistanceRecord = metres;
+                SaveRecordInLeaderboards(metres);
 
-                //SaveRecordInLeaderboards(metres);
-
-                return true;
+                if (metres > DistanceRecord)
+                {
+                    DistanceRecord = metres;
+                    return true;
+                }
             }
+
             return false;
         }
 

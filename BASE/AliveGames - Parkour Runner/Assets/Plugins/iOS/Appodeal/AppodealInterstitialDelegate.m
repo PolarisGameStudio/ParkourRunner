@@ -8,9 +8,21 @@
     }
 }
 
--(void) interstitialDidClick {
-    if(self.interstitialDidClickCallback) {
-        self.interstitialDidClickCallback();
+-(void) interstitialDidFailToLoadAd {
+    if(self.interstitialDidFailToLoadAdCallback) {
+        self.interstitialDidFailToLoadAdCallback();
+    }
+}
+
+-(void) interstitialDidFailToPresent {
+    if(self.interstitialDidFailToPresentCallback){
+        self.interstitialDidFailToPresentCallback();
+    }
+}
+
+-(void) interstitialWillPresent {
+    if(self.interstitialWillPresentCallback) {
+        self.interstitialWillPresentCallback();
     }
 }
 
@@ -20,19 +32,9 @@
     }
 }
 
--(void) interstitialDidFailToLoadAd {
-    if(self.interstitialDidFailToLoadAdCallback) {
-        self.interstitialDidFailToLoadAdCallback();
-    }
-}
-
--(void) interstitialDidFailToPresent {
-    
-}
-
--(void) interstitialWillPresent {
-    if(self.interstitialWillPresentCallback) {
-        self.interstitialWillPresentCallback();
+-(void) interstitialDidClick {
+    if(self.interstitialDidClickCallback) {
+        self.interstitialDidClickCallback();
     }
 }
 

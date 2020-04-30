@@ -49,7 +49,7 @@ public class SettingsTweening : MonoBehaviour
             OpenNext(_AGBtn, _baseBtn);
 
             AudioManager.Instance.PlaySound(Sounds.ShopSlot);
-            AdManager.Instance.HideBanner();
+            AdManager.Instance.HideBottomBanner();
         }
     }
 
@@ -120,7 +120,7 @@ public class SettingsTweening : MonoBehaviour
                 if (MenuController.LastTransition == MenuKinds.MainMenu)
                 {
                     controllsecuance.Insert(0f, _questBlock.Show());
-                    AdManager.Instance.ShowBanner();
+                    AdManager.Instance.ShowBottomBanner();
                 }
                 
                 _controlBackground.DOColor(_disableColorBg, 0.5f);

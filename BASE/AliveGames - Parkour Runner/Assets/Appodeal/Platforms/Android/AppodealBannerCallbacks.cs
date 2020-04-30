@@ -1,39 +1,52 @@
-﻿using AppodealAds.Unity.Common;
-using UnityEngine;
+﻿using System.Diagnostics.CodeAnalysis;
+using AppodealAds.Unity.Common;
 
-namespace AppodealAds.Unity.Android {
-	public class AppodealBannerCallbacks
+namespace AppodealAds.Unity.Android
+{
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "UnusedParameter.Local")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    public class AppodealBannerCallbacks
 #if UNITY_ANDROID
-		: AndroidJavaProxy {
-			IBannerAdListener listener;
+        : UnityEngine.AndroidJavaProxy
+    {
+        private readonly IBannerAdListener listener;
 
-			internal AppodealBannerCallbacks (IBannerAdListener listener) : base ("com.appodeal.ads.BannerCallbacks") {
-				this.listener = listener;
-			}
+        internal AppodealBannerCallbacks(IBannerAdListener listener) : base("com.appodeal.ads.BannerCallbacks")
+        {
+            this.listener = listener;
+        }
 
-			void onBannerLoaded (int height, bool isPrecache) {
-				listener.onBannerLoaded (isPrecache);
-			}
+        public void onBannerLoaded(int height, bool isPrecache)
+        {
+            listener.onBannerLoaded(height,isPrecache);
+        }
 
-			void onBannerFailedToLoad () {
-				listener.onBannerFailedToLoad ();
-			}
+        public void onBannerFailedToLoad()
+        {
+            listener.onBannerFailedToLoad();
+        }
 
-			void onBannerShown () {
-				listener.onBannerShown ();
-			}
+        public void onBannerShown()
+        {
+            listener.onBannerShown();
+        }
 
-			void onBannerClicked () {
-				listener.onBannerClicked ();
-			}
+        public void onBannerClicked()
+        {
+            listener.onBannerClicked();
+        }
 
-			void onBannerExpired () {
-				listener.onBannerExpired ();
-			}
-		}
+        public void onBannerExpired()
+        {
+            listener.onBannerExpired();
+        }
+    }
 #else
-	{
-		public AppodealBannerCallbacks (IBannerAdListener listener) { }
-	}
+    {
+        public AppodealBannerCallbacks(IBannerAdListener listener)
+        {
+        }
+    }
 #endif
 }

@@ -51,10 +51,10 @@ public class ParkourSlowMo : MonoBehaviour
 
     private IEnumerator SmoothSlowing()
     {
-        Time.fixedDeltaTime = SlowUpdateRate * 2;
-        while (Time.timeScale - 0.02f > 0)
+        // Time.fixedDeltaTime = SlowUpdateRate * 2;
+        while (Time.timeScale - Time.unscaledDeltaTime > 0)
         {
-            Time.timeScale -= 0.02f;
+            Time.timeScale -= Time.unscaledDeltaTime;
             yield return null;
         }
         Time.timeScale = 0.0000001f;
@@ -68,14 +68,12 @@ public class ParkourSlowMo : MonoBehaviour
 
     private IEnumerator SmoothContinue()
     {
-        float delay = 0.4f;
-        while (Time.timeScale < delay)
-        {
-            Time.timeScale += 0.005f;
+        while (Time.timeScale < 1f) {
+            Time.timeScale += Time.unscaledDeltaTime;
             yield return null;
         }
         Time.timeScale = 1f;
-        Time.fixedDeltaTime = DefaultfixedDeltaTime;
+        // Time.fixedDeltaTime = DefaultfixedDeltaTime;
 
     }
 

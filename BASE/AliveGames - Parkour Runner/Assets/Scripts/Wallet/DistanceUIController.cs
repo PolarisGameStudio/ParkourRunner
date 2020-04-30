@@ -11,7 +11,7 @@ public class DistanceUIController : MonoBehaviour
     [SerializeField] private bool _enableMetres;
     [SerializeField] private bool _spaceBeforeMetres;
 
-    private void OnEnable()
+    private void Start()
     {
         BuildText();
     }

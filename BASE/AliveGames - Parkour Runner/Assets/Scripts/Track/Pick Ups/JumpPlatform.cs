@@ -1,5 +1,7 @@
 ﻿using Basic_Locomotion.Scripts.CharacterController;
+using Managers;
 using ParkourRunner.Scripts.Player.InvectorMods;
+using Photon.Pun;
 using UnityEngine;
 
 namespace ParkourRunner.Scripts.Track.Pick_Ups
@@ -16,6 +18,7 @@ namespace ParkourRunner.Scripts.Track.Pick_Ups
         {
             if (other.tag == "Player")
             {
+                if (PhotonGameManager.IsMultiplayerAndConnected && !other.GetComponent<PhotonView>().IsMine) return;
                 ParkourThirdPersonController _player = ParkourThirdPersonController.instance;
                 _player.PlatformJump(JumpSpeed, JumpHeight);
             }

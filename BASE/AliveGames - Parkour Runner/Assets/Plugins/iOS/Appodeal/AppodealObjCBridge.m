@@ -117,12 +117,12 @@ void AppodealSetTestingEnabled(BOOL testingEnabled) {
     [Appodeal setTestingEnabled:testingEnabled];
 }
 
-void AppodealUpdateConsent(BOOL value) {
-[Appodeal updateConsent: value];
-}
-
 void AppodealSetChildDirectedTreatment(BOOL value) {
     [Appodeal setChildDirectedTreatment:value];
+}
+
+void AppodealUpdateConsent(BOOL value) {
+    [Appodeal updateConsent:value];
 }
 
 void AppodealDisableNetwork(const char * networkName) {
@@ -174,7 +174,7 @@ BOOL AppodealCanShowWithPlacement(int style, const char *placement) {
 void AppodealSetSegmentFilterBool(const char *name, BOOL value) {
     NSString * key = [NSString stringWithUTF8String:name];
     NSNumber * valueNum = [NSNumber numberWithBool:value];
-    NSDictionary * objCRule = key ? @{} : @{key : valueNum};
+    NSDictionary * objCRule = key ? @{key : valueNum} : @{};
     [Appodeal setSegmentFilter:objCRule];
 }
 
@@ -308,18 +308,20 @@ BOOL AppodealShowMrecAdViewforPlacement(int YAxis, int XAxis, const char *placem
 static AppodealInterstitialDelegate *AppodealInterstitialDelegateInstance;
 void AppodealSetInterstitialDelegate(AppodealInterstitialDidLoadCallback interstitialDidLoadAd,
                                      AppodealInterstitialCallbacks interstitialDidFailToLoadAd,
-                                     AppodealInterstitialCallbacks interstitialDidClick,
-                                     AppodealInterstitialCallbacks interstitialDidDismiss,
+                                     AppodealInterstitialCallbacks interstitialDidFailToPresent,
                                      AppodealInterstitialCallbacks interstitialWillPresent,
+                                     AppodealInterstitialCallbacks interstitialDidDismiss,
+                                     AppodealInterstitialCallbacks interstitialDidClick,
                                      AppodealInterstitialCallbacks interstitialDidExpired) {
     
     AppodealInterstitialDelegateInstance = [AppodealInterstitialDelegate new];
     
     AppodealInterstitialDelegateInstance.interstitialDidLoadCallback = interstitialDidLoadAd;
     AppodealInterstitialDelegateInstance.interstitialDidFailToLoadAdCallback = interstitialDidFailToLoadAd;
-    AppodealInterstitialDelegateInstance.interstitialDidClickCallback = interstitialDidClick;
-    AppodealInterstitialDelegateInstance.interstitialDidDismissCallback = interstitialDidDismiss;
+    AppodealInterstitialDelegateInstance.interstitialDidFailToPresentCallback = interstitialDidFailToPresent;
     AppodealInterstitialDelegateInstance.interstitialWillPresentCallback = interstitialWillPresent;
+    AppodealInterstitialDelegateInstance.interstitialDidDismissCallback = interstitialDidDismiss;
+    AppodealInterstitialDelegateInstance.interstitialDidClickCallback = interstitialDidClick;
     AppodealInterstitialDelegateInstance.interstitialsDidExpiredCallback = interstitialDidExpired;
     
     [Appodeal setInterstitialDelegate:AppodealInterstitialDelegateInstance];
@@ -347,6 +349,7 @@ void AppodealSetBannerDelegate(AppodealBannerDidLoadCallback bannerDidLoadAd,
 static AppodealNonSkippableVideoDelegate *AppodealNonSkippableVideoDelegateInstance;
 void AppodealSetNonSkippableVideoDelegate(AppodealNonSkippableVideoDidLoadCallback nonSkippableVideoDidLoadAd,
                                           AppodealNonSkippableVideoCallbacks nonSkippableVideoDidFailToLoadAd,
+                                          AppodealNonSkippableVideoCallbacks nonSkippableVideoDidFailToPresent,
                                           AppodealNonSkippableVideoDidDismissCallback nonSkippableVideoWillDismiss,
                                           AppodealNonSkippableVideoCallbacks nonSkippableVideoDidFinish,
                                           AppodealNonSkippableVideoCallbacks nonSkippableVideoDidPresent,
@@ -356,6 +359,7 @@ void AppodealSetNonSkippableVideoDelegate(AppodealNonSkippableVideoDidLoadCallba
     
     AppodealNonSkippableVideoDelegateInstance.nonSkippableVideoDidLoadAdCallback = nonSkippableVideoDidLoadAd;
     AppodealNonSkippableVideoDelegateInstance.nonSkippableVideoDidFailToLoadAdCallback = nonSkippableVideoDidFailToLoadAd;
+    AppodealNonSkippableVideoDelegateInstance.nonSkippableVideoDidFailToPresentCallback = nonSkippableVideoDidFailToPresent;
     AppodealNonSkippableVideoDelegateInstance.nonSkippableVideoWillDismissCallback = nonSkippableVideoWillDismiss;
     AppodealNonSkippableVideoDelegateInstance.nonSkippableVideoDidFinishCallback = nonSkippableVideoDidFinish;
     AppodealNonSkippableVideoDelegateInstance.nonSkippableVideoDidPresentCallback = nonSkippableVideoDidPresent;
@@ -367,6 +371,7 @@ void AppodealSetNonSkippableVideoDelegate(AppodealNonSkippableVideoDidLoadCallba
 static AppodealRewardedVideoDelegate *AppodealRewardedVideoDelegateInstance;
 void AppodealSetRewardedVideoDelegate(AppodealRewardedVideoDidLoadCallback rewardedVideoDidLoadAd,
                                       AppodealRewardedVideoCallbacks rewardedVideoDidFailToLoadAd,
+                                      AppodealRewardedVideoCallbacks rewardedVideoDidFailToPresent,
                                       AppodealRewardedVideoDidDismissCallback rewardedVideoWillDismiss,
                                       AppodealRewardedVideoDidFinishCallback rewardedVideoDidFinish,
                                       AppodealRewardedVideoCallbacks rewardedVideoDidPresent,
@@ -377,6 +382,7 @@ void AppodealSetRewardedVideoDelegate(AppodealRewardedVideoDidLoadCallback rewar
     
     AppodealRewardedVideoDelegateInstance.rewardedVideoDidLoadAdCallback = rewardedVideoDidLoadAd;
     AppodealRewardedVideoDelegateInstance.rewardedVideoDidFailToLoadAdCallback = rewardedVideoDidFailToLoadAd;
+    AppodealRewardedVideoDelegateInstance.rewardedVideoDidFailToPresentCallback = rewardedVideoDidFailToPresent;
     AppodealRewardedVideoDelegateInstance.rewardedVideoWillDismissCallback = rewardedVideoWillDismiss;
     AppodealRewardedVideoDelegateInstance.rewardedVideoDidFinishCallback = rewardedVideoDidFinish;
     AppodealRewardedVideoDelegateInstance.rewardedVideoDidPresentCallback = rewardedVideoDidPresent;

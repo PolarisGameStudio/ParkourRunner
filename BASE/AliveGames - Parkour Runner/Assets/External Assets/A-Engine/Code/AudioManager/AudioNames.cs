@@ -23,7 +23,7 @@ namespace AEngine
 		GameOver,
 		ResultFull,
 		JumpStrong,
-		Rift,
+		Rift2,
 		BonusX2,
 		Explosion,
 		Laser,
@@ -33,16 +33,23 @@ namespace AEngine
 		BonusMed,
 		BonusShield,
 		Jump,
-		Run,
 		RunOneLeg,
-		Rift2,
+		Run,
+		Rift,
 		Death,
 		WinLevel,
-		Damage1,
 		Damage2,
+		Damage1,
 		Landing,
 		Caption,
-		JumpOver
+		JumpOver,
+		BonusMedFem,
+		DeathFem,
+		FemDamage1,
+		FemDamage2,
+		RiftFem,
+		JumpOverFem,
+		JumpStrongFem
 	}
 
 	public enum Musics

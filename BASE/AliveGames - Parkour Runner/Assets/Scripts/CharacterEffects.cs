@@ -51,10 +51,6 @@ public class CharacterEffects : MonoBehaviour
         {
             Instance = this;
         }
-        else
-        {
-            Destroy(this.gameObject);
-        }
     }
 
     private void SetParticleState(ParticleSystem particles, bool isPlaying)

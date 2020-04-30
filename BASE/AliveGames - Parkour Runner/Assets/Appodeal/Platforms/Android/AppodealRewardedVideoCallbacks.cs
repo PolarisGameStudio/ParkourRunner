@@ -1,52 +1,74 @@
-using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using AppodealAds.Unity.Common;
-using UnityEngine;
 
-namespace AppodealAds.Unity.Android {
-	public class AppodealRewardedVideoCallbacks
+
+namespace AppodealAds.Unity.Android
+{
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    [SuppressMessage("ReSharper", "UnusedParameter.Local")]
+    public class AppodealRewardedVideoCallbacks
 #if UNITY_ANDROID
-		: AndroidJavaProxy {
-			IRewardedVideoAdListener listener;
+        : UnityEngine.AndroidJavaProxy
+    {
+        private readonly IRewardedVideoAdListener listener;
 
-			internal AppodealRewardedVideoCallbacks (IRewardedVideoAdListener listener) : base ("com.appodeal.ads.RewardedVideoCallbacks") {
-				this.listener = listener;
-			}
+        internal AppodealRewardedVideoCallbacks(IRewardedVideoAdListener listener) : base(
+            "com.appodeal.ads.RewardedVideoCallbacks")
+        {
+            this.listener = listener;
+        }
 
-			void onRewardedVideoLoaded (bool precache) {
-				listener.onRewardedVideoLoaded (precache);
-			}
+       public void onRewardedVideoLoaded(bool precache)
+        {
+            listener.onRewardedVideoLoaded(precache);
+        }
 
-			void onRewardedVideoFailedToLoad () {
-				listener.onRewardedVideoFailedToLoad ();
-			}
+       public void onRewardedVideoFailedToLoad()
+        {
+            listener.onRewardedVideoFailedToLoad();
+        }
 
-			void onRewardedVideoShown () {
-				listener.onRewardedVideoShown ();
-			}
+       public void onRewardedVideoShowFailed()
+        {
+            listener.onRewardedVideoShowFailed();
+        }
 
-			void onRewardedVideoFinished (double amount, AndroidJavaObject name) {
-				listener.onRewardedVideoFinished (amount, null);
-			}
+       public void onRewardedVideoShown()
+        {
+            listener.onRewardedVideoShown();
+        }
 
-			void onRewardedVideoFinished (double amount, string name) {
-				listener.onRewardedVideoFinished (amount, name);
-			}
+       public void onRewardedVideoFinished(double amount, UnityEngine.AndroidJavaObject name)
+        {
+            listener.onRewardedVideoFinished(amount, null);
+        }
 
-			void onRewardedVideoClosed (bool finished) {
-				listener.onRewardedVideoClosed (finished);
-			}
+       public void onRewardedVideoFinished(double amount, string name)
+        {
+            listener.onRewardedVideoFinished(amount, name);
+        }
 
-			void onRewardedVideoExpired () {
-				listener.onRewardedVideoExpired ();
-			}
-			void onRewardedVideoClicked () {
-				listener.onRewardedVideoClicked ();
-			}
+       public void onRewardedVideoClosed(bool finished)
+        {
+            listener.onRewardedVideoClosed(finished);
+        }
 
-		}
+       public void onRewardedVideoExpired()
+        {
+            listener.onRewardedVideoExpired();
+        }
+
+       public void onRewardedVideoClicked()
+        {
+            listener.onRewardedVideoClicked();
+        }
+    }
 #else
-	{
-		public AppodealRewardedVideoCallbacks (IRewardedVideoAdListener listener) { }
-	}
+    {
+        public AppodealRewardedVideoCallbacks(IRewardedVideoAdListener listener)
+        {
+        }
+    }
 #endif
 }

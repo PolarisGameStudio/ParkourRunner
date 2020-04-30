@@ -5,6 +5,7 @@ using ParkourRunner.Scripts.Player.InvectorMods;
 using ParkourRunnerEnvironment;
 using UnityEngine;
 using AEngine;
+using Managers;
 
 namespace ParkourRunner.Scripts.Track.Generator
 {
@@ -32,7 +33,7 @@ namespace ParkourRunner.Scripts.Track.Generator
         [SerializeField] private float _levelCaptionDelay = 1f;
 
         [SerializeField] private Vector3 StartBlockOffset;
-        [SerializeField] private List<Block> _blockPool;
+        public List<Block> _blockPool;
 
         private Environment _environment;
         public Block CenterBlock;
@@ -125,25 +126,13 @@ namespace ParkourRunner.Scripts.Track.Generator
             StartCoroutine(ShowLevelDataProcess(_levelCaptionDelay));
         }
 
-        private void Update()
-        {
-            if (_debugMode && Input.GetKeyUp(KeyCode.Alpha1))
-            {
-                print(string.Format("Generated {0} blocks", _history.Count));
-                foreach (var block in _history)
-                {
-                    print(block);
-                }
-
-                Debug.Break();
-            }
-        }
-
         private IEnumerator ShowLevelDataProcess(float delay)
         {
             yield return new WaitForSeconds(delay);
 
-            Managers.HUDManager.Instance.ShowGreatMessage(Managers.HUDManager.Messages.CurrentLevel);
+            if (!PhotonGameManager.IsMultiplayerAndConnected) {
+                Managers.HUDManager.Instance.ShowGreatMessage(Managers.HUDManager.Messages.CurrentLevel);
+            }
         }
                         
         private IEnumerator Generate()
@@ -170,7 +159,7 @@ namespace ParkourRunner.Scripts.Track.Generator
 
             Block startBlock = (defaultBlock == null) ? startList.Find(x => x.Type == Block.BlockType.Start) : defaultBlock;
                         
-            var startBlockGo = Instantiate(startBlock, _player.position + StartBlockOffset, Quaternion.identity);
+            var startBlockGo = Instantiate(startBlock, ParkourThirdPersonController.instance.StartPosition + StartBlockOffset, Quaternion.identity);
 
             _environmentLength--;
                         
@@ -239,9 +228,17 @@ namespace ParkourRunner.Scripts.Track.Generator
             List<Block> blocksToDestroy = new List<Block>();
             foreach (var block in _blockPool)
             {
-                if (block.transform.position.z < _player.position.z - (_blockSize/2f + 2f)) //Если игрок сощёл с предыдущего блока на 2 метра
-                {
-                    blocksToDestroy.Add(block);
+                if (PhotonGameManager.IsMultiplayerAndConnected) {
+                    if (block.transform.position.z < _player.position.z - (_blockSize)) //Если игрок прошел с предыдущего блока половину его длины
+                    {
+                        blocksToDestroy.Add(block);
+                    }
+                }
+                else {
+                    if (block.transform.position.z < _player.position.z - (_blockSize / 2f + 2f)) //Если игрок сощёл с предыдущего блока на 2 метра
+                    {
+                        blocksToDestroy.Add(block);
+                    }
                 }
             }
             foreach (var block in blocksToDestroy)
@@ -292,13 +289,18 @@ namespace ParkourRunner.Scripts.Track.Generator
 
         private Block GetBlockFromList(List<Block> list)
         {
-            var blocks = new List<Block>(list);
-            foreach (var blockName in _lastBlocks)
-            {
-                blocks = blocks.Where(x => x.name != blockName).ToList();
+            if (_environment.RandomBlocks) {
+                var blocks = new List<Block>(list);
+                foreach (var blockName in _lastBlocks) {
+                    blocks = blocks.Where(x => x.name != blockName).ToList();
+                }
+
+                return blocks[Random.Range(0, blocks.Count)];
             }
-            
-            return blocks[Random.Range(0, blocks.Count)];
+
+            var index = list.Count - Mathf.Abs(_environmentLength);
+            index = index < 0 ? list.Count + index : index;
+            return list[index];
         }
 
         private Block DefaultBlockGeneration()

@@ -1,123 +1,285 @@
 ﻿using System.Collections;
 using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
+using Managers.Advertising;
 using UnityEngine;
 
-public class AppodealAdController : BaseAdController, IInterstitialAdListener, IBannerAdListener
-{
+public class AppodealAdController : BaseAdController, IInterstitialAdListener, IRewardedVideoAdListener,
+									INonSkippableVideoAdListener, IBannerAdListener {
 	private const int MAX_FRAMES_TO_INTERSTITIAL = 2;
 
 	[SerializeField] private string _androidAppKey;
 	[SerializeField] private string _iosAppKey;
 	[SerializeField] private bool   _isTesting;
 
-	private bool _failed, _success, _skipped;
-
-    private bool EnableBanner { get; set; }
+	private Coroutine _bottomBanner;
 
 
-	private void Update()
-    {
-		if (_failed) HandleAdResult(AdResults.Failed);
-		if (_success) HandleAdResult(AdResults.Finished);
-		if (_skipped) HandleAdResult(AdResults.Skipped);
-
-		_failed = _success = _skipped = false;
-	}
-    
-	public override void Initialize()
-    {
-		Appodeal.setTesting(_isTesting);
-        Appodeal.setSmartBanners(false);
-        Appodeal.setTabletBanners(true);
-
-#if UNITY_IPHONE || UNITY_IOS
-        Appodeal.initialize(_iosAppKey, Appodeal.INTERSTITIAL | Appodeal.BANNER_BOTTOM);
-#elif UNITY_ANDROID
-		Appodeal.initialize(_androidAppKey, Appodeal.INTERSTITIAL | Appodeal.BANNER_BOTTOM);
+	public override void Initialize() {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+		return;
 #endif
 
-        Appodeal.setInterstitialCallbacks(this);
+		if(!AdManager.EnableAds) return;
+
+		// Appodeal.setLogLevel(Appodeal.LogLevel.Debug);
+		Appodeal.setTesting(_isTesting);
+		Appodeal.setSmartBanners(true);
+		Appodeal.setTabletBanners(true);
+
+		Appodeal.initialize(_androidAppKey,
+							Appodeal.INTERSTITIAL | Appodeal.BANNER_BOTTOM | Appodeal.REWARDED_VIDEO |
+							Appodeal.NON_SKIPPABLE_VIDEO);
+		Appodeal.cache(Appodeal.INTERSTITIAL | Appodeal.BANNER_BOTTOM | Appodeal.REWARDED_VIDEO |
+						Appodeal.NON_SKIPPABLE_VIDEO);
+
+		Appodeal.setInterstitialCallbacks(this);
+		Appodeal.setRewardedVideoCallbacks(this);
+		Appodeal.setNonSkippableVideoCallbacks(this);
+		// Appodeal.setBannerCallbacks(this);
 	}
-    
-	public override bool IsAvailable()
-    {
-        return Appodeal.canShow(Appodeal.INTERSTITIAL);
+
+
+	public override bool InterstitialIsLoaded() {
+		return Appodeal.isLoaded(Appodeal.INTERSTITIAL);
 	}
-                
-	public override void ShowAdvertising()
-    {
-		StartCoroutine(ShowAdsProcess());
+
+
+	public override bool RewardedVideoLoaded() {
+		return Appodeal.isLoaded(Appodeal.REWARDED_VIDEO);
 	}
-    
-	private IEnumerator ShowAdsProcess()
-    {
-		yield return new WaitWhile(() => !Appodeal.isLoaded(Appodeal.INTERSTITIAL));
+
+
+	public override bool NonSkippableVideoIsLoaded() {
+		return Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO);
+	}
+
+
+	#region Show Ad
+
+	public override void ShowInterstitial() {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+		HandleAdResult(AdResults.Finished, AdType.Interstitial);
+		return;
+#endif
+		StartCoroutine(ShowInterstitialProcess());
+	}
+
+
+	public override void ShowBanner() {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+		return;
+#endif
+		// StartCoroutine(ShowBannerProcess());
+	}
+
+
+	public override void ShowBottomBanner() {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+		return;
+#endif
+		_bottomBanner = StartCoroutine(ShowBottomBannerProcess());
+	}
+
+
+	public override void HideBottomBanner() {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+		return;
+#endif
+		// print("Stopping 'ShowBottomBannerProcess'");
+		if(_bottomBanner != null) StopCoroutine(_bottomBanner);
+		Appodeal.hide(Appodeal.BANNER_BOTTOM);
+	}
+
+
+	public override void ShowRewardedVideo() {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+		HandleAdResult(AdResults.Finished, AdType.RewardedVideo);
+		return;
+#endif
+		StartCoroutine(ShowVideoProcess());
+	}
+
+
+	public override void ShowNonSkippableVideo() {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+		HandleAdResult(AdResults.Finished, AdType.NonSkippableVideo);
+		return;
+#endif
+		StartCoroutine(ShowNonSkipVideoProcess());
+	}
+
+	#endregion
+
+
+	#region Process Ad
+
+	private IEnumerator ShowInterstitialProcess() {
+		if (_isTesting) print("ShowInterstitialProcess");
+		yield return new WaitUntil(() => Appodeal.isLoaded(Appodeal.INTERSTITIAL));
 		Appodeal.show(Appodeal.INTERSTITIAL);
 	}
 
-    public void ShowBanner()
-    {
-        this.EnableBanner = true;
-        StartCoroutine(ShowBannerProcess());
-    }
 
-    public void HideBanner()
-    {
-        StopCoroutine(ShowBannerProcess());
-        this.EnableBanner = false;
-        Appodeal.hide(Appodeal.BANNER_BOTTOM);
-    }
-
-    private IEnumerator ShowBannerProcess()
-    {
-        yield return new WaitWhile(() => !Appodeal.isLoaded(Appodeal.BANNER_BOTTOM) && !Appodeal.canShow(Appodeal.BANNER_BOTTOM));
-
-        // Возможно, пока баннер загружался игрок уже перешел в другое меню где баннер не нужно показывать
-        if (this.EnableBanner)
-            Appodeal.show(Appodeal.BANNER_BOTTOM);
-    }
-    
-
-	#region Interface
-    public void onInterstitialFailedToLoad()
-    {
-		_failed = true;
+	private IEnumerator ShowBannerProcess() {
+		yield return new WaitUntil(() => Appodeal.isLoaded(Appodeal.BANNER));
+		Appodeal.show(Appodeal.BANNER);
 	}
-    
-	public void onInterstitialExpired()
-    {
-		_failed = true;
+
+
+	private IEnumerator ShowBottomBannerProcess() {
+		yield return new WaitUntil(() => Appodeal.isLoaded(Appodeal.BANNER_BOTTOM));
+		if(MenuController.LastTransition != MenuKinds.MainMenu) yield break;
+
+		Appodeal.show(Appodeal.BANNER_BOTTOM);
 	}
-    
-	public void onInterstitialLoaded(bool isPrecache) { }
+
+
+	private IEnumerator ShowVideoProcess() {
+		yield return new WaitUntil(() => Appodeal.isLoaded(Appodeal.REWARDED_VIDEO));
+		Appodeal.show(Appodeal.REWARDED_VIDEO);
+	}
+
+
+	private IEnumerator ShowNonSkipVideoProcess() {
+		yield return new WaitUntil(() => Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO));
+		Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
+	}
+
+	#endregion
+
+
+	#region Interstitial Callbacks
+
+	public void onInterstitialFailedToLoad() {
+		if (_isTesting) Debug.Log("Interstitial load failed");
+		HandleAdResult(AdResults.Failed, AdType.Interstitial);
+	}
+
+
+	public void onInterstitialShowFailed() {
+		if (_isTesting) Debug.Log("Interstitial show failed");
+		HandleAdResult(AdResults.Failed, AdType.Interstitial);
+	}
+
+
+	public void onInterstitialExpired() {
+		HandleAdResult(AdResults.Failed, AdType.Interstitial);
+	}
+
+
+	public void onInterstitialLoaded(bool isPrecache) {
+		if (_isTesting) Debug.Log("Interstitial is loaded");
+	}
+
 
 	public void onInterstitialClicked() { }
-    
-	public void onInterstitialClosed()
-    {
-		_success = true;
+
+
+	public void onInterstitialClosed() {
+		HandleAdResult(AdResults.Finished, AdType.Interstitial);
 	}
-    
+
+
 	public void onInterstitialShown() { }
-    #endregion
+
+	#endregion
 
 
-    #region Banner Interface
-    public void onBannerFailedToLoad()
-    {
-        _failed = true;
-    }
+	#region Rewarded Video Callbacks
 
-    public void onBannerExpired()
-    {
-        _failed = true;
-    }
+	public void onRewardedVideoLoaded(bool precache) {
+		if (_isTesting) Debug.Log("Rewarded video is loaded");
+	}
 
-    public void onBannerLoaded(bool isPrecache) { }
 
-    public void onBannerShown() { }
+	public void onRewardedVideoFailedToLoad() {
+		if (_isTesting) Debug.Log("Rewarded video load failed");
+		HandleAdResult(AdResults.Failed, AdType.RewardedVideo);
+	}
 
-    public void onBannerClicked() { }
-    #endregion
+
+	public void onRewardedVideoShowFailed() {
+		if (_isTesting) Debug.Log("Rewarded video show failed");
+		HandleAdResult(AdResults.Failed, AdType.RewardedVideo);
+	}
+
+
+	public void onRewardedVideoShown() { }
+
+
+	public void onRewardedVideoFinished(double amount, string name) {
+		HandleAdResult(AdResults.Finished, AdType.RewardedVideo);
+	}
+
+
+	public void onRewardedVideoClosed(bool finished) {
+		HandleAdResult(finished ? AdResults.Finished : AdResults.Skipped, AdType.RewardedVideo);
+	}
+
+
+	public void onRewardedVideoExpired() {
+		HandleAdResult(AdResults.Failed, AdType.RewardedVideo);
+	}
+
+
+	public void onRewardedVideoClicked() { }
+
+	#endregion
+
+
+	#region Non Skippable Video Callbacks
+
+	public void onNonSkippableVideoLoaded(bool isPrecache) { }
+
+
+	public void onNonSkippableVideoFailedToLoad() {
+		HandleAdResult(AdResults.Failed, AdType.NonSkippableVideo);
+	}
+
+
+	public void onNonSkippableVideoShowFailed() {
+		HandleAdResult(AdResults.Failed, AdType.NonSkippableVideo);
+	}
+
+
+	public void onNonSkippableVideoShown() { }
+
+
+	public void onNonSkippableVideoFinished() {
+		HandleAdResult(AdResults.Finished, AdType.NonSkippableVideo);
+	}
+
+
+	public void onNonSkippableVideoClosed(bool finished) {
+		HandleAdResult(finished ? AdResults.Finished : AdResults.Skipped, AdType.NonSkippableVideo);
+	}
+
+
+	public void onNonSkippableVideoExpired() {
+		HandleAdResult(AdResults.Failed, AdType.NonSkippableVideo);
+	}
+
+	#endregion
+
+
+	#region Banner Callbacks
+
+	public void onBannerLoaded(int height, bool isPrecache) {
+		if (_isTesting) print($"Banner Is Loaded ({height})");
+	}
+
+
+	public void onBannerFailedToLoad() {
+		if (_isTesting) print("Failed to load Banner");
+	}
+
+
+	public void onBannerShown() { }
+
+	public void onBannerClicked() { }
+
+	public void onBannerExpired() { }
+
+	#endregion
 }

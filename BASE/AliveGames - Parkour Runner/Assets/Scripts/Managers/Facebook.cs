@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Managers {
 	public class Facebook : MonoBehaviour {
+#if !UNITY_EDITOR && !UNITY_STANDALONE_WIN
 		private void Awake() {
 			print("Check FB Init");
 			if (!FB.IsInitialized) {
@@ -24,6 +25,7 @@ namespace Managers {
 			else
 				FB.ActivateApp();
 		}
+#endif
 
 
 		#region Login / Logout
@@ -42,12 +44,15 @@ namespace Managers {
 
 
 		public static void Share(FacebookDelegate<IShareResult> onResult = null) {
+#if !UNITY_EDITOR && !UNITY_STANDALONE_WIN
+
 			if (!FB.IsLoggedIn) Login();
 
 			FB.ShareLink(new System.Uri("https://play.google.com/store/apps/details?id=com.play.game.cyber.parkour.endless.runner.robot.bot.subway.tomb.runbot"),
 						"Check it out!",
 						"Beat my record!",
 						null, onResult);
+#endif
 		}
 
 

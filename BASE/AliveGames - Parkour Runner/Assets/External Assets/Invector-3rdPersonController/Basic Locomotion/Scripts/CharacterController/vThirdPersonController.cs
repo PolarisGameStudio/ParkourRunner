@@ -28,6 +28,7 @@ namespace Basic_Locomotion.Scripts.CharacterController
             }
             else
             {
+                print("Destroy this");
                 Destroy(this.gameObject);
                 return;
             }

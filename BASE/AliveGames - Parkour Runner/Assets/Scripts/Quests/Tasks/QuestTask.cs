@@ -13,6 +13,6 @@ public class QuestTask : MonoBehaviour
             AudioManager.Instance.PlaySound(Sounds.WinQuest);
 
         QuestManager.Instance.CompleteQuest(_data.ID);
-        Wallet.Instance.AddCoins(_data.Reward, Wallet.WalletMode.InGame);
+        Wallet.Instance.AddCoins(_data.Reward, Wallet.WalletMode.Global);
     }
 }

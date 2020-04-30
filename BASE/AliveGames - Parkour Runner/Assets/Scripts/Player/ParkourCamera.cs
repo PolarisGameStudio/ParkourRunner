@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using Managers;
+using ParkourRunner.Scripts.Player.InvectorMods;
 using RootMotion.Dynamics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -35,14 +37,18 @@ public class ParkourCamera : MonoBehaviour
 
     [SerializeField] private PuppetMaster _puppetMaster;
     private float RollLength = 0.7f;
-    private bool _fell = false;
+    private bool _fall = false;
 
     public float SlowTimeForSecondsOnFall = 2f;
     [Range(0f, 1f)] public float SlowTimeChance = 0.5f;
 
     private Transform _fpsCam, _headTarget;
+    [SerializeField] private Vector3 FpsCamPosOffset;
     [SerializeField] private Vector3 FpsCamRotOffset;
     [SerializeField] private float FpsCamSmoothSpeed;
+
+    private Coroutine _jumpCoroutine;
+    private float _defaultFollowSmooth;
 
     public bool LockCamera { get; set; }
 
@@ -51,6 +57,7 @@ public class ParkourCamera : MonoBehaviour
         Instance = this;
         ParkourSlowMo = GetComponent<ParkourSlowMo>();
         this.LockCamera = false;
+        _defaultFollowSmooth = FollowSmooth;
     }
 
     void Start ()
@@ -88,11 +95,11 @@ public class ParkourCamera : MonoBehaviour
     {
         if (_followMode == FollowMode.Stop || this.LockCamera) return;
 
-        var rotation = _fpsCam.rotation;
-        rotation         = Quaternion.Slerp(rotation, _headTarget.rotation, FpsCamSmoothSpeed *  Time.deltaTime);
-        rotation         = Quaternion.Euler(rotation.eulerAngles + FpsCamRotOffset);
-        _fpsCam.rotation = rotation;
-        _fpsCam.position = _headTarget.position;
+        var fpsRotation = _fpsCam.rotation;
+        fpsRotation         = Quaternion.Slerp(fpsRotation, _headTarget.rotation, FpsCamSmoothSpeed *  Time.deltaTime);
+        fpsRotation         = Quaternion.Euler(fpsRotation.eulerAngles + FpsCamRotOffset);
+        _fpsCam.rotation = fpsRotation;
+        _fpsCam.position = _headTarget.position + FpsCamPosOffset;
 
         if (_followMode == FollowMode.FollowPuppet)
         {
@@ -102,7 +109,7 @@ public class ParkourCamera : MonoBehaviour
                 transform.position, FollowSmooth);
 
             Vector3 lookDir;
-            if (_fell)
+            if (_fall)
             {
                 lookDir = middle - transform.position;
             }
@@ -137,9 +144,14 @@ public class ParkourCamera : MonoBehaviour
 
     private void CreateFpsCam() {
         _headTarget = _puppetMaster.muscles[11].transform;
+        // _headTarget = ParkourThirdPersonController.instance.Head.transform;
+
         _fpsCam     = new GameObject("FPS Cam").transform;
         _fpsCam.gameObject.AddComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("FPS Hide"));
-        _fpsCam.gameObject.SetActive(PlayerPrefs.GetInt("FPS_Mode", 0) == 1);
+        SetFpsCamActive(false);
+
+        if(PhotonGameManager.IsMultiplayerAndConnected) return;
+        if(PlayerPrefs.GetInt("FPS_Mode", 0) == 1) SetFpsCamActive(true);
     }
 
     private Vector3 GetOffsetLookDir(Vector3 mid)
@@ -175,27 +187,29 @@ public class ParkourCamera : MonoBehaviour
         yield return new WaitForSeconds(1f);
         TrickOffset = new Vector3(0, 0f, 0);
     }
-    public void OnJump(float recoveryspeed)
+    public void OnJump(float recoveryspeed, float waitTime = 0)
     {
-        StartCoroutine(Jump(recoveryspeed));
-
+        if(_jumpCoroutine != null) StopCoroutine(_jumpCoroutine);
+        _jumpCoroutine = StartCoroutine(Jump(recoveryspeed, waitTime));
     }
-    private IEnumerator Jump(float recoveryspeed)
+    private IEnumerator Jump(float recoveryspeed, float waitTime = 0)
     {
-        var oldSmooth = FollowSmooth;
         FollowSmooth = 1f;
-        while (oldSmooth < FollowSmooth)
+
+        if(waitTime > 0) yield return new WaitForSeconds(waitTime);
+
+        while (_defaultFollowSmooth < FollowSmooth)
         {
-            FollowSmooth -= recoveryspeed;
+            FollowSmooth -= recoveryspeed * Time.deltaTime;
             yield return null;
 
         }
-        FollowSmooth = oldSmooth;
+        FollowSmooth = _defaultFollowSmooth;
     }
 
     public void OnLoseBalance()
     {
-        _fell = true;
+        _fall = true;
         if (Random.Range(0f, 1f) > SlowTimeChance)
         {
             ParkourSlowMo.SlowFor(SlowTimeForSecondsOnFall);
@@ -209,7 +223,7 @@ public class ParkourCamera : MonoBehaviour
 
     public void OnRegainBalance()
     {
-        _fell = false;
+        _fall = false;
         ParkourSlowMo.UnSlow();
     }
 
@@ -235,7 +249,13 @@ public class ParkourCamera : MonoBehaviour
 
     public void SwitchCam() {
         var active = !_fpsCam.gameObject.activeSelf;
-        _fpsCam.gameObject.SetActive(active);
+        SetFpsCamActive(active);
         PlayerPrefs.SetInt("FPS_Mode", active ? 1 : 0);
+    }
+
+
+    public void SetFpsCamActive(bool active) {
+        ParkourThirdPersonController.instance.Head.SetActive(!active);
+        _fpsCam.gameObject.SetActive(active);
     }
 }

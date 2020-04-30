@@ -1,6 +1,9 @@
-﻿using Basic_Locomotion.Scripts.CharacterController;
+﻿using System;
+using Basic_Locomotion.Scripts.CharacterController;
+using Managers;
 using ParkourRunner.Scripts.Managers;
 using ParkourRunner.Scripts.Track;
+using Photon.Pun;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
@@ -19,12 +22,12 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
         private ParkourThirdPersonController parkourController;
 
-        private new void Start()
+
+        private void Awake()
         {
-            base.Start();
             parkourController = GetComponent<ParkourThirdPersonController>();
         }
-        
+
         protected override void MoveCharacter()
         {
             if (LockRunning)
@@ -72,7 +75,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
         public void Stop()
         {
-            cc.input = Vector2.zero;
+            if(cc) cc.input = Vector2.zero;
             LockRunning = true;
             lockInput = true;
         }
@@ -101,6 +104,8 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
             }
         }
 
+
+        [PunRPC]
         public void Jump()
         {
             if (_isInInputZone && _inputZone.ReadJumpInput)
@@ -123,7 +128,16 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
             }
             else
             {
-                cc.Jump();
+                if (PhotonGameManager.IsMultiplayerAndConnected) {
+                    var pView = GetComponent<PhotonView>();
+                    if (pView.IsMine) {
+                        pView.RPC("PlayAnimation", RpcTarget.Others, "JumpMove");
+                        cc.Jump();
+                    }
+                }
+                else {
+                    cc.Jump();
+                }
             }
         }
 

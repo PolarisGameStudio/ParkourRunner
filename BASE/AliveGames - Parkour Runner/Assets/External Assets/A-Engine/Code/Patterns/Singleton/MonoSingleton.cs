@@ -41,6 +41,8 @@ namespace AEngine
                 instance = this as T;
                 Init();
             }
+            else
+                Destroy(this.gameObject);
         }        
 
         private void OnApplicationQuit()

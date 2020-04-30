@@ -1,7 +1,9 @@
 ﻿using System;
+using Managers;
 using UnityEngine;
 using ParkourRunner.Scripts.Managers;
 using ParkourRunner.Scripts.Player.InvectorMods;
+using Photon.Pun;
 
 public class FinishMessage : MonoBehaviour
 {
@@ -9,13 +11,19 @@ public class FinishMessage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        var target = other.GetComponent<ParkourThirdPersonController>();
-
-        if (target != null)
+        if (other.CompareTag("Player"))
         {
-            HUDManager.Instance.ShowGreatMessage(HUDManager.Messages.LevelComplete);
+            if (PhotonGameManager.IsMultiplayerAndConnected) {
+                if(other.GetComponent<PhotonView>().IsMine) {
+                    HUDManager.Instance.ShowGreatMessage(HUDManager.Messages.LevelComplete);
+                }
 
+                PhotonGameManager.OnPlayerFinish(other.gameObject);
+                return;
+            }
+            HUDManager.Instance.ShowGreatMessage(HUDManager.Messages.LevelComplete);
             EnvironmentController.CheckKeys();
+
             int level = PlayerPrefs.GetInt(EnvironmentController.LEVEL_KEY);
             int maxLevel = PlayerPrefs.GetInt(EnvironmentController.MAX_LEVEL);
 

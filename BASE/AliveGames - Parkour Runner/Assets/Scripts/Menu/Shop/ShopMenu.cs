@@ -19,23 +19,20 @@ public class ShopMenu : Menu
     protected override void Show()
     {
         base.Show();
-        
+        OnShowMenu.SafeInvoke();
+
         var secuance = DOTween.Sequence();
         secuance.Append(_backgroundAnim.Hide());
 
         secuance.Insert(_showAfterBgDelay, _shopAnim.Show());
         secuance.Insert(_showAfterBgDelay, _playerStatusAnim.Show());
         secuance.Insert(_showAfterBgDelay, _homeButtonAnim.Show());
-
-        secuance.OnComplete(() =>
-        {
-            OnShowMenu.SafeInvoke();
-        });
     }
 
     protected override void StartHide(Action callback)
     {
         base.StartHide(callback);
+        OnHideMenu.SafeInvoke();
 
         var secuance = DOTween.Sequence();
 
@@ -47,7 +44,6 @@ public class ShopMenu : Menu
         
         secuance.OnComplete(() =>
         {
-            OnHideMenu.SafeInvoke();
             FinishHide(callback);
         });
     }

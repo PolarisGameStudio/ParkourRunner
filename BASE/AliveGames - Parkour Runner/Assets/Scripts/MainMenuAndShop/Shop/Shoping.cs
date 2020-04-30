@@ -7,7 +7,7 @@ public static class Shoping
         switch (data.DonatKind)
         {
             case DonatShopData.DonatKinds.NoAds:
-                PlayerPrefs.SetInt(data.DonatKind.ToString(), 1);
+                PlayerPrefs.SetInt("NoAds", 1);
                 PlayerPrefs.Save();
                 break;
 

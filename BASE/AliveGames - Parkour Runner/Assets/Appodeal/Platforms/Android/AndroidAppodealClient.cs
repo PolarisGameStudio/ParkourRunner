@@ -1,20 +1,23 @@
+using System.Diagnostics.CodeAnalysis;
 using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
 using UnityEngine;
 
-#if UNITY_ANDROID
+//#if UNITY_ANDROID
 namespace AppodealAds.Unity.Android
 {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "NotAccessedField.Local")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class AndroidAppodealClient : IAppodealAdsClient
     {
-        bool isShow;
-        AndroidJavaClass appodealClass;
-        AndroidJavaClass appodealUnityClass;
-        AndroidJavaClass appodealBannerClass;
-        AndroidJavaObject appodealBannerInstance;
-        AndroidJavaObject userSettings;
-        AndroidJavaObject activity;
-        AndroidJavaObject popupWindow, resources, displayMetrics, window, decorView, attributes, rootView;
+        private bool isShow;
+        private AndroidJavaClass appodealClass;
+        private AndroidJavaClass appodealUnityClass;
+        private AndroidJavaClass appodealBannerClass;
+        private AndroidJavaObject appodealBannerInstance;
+        private AndroidJavaObject activity;
+        private AndroidJavaObject popupWindow, resources, displayMetrics, window, decorView, attributes, rootView;
 
         public const int NONE = 0;
         public const int INTERSTITIAL = 3;
@@ -25,9 +28,9 @@ namespace AppodealAds.Unity.Android
         public const int MREC = 256;
         public const int REWARDED_VIDEO = 128;
 
-        int nativeAdTypesForType(int adTypes)
+        private static int nativeAdTypesForType(int adTypes)
         {
-            int nativeAdTypes = 0;
+            var nativeAdTypes = 0;
 
             if ((adTypes & Appodeal.INTERSTITIAL) > 0)
             {
@@ -72,44 +75,31 @@ namespace AppodealAds.Unity.Android
             return nativeAdTypes;
         }
 
-        public AndroidJavaClass getAppodealClass()
+        private AndroidJavaClass getAppodealClass()
         {
-            if (appodealClass == null)
-            {
-                appodealClass = new AndroidJavaClass("com.appodeal.ads.Appodeal");
-            }
-
-            return appodealClass;
+            return appodealClass ?? (appodealClass = new AndroidJavaClass("com.appodeal.ads.Appodeal"));
         }
 
         public AndroidJavaClass getAppodealUnityClass()
         {
-            if (appodealUnityClass == null)
-            {
-                appodealUnityClass = new AndroidJavaClass("com.appodeal.unity.AppodealUnity");
-            }
-
-            return appodealUnityClass;
+            return appodealUnityClass ??
+                   (appodealUnityClass = new AndroidJavaClass("com.appodeal.unity.AppodealUnity"));
         }
 
-        public AndroidJavaObject getAppodealBannerInstance()
+        private AndroidJavaObject getAppodealBannerInstance()
         {
-            if (appodealBannerInstance == null)
-            {
-                appodealBannerClass = new AndroidJavaClass("com.appodeal.unity.AppodealUnityBannerView");
-                appodealBannerInstance = appodealBannerClass.CallStatic<AndroidJavaObject>("getInstance");
-            }
+            if (appodealBannerInstance != null) return appodealBannerInstance;
+            appodealBannerClass = new AndroidJavaClass("com.appodeal.ads.AppodealUnityBannerView");
+            appodealBannerInstance = appodealBannerClass.CallStatic<AndroidJavaObject>("getInstance");
 
             return appodealBannerInstance;
         }
 
-        public AndroidJavaObject getActivity()
+        private AndroidJavaObject getActivity()
         {
-            if (activity == null)
-            {
-                AndroidJavaClass playerClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-                activity = playerClass.GetStatic<AndroidJavaObject>("currentActivity");
-            }
+            if (activity != null) return activity;
+            AndroidJavaClass playerClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            activity = playerClass.GetStatic<AndroidJavaObject>("currentActivity");
 
             return activity;
         }
@@ -121,14 +111,10 @@ namespace AppodealAds.Unity.Android
 
         public void initialize(string appKey, int adTypes, bool hasConsent)
         {
-            disableNetwork("mintegral");
-            disableNetwork("yandex");
-            disableNetwork("smaato");
-            getAppodealClass().CallStatic("setFramework", "unity", Appodeal.getPluginVersion(), Appodeal.getUnityVersion());
-            if ((adTypes & Appodeal.BANNER_VIEW) > 0 || (adTypes & Appodeal.MREC) > 0) {
-                getAppodealClass().CallStatic("setFramework", "unity", Appodeal.getPluginVersion(), Appodeal.getUnityVersion(), false, false);
-            }
-            getAppodealClass().CallStatic("initialize", getActivity(), appKey, nativeAdTypesForType(adTypes), hasConsent);
+            getAppodealClass().CallStatic("setFramework", "unity", Appodeal.getPluginVersion(),
+                Appodeal.getUnityVersion(), false, false);
+            getAppodealClass().CallStatic("initialize", getActivity(), appKey, nativeAdTypesForType(adTypes),
+                hasConsent);
         }
 
         public bool isInitialized(int adType)
@@ -222,16 +208,16 @@ namespace AppodealAds.Unity.Android
             getAppodealClass().CallStatic("setTesting", test);
         }
 
-        AndroidJavaObject intToAndroid(int value)
+        private static AndroidJavaObject intToAndroid(int value)
         {
-            AndroidJavaClass integerClass = new AndroidJavaClass("java.lang.Integer");
-            AndroidJavaObject integer = integerClass.CallStatic<AndroidJavaObject>("valueOf", value);
+            var integerClass = new AndroidJavaClass("java.lang.Integer");
+            var integer = integerClass.CallStatic<AndroidJavaObject>("valueOf", value);
             return integer;
         }
 
         public void setLogLevel(Appodeal.LogLevel logging)
         {
-            AndroidJavaClass logLevel = new AndroidJavaClass("com.appodeal.ads.utils.Log$LogLevel");
+            var logLevel = new AndroidJavaClass("com.appodeal.ads.utils.Log$LogLevel");
             switch (logging)
             {
                 case Appodeal.LogLevel.None:
@@ -257,17 +243,14 @@ namespace AppodealAds.Unity.Android
 
         public void setChildDirectedTreatment(bool value)
         {
-            getAppodealClass().CallStatic("setChildDirectedTreatment", value);
+            var boleanClass = new AndroidJavaClass("java.lang.Boolean");
+            var boolean = boleanClass.CallStatic<AndroidJavaObject>("valueOf", value);
+            getAppodealClass().CallStatic("setChildDirectedTreatment", boolean);
         }
-        
+
         public void updateConsent(bool value)
         {
             getAppodealClass().CallStatic("updateConsent", value);
-        }
-
-        public void resetFilterMatureContentFlag()
-        {
-            getAppodealBannerInstance().Call("resetFilterMatureContentFlag", getActivity());
         }
 
         public void disableNetwork(string network)
@@ -368,29 +351,29 @@ namespace AppodealAds.Unity.Android
 
         public string getRewardCurrency(string placement)
         {
-            AndroidJavaObject reward =
+            var reward =
                 getAppodealClass().CallStatic<AndroidJavaObject>("getRewardParameters", placement);
             return reward.Get<string>("second");
         }
 
         public double getRewardAmount(string placement)
         {
-            AndroidJavaObject reward =
+            var reward =
                 getAppodealClass().CallStatic<AndroidJavaObject>("getRewardParameters", placement);
-            AndroidJavaObject doubleValue = reward.Get<AndroidJavaObject>("first");
+            var doubleValue = reward.Get<AndroidJavaObject>("first");
             return doubleValue.Call<double>("doubleValue");
         }
 
         public string getRewardCurrency()
         {
-            AndroidJavaObject reward = getAppodealClass().CallStatic<AndroidJavaObject>("getRewardParameters");
+            var reward = getAppodealClass().CallStatic<AndroidJavaObject>("getRewardParameters");
             return reward.Get<string>("second");
         }
 
         public double getRewardAmount()
         {
-            AndroidJavaObject reward = getAppodealClass().CallStatic<AndroidJavaObject>("getRewardParameters");
-            AndroidJavaObject doubleValue = reward.Get<AndroidJavaObject>("first");
+            var reward = getAppodealClass().CallStatic<AndroidJavaObject>("getRewardParameters");
+            var doubleValue = reward.Get<AndroidJavaObject>("first");
             return doubleValue.Call<double>("doubleValue");
         }
 
@@ -408,40 +391,40 @@ namespace AppodealAds.Unity.Android
 
         public void getUserSettings()
         {
-            userSettings = getAppodealClass().CallStatic<AndroidJavaObject>("getUserSettings", getActivity());
+            getAppodealClass().CallStatic<AndroidJavaObject>("getUserSettings", getActivity());
         }
 
         public void setUserId(string id)
         {
-            userSettings.Call<AndroidJavaObject>("setUserId", id);
+            getAppodealClass().CallStatic("setUserId", id);
         }
 
-        public void setAge(int age)
+        public void setUserAge(int age)
         {
-            userSettings.Call<AndroidJavaObject>("setAge", age);
+            getAppodealClass().CallStatic("setUserAge", age);
         }
 
-        public void setGender(UserSettings.Gender gender)
+        public void setUserGender(UserSettings.Gender gender)
         {
             switch (gender)
             {
                 case UserSettings.Gender.OTHER:
                 {
-                    userSettings.Call<AndroidJavaObject>("setGender",
+                    getAppodealClass().CallStatic("setUserGender",
                         new AndroidJavaClass("com.appodeal.ads.UserSettings$Gender").GetStatic<AndroidJavaObject>(
                             "OTHER"));
                     break;
                 }
                 case UserSettings.Gender.MALE:
                 {
-                    userSettings.Call<AndroidJavaObject>("setGender",
+                    getAppodealClass().CallStatic("setUserGender",
                         new AndroidJavaClass("com.appodeal.ads.UserSettings$Gender").GetStatic<AndroidJavaObject>(
                             "MALE"));
                     break;
                 }
                 case UserSettings.Gender.FEMALE:
                 {
-                    userSettings.Call<AndroidJavaObject>("setGender",
+                    getAppodealClass().CallStatic("setUserGender",
                         new AndroidJavaClass("com.appodeal.ads.UserSettings$Gender").GetStatic<AndroidJavaObject>(
                             "FEMALE"));
                     break;
@@ -482,4 +465,4 @@ namespace AppodealAds.Unity.Android
         }
     }
 }
-#endif
+//#endif

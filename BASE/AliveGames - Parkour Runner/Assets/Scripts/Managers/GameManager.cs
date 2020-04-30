@@ -10,6 +10,8 @@ using ParkourRunner.Scripts.Track.Pick_Ups.Bonuses;
 using RootMotion.Dynamics;
 using UnityEngine;
 using AEngine;
+using Managers;
+using Photon.Pun;
 
 namespace ParkourRunner.Scripts.Managers
 {
@@ -129,16 +131,24 @@ namespace ParkourRunner.Scripts.Managers
 
         private void StartGame()
         {
-            this.IsLevelComplete = false;
+            if (PhotonGameManager.IsMultiplayerAndConnected) {
+                gameState = GameState.Pause;
+            }
+            else {
+                gameState = GameState.Run;
+            }
+
+            IsLevelComplete = false;
             StartCoroutine(IncreaseGameSpeed());
-            gameState = GameState.Run;
         }
 
         // Update is called once per frame
         void Update ()
         {
-            DistanceRun = _player.transform.position.z;
-            _hud.UpdateDistance(DistanceRun + _distanceRunOffset);
+            if (_player) {
+                DistanceRun = _player.transform.position.z;
+                _hud.UpdateDistance(DistanceRun + _distanceRunOffset);
+            }
         }
 
         //Оторвать конечность (или приклеить обратно)
@@ -210,9 +220,14 @@ namespace ParkourRunner.Scripts.Managers
                 _player.Immune = false;
                 _player.RestoreImmune = false;
 
-                Invoke("ShowPostMortem", 4f);
+                if (PhotonGameManager.IsMultiplayer) {
+                    Invoke("Revive", 2f);
+                }
+                else {
+                    Invoke("ShowPostMortem", 4f);
+                }
 
-                _audio.PlaySound(Sounds.Death);
+                _audio.PlaySound(Gender.Kind == Gender.GenderKinds.Male ? Sounds.Death : Sounds.DeathFem);
             }
         }
         
@@ -232,6 +247,7 @@ namespace ParkourRunner.Scripts.Managers
         public void Revive()
         {
             var cb = LevelGenerator.Instance.CenterBlock;
+            if (PhotonGameManager.IsMultiplayerAndConnected) cb = LevelGenerator.Instance._blockPool[0];
             Vector3 newPos = cb.transform.position;
             newPos.z -= LevelGenerator.Instance.BlockSize / 2f - 2f;
 
@@ -253,12 +269,12 @@ namespace ParkourRunner.Scripts.Managers
                     newPos = target.CachedTransform.position;
                 }
             }
-            
-            FindObjectOfType<PuppetMaster>().enabled = false; //mode = PuppetMaster.Mode.Disabled;
-            _player.transform.position = newPos;
-            FindObjectOfType<PuppetMaster>().enabled = true; //.mode = PuppetMaster.Mode.Kinematic;
+
+            _player.PuppetMaster.enabled = false; //mode = PuppetMaster.Mode.Disabled;
             _player.transform.root.position = newPos;
-            
+            _player.transform.position = newPos;
+            _player.PuppetMaster.enabled = true; //.mode = PuppetMaster.Mode.Kinematic;
+
             //Heal player
             gameState = GameState.Run;
             HealFull();
@@ -330,8 +346,10 @@ namespace ParkourRunner.Scripts.Managers
         {
             while (true)
             {
-                GameSpeed += StaticConst.SpeedGrowPerSec * Time.deltaTime;
-                GameSpeed = Math.Min(GameSpeed, StaticConst.MaxGameSpeed);
+                if (gameState == GameState.Run) {
+                    GameSpeed += StaticConst.SpeedGrowPerSec * Time.deltaTime;
+                    GameSpeed =  Math.Min(GameSpeed, StaticConst.MaxGameSpeed);
+                }
                 yield return null;
             }
         }

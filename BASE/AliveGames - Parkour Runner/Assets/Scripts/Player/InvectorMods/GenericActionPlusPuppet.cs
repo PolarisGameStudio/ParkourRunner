@@ -1,4 +1,6 @@
 ﻿using Basic_Locomotion.Scripts.CharacterController.Actions;
+using Managers;
+using Photon.Pun;
 using RootMotion.Dynamics;
 using UnityEngine;
 
@@ -57,6 +59,12 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
                 _randomAnimation = RandomTricks.GetTrick(triggerAction.playAnimation);
 
                 tpInput.cc.animator.CrossFadeInFixedTime(_randomAnimation, 0.1f); // trigger the action animation clip
+                if (PhotonGameManager.IsMultiplayerAndConnected) {
+                    var pView = GetComponent<PhotonView>();
+                    if (pView.IsMine) {
+                        pView.RPC("PlayAnimation", RpcTarget.Others, _randomAnimation);
+                    }
+                }
             }
 
             // trigger OnDoAction Event, you can add a delay in the inspector   
@@ -69,6 +77,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
             if (triggerAction.destroyAfter)
                 StartCoroutine(DestroyDelay(triggerAction));
         }
+
 
         protected override bool playingAnimation
         {

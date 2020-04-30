@@ -14,17 +14,21 @@
     }
 }
 
--(void) rewardedVideoDidFailToPresentWithError:(NSError *)error { }
-
--(void) rewardedVideoDidPresent {
-    if(self.rewardedVideoDidPresentCallback) {
-        self.rewardedVideoDidPresentCallback();
+-(void) rewardedVideoDidFailToPresentWithError:(NSError *)error {
+    if (self.rewardedVideoDidFailToPresentCallback) {
+        self.rewardedVideoDidFailToPresentCallback();
     }
 }
 
 -(void) rewardedVideoWillDismissAndWasFullyWatched:(BOOL)wasFullyWatched {
     if(self.rewardedVideoWillDismissCallback) {
         self.rewardedVideoWillDismissCallback(wasFullyWatched);
+    }
+}
+
+-(void) rewardedVideoDidPresent {
+    if(self.rewardedVideoDidPresentCallback) {
+        self.rewardedVideoDidPresentCallback();
     }
 }
 

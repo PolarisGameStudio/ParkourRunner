@@ -4,6 +4,8 @@ using ParkourRunner.Scripts.Managers;
 using RootMotion.Dynamics;
 using UnityEngine;
 using AEngine;
+using Managers;
+using Photon.Pun;
 
 namespace ParkourRunner.Scripts.Player.InvectorMods
 {
@@ -14,39 +16,31 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
         public BehaviourPuppet BehavPuppet;
         public PuppetMaster PuppetMaster;
         public Weight RollPuppetCollisionResistance;
+        public Vector3 StartPosition;
+        public GameObject Head;
 
         public new static ParkourThirdPersonController instance;
-
-        private new void Awake()
-        {
-            base.Awake();
-            instance = this;
-        }
 
         public bool IsPlayingAnimation { get; set; }
         public bool LoseBalance { get; set; }
         public bool InAir { get; set; }
+
         public bool IsDoAction { get; set; }
         public bool IsOnJumpPlatform;
-
         public bool IsSlidingDown = false;
         public bool IsSlidingTrolley = false;
         public bool IsRunningWall = false;
         public bool IsUsingHook = false;
-
         public bool Immune = false;
-        public bool RestoreImmune { get; set; }
 
+        public bool RestoreImmune { get; set; }
         public float RollKnockOutDistance = 4f;
         public float _oldKnockOutDistance;
-
         public float HookSpeed = 2f;
-
         public float CurrRunSpeed;
-
         public float CurrAnimSpeed;
-
         public float SpeedMult = 1f;
+
         private float _baseSpeed = 1f;
         private float _bonusBoostSpeed = 0f;
         private float _buttonSpeed = 0f;
@@ -57,50 +51,50 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
         [HideInInspector] public Vector3 TrolleyOffset;
         [HideInInspector] public Vector3 WallOffset;
         [HideInInspector] public Vector3 HookOffset;
-
         [HideInInspector] public Transform TargetTransform;
+        [SerializeField] private LayerMask _immuneLayers = new LayerMask();
 
         private float _oldSpeed;
-
         private bool _airSpeedFreeze = false;
 
         public float BaseSpeed
         {
-            get { return _baseSpeed; }
             set { _baseSpeed = value; SpeedMult = _baseSpeed + _bonusBoostSpeed + _buttonSpeed; }
         }
 
         public float BonusBoostSpeed
         {
-            get { return _bonusBoostSpeed; }
             set { _bonusBoostSpeed = value; SpeedMult = _baseSpeed + _bonusBoostSpeed + _buttonSpeed; }
         }
 
         public float ButtonSpeed
         {
-            get { return _buttonSpeed; }
             set { _buttonSpeed = value; SpeedMult = _baseSpeed + _bonusBoostSpeed + _buttonSpeed; }
         }
 
         //Чисто по приколу сделал чтоб он держался за IK пока едет на тарзанке
-        [HideInInspector] public AvatarIKGoal TrolleyHand;
-        void OnAnimatorIK(int layerIndex)
-        {
-            if (!IsSlidingTrolley) return;
 
-            animator.SetIKPositionWeight(TrolleyHand, 0.7f);
-            animator.SetIKPosition(TrolleyHand, TargetTransform.position);
-        }
+        [HideInInspector] public AvatarIKGoal TrolleyHand;
 
         private GameManager _gm;
-
         private LayerMask _damageLayers;
-        [SerializeField] private LayerMask _immuneLayers = new LayerMask();
-
         private LayerMask _oldCollisions;
         private Weight _oldCollisionResistance;
 
-        private new void Start()
+
+        protected override void Awake()
+        {
+            if (PhotonGameManager.IsMultiplayerAndConnected && !GetComponent<PhotonView>().IsMine) {
+                Destroy(this);
+                return;
+            }
+
+            base.Awake();
+            instance = this;
+        }
+
+
+        protected override void Start()
         {
             _damageLayers = LayerMask.NameToLayer("HouseWall");
             _gm = GameManager.Instance;
@@ -114,7 +108,12 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
                 _capsuleCollider.isTrigger = false;
                 this.LoseBalance = true;
                 if (PuppetMaster.state != PuppetMaster.State.Dead)
-                    AudioManager.Instance.PlayRandomSound(Sounds.Damage1, Sounds.Damage2);
+                {
+                    if (Gender.Kind == Gender.GenderKinds.Male)
+                        AudioManager.Instance.PlayRandomSound(Sounds.Damage1, Sounds.Damage2);
+                    else
+                        AudioManager.Instance.PlayRandomSound(Sounds.FemDamage1, Sounds.FemDamage2);
+                }
             });
             BehavPuppet.onLoseBalance.unityEvent.AddListener(ResetSpeed);
 
@@ -129,12 +128,23 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
             _minLandingDelay = MIN_LANDING_DELAY;
         }
 
+
+        void OnAnimatorIK(int layerIndex)
+        {
+            if (!IsSlidingTrolley) return;
+
+            animator.SetIKPositionWeight(TrolleyHand, 0.7f);
+            animator.SetIKPosition(TrolleyHand, TargetTransform.position);
+        }
+
+
         private void ResetSpeed()
         {
             CurrRunSpeed = StaticConst.MinRunSpeed;
             CurrAnimSpeed = StaticConst.MinAnimSpeed;
         }
-                
+
+
         private IEnumerator ResetBalanceProcess()
         {
             yield return new WaitForSeconds(0.7f);  // Вычислено опытным путем
@@ -194,7 +204,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
         private void CheckImmunity()
         {
-            if (customAction || Immune || this.RestoreImmune)
+            if (customAction || Immune || RestoreImmune)
             {
                 BehavPuppet.collisionLayers = _immuneLayers;
                 _gm.PlayerCanBeDismembered = false;
@@ -338,7 +348,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
             ReduceStamina(jumpStamina, false);
             currentStaminaRecoveryDelay = 1f;
 
-            ParkourCamera.Instance.OnJump(0.01f);
+            ParkourCamera.Instance.OnJump(0.1f);
 
             AudioManager.Instance.PlaySound(Sounds.Jump);
         }
@@ -347,6 +357,11 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
         {
             PuppetMaster.state = PuppetMaster.State.Dead;
             PuppetMaster.muscles[0].rigidbody.AddForce(_rigidbody.velocity); //толкаем таз скоростью капсулы
+
+            var pView = GetComponent<PhotonView>();
+            if (pView.IsMine) {
+                pView.RPC("Die", RpcTarget.Others);
+            }
         }
                 
         public void Revive()
@@ -362,11 +377,11 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
             animator.CrossFadeInFixedTime("JumpMove", .2f);
 
             CameraEffects.Instance.IsHighJumping = true;
-            ParkourCamera.Instance.OnJump(0.001f);
+            ParkourCamera.Instance.OnJump(0.1f, 0.5f);
 
             StartCoroutine(FreezeInAir(speed, height));
 
-            AudioManager.Instance.PlayUniqueSound(Sounds.JumpStrong);
+            AudioManager.Instance.PlayUniqueSound(Gender.Kind == Gender.GenderKinds.Male ? Sounds.JumpStrong : Sounds.JumpStrongFem);
         }
 
         //Это нужно чтобы на прыжке с батута всегда была постоянная скорость

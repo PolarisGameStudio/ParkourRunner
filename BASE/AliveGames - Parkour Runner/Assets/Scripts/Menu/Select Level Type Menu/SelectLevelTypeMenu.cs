@@ -52,6 +52,7 @@ public class SelectLevelTypeMenu : Menu
         _audio.PlaySound(Sounds.Tap);
 
         EnvironmentController.CheckKeys();
+        PlayerPrefs.SetInt(EnvironmentController.MULTIPLAYER_KEY, 0);
         PlayerPrefs.SetInt(EnvironmentController.TUTORIAL_KEY, 1);
         PlayerPrefs.SetInt(EnvironmentController.ENDLESS_KEY, 0);
         PlayerPrefs.Save();
@@ -64,6 +65,7 @@ public class SelectLevelTypeMenu : Menu
         _audio.PlaySound(Sounds.Tap);
 
         EnvironmentController.CheckKeys();
+        PlayerPrefs.SetInt(EnvironmentController.MULTIPLAYER_KEY, 0);
         PlayerPrefs.SetInt(EnvironmentController.TUTORIAL_KEY, 0);
         PlayerPrefs.SetInt(EnvironmentController.ENDLESS_KEY, 1);
         PlayerPrefs.Save();
@@ -77,10 +79,19 @@ public class SelectLevelTypeMenu : Menu
         _menuController.OpenMenu(MenuKinds.SelectLevel);
     }
 
-    public void OnComingSoonClick()
+    public void OnMultiplayerClick()
     {
         _audio.PlaySound(Sounds.Tap);
-        AdManager.Instance.ShowAdvertising(null, null, null);
+        void Action() => _menuController.OpenMenu(MenuKinds.Multiplayer);
+        Action();
+        return;
+
+        if (AdManager.Instance.InterstitialIsAvailable()) {
+            AdManager.Instance.ShowInterstitial(Action, Action, Action);
+        }
+        else {
+            Action();
+        }
     }
     #endregion
 }

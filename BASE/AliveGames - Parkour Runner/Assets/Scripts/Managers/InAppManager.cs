@@ -26,6 +26,9 @@ public class InAppManager : MonoBehaviour, IStoreListener
 
     private void Start()
     {
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR
+        return;
+#endif
         if (!IsInitialized())
         {
             var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
@@ -145,6 +148,16 @@ public class InAppManager : MonoBehaviour, IStoreListener
     public void OnPurchaseFailed(Product i, PurchaseFailureReason p)
     {
         Debug.Log(string.Format("OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}", i.definition.storeSpecificId, p));
+        if (p == PurchaseFailureReason.DuplicateTransaction) {
+            foreach (var item in _products)
+            {
+                if (string.Equals(item.ProductGameId, i.definition.id, StringComparison.Ordinal))
+                {
+                    OnBuySuccess.SafeInvoke(item.DonatKind);
+                    break;
+                }
+            }
+        }
     }
     #endregion
 }

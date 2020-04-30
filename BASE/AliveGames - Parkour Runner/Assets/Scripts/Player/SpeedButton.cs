@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Managers;
 using ParkourRunner.Scripts.Player.InvectorMods;
 
 public class SpeedButton : MonoBehaviour
@@ -10,6 +11,10 @@ public class SpeedButton : MonoBehaviour
 
     private void OnEnable()
     {
+        if (PhotonGameManager.IsMultiplayerAndConnected) {
+            gameObject.SetActive(false);
+            return;
+        }
         _player = ParkourThirdPersonController.instance;
 
         if (_player == null)

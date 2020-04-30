@@ -10,6 +10,7 @@ public enum MenuKinds
     Shop,
     SelectLevelType,
     SelectLevel,
+    Multiplayer,
     Quests
 }
 

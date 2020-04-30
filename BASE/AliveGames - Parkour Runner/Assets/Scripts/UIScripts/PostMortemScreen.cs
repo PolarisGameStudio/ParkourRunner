@@ -3,17 +3,26 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using ParkourRunner.Scripts.Managers;
 using AEngine;
+using Managers;
 
 public class PostMortemScreen : MonoBehaviour
 {
     public GameObject _rateMeWindow;
-    public GameObject WatchAdButton;
-    public Text ReviveForMoneyBtnTxt;
 
     public GameObject ResultsScreen;
+    public GameObject MultiplayerResultsScreen;
+
     [SerializeField] private ResultDialogController _result;
     [SerializeField] private ReviveDialogController _revive;
-    
+    [SerializeField] private LocalizationComponent _distanceLocalization;
+    [SerializeField] private LocalizationComponent _recordLocalization;
+    [SerializeField] private LocalizationComponent _coinsLocalization;
+
+    [SerializeField] private LocalizationComponent _multiplayerPlaceLocalization;
+
+    public Text multiplayerPlaceText;
+    public Text multiplayerCoinsText;
+
     public GameObject NewRecordText;
 
     public float TimeToRevive = 5f;
@@ -70,7 +79,7 @@ public class PostMortemScreen : MonoBehaviour
         _ad.SkipAdInOrder();
 
         _stopTimer = true;
-        _ad.ShowAdvertising(AdFinishedCallback, AdSkippedCallback, AdSkippedCallback);
+        _ad.ShowRewardedVideo(AdFinishedCallback, AdSkippedCallback, AdSkippedCallback);
     }
 
     private void AdFinishedCallback()
@@ -84,7 +93,7 @@ public class PostMortemScreen : MonoBehaviour
     private void AdSkippedCallback()
     {
         _stopTimer = false;
-        print("Skipped or cancelled revive AD");
+        print("Skipped or failed revive AD");
     }
         
     public void CheckRateMe()
@@ -141,7 +150,23 @@ public class PostMortemScreen : MonoBehaviour
         NewRecordText.SetActive(ProgressManager.IsNewRecord(_gm.DistanceRun));
                 
         if (_ad.CheckAdvertisingOrder())
-            _ad.ShowAdvertising(null, null, null);
+            _ad.ShowInterstitial();
+    }
+
+    public void ShowMultiplayerResultScreen()
+    {
+        Wallet.Instance.Save();
+
+        MultiplayerResultsScreen.SetActive(true);
+
+        _audio.PlaySound(Sounds.ResultFull);
+
+        multiplayerPlaceText.text = string.Format("{0}  {1}", _multiplayerPlaceLocalization.Text, PhotonGameManager.LocalPlayer.FinishPlace);
+        multiplayerCoinsText.text = string.Format("{0}  {1}", _coinsLocalization.Text, Wallet.Instance.InGameCoins);
+
+        if (_ad.CheckAdvertisingOrder()) {
+            _ad.ShowInterstitial(null, null, null);
+        }
     }
 
     private void OnApplicationFocus(bool focus)

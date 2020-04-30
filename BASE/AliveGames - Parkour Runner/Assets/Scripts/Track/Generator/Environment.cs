@@ -58,5 +58,6 @@ namespace ParkourRunnerEnvironment
         public TutorialEnvironmentSettings TutorialEnvironment { get { return _tutorialEnvironment; } }
         public bool EndlessLevel { get { return _endlessLevel; } }
         public bool TutorialLevel { get { EnvironmentController.CheckKeys(); return PlayerPrefs.GetInt(EnvironmentController.TUTORIAL_KEY) == 1; } }
+        public bool RandomBlocks = true;
     }
 }

@@ -19,7 +19,7 @@ public class ResultDialogController : MonoBehaviour
     [SerializeField] private Text _coinsLabel;    
 
     [Header("View Mode Settings")]
-    [SerializeField] private GameObject _restartButton;
+    [SerializeField] private GameObject _nextButton;
     [SerializeField] private HorizontalLayoutGroup _buttonsGroup;
     [SerializeField] private float _fullModeSpacing;
     [SerializeField] private float _shortModeSpacing;
@@ -60,12 +60,12 @@ public class ResultDialogController : MonoBehaviour
         switch (mode)
         {
             case ViewModes.FullMode:
-                _restartButton.SetActive(true);
+                _nextButton.SetActive(true);
                 _buttonsGroup.spacing = _fullModeSpacing;
                 break;
 
             case ViewModes.ShortMode:
-                _restartButton.SetActive(false);
+                _nextButton.SetActive(false);
                 _buttonsGroup.spacing = _shortModeSpacing;
                 break;
         }
