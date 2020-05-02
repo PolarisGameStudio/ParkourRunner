@@ -1,8 +1,8 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotonUnityNetworking.Demos", "PhotonUnityNetworking.Demos.csproj", "{5BF2AA04-1D71-C5AA-3A48-1B2D72B0F572}"
-EndProject
+﻿Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{8121B5AB-0035-F1EB-D865-1FC2E75A4FDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotonUnityNetworking.Demos", "PhotonUnityNetworking.Demos.csproj", "{5BF2AA04-1D71-C5AA-3A48-1B2D72B0F572}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotonUnityNetworking.Utilities", "PhotonUnityNetworking.Utilities.csproj", "{3990BA9F-1E54-4C82-7320-F48060944EB9}"
 EndProject
@@ -36,14 +36,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5BF2AA04-1D71-C5AA-3A48-1B2D72B0F572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5BF2AA04-1D71-C5AA-3A48-1B2D72B0F572}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5BF2AA04-1D71-C5AA-3A48-1B2D72B0F572}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5BF2AA04-1D71-C5AA-3A48-1B2D72B0F572}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8121B5AB-0035-F1EB-D865-1FC2E75A4FDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8121B5AB-0035-F1EB-D865-1FC2E75A4FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8121B5AB-0035-F1EB-D865-1FC2E75A4FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8121B5AB-0035-F1EB-D865-1FC2E75A4FDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BF2AA04-1D71-C5AA-3A48-1B2D72B0F572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BF2AA04-1D71-C5AA-3A48-1B2D72B0F572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BF2AA04-1D71-C5AA-3A48-1B2D72B0F572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BF2AA04-1D71-C5AA-3A48-1B2D72B0F572}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3990BA9F-1E54-4C82-7320-F48060944EB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3990BA9F-1E54-4C82-7320-F48060944EB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3990BA9F-1E54-4C82-7320-F48060944EB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
