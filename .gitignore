@@ -34,3 +34,4 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+/BASE/AliveGames - Parkour Runner/Parkour_IOS_Build/
