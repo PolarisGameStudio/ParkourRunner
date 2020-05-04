@@ -261,6 +261,12 @@
     <Reference Include="UnityEditor.iOS.Extensions">
       <HintPath>D:/Program Files/Unity Editors/2019.2.18f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="Admix.Editor">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Admix/DLL/Admix.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Admix.Core">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Admix/DLL/Global/Admix.Core.dll</HintPath>
+    </Reference>
     <Reference Include="DOTween">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/External Assets/Demigiant/DOTween/DOTween.dll</HintPath>
     </Reference>
@@ -291,20 +297,17 @@
     <Reference Include="websocket-sharp">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
     </Reference>
-    <Reference Include="Google.IOSResolver_v1.2.132.0">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/PlayServicesResolver/Editor/Google.IOSResolver_v1.2.132.0.dll</HintPath>
+    <Reference Include="Google.IOSResolver_v1.2.136.0">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/PlayServicesResolver/Editor/Google.IOSResolver_v1.2.136.0.dll</HintPath>
     </Reference>
-    <Reference Include="Google.JarResolver_v1.2.132.0">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/PlayServicesResolver/Editor/Google.JarResolver_v1.2.132.0.dll</HintPath>
+    <Reference Include="Google.JarResolver_v1.2.136.0">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/PlayServicesResolver/Editor/Google.JarResolver_v1.2.136.0.dll</HintPath>
     </Reference>
     <Reference Include="Google.VersionHandler">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/PlayServicesResolver/Editor/Google.VersionHandler.dll</HintPath>
     </Reference>
-    <Reference Include="Google.VersionHandlerImpl_v1.2.132.0">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/PlayServicesResolver/Editor/Google.VersionHandlerImpl_v1.2.132.0.dll</HintPath>
-    </Reference>
-    <Reference Include="Ionic.Zip.Unity">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Plugins/Ionic.Zip.Unity.dll</HintPath>
+    <Reference Include="Google.VersionHandlerImpl_v1.2.136.0">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/PlayServicesResolver/Editor/Google.VersionHandlerImpl_v1.2.136.0.dll</HintPath>
     </Reference>
     <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>

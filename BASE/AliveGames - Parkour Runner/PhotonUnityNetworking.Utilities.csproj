@@ -99,15 +99,6 @@
     <Compile Include="Assets\Photon\PhotonUnityNetworking\UtilityScripts\UI\TextButtonTransition.cs" />
     <Compile Include="Assets\Photon\PhotonUnityNetworking\UtilityScripts\UI\TextToggleIsOnTransition.cs" />
     <None Include="Assets\Photon\PhotonUnityNetworking\UtilityScripts\PhotonUnityNetworking.Utilities.asmdef" />
-    <Reference Include="UnityEditor.UI">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Program Files/Unity Editors/2019.2.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -294,6 +285,12 @@
     <Reference Include="UnityEditor.iOS.Extensions">
       <HintPath>D:/Program Files/Unity Editors/2019.2.18f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="Admix.Editor">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Admix/DLL/Admix.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Admix.Core">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Admix/DLL/Global/Admix.Core.dll</HintPath>
+    </Reference>
     <Reference Include="DOTween">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/External Assets/Demigiant/DOTween/DOTween.dll</HintPath>
     </Reference>
@@ -324,20 +321,17 @@
     <Reference Include="websocket-sharp">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
     </Reference>
-    <Reference Include="Google.IOSResolver_v1.2.132.0">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/PlayServicesResolver/Editor/Google.IOSResolver_v1.2.132.0.dll</HintPath>
+    <Reference Include="Google.IOSResolver_v1.2.136.0">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/PlayServicesResolver/Editor/Google.IOSResolver_v1.2.136.0.dll</HintPath>
     </Reference>
-    <Reference Include="Google.JarResolver_v1.2.132.0">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/PlayServicesResolver/Editor/Google.JarResolver_v1.2.132.0.dll</HintPath>
+    <Reference Include="Google.JarResolver_v1.2.136.0">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/PlayServicesResolver/Editor/Google.JarResolver_v1.2.136.0.dll</HintPath>
     </Reference>
     <Reference Include="Google.VersionHandler">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/PlayServicesResolver/Editor/Google.VersionHandler.dll</HintPath>
     </Reference>
-    <Reference Include="Google.VersionHandlerImpl_v1.2.132.0">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/PlayServicesResolver/Editor/Google.VersionHandlerImpl_v1.2.132.0.dll</HintPath>
-    </Reference>
-    <Reference Include="Ionic.Zip.Unity">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Plugins/Ionic.Zip.Unity.dll</HintPath>
+    <Reference Include="Google.VersionHandlerImpl_v1.2.136.0">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/PlayServicesResolver/Editor/Google.VersionHandlerImpl_v1.2.136.0.dll</HintPath>
     </Reference>
     <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
@@ -750,6 +744,18 @@
     <ProjectReference Include="PhotonUnityNetworking.csproj">
       <Project>{E05D4A9F-9DEA-B35C-C6F5-CCE5B631BD9D}</Project>
       <Name>PhotonUnityNetworking</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEditor.UI.csproj">
+      <Project>{F2DA57F5-5E92-2479-0C32-9713AAEC8F8D}</Project>
+      <Name>UnityEditor.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Tilemap.Editor.csproj">
+      <Project>{5C05257F-A851-7B79-25F1-10A13C3C76D7}</Project>
+      <Name>Unity.2D.Tilemap.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.UI.csproj">
+      <Project>{8189E7A2-D836-E479-9EEE-0F95B845188A}</Project>
+      <Name>UnityEngine.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
