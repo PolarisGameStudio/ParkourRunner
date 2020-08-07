@@ -1,38 +1,55 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 // ReSharper disable All
-#pragma warning disable 414
 
 namespace Unity.Appodeal.Xcode
 {
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     internal class DeviceTypeRequirement
     {
         public static readonly string Key = "idiom";
         public static readonly string Any = "universal";
+#pragma warning disable 414
         public static readonly string iPhone = "iphone";
+#pragma warning restore 414
+#pragma warning disable 414
         public static readonly string iPad = "ipad";
+#pragma warning restore 414
+#pragma warning disable 414
         public static readonly string Mac = "mac";
+#pragma warning restore 414
+#pragma warning disable 414
         public static readonly string iWatch = "watch";
+#pragma warning restore 414
     }
 
     internal class MemoryRequirement
     {
         public static readonly string Key = "memory";
+#pragma warning disable 414
         public static readonly string Any = "";
+#pragma warning restore 414
+#pragma warning disable 414
         public static readonly string Mem1GB = "1GB";
+#pragma warning restore 414
+#pragma warning disable 414
         public static readonly string Mem2GB = "2GB";
+#pragma warning restore 414
     }
 
     internal class GraphicsRequirement
     {
         public static readonly string Key = "graphics-feature-set";
+#pragma warning disable 414
         public static readonly string Any = "";
+#pragma warning restore 414
+#pragma warning disable 414
         public static readonly string Metal1v2 = "metal1v2";
+#pragma warning restore 414
+#pragma warning disable 414
         public static readonly string Metal2v2 = "metal2v2";
+#pragma warning restore 414
     }
 
     // only used for image sets
@@ -40,19 +57,33 @@ namespace Unity.Appodeal.Xcode
     {
         public static readonly string HeightKey = "height-class";
         public static readonly string WidthKey = "width-class";
+#pragma warning disable 414
         public static readonly string Any = "";
+#pragma warning restore 414
+#pragma warning disable 414
         public static readonly string Compact = "compact";
+#pragma warning restore 414
+#pragma warning disable 414
         public static readonly string Regular = "regular";
+#pragma warning restore 414
     }
 
     // only used for image sets
     internal class ScaleRequirement
     {
         public static readonly string Key = "scale";
+#pragma warning disable 414
         public static readonly string Any = ""; // vector image
+#pragma warning restore 414
+#pragma warning disable 414
         public static readonly string X1 = "1x";
+#pragma warning restore 414
+#pragma warning disable 414
         public static readonly string X2 = "2x";
+#pragma warning restore 414
+#pragma warning disable 414
         public static readonly string X3 = "3x";
+#pragma warning restore 414
     }
 
     internal class DeviceRequirement
@@ -109,7 +140,6 @@ namespace Unity.Appodeal.Xcode
         }
     }
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     internal class AssetCatalog
     {
         AssetFolder m_Root;

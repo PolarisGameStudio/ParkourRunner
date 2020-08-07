@@ -74,6 +74,14 @@
     <Compile Include="Assets\Admix\AdmixAssets\Editor\AdmixBuildPostprocessor.cs" />
     <Compile Include="Assets\Admix\AdmixAssets\Editor\AdmixBuildPreprocessor.cs" />
     <Compile Include="Assets\Appodeal\Editor\AppodealAssetsPostProcess.cs" />
+    <Compile Include="Assets\Appodeal\Editor\AppodealManager\AppodealManagerData\AppodealNetworksData.cs" />
+    <Compile Include="Assets\Appodeal\Editor\AppodealManager\AppodealManagerData\IAppodealSdkManager.cs" />
+    <Compile Include="Assets\Appodeal\Editor\AppodealManager\AppodealSDKManager.cs" />
+    <Compile Include="Assets\Appodeal\Editor\AppodealManager\AppodealSDKManagerUtils.cs" />
+    <Compile Include="Assets\Appodeal\Editor\AppodealManager\EditorCoroutineExtensions.cs" />
+    <Compile Include="Assets\Appodeal\Editor\AppodealManager\EditorCoroutines.cs" />
+    <Compile Include="Assets\Appodeal\Editor\AppodealManager\JsonHelper.cs" />
+    <Compile Include="Assets\Appodeal\Editor\AppodealManager\XmlUtilities.cs" />
     <Compile Include="Assets\Appodeal\Editor\AppodealPostProcess.cs" />
     <Compile Include="Assets\Appodeal\Editor\AppodealSettings.cs" />
     <Compile Include="Assets\Appodeal\Editor\AppodealUnityUtils.cs" />
@@ -103,6 +111,7 @@
     <Compile Include="Assets\Appodeal\Editor\xcode\PlistParser.cs" />
     <Compile Include="Assets\Appodeal\Editor\xcode\ProjectCapabilityManager.cs" />
     <Compile Include="Assets\Appodeal\Editor\xcode\XcScheme.cs" />
+    <Compile Include="Assets\AppsFlyer\Editor\AppsFlyerObjectEditor.cs" />
     <Compile Include="Assets\Editor\CFacebookPostProcessBuild.cs" />
     <Compile Include="Assets\External Assets\A-Engine\Editor\AudioManager\AudioConfigurationWindow.cs" />
     <Compile Include="Assets\External Assets\A-Engine\Editor\AudioManager\DefaultAudioSettings.cs" />
@@ -171,15 +180,20 @@
     <Compile Include="Assets\GooglePlayGames\Editor\GPGSUpgrader.cs" />
     <Compile Include="Assets\GooglePlayGames\Editor\GPGSUtil.cs" />
     <Compile Include="Assets\GooglePlayGames\Editor\NearbyConnectionUI.cs" />
+    <None Include="Assets\Appodeal\Editor\AppodealCoreDependencies.xml" />
+    <None Include="Assets\Appodeal\Editor\AppodealAdapterDependencies.xml" />
     <None Include="Assets\GooglePlayGames\Editor\template-GameInfo.txt" />
     <None Include="Assets\GooglePlayGames\Editor\template-AndroidManifest.txt" />
-    <None Include="Assets\Appodeal\Editor\AppodealDependencies.xml" />
     <None Include="Assets\GooglePlayGames\Editor\GooglePlayGamesPluginDependencies.xml" />
+    <None Include="Assets\ExternalDependencyManager\Editor\GoogleRegistries.xml" />
     <None Include="Assets\GooglePlayGames\Editor\GooglePlayGamesPlugin_v0.10.06.txt" />
     <None Include="Assets\GooglePlayGames\Editor\m2repository\com\google\games\gpgs-plugin-support\maven-metadata.xml" />
     <None Include="Assets\FacebookSDK\Plugins\Editor\Dependencies.xml" />
-    <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver_v1.2.136.0.txt" />
+    <None Include="Assets\AppsFlyer\Editor\AppsFlyerDependencies.xml" />
     <None Include="Assets\GooglePlayGames\Editor\template-Constants.txt" />
+    <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver_v1.2.137.0.txt" />
+    <None Include="Assets\ExternalDependencyManager\Editor\external-dependency-manager_version-1.2.150_manifest.txt" />
+    <None Include="Assets\ConsentManager\Editor\ConsentMangerDependencies.xml" />
     <None Include="Assets\GoogleMobileAds\Editor\GoogleMobileAdsDependencies.xml" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Program Files/Unity Editors/2019.2.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -388,6 +402,21 @@
     <Reference Include="XInputDotNetPure">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/External Assets/Invector-3rdPersonController/Basic Locomotion/Scripts/XInput/Plugins/x86/XInputDotNetPure.dll</HintPath>
     </Reference>
+    <Reference Include="Google.IOSResolver_v1.2.150">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/ExternalDependencyManager/Editor/Google.IOSResolver_v1.2.150.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.JarResolver_v1.2.150">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/ExternalDependencyManager/Editor/Google.JarResolver_v1.2.150.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.UnityPackageManagerResolver_v1.2.150">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/ExternalDependencyManager/Editor/Google.UnityPackageManagerResolver_v1.2.150.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.VersionHandler">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/ExternalDependencyManager/Editor/Google.VersionHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.VersionHandlerImpl_v1.2.150">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/ExternalDependencyManager/Editor/Google.VersionHandlerImpl_v1.2.150.dll</HintPath>
+    </Reference>
     <Reference Include="Facebook.Unity">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/FacebookSDK/Plugins/Facebook.Unity.dll</HintPath>
     </Reference>
@@ -408,18 +437,6 @@
     </Reference>
     <Reference Include="websocket-sharp">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.IOSResolver_v1.2.136.0">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/PlayServicesResolver/Editor/Google.IOSResolver_v1.2.136.0.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.JarResolver_v1.2.136.0">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/PlayServicesResolver/Editor/Google.JarResolver_v1.2.136.0.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.VersionHandler">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/PlayServicesResolver/Editor/Google.VersionHandler.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.VersionHandlerImpl_v1.2.136.0">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/PlayServicesResolver/Editor/Google.VersionHandlerImpl_v1.2.136.0.dll</HintPath>
     </Reference>
     <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>

@@ -1,12 +1,13 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿// ReSharper disable All
 // ReSharper disable All
+
+using System.Diagnostics.CodeAnalysis;
 
 namespace Unity.Appodeal.Xcode
 {
     /// <summary>
     /// List of all the capabilities available.
     /// </summary>
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     [SuppressMessage("ReSharper", "InvalidXmlDocComment")]
     public sealed class PBXCapabilityType
     {

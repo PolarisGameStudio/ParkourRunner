@@ -1,14 +1,15 @@
+#if UNITY_ANDROID
+using System;
 using System.Diagnostics.CodeAnalysis;
 using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
+using ConsentManager.Api;
+using ConsentManager.Platforms.Android;
 using UnityEngine;
 
-//#if UNITY_ANDROID
 namespace AppodealAds.Unity.Android
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    [SuppressMessage("ReSharper", "NotAccessedField.Local")]
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class AndroidAppodealClient : IAppodealAdsClient
     {
         private bool isShow;
@@ -16,6 +17,7 @@ namespace AppodealAds.Unity.Android
         private AndroidJavaClass appodealUnityClass;
         private AndroidJavaClass appodealBannerClass;
         private AndroidJavaObject appodealBannerInstance;
+        public AndroidJavaObject userSettings;
         private AndroidJavaObject activity;
         private AndroidJavaObject popupWindow, resources, displayMetrics, window, decorView, attributes, rootView;
 
@@ -98,7 +100,7 @@ namespace AppodealAds.Unity.Android
         private AndroidJavaObject getActivity()
         {
             if (activity != null) return activity;
-            AndroidJavaClass playerClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            var playerClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             activity = playerClass.GetStatic<AndroidJavaObject>("currentActivity");
 
             return activity;
@@ -115,6 +117,15 @@ namespace AppodealAds.Unity.Android
                 Appodeal.getUnityVersion(), false, false);
             getAppodealClass().CallStatic("initialize", getActivity(), appKey, nativeAdTypesForType(adTypes),
                 hasConsent);
+        }
+        
+        public void initialize(string appKey, int adTypes, Consent consent)
+        {
+            getAppodealClass().CallStatic("setFramework", "unity", Appodeal.getPluginVersion(),
+                Appodeal.getUnityVersion(), false, false);
+            var androidConsent = (AndroidConsent) consent.getConsent();
+            getAppodealClass().CallStatic("initialize", getActivity(), appKey, nativeAdTypesForType(adTypes),
+                androidConsent.getConsent());
         }
 
         public bool isInitialized(int adType)
@@ -238,6 +249,8 @@ namespace AppodealAds.Unity.Android
                         logLevel.CallStatic<AndroidJavaObject>("fromInteger", intToAndroid(2)));
                     break;
                 }
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(logging), logging, null);
             }
         }
 
@@ -251,6 +264,12 @@ namespace AppodealAds.Unity.Android
         public void updateConsent(bool value)
         {
             getAppodealClass().CallStatic("updateConsent", value);
+        }
+        
+        public void updateConsent(Consent consent)
+        {
+            var androidConsent = (AndroidConsent) consent.getConsent();
+            getAppodealClass().CallStatic("updateConsent", androidConsent.getConsent());
         }
 
         public void disableNetwork(string network)
@@ -391,7 +410,7 @@ namespace AppodealAds.Unity.Android
 
         public void getUserSettings()
         {
-            getAppodealClass().CallStatic<AndroidJavaObject>("getUserSettings", getActivity());
+            userSettings = getAppodealClass().CallStatic<AndroidJavaObject>("getUserSettings", getActivity());
         }
 
         public void setUserId(string id)
@@ -429,6 +448,8 @@ namespace AppodealAds.Unity.Android
                             "FEMALE"));
                     break;
                 }
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(gender), gender, null);
             }
         }
 
@@ -465,4 +486,4 @@ namespace AppodealAds.Unity.Android
         }
     }
 }
-//#endif
+#endif

@@ -58,6 +58,21 @@
     <UnityVersion>2019.2.18f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Firebase.App, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>Assets\Firebase\Plugins\Firebase.App.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Crashlytics, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>Assets\Firebase\Plugins\Firebase.Crashlytics.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Platform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>Assets\Firebase\Plugins\Firebase.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.TaskExtension, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>Assets\Firebase\Plugins\Firebase.TaskExtension.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.MiniJson, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>Assets\Firebase\Plugins\Google.MiniJson.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>D:\Program Files\Unity Editors\2019.2.18f1\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -75,8 +90,6 @@
     <Compile Include="Assets\Admix\AdmixAssets\Placements\Materials\TestTexture.cs" />
     <Compile Include="Assets\Appodeal\Api\Appodeal.cs" />
     <Compile Include="Assets\Appodeal\AppodealDemo\AppodealDemo.cs" />
-    <Compile Include="Assets\Appodeal\AppodealDemo\GDPR.cs" />
-    <Compile Include="Assets\Appodeal\AppodealDemo\loading.cs" />
     <Compile Include="Assets\Appodeal\Common\IAppodealAdsClient.cs" />
     <Compile Include="Assets\Appodeal\Common\IBannerAdListener.cs" />
     <Compile Include="Assets\Appodeal\Common\IInterstitialAdListener.cs" />
@@ -95,7 +108,28 @@
     <Compile Include="Assets\Appodeal\Platforms\Dummy\DummyClient.cs" />
     <Compile Include="Assets\Appodeal\Platforms\iOS\AppodealAdsClient.cs" />
     <Compile Include="Assets\Appodeal\Platforms\iOS\AppodealObjCBridge.cs" />
+    <Compile Include="Assets\AppsFlyer\AFInAppEvents.cs" />
+    <Compile Include="Assets\AppsFlyer\AFMiniJSON.cs" />
+    <Compile Include="Assets\AppsFlyer\AppsFlyer.cs" />
+    <Compile Include="Assets\AppsFlyer\AppsFlyerAndroid.cs" />
+    <Compile Include="Assets\AppsFlyer\AppsFlyeriOS.cs" />
+    <Compile Include="Assets\AppsFlyer\AppsFlyerObjectScript.cs" />
+    <Compile Include="Assets\AppsFlyer\IAppsFlyerConversionData.cs" />
+    <Compile Include="Assets\AppsFlyer\IAppsFlyerUserInvite.cs" />
+    <Compile Include="Assets\AppsFlyer\IAppsFlyerValidateReceipt.cs" />
     <Compile Include="Assets\Art Assets\Models\HeroicTraversal\SmoothFollow.cs" />
+    <Compile Include="Assets\ConsentManager\Api\ConsentManager.cs" />
+    <Compile Include="Assets\ConsentManager\Common\IConsentFormListener.cs" />
+    <Compile Include="Assets\ConsentManager\Common\IConsentInfoUpdateListener.cs" />
+    <Compile Include="Assets\ConsentManager\Common\IConsentManager.cs" />
+    <Compile Include="Assets\ConsentManager\ConsentManagerDemo\Scripts\ConsentManagerDemo.cs" />
+    <Compile Include="Assets\ConsentManager\Platforms\Android\AndroidConsentManagerClient.cs" />
+    <Compile Include="Assets\ConsentManager\Platforms\Android\ConsentFormCallbacks.cs" />
+    <Compile Include="Assets\ConsentManager\Platforms\Android\ConsentInfoUpdateCallbacks.cs" />
+    <Compile Include="Assets\ConsentManager\Platforms\ConsentManagerClientFactory.cs" />
+    <Compile Include="Assets\ConsentManager\Platforms\Dummy\Dummy.cs" />
+    <Compile Include="Assets\ConsentManager\Platforms\iOS\ConsentManagerObjCBridge.cs" />
+    <Compile Include="Assets\ConsentManager\Platforms\iOS\iOSConsentManagerClient.cs" />
     <Compile Include="Assets\External Assets\A-Engine\Code Manager\CodeManager.cs" />
     <Compile Include="Assets\External Assets\A-Engine\Code\AudioManager\AudioBlock.cs" />
     <Compile Include="Assets\External Assets\A-Engine\Code\AudioManager\AudioData.cs" />
@@ -274,8 +308,6 @@
     <Compile Include="Assets\External Assets\Invector-3rdPersonController\Melee Combat\Scripts\WaypointSystem\vPoint.cs" />
     <Compile Include="Assets\External Assets\Invector-3rdPersonController\Melee Combat\Scripts\WaypointSystem\vWaypoint.cs" />
     <Compile Include="Assets\External Assets\Invector-3rdPersonController\Melee Combat\Scripts\WaypointSystem\vWaypointArea.cs" />
-    <Compile Include="Assets\External Assets\Invector-3rdPersonController\Shooter\3DModels\Weapons\vRifle\Scripts\vBotRifleAnimationControl.cs" />
-    <Compile Include="Assets\External Assets\Invector-3rdPersonController\Shooter\3DModels\Weapons\vRifle\Scripts\vPowerChargeProjectileControl.cs" />
     <Compile Include="Assets\External Assets\Invector-3rdPersonController\Shooter\Scripts\ArcherySystem\Scripts\vArrow.cs" />
     <Compile Include="Assets\External Assets\Invector-3rdPersonController\Shooter\Scripts\ArcherySystem\Scripts\vBowControl.cs" />
     <Compile Include="Assets\External Assets\Invector-3rdPersonController\Shooter\Scripts\DecalManager\Scripts\vDecalManager.cs" />
@@ -449,6 +481,8 @@
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\IgnoreUiRaycastWhenInactive.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\NamePickGui.cs" />
     <Compile Include="Assets\Photon\PhotonRealtime\Demos\DemoLoadBalancing\ConnectAndJoinRandomLb.cs" />
+    <Compile Include="Assets\Scripts\ADTester.cs" />
+    <Compile Include="Assets\Scripts\Analytics\AppsFlyer\ExitFromRun.cs" />
     <Compile Include="Assets\Scripts\Analytics\DistanceAnalitycsEvent.cs" />
     <Compile Include="Assets\Scripts\CameraEffects.cs" />
     <Compile Include="Assets\Scripts\CharacterEffects.cs" />
@@ -474,6 +508,10 @@
     <Compile Include="Assets\Scripts\MainMenuAndShop\DonatShop\DonatShopData.cs" />
     <Compile Include="Assets\Scripts\MainMenuAndShop\DonatShop\NoAds.cs" />
     <Compile Include="Assets\Scripts\MainMenuAndShop\DonatShop\ShopDonatsPanel.cs" />
+    <Compile Include="Assets\Scripts\MainMenuAndShop\Helmets\Helmets.cs" />
+    <Compile Include="Assets\Scripts\MainMenuAndShop\Helmets\HelmetSelection.cs" />
+    <Compile Include="Assets\Scripts\MainMenuAndShop\Jetpacks\Jetpacks.cs" />
+    <Compile Include="Assets\Scripts\MainMenuAndShop\Jetpacks\JetpackSelection.cs" />
     <Compile Include="Assets\Scripts\MainMenuAndShop\SceneLoader\MenuTransition.cs" />
     <Compile Include="Assets\Scripts\MainMenuAndShop\SceneLoader\NextGameTransition.cs" />
     <Compile Include="Assets\Scripts\MainMenuAndShop\SceneLoader\SceneLoader.cs" />
@@ -501,6 +539,8 @@
     <Compile Include="Assets\Scripts\Managers\Advertising\UnityAdController.cs" />
     <Compile Include="Assets\Scripts\Managers\AppleGameCenterManager.cs" />
     <Compile Include="Assets\Scripts\Managers\AppManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\AppsFlyerManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\CrashlyticsManager.cs" />
     <Compile Include="Assets\Scripts\Managers\Facebook.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Managers\GooglePlayGamesManager.cs" />
@@ -514,6 +554,10 @@
     <Compile Include="Assets\Scripts\Managers\Sound.cs" />
     <Compile Include="Assets\Scripts\Managers\StaticConst.cs" />
     <Compile Include="Assets\Scripts\Managers\Utility.cs" />
+    <Compile Include="Assets\Scripts\Menu\Daily Reward\CanPick.cs" />
+    <Compile Include="Assets\Scripts\Menu\Daily Reward\DailyReward.cs" />
+    <Compile Include="Assets\Scripts\Menu\Daily Reward\PickRewardPanel.cs" />
+    <Compile Include="Assets\Scripts\Menu\Daily Reward\RewardCard.cs" />
     <Compile Include="Assets\Scripts\Menu\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Menu\Menu.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuController.cs" />
@@ -523,6 +567,7 @@
     <Compile Include="Assets\Scripts\Menu\Multiplayer\RoomController.cs" />
     <Compile Include="Assets\Scripts\Menu\Multiplayer\RoomRow.cs" />
     <Compile Include="Assets\Scripts\Menu\Quests\QuestMenu.cs" />
+    <Compile Include="Assets\Scripts\Menu\FreeGift.cs" />
     <Compile Include="Assets\Scripts\Menu\Select Level Menu\LevelItem.cs" />
     <Compile Include="Assets\Scripts\Menu\Select Level Menu\SelectLevelMenu.cs" />
     <Compile Include="Assets\Scripts\Menu\Select Level Type Menu\LevelsStatus.cs" />
@@ -546,6 +591,7 @@
     <Compile Include="Assets\Scripts\Player\DismemberShooter.cs" />
     <Compile Include="Assets\Scripts\Player\ExtremlyReloader.cs" />
     <Compile Include="Assets\Scripts\Player\Gender.cs" />
+    <Compile Include="Assets\Scripts\Player\HeadDismember.cs" />
     <Compile Include="Assets\Scripts\Player\InputManager.cs" />
     <Compile Include="Assets\Scripts\Player\InvectorMods\FootStepSound.cs" />
     <Compile Include="Assets\Scripts\Player\InvectorMods\GenericActionPlusPuppet.cs" />
@@ -555,6 +601,8 @@
     <Compile Include="Assets\Scripts\Player\InvectorMods\ParkourTriggerHookAction.cs" />
     <Compile Include="Assets\Scripts\Player\InvectorMods\ParkourTriggerTrolleyAction.cs" />
     <Compile Include="Assets\Scripts\Player\InvectorMods\ParkourTriggerWallRunAction.cs" />
+    <Compile Include="Assets\Scripts\Player\JetpackButton.cs" />
+    <Compile Include="Assets\Scripts\Player\JetpackController.cs" />
     <Compile Include="Assets\Scripts\Player\MuscleDismember.cs" />
     <Compile Include="Assets\Scripts\Player\ParkourCamera.cs" />
     <Compile Include="Assets\Scripts\Player\ParkourSlowMo.cs" />
@@ -631,6 +679,7 @@
     <Compile Include="Assets\Scripts\UIScripts\ShopPreviewAnimator.cs" />
     <Compile Include="Assets\Scripts\UPplatform_fast.cs" />
     <Compile Include="Assets\Scripts\Utilities\EventsHelper.cs" />
+    <Compile Include="Assets\Scripts\Utilities\SaveSystem.cs" />
     <Compile Include="Assets\Scripts\Wallet\DistanceUIController.cs" />
     <Compile Include="Assets\Scripts\Wallet\Wallet.cs" />
     <Compile Include="Assets\Scripts\Wallet\WalletUIController.cs" />
@@ -640,8 +689,8 @@
     <None Include="Assets\Photon\PhotonLibs\changes-library.txt" />
     <None Include="Assets\Art Assets\Effects\Mine Explosion Effect\Shaders\SurfaceShader_VC.shader" />
     <None Include="Assets\Photon\PhotonUnityNetworking\link.xml" />
-    <None Include="Assets\Resources\A-Engine\Configuration\AudioConfiguration.xml" />
     <None Include="Assets\Appodeal\InternalResources\remove_list.xml" />
+    <None Include="Assets\Resources\A-Engine\Configuration\AudioConfiguration.xml" />
     <None Include="Assets\Application Store Settings\Keystore\Keystore Data.txt" />
     <None Include="Assets\External Assets\VolumetricLines\Shaders\Additive.shader" />
     <None Include="Assets\External Assets\VolumetricLines\Shaders\AlphaBlended.shader" />
@@ -653,7 +702,6 @@
     <None Include="Assets\Art Assets\Effects\1_LowPRunner\BONUSES\Shield\NewShader.shader" />
     <None Include="Assets\External Assets\VolumetricLines\Shaders\Strip-Additive.shader" />
     <None Include="Assets\External Assets\Demigiant\DOTween\readme.txt" />
-    <None Include="Assets\External Assets\Invector-3rdPersonController\Shooter\3DModels\Weapons\vRifle\Materials\vEmissionWithMask.shader" />
     <None Include="Assets\Admix\AdmixAssets\Resources\WebView\Shaders\Android\Android.shader" />
     <None Include="Assets\Art Assets\Animations\Pk Acro\Animation Times\PK_Acro.txt" />
     <None Include="Assets\External Assets\VolumetricLines\Shaders\Fast-AlphaBlended.shader" />
@@ -1396,6 +1444,25 @@
       <Project>{F2DA57F5-5E92-2479-0C32-9713AAEC8F8D}</Project>
       <Name>UnityEditor.UI</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Firebase\Plugins\Crashlytics\link.xml" />
+    <Content Include="Assets\Firebase\Plugins\Firebase.App.dll" />
+    <Content Include="Assets\Firebase\Plugins\Firebase.App.dll.mdb" />
+    <Content Include="Assets\Firebase\Plugins\Firebase.Crashlytics.dll" />
+    <Content Include="Assets\Firebase\Plugins\Firebase.Crashlytics.dll.mdb" />
+    <Content Include="Assets\Firebase\Plugins\Firebase.Platform.dll" />
+    <Content Include="Assets\Firebase\Plugins\Firebase.Platform.dll.mdb" />
+    <Content Include="Assets\Firebase\Plugins\Firebase.TaskExtension.dll" />
+    <Content Include="Assets\Firebase\Plugins\Firebase.TaskExtension.dll.mdb" />
+    <Content Include="Assets\Firebase\Plugins\Google.MiniJson.dll" />
+    <Content Include="Assets\Firebase\Plugins\iOS\Firebase.App.dll" />
+    <Content Include="Assets\Firebase\Plugins\iOS\Firebase.App.dll.mdb" />
+    <Content Include="Assets\Firebase\Plugins\iOS\Firebase.Crashlytics.dll" />
+    <Content Include="Assets\Firebase\Plugins\iOS\Firebase.Crashlytics.dll.mdb" />
+    <Content Include="Assets\Firebase\Plugins\x86_64\FirebaseCppApp-6_15_0.bundle" />
+    <Content Include="Assets\Firebase\Plugins\x86_64\FirebaseCppApp-6_15_0.dll" />
+    <Content Include="Assets\Firebase\Plugins\x86_64\FirebaseCppApp-6_15_0.so" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

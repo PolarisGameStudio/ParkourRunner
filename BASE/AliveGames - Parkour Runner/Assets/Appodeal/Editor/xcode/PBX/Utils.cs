@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 // ReSharper disable All
-#pragma warning disable 414
 
 namespace Unity.Appodeal.Xcode.PBX
 {
@@ -79,7 +78,9 @@ namespace Unity.Appodeal.Xcode.PBX
 
     internal class PBXRegex
     {
+#pragma warning disable 414
         public static string GuidRegexString = "[A-Fa-f0-9]{24}";
+#pragma warning restore 414
     }
 
     internal class PBXStream

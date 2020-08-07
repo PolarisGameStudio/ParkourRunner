@@ -1,8 +1,6 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 // ReSharper disable All
-#pragma warning disable 414
 
 namespace Unity.Appodeal.Xcode
 {
@@ -13,7 +11,6 @@ namespace Unity.Appodeal.Xcode
     /// manager assumes ownership of all of these files until the last 
     /// WriteToFile() invocation.
     /// </summary>
-    [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     public class ProjectCapabilityManager
     {
         private readonly string m_BuildPath;
@@ -645,7 +642,9 @@ namespace Unity.Appodeal.Xcode
     {
         internal static readonly string Key = "UIBackgroundModes";
         internal static readonly string ModeAudioValue = "audio";
+#pragma warning disable 414
         internal static readonly string ModeBluetoothValue = "bluetooth-central";
+#pragma warning restore 414
         internal static readonly string ModeActsBluetoothValue = "bluetooth-peripheral";
         internal static readonly string ModeExtAccessoryValue = "external-accessory";
         internal static readonly string ModeFetchValue = "fetch";
@@ -685,7 +684,9 @@ namespace Unity.Appodeal.Xcode
     {
         internal static readonly string Key = "com.apple.developer.pass-type-identifiers";
         internal static readonly string BaseValue = "$(TeamIdentifierPrefix)";
+#pragma warning disable 414
         internal static readonly string DefaultValue = "*";
+#pragma warning restore 414
     }
 
     internal class SiriEntitlements

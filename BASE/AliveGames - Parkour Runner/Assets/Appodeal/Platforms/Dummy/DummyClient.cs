@@ -1,11 +1,13 @@
 using System.Diagnostics.CodeAnalysis;
 using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
+using ConsentManager.Api;
 using UnityEngine;
 
 namespace AppodealAds.Unity.Dummy
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class DummyClient : IAppodealAdsClient
     {
         public void initialize(string appKey, int adTypes)
@@ -14,6 +16,11 @@ namespace AppodealAds.Unity.Dummy
         }
 
         public void initialize(string appKey, int adTypes, bool hasConsent)
+        {
+            Debug.Log("Call to Appodeal.initialize on not supported platform");
+        }
+
+        public void initialize(string appKey, int adTypes, Consent consent)
         {
             Debug.Log("Call to Appodeal.initialize on not supported platform");
         }
@@ -126,6 +133,11 @@ namespace AppodealAds.Unity.Dummy
         }
 
         public void updateConsent(bool value)
+        {
+            Debug.Log("Call to Appodeal.updateConsent on not supported platform");
+        }
+
+        public void updateConsent(Consent consent)
         {
             Debug.Log("Call to Appodeal.updateConsent on not supported platform");
         }
@@ -286,8 +298,18 @@ namespace AppodealAds.Unity.Dummy
         {
             Debug.Log("Call to Appodeal.requestAndroidMPermissions on not supported platform");
         }
+        
+        public void requestAndroidMPermissions()
+        {
+            Debug.Log("Call to Appodeal.requestAndroidMPermissions on not supported platform");
+        }
 
-        //User Settings
+        public void destroy(int adTypes)
+        {
+            Debug.Log("Call to Appodeal.destroy on not supported platform");
+        }
+        
+        #region User settings
 
         public void getUserSettings()
         {
@@ -308,14 +330,7 @@ namespace AppodealAds.Unity.Dummy
             Debug.Log("Call to Appodeal.setGender on not supported platform");
         }
 
-        public void requestAndroidMPermissions()
-        {
-            Debug.Log("Call to Appodeal.requestAndroidMPermissions on not supported platform");
-        }
+        #endregion
 
-        public void destroy(int adTypes)
-        {
-            Debug.Log("Call to Appodeal.destroy on not supported platform");
-        }
     }
 }
