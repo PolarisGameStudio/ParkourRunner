@@ -11,7 +11,9 @@ public enum MenuKinds
     SelectLevelType,
     SelectLevel,
     Multiplayer,
-    Quests
+    Quests,
+    DailyReward,
+    SelectLevelType2,
 }
 
 public class Menu : MonoBehaviour
@@ -55,13 +57,14 @@ public class Menu : MonoBehaviour
         public Ease hideEase;
         public float duration;
 
-        public Tween Show()
-        {
+        public Tween Show() {
+            target.blocksRaycasts = true;
             return target.DOFade(1f, duration).SetEase(showEase);
         }
 
         public Tween Hide()
         {
+            target.blocksRaycasts = false;
             return target.DOFade(0f, duration).SetEase(hideEase);
         }
     }

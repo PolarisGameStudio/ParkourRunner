@@ -8,7 +8,7 @@ using UnityEngine;
 public class ExtremlyReloader : MonoBehaviour
 {
     private const float MinY = -100f;
-    private const float CheckTime = 2f;
+    private const float CheckTime = 1f;
 
     [SerializeField] private Transform _target;
 
@@ -40,12 +40,13 @@ public class ExtremlyReloader : MonoBehaviour
 
     private void Reload()
     {
-        GameManager.Instance.Revive();
         if (PhotonGameManager.IsMultiplayerAndConnected) {
+            GameManager.Instance.Revive();
             PhotonGameManager.LocalPlayer.StartRun();
+            return;
         }
 
-        /*int index = SceneManager.GetActiveScene().buildIndex;
+        int index = SceneManager.GetActiveScene().buildIndex;
         AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(index);
 
         while (unloadOperation != null && !unloadOperation.isDone)
@@ -53,6 +54,6 @@ public class ExtremlyReloader : MonoBehaviour
         }
 
         ParkourSlowMo.Instance.UnSlow();
-        SceneManager.LoadScene(index);*/
+        SceneManager.LoadScene(index);
     }
 }

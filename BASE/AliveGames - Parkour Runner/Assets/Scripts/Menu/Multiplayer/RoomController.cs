@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AppsFlyerSDK;
+using Managers;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -115,6 +117,12 @@ public class RoomController : MonoBehaviourPunCallbacks {
 			UpdateCustomProperties();
 		}
 
+		var room       = PhotonNetwork.CurrentRoom;
+		var players    = room.Players.Values.Select(p => p.NickName);
+		var properties = PhotonNetwork.CurrentRoom.CustomProperties;
+		var bet        = (int) properties["bet"];
+		AppsFlyerManager.StartMultiplayer(players, bet);
+
 		PhotonNetwork.LeaveLobby();
 		MultiplayerMenu.Hide(MultiplayerMenu.OpenGame);
 	}
@@ -203,6 +211,8 @@ public class RoomController : MonoBehaviourPunCallbacks {
 	#region Room List
 
 	public void CreateRoom() {
+		AppsFlyerManager.SendBaseEvent(AppsFlyerManager.BaseEvents.multiplayer_room_created);
+
 		_bet = 100;
 		if (Wallet.Instance.AllCoins < _bet) _bet = 0;
 
@@ -368,11 +378,13 @@ public class RoomController : MonoBehaviourPunCallbacks {
 
 		public void ShowPanel() {
 			Panel.SetActive(true);
+			AdManager.Instance.ShowBottomBanner();
 		}
 
 
 		public void HidePanel() {
 			Panel.SetActive(false);
+			AdManager.Instance.HideBottomBanner();
 		}
 
 

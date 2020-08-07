@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Managers;
+using ParkourRunner.Scripts.Player;
 using ParkourRunner.Scripts.Player.InvectorMods;
 using Photon.Pun;
 using Photon.Realtime;
@@ -86,6 +87,7 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks {
 		Destroy(GetComponent<GenericActionPlusPuppet>());
 		Destroy(GetComponent<InvectorPlusPuppet>());
 		Destroy(GetComponent<CharacterEffects>());
+		Destroy(GetComponent<JetpackController>());
 		Destroy(transform.parent.GetComponent<ExtremlyReloader>());
 	}
 

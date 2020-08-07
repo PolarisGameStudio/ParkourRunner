@@ -2,6 +2,7 @@
 using UnityEngine;
 using DG.Tweening;
 using AEngine;
+using Managers;
 
 public class SelectLevelTypeMenu : Menu
 {
@@ -15,23 +16,28 @@ public class SelectLevelTypeMenu : Menu
     {
         base.Show();
                 
-        var secuance = DOTween.Sequence();
-        secuance.Append(_levelsAnim.Show());
-        secuance.Insert(0.1f, _backButtonAnim.Show());
+        var sequence = DOTween.Sequence();
+        sequence.Append(_levelsAnim.Show());
+        sequence.Insert(0.1f, _backButtonAnim.Show());
+        sequence.OnComplete(() =>
+        {
+            AdManager.Instance.ShowBottomBanner();
+        });
     }
 
     protected override void StartHide(Action callback)
     {
         base.StartHide(callback);
 
-        var secuance = DOTween.Sequence();
-        secuance.Append(_backButtonAnim.Hide());
-        secuance.Insert(0.2f, _levelsAnim.Hide());
-                
-        secuance.OnComplete(() =>
+        var sequence = DOTween.Sequence();
+        sequence.Append(_backButtonAnim.Hide());
+        sequence.Insert(0.2f, _levelsAnim.Hide());
+
+        sequence.OnComplete(() =>
         {
             FinishHide(callback);
         });
+        AdManager.Instance.HideBottomBanner();
     }
 
     private void OpenGame()
@@ -47,17 +53,22 @@ public class SelectLevelTypeMenu : Menu
         _menuController.OpenMenu(MenuKinds.MainMenu);
     }
 
+
+
+    public void OnShopButtonClick()
+    {
+        _audio.PlaySound(Sounds.Tap);
+        _menuController.OpenMenu(MenuKinds.Shop);
+    }
+
     public void OnTutorialLevelClick()
     {
         _audio.PlaySound(Sounds.Tap);
 
-        EnvironmentController.CheckKeys();
-        PlayerPrefs.SetInt(EnvironmentController.MULTIPLAYER_KEY, 0);
-        PlayerPrefs.SetInt(EnvironmentController.TUTORIAL_KEY, 1);
-        PlayerPrefs.SetInt(EnvironmentController.ENDLESS_KEY, 0);
-        PlayerPrefs.Save();
+        EnvironmentController.CurrentMode = GameModes.Tutorial;
 
         StartHide(OpenGame);
+        AppsFlyerManager.SendBaseEvent(AppsFlyerManager.BaseEvents.start_tutorial);
     }
 
     public void OnEnglessLevelClick()
@@ -71,6 +82,7 @@ public class SelectLevelTypeMenu : Menu
         PlayerPrefs.Save();
 
         StartHide(OpenGame);
+        AppsFlyerManager.SendBaseEvent(AppsFlyerManager.BaseEvents.start_endless);
     }
 
     public void OnSelectLevelClick()
@@ -92,6 +104,12 @@ public class SelectLevelTypeMenu : Menu
         else {
             Action();
         }
+    }
+
+    public void OnSelectGameModesClick()
+    {
+        _audio.PlaySound(Sounds.Tap);
+        _menuController.OpenMenu(MenuKinds.SelectLevelType2);
     }
     #endregion
 }

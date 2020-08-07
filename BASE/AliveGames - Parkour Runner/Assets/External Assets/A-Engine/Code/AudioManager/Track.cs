@@ -35,7 +35,7 @@ namespace AEngine
 			clip = Resources.Load (path) as AudioClip;
 		}
 
-		public void Play (AudioSource source, float systemVolume)
+		public void Play (AudioSource source, float systemVolume, float pitch = 1f)
 		{
 			if (systemVolume < 0)
 				systemVolume = 0;
@@ -44,6 +44,7 @@ namespace AEngine
 			
 			source.clip = clip;
 			source.volume = systemVolume * volume;
+			source.pitch = pitch;
 			source.Play ();
 		}
 	}

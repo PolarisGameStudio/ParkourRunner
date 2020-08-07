@@ -172,6 +172,7 @@ namespace Managers {
 
 		[PunRPC]
 		public void StartGame() {
+			SendStartEvent();
 			GameIsStarted = true;
 			MultiplayerUI.Instance.ShowPosition();
 			LocalPlayer.StartGame();
@@ -221,6 +222,8 @@ namespace Managers {
 		public void EndGame() {
 			GameIsStarted = false;
 			GameEnded     = true;
+
+			SendFinishedEvent();
 
 			HUDManager.Instance.FadeIn(delegate {
 				ShowPedestal();
@@ -318,6 +321,26 @@ namespace Managers {
 			ParkourCamera.Instance.transform.LookAt(lookPos);
 
 			MultiplayerUI.Instance.SetContinueFinishButton(true);
+		}
+
+
+		private void SendStartEvent() {
+			var room       = PhotonNetwork.CurrentRoom;
+			var players    = room.Players.Values.Select(p => p.NickName);
+			var properties = PhotonNetwork.CurrentRoom.CustomProperties;
+			var bet        = (int) properties["bet"];
+
+			AppsFlyerManager.MultiplayerIsRunning(players, bet);
+		}
+
+
+		private void SendFinishedEvent() {
+			var room       = PhotonNetwork.CurrentRoom;
+			var players    = room.Players.Values.Select(p => p.NickName);
+			var properties = PhotonNetwork.CurrentRoom.CustomProperties;
+			var bet        = (int) properties["bet"];
+
+			AppsFlyerManager.MultiplayerIsFinished(players, bet);
 		}
 	}
 }

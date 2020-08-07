@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>155658933515-vbd8oem4f62a7g1806m1h8s0cau7l5hc.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.155658933515-vbd8oem4f62a7g1806m1h8s0cau7l5hc</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>155658933515-3j2j0c96fttqtn6rsn4nm3l8vjbumk87.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDAj8-G2fFWH9ayrpWxOQA921AEBzEo3w8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>155658933515</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.AliveGames.ParkourRunnerTest</string>
+	<key>PROJECT_ID</key>
+	<string>parkour-runner-2049-77735554</string>
+	<key>STORAGE_BUCKET</key>
+	<string>parkour-runner-2049-77735554.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:155658933515:ios:a86b733d4591d28bf1fe0e</string>
+	<key>DATABASE_URL</key>
+	<string>https://parkour-runner-2049-77735554.firebaseio.com</string>
+</dict>
+</plist>

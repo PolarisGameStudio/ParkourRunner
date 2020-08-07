@@ -73,26 +73,17 @@ public class CharactersData : ScriptableObject
 
     public Data GetCharacterData(CharacterKinds kind)
     {
-        Data data = null;
+        if (_characters == null || _characters.Length <= 0) return null;
 
-        if (_characters != null && _characters.Length > 0)
+        foreach (var item in _characters)
         {
-            foreach (Data item in _characters)
-            {
-                if (item.kind == kind)
-                {
-                    data = item;
-                    break;
-                }
-            }
-
-            if (data == null)
-            {
-                data = _characters[0];
-                Debug.LogError("Couldn't find or not configured character = " + kind.ToString());
+            if (item.kind == kind) {
+                return item;
             }
         }
 
-        return data;
-    }    
+        Debug.LogError("Couldn't find or not configured character = " + kind.ToString());
+        return null;
+
+    }
 }

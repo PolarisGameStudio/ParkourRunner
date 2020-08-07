@@ -5,7 +5,8 @@ public enum GameModes
 {
     Tutorial,
     Endless,
-    Levels
+    Levels,
+    Multiplayer
 }
 
 [CreateAssetMenu(fileName = "Environment Controller", menuName = "ParkouRunner/Environment Controller")]
@@ -30,27 +31,34 @@ public class EnvironmentController : ScriptableObject
         get
         {
             CheckKeys();
-            return (PlayerPrefs.GetInt(TUTORIAL_KEY) == 1) ? (GameModes.Tutorial) : (PlayerPrefs.GetInt(ENDLESS_KEY) == 1 ? GameModes.Endless : GameModes.Levels);
+            return (PlayerPrefs.GetInt(TUTORIAL_KEY) == 1) ? (GameModes.Tutorial) : (PlayerPrefs.GetInt(ENDLESS_KEY) == 1 ? GameModes.Endless : (PlayerPrefs.GetInt(MULTIPLAYER_KEY)) == 1 ? GameModes.Endless : GameModes.Levels);
         }
 
-        set
-        {
+        set {
             CheckKeys();
-            switch (value)
-            {
+            switch (value) {
                 case GameModes.Tutorial:
-                    PlayerPrefs.SetInt(TUTORIAL_KEY, 1);
-                    PlayerPrefs.SetInt(ENDLESS_KEY, 0);
+                    PlayerPrefs.SetInt(TUTORIAL_KEY,    1);
+                    PlayerPrefs.SetInt(ENDLESS_KEY,     0);
+                    PlayerPrefs.SetInt(MULTIPLAYER_KEY, 0);
                     break;
 
                 case GameModes.Endless:
-                    PlayerPrefs.SetInt(TUTORIAL_KEY, 0);
-                    PlayerPrefs.SetInt(ENDLESS_KEY, 1);
+                    PlayerPrefs.SetInt(TUTORIAL_KEY,    0);
+                    PlayerPrefs.SetInt(ENDLESS_KEY,     1);
+                    PlayerPrefs.SetInt(MULTIPLAYER_KEY, 0);
                     break;
 
                 case GameModes.Levels:
-                    PlayerPrefs.SetInt(TUTORIAL_KEY, 0);
-                    PlayerPrefs.SetInt(ENDLESS_KEY, 0);
+                    PlayerPrefs.SetInt(TUTORIAL_KEY,    0);
+                    PlayerPrefs.SetInt(ENDLESS_KEY,     0);
+                    PlayerPrefs.SetInt(MULTIPLAYER_KEY, 0);
+                    break;
+
+                case GameModes.Multiplayer:
+                    PlayerPrefs.SetInt(TUTORIAL_KEY,    0);
+                    PlayerPrefs.SetInt(ENDLESS_KEY,     0);
+                    PlayerPrefs.SetInt(MULTIPLAYER_KEY, 1);
                     break;
             }
 

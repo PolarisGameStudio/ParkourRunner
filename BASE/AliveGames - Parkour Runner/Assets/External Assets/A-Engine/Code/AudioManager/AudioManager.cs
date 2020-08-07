@@ -203,7 +203,7 @@ namespace AEngine
 			PlaySound (soundTracks[index]);
 		}
 
-		public void PlaySound(string soundName, bool dontPlayIfSameIsPlaying = false)
+		public void PlaySound(string soundName, bool dontPlayIfSameIsPlaying = false, float pitch = 1f)
 		{
 			if (!isSound)
 				return;
@@ -226,12 +226,12 @@ namespace AEngine
 					index = 0;				
 			}
 
-			audioBlock.PlaySoundTrack (soundSource [index], soundName, soundVolumme);
+			audioBlock.PlaySoundTrack (soundSource [index], soundName, soundVolumme, pitch);
 		}
 
-		public void PlaySound (Sounds soundTrack, bool dontPlayIfSameIsPlaying = false)
+		public void PlaySound (Sounds soundTrack, bool dontPlayIfSameIsPlaying = false, float pitch = 1f)
 		{
-			PlaySound(soundTrack.ToString(), dontPlayIfSameIsPlaying);
+			PlaySound(soundTrack.ToString(), dontPlayIfSameIsPlaying, pitch);
 		}
 
 		public void StopSound (string soundName)

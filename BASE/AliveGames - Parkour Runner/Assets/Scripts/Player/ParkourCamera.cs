@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using Managers;
 using ParkourRunner.Scripts.Player.InvectorMods;
 using RootMotion.Dynamics;
@@ -256,6 +257,9 @@ public class ParkourCamera : MonoBehaviour
 
     public void SetFpsCamActive(bool active) {
         ParkourThirdPersonController.instance.Head.SetActive(!active);
+        var helmets = ParkourThirdPersonController.instance.HeadDismember.Helmets;
+        var helmetsRenderer = helmets.Select(h => h.transform.GetChild(0).GetComponent<MeshRenderer>());
+        helmetsRenderer.ToList().ForEach(mr => mr.enabled = !active);
         _fpsCam.gameObject.SetActive(active);
     }
 }

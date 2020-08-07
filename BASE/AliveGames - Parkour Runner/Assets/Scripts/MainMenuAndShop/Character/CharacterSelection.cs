@@ -2,11 +2,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using AEngine;
+using Managers;
 
 public class CharacterSelection : MonoBehaviour
 {
     public static event Action<CharacterKinds> OnSelectCharacter;
-    public static event Action<int> OnNotEnouthCoins;
+    public static event Action<int> OnNotEnoughCoins;
     private static CharacterKinds _currentSelection;
 
     [SerializeField] private CharactersData _configuration;
@@ -86,7 +87,7 @@ public class CharacterSelection : MonoBehaviour
     public void OnSelectButtonClick()
     {
         if (_currentSelection != _kind)
-            AudioManager.Instance.PlaySound(Sounds.ShopSelect);
+            AudioManager.Instance.PlaySound(Sounds.Tap);
 
         _currentSelection = _kind;
 
@@ -112,6 +113,8 @@ public class CharacterSelection : MonoBehaviour
             _data.Bought = true;
 
             OnSelectCharacter.SafeInvoke(_kind);
+
+            AppsFlyerManager.ShopBuySkin(_kind.ToString());
         }
         else
         {
@@ -120,7 +123,7 @@ public class CharacterSelection : MonoBehaviour
             else
             {
                 AudioManager.Instance.PlaySound(Sounds.Tap);
-                OnNotEnouthCoins.SafeInvoke(Mathf.Abs(_wallet.AllCoins - _data.price));
+                OnNotEnoughCoins.SafeInvoke(Mathf.Abs(_wallet.AllCoins - _data.price));
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Managers;
 using UnityEngine.Purchasing;
 using UnityEngine;
 
@@ -133,6 +134,21 @@ public class InAppManager : MonoBehaviour, IStoreListener
 
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs e)
     {
+        /*foreach (var item in _products)
+        {
+            if (string.Equals(item.ProductGameId, e.purchasedProduct.definition.id, StringComparison.Ordinal))
+            {
+                OnBuySuccess.SafeInvoke(item.DonatKind);
+                break;
+            }
+        }*/
+
+        AppsFlyerManager.ValidatePurchase(e);
+        return PurchaseProcessingResult.Complete;
+    }
+
+    public void PurchaseValidated(PurchaseEventArgs e)
+    {
         foreach (var item in _products)
         {
             if (string.Equals(item.ProductGameId, e.purchasedProduct.definition.id, StringComparison.Ordinal))
@@ -141,9 +157,10 @@ public class InAppManager : MonoBehaviour, IStoreListener
                 break;
             }
         }
-
-        return PurchaseProcessingResult.Complete;
     }
+
+
+
 
     public void OnPurchaseFailed(Product i, PurchaseFailureReason p)
     {

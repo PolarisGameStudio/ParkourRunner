@@ -10,377 +10,402 @@ using ParkourRunner.Scripts.Track.Pick_Ups.Bonuses;
 using RootMotion.Dynamics;
 using UnityEngine;
 using AEngine;
+using AppsFlyerSDK;
 using Managers;
 using Photon.Pun;
 
-namespace ParkourRunner.Scripts.Managers
-{
-    public class GameManager : MonoBehaviour
-    {
-        public event Action OnDie;
+namespace ParkourRunner.Scripts.Managers {
+	public class GameManager : MonoBehaviour {
+		public event Action OnDie;
 
-        public enum GameState
-        {
-            Run,
-            Pause,
-            Dead
-        }
-                
-        #region Singleton
-        public static GameManager Instance;
-        private AudioManager _audio;
+		public enum GameState {
+			Run,
+			Pause,
+			Dead
+		}
 
-        private void Awake()
-        {
-            if (Instance == null)
-            {
-                Instance = this;
 
-                this.ActiveBonuses = new List<BonusName>();
-                _wallet = Wallet.Instance;
-                _audio = AudioManager.Instance;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
-        #endregion
+		#region Singleton
 
-        public List<BonusName> ActiveBonuses { get; set; }
+		public static GameManager  Instance;
+		private       AudioManager _audio;
 
-        public MuscleDismember[] Limbs;
-        
-        public GameState gameState { get; private set; }
 
-        public bool PlayerCanBeDismembered = true; //Можно ли оторвать конечность? Используется скриптом на каждой кости рэгдолла.
+		private void Awake() {
+			if (Instance == null) {
+				Instance = this;
 
-        public float VelocityToDismember = 10f;
+				this.ActiveBonuses = new List<BonusName>();
+				_wallet            = Wallet.Instance;
+				_audio             = AudioManager.Instance;
+			}
+			else {
+				Destroy(gameObject);
+			}
+		}
 
-        public int CoinMultipiler = 1;
-        public float TrickMultipiler = 1;
+		#endregion
 
-        public float GameSpeed = 1f;
 
-        public int ReviveCost
-        {
-            get
-            {
-                float distance = Mathf.Clamp(((int)DistanceRun / 10), 1f, Mathf.Infinity);
-                int cost = (StaticConst.InitialReviveCost + (int)distance / 10) * (_revives + 1);
-                float distanceCostFactor = 0.15f;
+		public List<BonusName> ActiveBonuses { get; set; }
 
-                if (distance <= 50)
-                    distanceCostFactor = 0.18f;
-                else if (distance <= 100)
-                    distanceCostFactor = 0.15f;
-                else
-                    distanceCostFactor = 0.12f;
+		public MuscleDismember[] Limbs;
 
-                cost = StaticConst.InitialReviveCost + Mathf.RoundToInt((StaticConst.ReviveGrowCost + distance * distanceCostFactor) * (_revives + 1));
+		public GameState gameState { get; private set; }
 
-                return Mathf.RoundToInt(Mathf.Clamp(cost, StaticConst.InitialReviveCost, Mathf.Infinity));
-            }
-        }
+		public bool
+			PlayerCanBeDismembered =
+				true; //Можно ли оторвать конечность? Используется скриптом на каждой кости рэгдолла.
 
-        public bool IsLevelComplete { get; set; }
+		public float VelocityToDismember = 10f;
 
-        public float DistanceRun;
-        private float _distanceRunOffset; //TODO origin reset
+		public  float MaxCoinsSoundPitch  = 1.25f;
+		public  float CoinsSoundPitchStep = 0.01f;
+		private float _coinsSoundPitch    = 1f;
+		private Coroutine _resetCoinSoundPitchCoroutine;
 
-        private int _revives; //Сколько раз игрок возрождался за этот забег?
+		public  int   CoinMultipiler      = 1;
+		public  float TrickMultipiler     = 1;
 
-        [SerializeField] private float _restoreImmuneDuration;
+		public float GameSpeed = 1f;
 
-        ////Состояние
-        //Наличие конечностей
-        [SerializeField] private bool _leftHand = true;
-        [SerializeField] private bool _rightHand = true;
-        [SerializeField] private bool _leftLeg = true;
-        [SerializeField] private bool _rightLeg = true;
-                
-        private ParkourThirdPersonController _player;
-        private Animator _playerAnimator;
+		public int ReviveCost {
+			get {
+				float distance           = Mathf.Clamp(((int) DistanceRun / 10), 1f, Mathf.Infinity);
+				int   cost               = (StaticConst.InitialReviveCost + (int) distance / 10) * (_revives + 1);
+				float distanceCostFactor = 0.15f;
 
-        private HUDManager _hud;
-        private Wallet _wallet;
+				if (distance <= 50)
+					distanceCostFactor = 0.18f;
+				else if (distance <= 100)
+					distanceCostFactor = 0.15f;
+				else
+					distanceCostFactor = 0.12f;
 
-        public float RestoreImmuneDuration { get { return _restoreImmuneDuration; } }
+				cost = StaticConst.InitialReviveCost +
+						Mathf.RoundToInt((StaticConst.ReviveGrowCost + distance * distanceCostFactor) * (_revives + 1));
 
-        public bool IsOneLeg { get { return !_leftLeg || !_rightLeg; } }
+				return Mathf.RoundToInt(Mathf.Clamp(cost, StaticConst.InitialReviveCost, Mathf.Infinity));
+			}
+		}
 
-        private void Start()
-        {
-            FindObjectOfType<BehaviourPuppet>().onLoseBalance.unityEvent.AddListener(ResetSpeed);
+		public bool IsLevelComplete { get; set; }
 
-            _hud = HUDManager.Instance;
-            Limbs = FindObjectsOfType<MuscleDismember>();
-            _player = ParkourThirdPersonController.instance;
-            _playerAnimator = _player.GetComponent<Animator>();
-            
-            StartGame();
+		public  float DistanceRun;
+		private float _distanceRunOffset; //TODO origin reset
 
-            _audio.LoadAudioBlock(AudioBlocks.Game);
-            _audio.PlayMusic();
-        }
+		private int _revives; //Сколько раз игрок возрождался за этот забег?
 
-        private void OnDisable()
-        {
-            ProgressManager.SaveSettings();
-        }
+		[SerializeField] private float _restoreImmuneDuration;
 
-        private void StartGame()
-        {
-            if (PhotonGameManager.IsMultiplayerAndConnected) {
-                gameState = GameState.Pause;
-            }
-            else {
-                gameState = GameState.Run;
-            }
+		////Состояние
+		//Наличие конечностей
+		[SerializeField] private bool _leftHand  = true;
+		[SerializeField] private bool _rightHand = true;
+		[SerializeField] private bool _leftLeg   = true;
+		[SerializeField] private bool _rightLeg  = true;
 
-            IsLevelComplete = false;
-            StartCoroutine(IncreaseGameSpeed());
-        }
+		private ParkourThirdPersonController _player;
+		private Animator                     _playerAnimator;
 
-        // Update is called once per frame
-        void Update ()
-        {
-            if (_player) {
-                DistanceRun = _player.transform.position.z;
-                _hud.UpdateDistance(DistanceRun + _distanceRunOffset);
-            }
-        }
+		private HUDManager _hud;
+		private Wallet     _wallet;
 
-        //Оторвать конечность (или приклеить обратно)
-        public void SetLimbState(Bodypart bodypart, bool dismember)
-        {
-            switch (bodypart)
-            {
-                case (Bodypart.Body): //or
-                case (Bodypart.Head):
-                    if (!dismember)
-                    {
-                        print("HEAD DIE");
-                        Die();
-                    }
-                    else
-                    {
-                        ParkourCamera.Instance.OnHeadRegenerated();
-                    }
-                    break;
+		public float RestoreImmuneDuration {
+			get { return _restoreImmuneDuration; }
+		}
 
-                case (Bodypart.LHand):
-                    _leftHand = dismember;
-                    break;
+		public bool IsOneLeg {
+			get { return !_leftLeg || !_rightLeg; }
+		}
 
-                case (Bodypart.RHand):
-                    _rightHand = dismember;
-                    break;
 
-                case (Bodypart.RLeg):
-                    _rightLeg = dismember;
-                    break;
+		private void Start() {
+			FindObjectOfType<BehaviourPuppet>().onLoseBalance.unityEvent.AddListener(ResetSpeed);
 
-                case (Bodypart.LLeg):
-                    _leftLeg = dismember;
-                    break;
-            }
+			_hud            = HUDManager.Instance;
+			Limbs           = FindObjectsOfType<MuscleDismember>();
+			_player         = ParkourThirdPersonController.instance;
+			_playerAnimator = _player.GetComponent<Animator>();
 
-            _playerAnimator.SetBool("LeftHand", _leftHand);
-            _playerAnimator.SetBool("RightHand", _rightHand);
-            _playerAnimator.SetBool("LeftLeg", _leftLeg);
-            _playerAnimator.SetBool("RightLeg", _rightLeg);
+			StartGame();
 
-            if (!dismember)
-                CheckLimbLost(); //Смотрим не проиграли ли мы ещё
-        }
+			_audio.LoadAudioBlock(AudioBlocks.Game);
+			_audio.PlayMusic();
+		}
 
-        private void CheckLimbLost()
-        {
-                if (!_leftHand && !_rightHand)
-                {
-                    Die();
-                }
-                else if (!_leftLeg && !_rightLeg)
-                {
 
-                    Die();
-                }
-        }
-        
-        private void Die()
-        {
-            if (gameState != GameState.Dead)
-            {
-                gameState = GameState.Dead;
-                _player.Die();
-                OnDie.SafeInvoke();
+		private void OnDisable() {
+			ProgressManager.SaveSettings();
+		}
 
-                this.ActiveBonuses.Clear();
-                _player.Immune = false;
-                _player.RestoreImmune = false;
 
-                if (PhotonGameManager.IsMultiplayer) {
-                    Invoke("Revive", 2f);
-                }
-                else {
-                    Invoke("ShowPostMortem", 4f);
-                }
+		private void StartGame() {
+			if (PhotonGameManager.IsMultiplayerAndConnected) {
+				gameState = GameState.Pause;
+			}
+			else {
+				if (EnvironmentController.CurrentMode == GameModes.Levels) {
+					var level = PlayerPrefs.GetInt(EnvironmentController.LEVEL_KEY);
+					AppsFlyerManager.StartLevel(level);
+				}
+				gameState = GameState.Run;
+			}
 
-                _audio.PlaySound(Gender.Kind == Gender.GenderKinds.Male ? Sounds.Death : Sounds.DeathFem);
-            }
-        }
-        
-        public void CompleteLevel()
-        {
-            this.ActiveBonuses.Clear();
-            _player.Immune = false;
-            _player.RestoreImmune = false;
-            this.IsLevelComplete = true;
-        }
+			IsLevelComplete = false;
+			StartCoroutine(IncreaseGameSpeed());
+		}
 
-        public void ShowPostMortem()
-        {
-            _hud.ShowPostMortem();
-        }
 
-        public void Revive()
-        {
-            var cb = LevelGenerator.Instance.CenterBlock;
-            if (PhotonGameManager.IsMultiplayerAndConnected) cb = LevelGenerator.Instance._blockPool[0];
-            Vector3 newPos = cb.transform.position;
-            newPos.z -= LevelGenerator.Instance.BlockSize / 2f - 2f;
+		// Update is called once per frame
+		void Update () {
+			if (_player) {
+				DistanceRun = _player.transform.position.z;
+				_hud.UpdateDistance(DistanceRun + _distanceRunOffset);
+			}
+		}
 
-            List<RestorePoint> list = cb.RevivePoints;
-            if (list != null && list.Count > 0)
-            {
-                Vector3 playerPos = _player.transform.position;
-                List<RestorePoint> targets = list.Where(x => x.CachedTransform.position.z <= playerPos.z).ToList();
 
-                if (targets != null && targets.Count > 0)
-                {
-                    var target = targets[0];
-                    foreach (var item in targets)
-                    {
-                        if (Vector3.Distance(playerPos, item.CachedTransform.position) < Vector3.Distance(playerPos, target.CachedTransform.position))
-                            target = item;
-                    }
+		//Оторвать конечность (или приклеить обратно)
+		public void SetLimbState(Bodypart bodypart, bool dismember) {
+			switch (bodypart) {
+				case (Bodypart.Body): //or
+				case (Bodypart.Head):
+					if (!dismember) {
+						print("HEAD DIE");
+						Die();
+					}
+					else {
+						ParkourCamera.Instance.OnHeadRegenerated();
+					}
+					break;
 
-                    newPos = target.CachedTransform.position;
-                }
-            }
+				case (Bodypart.LHand):
+					_leftHand = dismember;
+					break;
 
-            _player.PuppetMaster.enabled = false; //mode = PuppetMaster.Mode.Disabled;
-            _player.transform.root.position = newPos;
-            _player.transform.position = newPos;
-            _player.PuppetMaster.enabled = true; //.mode = PuppetMaster.Mode.Kinematic;
+				case (Bodypart.RHand):
+					_rightHand = dismember;
+					break;
 
-            //Heal player
-            gameState = GameState.Run;
-            HealFull();
-            _player.Revive();
+				case (Bodypart.RLeg):
+					_rightLeg = dismember;
+					break;
 
-            _revives++;
-        }
+				case (Bodypart.LLeg):
+					_leftLeg = dismember;
+					break;
+			}
 
-        private void HealFull()
-        {
-            while (HealLimb()) ; //Heal while theres limbs
-        }
+			_playerAnimator.SetBool("LeftHand",  _leftHand);
+			_playerAnimator.SetBool("RightHand", _rightHand);
+			_playerAnimator.SetBool("LeftLeg",   _leftLeg);
+			_playerAnimator.SetBool("RightLeg",  _rightLeg);
 
-        public bool HealLimb() //public чтобы лечиться с heal бонуса
-        {
-            foreach (var limb in Limbs)
-            {
-                if (limb.IsDismembered)
-                {
-                    limb.HealRecursive(); 
-                    SetLimbState(limb.Bodypart, true); //Записываем в аниматор что подлечились
-                    return true;
-                }
-            }
-            return false;
-        }
+			if (!dismember)
+				CheckLimbLost(); //Смотрим не проиграли ли мы ещё
+		}
 
-        public void DoTrick(Trick trick)
-        {
-            AddCoin((int)(trick.MoneyReward * CoinMultipiler * TrickMultipiler));
-            HUDManager.Instance.ShowTrickReward(trick, TrickMultipiler * CoinMultipiler);
-        }
 
-        public void AddCoin(int amount = 1)
-        {
-            _wallet.AddCoins(amount * CoinMultipiler, Wallet.WalletMode.InGame);
-            _audio.PlaySound(Sounds.Coin);
-        }
+		private void CheckLimbLost() {
+			if (!_leftHand && !_rightHand) {
+				Die();
+			}
+			else if (!_leftLeg && !_rightLeg) {
+				Die();
+			}
+		}
 
-        public void AddBonus(BonusName bonusName)
-        {
-            switch (bonusName)
-            {
-                case (BonusName.Magnet):
-                    GetComponent<MagnetBonus>().RefreshTime();
-                    break;
-                case (BonusName.Jump):
-                    GetComponent<JumpBonus>().RefreshTime();
-                    break;
-                case (BonusName.Shield):
-                    GetComponent<ShieldBonus>().RefreshTime();
-                    break;
-                case (BonusName.DoubleCoins):
-                    GetComponent<DoubleCoinsBonus>().RefreshTime();
-                    break;
-                case (BonusName.Boost):
-                    GetComponent<BoostBonus>().RefreshTime();
-                    break;
-            }
-        }
 
-        public Transform GetRandomLimb()
-        {
-            var list = Limbs.ToList().Where(x => !x.IsDismembered).ToList();
-            return list[UnityEngine.Random.Range(0, list.Count())].transform;
-        }
+		private void Die() {
+			if (gameState != GameState.Dead) {
+				gameState = GameState.Dead;
+				_player.Die();
+				OnDie.SafeInvoke();
 
-        private IEnumerator IncreaseGameSpeed()
-        {
-            while (true)
-            {
-                if (gameState == GameState.Run) {
-                    GameSpeed += StaticConst.SpeedGrowPerSec * Time.deltaTime;
-                    GameSpeed =  Math.Min(GameSpeed, StaticConst.MaxGameSpeed);
-                }
-                yield return null;
-            }
-        }
+				this.ActiveBonuses.Clear();
+				_player.Immune        = false;
+				_player.RestoreImmune = false;
 
-        public void ResetSpeed()
-        {
-            GameSpeed = 1f;
-        }
+				if (PhotonGameManager.IsMultiplayer) {
+					Invoke("Revive", 2f);
+				}
+				else {
+					Invoke("ShowPostMortem", 4f);
+				}
 
-        public void OnHeadLost(Transform head)
-        {
-            ParkourCamera.Instance.OnHeadLost(head);//todo
-        }
+				_audio.PlaySound(Gender.Kind == Gender.GenderKinds.Male ? Sounds.Death : Sounds.DeathFem);
+			}
+		}
 
-        public void Pause()
-        {
-            gameState = GameState.Pause;
-            ParkourSlowMo.Instance.SmoothlyStopTime();
-        }
 
-        public void UnPause()
-        {
-            //gameState = GameState.Run;
-            ParkourSlowMo.Instance.SmoothlyContinueTime();
-            StartCoroutine(UnpauseProcess());
-        }
+		public void CompleteLevel() {
+			this.ActiveBonuses.Clear();
+			_player.Immune        = false;
+			_player.RestoreImmune = false;
+			this.IsLevelComplete  = true;
 
-        private IEnumerator UnpauseProcess()
-        {
-            yield return new WaitForSeconds(0.3f);
-            gameState = GameState.Run;
-        }
-    }
+			if (EnvironmentController.CurrentMode == GameModes.Tutorial) {
+				AppsFlyerManager.SendBaseEvent(AppsFlyerManager.BaseEvents.complete_tutorial);
+			}
+			else if (EnvironmentController.CurrentMode == GameModes.Levels) {
+				var level = PlayerPrefs.GetInt(EnvironmentController.LEVEL_KEY);
+				var coins = Wallet.Instance.InGameCoins;
+
+				AppsFlyerManager.LevelComplete(level, coins);
+			}
+		}
+
+
+		public void ShowPostMortem() {
+			_hud.ShowPostMortem();
+		}
+
+
+		public void Revive() {
+			var cb                                              = LevelGenerator.Instance.CenterBlock;
+			if (PhotonGameManager.IsMultiplayerAndConnected) cb = LevelGenerator.Instance._blockPool[0];
+			Vector3 newPos                                      = cb.transform.position;
+			newPos.z -= LevelGenerator.Instance.BlockSize / 2f - 2f;
+
+			List<RestorePoint> list = cb.RevivePoints;
+			if (list != null && list.Count > 0) {
+				Vector3            playerPos = _player.transform.position;
+				List<RestorePoint> targets   = list.Where(x => x.CachedTransform.position.z <= playerPos.z).ToList();
+
+				if (targets != null && targets.Count > 0) {
+					var target = targets[0];
+					foreach (var item in targets) {
+						if (Vector3.Distance(playerPos, item.CachedTransform.position) <
+							Vector3.Distance(playerPos, target.CachedTransform.position))
+							target = item;
+					}
+
+					newPos = target.CachedTransform.position;
+				}
+			}
+
+			_player.PuppetMaster.enabled    = false; //mode = PuppetMaster.Mode.Disabled;
+			_player.transform.root.position = newPos;
+			_player.transform.position      = newPos;
+			_player.PuppetMaster.enabled    = true; //.mode = PuppetMaster.Mode.Kinematic;
+
+			//Heal player
+			gameState = GameState.Run;
+			HealFull();
+			_player.Revive();
+
+			_revives++;
+		}
+
+
+		private void HealFull() {
+			while (HealLimb()) ; //Heal while theres limbs
+		}
+
+
+		public bool HealLimb() //public чтобы лечиться с heal бонуса
+		{
+			foreach (var limb in Limbs) {
+				if (limb.IsDismembered) {
+					limb.HealRecursive();
+					SetLimbState(limb.Bodypart, true); //Записываем в аниматор что подлечились
+					return true;
+				}
+			}
+			return false;
+		}
+
+
+		public void DoTrick(Trick trick) {
+			AddCoin((int) (trick.MoneyReward * CoinMultipiler * TrickMultipiler));
+			HUDManager.Instance.ShowTrickReward(trick, TrickMultipiler * CoinMultipiler);
+		}
+
+
+		public void AddCoin(int amount = 1) {
+			_wallet.AddCoins(amount * CoinMultipiler, Wallet.WalletMode.InGame);
+			_audio.PlaySound(Sounds.Coin, false, _coinsSoundPitch);
+
+			_coinsSoundPitch = _coinsSoundPitch < MaxCoinsSoundPitch
+				? _coinsSoundPitch + CoinsSoundPitchStep
+				: MaxCoinsSoundPitch;
+
+			if(_resetCoinSoundPitchCoroutine != null) StopCoroutine(_resetCoinSoundPitchCoroutine);
+			_resetCoinSoundPitchCoroutine = StartCoroutine(ResetCoinSoundPitch());
+		}
+
+
+		public IEnumerator ResetCoinSoundPitch() {
+			yield return new WaitForSeconds(2f);
+			_coinsSoundPitch = 1f;
+		}
+
+
+		public void AddBonus(BonusName bonusName) {
+			switch (bonusName) {
+				case (BonusName.Magnet):
+					GetComponent<MagnetBonus>().RefreshTime();
+					break;
+				case (BonusName.Jump):
+					GetComponent<JumpBonus>().RefreshTime();
+					break;
+				case (BonusName.Shield):
+					GetComponent<ShieldBonus>().RefreshTime();
+					break;
+				case (BonusName.DoubleCoins):
+					GetComponent<DoubleCoinsBonus>().RefreshTime();
+					break;
+				case (BonusName.Boost):
+					GetComponent<BoostBonus>().RefreshTime();
+					break;
+			}
+		}
+
+
+		public Transform GetRandomLimb() {
+			var list = Limbs.ToList().Where(x => !x.IsDismembered).ToList();
+			return list[UnityEngine.Random.Range(0, list.Count())].transform;
+		}
+
+
+		private IEnumerator IncreaseGameSpeed() {
+			while (true) {
+				if (gameState == GameState.Run) {
+					GameSpeed += StaticConst.SpeedGrowPerSec * Time.deltaTime;
+					GameSpeed =  Math.Min(GameSpeed, StaticConst.MaxGameSpeed);
+				}
+				yield return null;
+			}
+		}
+
+
+		public void ResetSpeed() {
+			GameSpeed = 1f;
+		}
+
+
+		public void OnHeadLost(Transform head) {
+			ParkourCamera.Instance.OnHeadLost(head); //todo
+		}
+
+
+		public void Pause() {
+			gameState = GameState.Pause;
+			ParkourSlowMo.Instance.SmoothlyStopTime();
+		}
+
+
+		public void UnPause() {
+			//gameState = GameState.Run;
+			ParkourSlowMo.Instance.SmoothlyContinueTime();
+			StartCoroutine(UnpauseProcess());
+		}
+
+
+		private IEnumerator UnpauseProcess() {
+			yield return new WaitForSeconds(0.3f);
+			gameState = GameState.Run;
+		}
+	}
 }

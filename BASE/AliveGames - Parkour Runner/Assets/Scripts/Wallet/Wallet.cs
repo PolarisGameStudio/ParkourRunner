@@ -19,6 +19,17 @@ public class Wallet : MonoSingleton<Wallet>
 
     public int InGameCoins { get; private set; }
 
+
+    public void Update() {
+        if (Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.KeypadPlus)) {
+            AddCoins(1000, WalletMode.Global);
+        }
+        if (Input.GetKeyDown(KeyCode.Minus)) {
+            AddCoins(-1000, WalletMode.Global);
+        }
+    }
+
+
     protected override void Init()
     {
         base.Init();
@@ -51,6 +62,8 @@ public class Wallet : MonoSingleton<Wallet>
             this.InGameCoins += value;
             OnChangeInGameCoins.SafeInvoke(this.InGameCoins);
         }
+
+        Save();
     }
 
     public void ResetInGameCoins()
@@ -69,6 +82,7 @@ public class Wallet : MonoSingleton<Wallet>
             OnChangePlayerCoins.SafeInvoke(this.AllCoins);
             OnChangeInGameCoins.SafeInvoke(this.InGameCoins);
 
+            Save();
             return true;
         }
 

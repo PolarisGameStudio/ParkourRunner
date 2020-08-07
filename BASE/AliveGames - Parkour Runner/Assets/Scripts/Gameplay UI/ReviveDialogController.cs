@@ -26,7 +26,7 @@ public class ReviveDialogController : MonoBehaviour
     [SerializeField] private GameObject _reviveAdButtion;
 
     public bool IsPriceCondition => Wallet.Instance.AllCoins >= GameManager.Instance.ReviveCost;
-    public bool IsAdCondition => AdManager.Instance.InterstitialIsAvailable();
+    public bool IsAdCondition => AdManager.Instance.RewardedVideoIsAvailable();
     public bool CanShow => this.IsPriceCondition || this.IsAdCondition;
 
     private AudioManager _audio;

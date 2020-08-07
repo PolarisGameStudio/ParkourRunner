@@ -1,4 +1,5 @@
-﻿using ParkourRunner.Scripts.Managers;
+﻿using System.Linq;
+using ParkourRunner.Scripts.Managers;
 using RootMotion.Dynamics;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace ParkourRunner.Scripts.Player
         LHand,
         RHand,
         LLeg,
-        RLeg
+        RLeg,
     }
 
     public class MuscleDismember : MonoBehaviour
@@ -45,7 +46,7 @@ namespace ParkourRunner.Scripts.Player
             }
         }
 
-        private void Heal()
+        protected virtual void Heal()
         {
             if (IsHandOrFeet) return;
             NormalVersion.SetActive(true);
@@ -53,7 +54,7 @@ namespace ParkourRunner.Scripts.Player
             IsDismembered = false;
         }
 
-        public void DismemberMuscleRecursive()
+        public virtual void DismemberMuscleRecursive()
         {
             if (Bodypart == Bodypart.Body) return;
             if (!GameManager.Instance.PlayerCanBeDismembered)
@@ -65,6 +66,7 @@ namespace ParkourRunner.Scripts.Player
                 PreviousDismember.DismemberMuscleRecursive();
                 return;
             }
+
             var broadcaster = GetComponent<MuscleCollisionBroadcaster>();
             var puppetMaster = broadcaster.puppetMaster;
             var joint = broadcaster.puppetMaster.muscles[broadcaster.muscleIndex].joint;
@@ -140,15 +142,11 @@ namespace ParkourRunner.Scripts.Player
         {
             if (IsDismembered) return;
             if (collision.transform.gameObject.layer == LayerMask.NameToLayer("DamageToRagdoll")) {
-                if (collision.relativeVelocity.magnitude >
-                    GameManager.Instance.VelocityToDismember)
+                if (collision.relativeVelocity.magnitude > GameManager.Instance.VelocityToDismember)
                 {
                     DismemberMuscleRecursive();
                 }
             }
-            //else if (collision.transform.gameObject.layer == LayerMask.NameToLayer("HouseWall")) {
-            //        DismemberMuscleRecursive();
-            //}
         }
     }
 }

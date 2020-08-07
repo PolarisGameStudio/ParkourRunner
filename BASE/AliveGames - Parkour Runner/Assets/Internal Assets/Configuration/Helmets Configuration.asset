@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279f0c270bd349b0a43c1ccdf872df9c, type: 3}
+  m_Name: Helmets Configuration
+  m_EditorClassIdentifier: 
+  _helmets:
+  - HelmetType: 0
+    Price: 0
+  - HelmetType: 1
+    Price: 2500
+  - HelmetType: 2
+    Price: 2500
+  - HelmetType: 3
+    Price: 2500

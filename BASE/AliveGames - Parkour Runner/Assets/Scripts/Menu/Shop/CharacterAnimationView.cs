@@ -2,56 +2,56 @@
 using UnityEngine;
 using AEngine;
 
-public class CharacterAnimationView : MonoBehaviour
-{
-    [SerializeField] private Animator _animator;
-    [SerializeField] private string _appearClip;
-    [SerializeField] private float _duration;
+public class CharacterAnimationView : MonoBehaviour {
+	[SerializeField] private Animator _animator;
+	[SerializeField] private string   _appearClip;
+	[SerializeField] private float    _duration;
 
-    private void OnEnable()
-    {
-        ShopMenu.OnShowMenu -= OnShowMenuFinished;
-        ShopMenu.OnShowMenu += OnShowMenuFinished;
 
-        ShopMenu.OnHideMenu -= OnHideMenuFinished;
-        ShopMenu.OnHideMenu += OnHideMenuFinished;
+	private void Awake() {
+		ShopMenu.OnShowMenu -= OnShowMenuFinished;
+		ShopMenu.OnShowMenu += OnShowMenuFinished;
 
-        _animator.Play(_appearClip, 0, 0f);
-    }
+		ShopMenu.OnHideMenu -= OnHideMenuFinished;
+		ShopMenu.OnHideMenu += OnHideMenuFinished;
 
-    private void OnDisable()
-    {
-        ShopMenu.OnShowMenu -= OnShowMenuFinished;
-        ShopMenu.OnHideMenu -= OnHideMenuFinished;
-    }
+		_animator.Play(_appearClip, 0, 0f);
+	}
 
-    private IEnumerator AnimationProcess()
-    {
-        float time = _duration;
 
-        AudioManager.Instance.PlaySound(Sounds.MenuCharacterBlock);
+	private void OnDisable() {
+		ShopMenu.OnShowMenu -= OnShowMenuFinished;
+		ShopMenu.OnHideMenu -= OnHideMenuFinished;
+	}
 
-        while (time > 0f)
-        {
-            _animator.Play(_appearClip, 0, 1f - Mathf.Clamp01(time / _duration));
-            time -= Time.deltaTime;
 
-            yield return null;
-        }
+	private IEnumerator AnimationProcess() {
+		float time = _duration;
 
-        _animator.Play(_appearClip, 0, 1f);
-    }
+		AudioManager.Instance.PlaySound(Sounds.MenuCharacterBlock);
 
-    #region Events
-    private void OnShowMenuFinished()
-    {
-        StopAllCoroutines();
-        StartCoroutine(AnimationProcess());
-    }
+		while (time > 0f) {
+			_animator.Play(_appearClip, 0, 1f - Mathf.Clamp01(time / _duration));
+			time -= Time.deltaTime;
 
-    private void OnHideMenuFinished()
-    {
-        _animator.Play(_appearClip, 0, 0f);
-    }
-    #endregion
+			yield return null;
+		}
+
+		_animator.Play(_appearClip, 0, 1f);
+	}
+
+
+	#region Events
+
+	private void OnShowMenuFinished() {
+		StopAllCoroutines();
+		StartCoroutine(AnimationProcess());
+	}
+
+
+	private void OnHideMenuFinished() {
+		_animator.Play(_appearClip, 0, 0f);
+	}
+
+	#endregion
 }

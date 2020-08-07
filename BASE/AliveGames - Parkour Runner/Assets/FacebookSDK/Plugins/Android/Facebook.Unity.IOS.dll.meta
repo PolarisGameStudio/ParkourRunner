@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ef48e46728c8448bf9b335866a21a6d4
+guid: 8e39eae5889de4cae88efb8e3afdf426
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -28,7 +28,6 @@ PluginImporter:
         Exclude Win: 1
         Exclude Win64: 1
         Exclude iOS: 1
-        Exclude tvOS: 1
   - first:
       '': Editor
     second:
@@ -37,16 +36,16 @@ PluginImporter:
         CPU: AnyCPU
         OS: AnyOS
   - first:
+      '': data
+    second:
+      enabled: 0
+      settings: {}
+  - first:
       Android: Android
     second:
       enabled: 1
       settings:
         CPU: ARMv7
-  - first:
-      Any: 
-    second:
-      enabled: 0
-      settings: {}
   - first:
       Editor: Editor
     second:
@@ -78,12 +77,6 @@ PluginImporter:
       settings:
         CPU: AnyCPU
   - first:
-      Standalone: LinuxUniversal
-    second:
-      enabled: 0
-      settings:
-        CPU: None
-  - first:
       Standalone: OSXIntel
     second:
       enabled: 0
@@ -95,12 +88,6 @@ PluginImporter:
       enabled: 0
       settings:
         CPU: AnyCPU
-  - first:
-      Standalone: OSXUniversal
-    second:
-      enabled: 0
-      settings:
-        CPU: None
   - first:
       Standalone: Win
     second:
@@ -121,13 +108,6 @@ PluginImporter:
         CPU: AnyCPU
   - first:
       iPhone: iOS
-    second:
-      enabled: 0
-      settings:
-        CompileFlags: 
-        FrameworkDependencies: 
-  - first:
-      tvOS: tvOS
     second:
       enabled: 0
       settings:

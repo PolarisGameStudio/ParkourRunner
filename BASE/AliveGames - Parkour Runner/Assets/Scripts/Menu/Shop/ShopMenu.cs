@@ -2,6 +2,7 @@
 using UnityEngine;
 using DG.Tweening;
 using AEngine;
+using Managers;
 
 public class ShopMenu : Menu {
 	public static event Action OnShowMenu;
@@ -30,12 +31,14 @@ public class ShopMenu : Menu {
 		base.Show();
 		OnShowMenu.SafeInvoke();
 
-		var secuance = DOTween.Sequence();
-		secuance.Append(_backgroundAnim.Hide());
+		var sequence = DOTween.Sequence();
+		sequence.Append(_backgroundAnim.Hide());
 
-		secuance.Insert(_showAfterBgDelay, _shopAnim.Show());
-		secuance.Insert(_showAfterBgDelay, _playerStatusAnim.Show());
-		secuance.Insert(_showAfterBgDelay, _homeButtonAnim.Show());
+		sequence.Insert(_showAfterBgDelay, _shopAnim.Show());
+		sequence.Insert(_showAfterBgDelay, _playerStatusAnim.Show());
+		sequence.Insert(_showAfterBgDelay, _homeButtonAnim.Show());
+
+		AppsFlyerManager.SendBaseEvent(AppsFlyerManager.BaseEvents.shop_menu_open);
 	}
 
 

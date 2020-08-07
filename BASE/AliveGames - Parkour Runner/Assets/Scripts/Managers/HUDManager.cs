@@ -217,6 +217,7 @@ namespace ParkourRunner.Scripts.Managers {
 
 
 		public void ShowPause() {
+			AdManager.Instance.ShowBottomBanner();
 			var isMultiplayer = PhotonGameManager.IsMultiplayerAndConnected;
 
 			PauseGo.SetActive(true);
@@ -229,14 +230,18 @@ namespace ParkourRunner.Scripts.Managers {
 
 			_audio.PlaySound(Sounds.Tap);
 			_audio.PlaySound(Sounds.WinSimple);
+
+			AppsFlyerManager.SendBaseEvent(AppsFlyerManager.BaseEvents.show_pause);
 		}
 
 
 		public void HidePause() {
+			AdManager.Instance.HideBottomBanner();
 			if(!PhotonGameManager.IsMultiplayerAndConnected) GameManager.Instance.UnPause();
 			PauseAnimator.SetBool("IsDisplayed", false);
 
 			_audio.PlaySound(Sounds.Tap);
+			AppsFlyerManager.SendBaseEvent(AppsFlyerManager.BaseEvents.close_pause);
 		}
 
 

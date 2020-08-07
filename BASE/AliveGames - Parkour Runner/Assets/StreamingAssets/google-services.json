@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "155658933515",
+    "firebase_url": "https://parkour-runner-2049-77735554.firebaseio.com",
+    "project_id": "parkour-runner-2049-77735554",
+    "storage_bucket": "parkour-runner-2049-77735554.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155658933515:android:583f123b7f49ad7ff1fe0e",
+        "android_client_info": {
+          "package_name": "com.play.game.cyber.parkour.endless.runner.robot.bot.subway.tomb.runbot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "155658933515-nsc7afj7rttk0rp0d2vs09r3e6r837ug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVBVKJ-q1mcXJgRBKWcq8uUXMKyhgJ0Fg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "155658933515-nsc7afj7rttk0rp0d2vs09r3e6r837ug.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "155658933515-vbd8oem4f62a7g1806m1h8s0cau7l5hc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.AliveGames.ParkourRunnerTest"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

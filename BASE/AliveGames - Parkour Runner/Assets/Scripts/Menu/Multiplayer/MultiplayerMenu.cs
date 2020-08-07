@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using AEngine;
+using Managers;
 using Photon.Pun;
 using UnityEngine.UI;
 
@@ -42,6 +43,8 @@ public class MultiplayerMenu : Menu {
 
 		_canvasGroup.blocksRaycasts = true;
 		_canvasGroup.interactable   = true;
+
+		AppsFlyerManager.SendBaseEvent(AppsFlyerManager.BaseEvents.multiplayer_menu_open);
 	}
 
 
@@ -66,14 +69,11 @@ public class MultiplayerMenu : Menu {
 
 
 	public void OpenGame() {
+		AdManager.Instance.HideBottomBanner();
 		print("Open Game");
 		_audio.PlaySound(Sounds.Tap);
 
-		EnvironmentController.CheckKeys();
-		PlayerPrefs.SetInt(EnvironmentController.TUTORIAL_KEY,    0);
-		PlayerPrefs.SetInt(EnvironmentController.ENDLESS_KEY,     0);
-		PlayerPrefs.SetInt(EnvironmentController.MULTIPLAYER_KEY, LevelIndex);
-		PlayerPrefs.Save();
+		EnvironmentController.CurrentMode = GameModes.Multiplayer;
 
 		MenuController.TransitionTarget = MenuKinds.None;
 		_gameLoader.SetActive(true);

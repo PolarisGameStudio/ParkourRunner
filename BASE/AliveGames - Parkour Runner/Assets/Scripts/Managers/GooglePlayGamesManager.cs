@@ -22,10 +22,7 @@ namespace Managers {
 		private static void SignIn() {
 #if UNITY_ANDROID
 			// print("GP Games Authenticate");
-			PlayGamesPlatform.Instance.Authenticate(delegate (bool b, string s) {
-				print(b);
-				print(s);
-			}, false);
+			PlayGamesPlatform.Instance.Authenticate(delegate (bool b, string s) { }, false);
 			Social.localUser.Authenticate(( b, s) => print(s));
 #endif
 		}

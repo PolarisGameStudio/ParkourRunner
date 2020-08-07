@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id" xmlns:tools="http://schemas.android.com/tools">
+  <string name="firebase_database_url" translatable="false">https://parkour-runner-2049-77735554.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">155658933515</string>
+  <string name="google_storage_bucket" translatable="false">parkour-runner-2049-77735554.appspot.com</string>
+  <string name="project_id" translatable="false">parkour-runner-2049-77735554</string>
+  <string name="google_api_key" translatable="false">AIzaSyAVBVKJ-q1mcXJgRBKWcq8uUXMKyhgJ0Fg</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAVBVKJ-q1mcXJgRBKWcq8uUXMKyhgJ0Fg</string>
+  <string name="google_app_id" translatable="false">1:155658933515:android:583f123b7f49ad7ff1fe0e</string>
+  <string name="default_web_client_id" translatable="false">155658933515-nsc7afj7rttk0rp0d2vs09r3e6r837ug.apps.googleusercontent.com</string>
+</resources>

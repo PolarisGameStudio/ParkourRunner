@@ -15,8 +15,11 @@ public class NextGameTransition : MonoBehaviour
             AudioManager.Instance.PlaySound(Sounds.Tap);
             SceneManager.LoadScene(_gameSceneID);
         }
-        else
+        else {
             _baseTransition.OnTransitionButtonClick();
+        }
+
+        AdManager.Instance.HideBottomBanner();
     }
 
     #region Events

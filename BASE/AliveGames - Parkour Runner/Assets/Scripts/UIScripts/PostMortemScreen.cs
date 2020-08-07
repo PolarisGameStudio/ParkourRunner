@@ -85,7 +85,6 @@ public class PostMortemScreen : MonoBehaviour
     private void AdFinishedCallback()
     {
         print("Ad is ended. Revive...");
-        //_adSeen = true;
         Revive();
         _stopTimer = false;
     }

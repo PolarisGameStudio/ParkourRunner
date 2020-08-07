@@ -43,6 +43,7 @@ public class MainMenu : Menu
             finalSecuance.Append(_questBlock.Show(_questBlock.showPoint.anchoredPosition, _questBlock.duration * 0.1f));
 
             AdManager.Instance.ShowBottomBanner();
+            AppsFlyerManager.SendBaseEvent(AppsFlyerManager.BaseEvents.main_menu_open);
         });
     }
         
@@ -133,6 +134,12 @@ public class MainMenu : Menu
     {
         _audio.PlaySound(Sounds.Tap);
         _menuController.OpenMenu(MenuKinds.Multiplayer);
+    }
+
+    public void OnDailyRewardButtonClick()
+    {
+        _audio.PlaySound(Sounds.Tap);
+        _menuController.OpenMenu(MenuKinds.DailyReward);
     }
     #endregion
 }

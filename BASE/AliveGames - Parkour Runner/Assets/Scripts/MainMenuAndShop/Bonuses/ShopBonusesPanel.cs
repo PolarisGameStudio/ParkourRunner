@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using AEngine;
+using Managers;
 
 public class ShopBonusesPanel : MonoBehaviour
 {
@@ -33,7 +34,8 @@ public class ShopBonusesPanel : MonoBehaviour
                 AudioManager.Instance.PlaySound(Sounds.TapShopBonus);
 
                 Shoping.GetBonus(_data.BonusKind.ToString());
-                SetProgressState();                
+                SetProgressState();
+                AppsFlyerManager.ShopBuyBonus(_data.BonusKind.ToString(), bonusLevel + 1);
             }
         }
 

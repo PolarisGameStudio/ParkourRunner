@@ -50,10 +50,10 @@ namespace AEngine
 				return null;
 		}
 
-		public void PlaySoundTrack (AudioSource source, string trackName, float systemSoundVolume)
+		public void PlaySoundTrack (AudioSource source, string trackName, float systemSoundVolume, float pitch = 1f)
 		{
 			if (sound.IsFilled) {
-				sound.tracks [trackName].Play (source, systemSoundVolume);
+				sound.tracks [trackName].Play (source, systemSoundVolume, pitch);
 			}
 		}
 
