@@ -130,6 +130,8 @@
     <Compile Include="Assets\ConsentManager\Platforms\Dummy\Dummy.cs" />
     <Compile Include="Assets\ConsentManager\Platforms\iOS\ConsentManagerObjCBridge.cs" />
     <Compile Include="Assets\ConsentManager\Platforms\iOS\iOSConsentManagerClient.cs" />
+    <Compile Include="Assets\Editor\CFacebookPostProcessBuild.cs" />
+    <Compile Include="Assets\Editor\DisableBitcode.cs" />
     <Compile Include="Assets\External Assets\A-Engine\Code Manager\CodeManager.cs" />
     <Compile Include="Assets\External Assets\A-Engine\Code\AudioManager\AudioBlock.cs" />
     <Compile Include="Assets\External Assets\A-Engine\Code\AudioManager\AudioData.cs" />
