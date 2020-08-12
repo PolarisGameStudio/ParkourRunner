@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using Firebase.Crashlytics;
+﻿/*using System.Collections;
+using Firebase.Crashlytics;*/
 using UnityEngine;
 
 namespace Managers {
 	public class CrashlyticsManager : MonoBehaviour {
+	/*
 		private void Start () {
 // #if UNITY_EDITOR
 			// return;
@@ -39,5 +40,6 @@ namespace Managers {
 			Crashlytics.LogException(new System.Exception("test exception"));
 			throw new System.Exception("test exception please ignore");
 		}
+		*/
 	}
 }
