@@ -1,9 +1,10 @@
 using System.Collections.Generic;
-using Facebook.Unity;
+// using Facebook.Unity;
 using UnityEngine;
 
 namespace Managers {
 	public class Facebook : MonoBehaviour {
+		/*
 #if !UNITY_EDITOR && !UNITY_STANDALONE_WIN
 		private void Awake() {
 			print("Check FB Init");
@@ -64,5 +65,6 @@ namespace Managers {
 		}
 
 		#endregion
+		*/
 	}
 }
