@@ -87,6 +87,9 @@ namespace AppodealAds.Unity.iOS
 
         [DllImport("__Internal")]
         internal static extern void AppodealSetBannerAnimation(bool value);
+        
+        [DllImport("__Internal")]
+        internal static extern void AppodealSetBannerRotation(int leftBannerRotation, int rightBannerRotation);
 
         [DllImport("__Internal")]
         internal static extern void AppodealSetLogLevel(int loglevel);
@@ -143,6 +146,18 @@ namespace AppodealAds.Unity.iOS
         internal static extern void AppodealSetSegmentFilterInt(string name, int value);
 
         [DllImport("__Internal")]
+        internal static extern void AppodealSetCustomFilterBool(string name, bool value);
+        
+        [DllImport("__Internal")]
+        internal static extern void AppodealSetCustomFilterString(string name, string value);
+
+        [DllImport("__Internal")]
+        internal static extern void AppodealSetCustomFilterDouble(string name, double value);
+
+        [DllImport("__Internal")]
+        internal static extern void AppodealSetCustomFilterInt(string name, int value);
+
+        [DllImport("__Internal")]
         internal static extern void AppodealSetSegmentFilterBool(string name, bool value);
 
         [DllImport("__Internal")]
@@ -168,6 +183,9 @@ namespace AppodealAds.Unity.iOS
 
         [DllImport("__Internal")]
         internal static extern void AppodealSetUserGender(int gender);
+        
+        [DllImport("__Internal")]
+        internal static extern bool AppodealIsPrecacheAd(int adType);
 
         [DllImport("__Internal")]
         internal static extern void AppodealSetInterstitialDelegate(

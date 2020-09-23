@@ -10,7 +10,8 @@ public class DonatShopData : ScriptableObject
         ByCoins1,
         ByCoins2,
         ByCoins3,
-        ByCoins4
+        ByCoins4,
+        StarterPack,
     }
 
     [Header("Base settings")]

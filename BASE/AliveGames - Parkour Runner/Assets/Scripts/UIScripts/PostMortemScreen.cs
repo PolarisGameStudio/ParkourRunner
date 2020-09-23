@@ -76,8 +76,6 @@ public class PostMortemScreen : MonoBehaviour
 
     public void WatchAd()
     {
-        _ad.SkipAdInOrder();
-
         _stopTimer = true;
         _ad.ShowRewardedVideo(AdFinishedCallback, AdSkippedCallback, AdSkippedCallback);
     }
@@ -86,12 +84,14 @@ public class PostMortemScreen : MonoBehaviour
     {
         print("Ad is ended. Revive...");
         Revive();
+        _ad.SkipAdInOrder();
         _stopTimer = false;
     }
 
     private void AdSkippedCallback()
     {
         _stopTimer = false;
+        Show();
         print("Skipped or failed revive AD");
     }
         

@@ -85,7 +85,7 @@ public class AdManager : MonoBehaviour {
 
 	public void ShowBottomBanner() {
 		if (!EnableAds) return;
-		// Debug.Log("Show Bottom Banner");
+		Debug.Log("Show Bottom Banner");
 		_ad.ShowBottomBanner();
 	}
 

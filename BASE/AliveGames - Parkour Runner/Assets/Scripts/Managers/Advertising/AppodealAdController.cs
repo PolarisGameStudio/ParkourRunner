@@ -12,22 +12,29 @@ using UnityEngine.SceneManagement;
 public class AppodealAdController : BaseAdController, IInterstitialAdListener, IRewardedVideoAdListener,
 									INonSkippableVideoAdListener, IBannerAdListener, IConsentInfoUpdateListener,
 									IConsentFormListener {
-	private const int MAX_FRAMES_TO_INTERSTITIAL = 2;
-
 	[SerializeField] private string _androidAppKey;
 	[SerializeField] private string _iosAppKey;
 	[SerializeField] private bool   _isTesting;
 
 	private Coroutine   _bottomBanner;
 	private ConsentForm _consentForm;
+	private ConsentManager.Api.ConsentManager _consentManager;
 
 	private string AppKey {
 		get {
+#if UNITY_ANDROID
+			var appKey = _androidAppKey;
+#elif UNITY_IPHONE
 			var appKey = _iosAppKey;
+#else
+			var appKey = "";
+#endif
+
+			/*var appKey = _iosAppKey;
 			if (Application.platform != RuntimePlatform.IPhonePlayer &&
 				Application.platform != RuntimePlatform.OSXPlayer) {
 				appKey = _androidAppKey;
-			}
+			}*/
 			return appKey;
 		}
 	}
@@ -38,21 +45,22 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 		return;
 #endif
 
-		if (!AdManager.EnableAds) return;
+		// if (!AdManager.EnableAds) return;
 
 		InitializeConsentManager();
 	}
 
 
 	private void InitializeAppodeal() {
+		if(_isTesting) print($"InitializeAppodeal. App key: {AppKey}");
 		Appodeal.setTesting(_isTesting);
 		Appodeal.setSmartBanners(true);
 		Appodeal.setTabletBanners(true);
 
-		// Appodeal.setLogLevel(Appodeal.LogLevel.Verbose);
+		Appodeal.setLogLevel(Appodeal.LogLevel.Verbose);
 
-		var consent = ConsentManager.Api.ConsentManager.getInstance().getConsent();
-		print(consent);
+		var consent = _consentManager.getConsent();
+		if(_isTesting) print(consent);
 		if (consent != null) {
 			Appodeal.initialize(AppKey,
 								Appodeal.INTERSTITIAL | Appodeal.BANNER_BOTTOM | Appodeal.REWARDED_VIDEO |
@@ -69,24 +77,13 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 		Appodeal.setInterstitialCallbacks(this);
 		Appodeal.setRewardedVideoCallbacks(this);
 		Appodeal.setNonSkippableVideoCallbacks(this);
-		// Appodeal.setBannerCallbacks(this);
+		Appodeal.setBannerCallbacks(this);
 	}
 
 
 	private void InitializeConsentManager() {
-		var consentManager = ConsentManager.Api.ConsentManager.getInstance();
-
-		var consent           = consentManager.getConsent();
-		var consentZone       = consentManager.getConsentZone();
-		var consentStatus     = consentManager.getConsentStatus();
-		var consentShouldShow = consentManager.shouldShowConsentDialog();
-
-		print($"consentShouldShow: {consentShouldShow}");
-		if (true || consentShouldShow == Consent.ShouldShow.TRUE) {
-			// show dialog
-			ShowConsent();
-		}
-		consentManager.requestConsentInfoUpdate(AppKey, this);
+		_consentManager = ConsentManager.Api.ConsentManager.getInstance();
+		_consentManager.requestConsentInfoUpdate(AppKey, this);
 	}
 
 
@@ -141,6 +138,7 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 		return;
 #endif
 		if (_bottomBanner != null) return;
+		if(_isTesting) print($"Starting Coroutine \"ShowBottomBannerProcess\"");
 		_bottomBanner = StartCoroutine(ShowBottomBannerProcess());
 	}
 
@@ -192,7 +190,9 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 
 
 	private IEnumerator ShowBottomBannerProcess() {
+		if(_isTesting)  print($"Banner is Loaded: {Appodeal.isLoaded(Appodeal.BANNER_BOTTOM)}. Waiting if not");
 		yield return new WaitUntil(() => Appodeal.isLoaded(Appodeal.BANNER_BOTTOM));
+		if(_isTesting) print($"Banner Is Loaded. Show Banner");
 		Appodeal.show(Appodeal.BANNER_BOTTOM);
 		AppsFlyerManager.SendBaseEvent(AppsFlyerManager.BaseEvents.banner_shown);
 	}
@@ -351,12 +351,45 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 	#region ConsentInfoUpdateListener
 
 	public void onConsentInfoUpdated(Consent consent) {
-		print("onConsentInfoUpdated");
+		if(_isTesting) print("onConsentInfoUpdated");
+		var consentZone       = _consentManager.getConsentZone();
+		var consentStatus     = _consentManager.getConsentStatus();
+		var consentShouldShow = _consentManager.shouldShowConsentDialog();
+
+		if(_isTesting) print($"consentShouldShow: {consentShouldShow}");
+		if (consentShouldShow == Consent.ShouldShow.TRUE) {
+			// show dialog
+			ShowConsent();
+		}
+		else {
+			InitializeAppodeal();
+		}
 	}
 
 
 	public void onFailedToUpdateConsentInfo(ConsentManagerException error) {
-		print($"onFailedToUpdateConsentInfo Reason: {error.getReason()}");
+		Debug.Log($"onFailedToUpdateConsentInfo");
+		InitializeAppodeal();
+
+		if (error == null) return;
+		Debug.Log($"onFailedToUpdateConsentInfo Reason: {error.getReason()}");
+
+		switch (error.getCode())
+		{
+			case 0:
+				Debug.Log("onFailedToUpdateConsentInfo - UNKNOWN");
+				break;
+			case 1:
+				Debug.Log(
+						"onFailedToUpdateConsentInfo - INTERNAL - Error on SDK side. Includes JS-bridge or encoding/decoding errors");
+				break;
+			case 2:
+				Debug.Log("onFailedToUpdateConsentInfo - NETWORKING - HTTP errors, parse request/response ");
+				break;
+			case 3:
+				Debug.Log("onFailedToUpdateConsentInfo - INCONSISTENT - Incorrect SDK API usage");
+				break;
+		}
 	}
 
 	#endregion
@@ -371,16 +404,17 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 
 	public void onConsentFormError(ConsentManagerException exception) {
 		print($"ConsentFormListener - onConsentFormError, reason - {exception.getReason()}");
+		InitializeAppodeal();
 	}
 
 
 	public void onConsentFormOpened() {
-		print("ConsentFormListener - onConsentFormOpened");
+		if(_isTesting) print("ConsentFormListener - onConsentFormOpened");
 	}
 
 
 	public void onConsentFormClosed(Consent consent) {
-		print($"ConsentFormListener - onConsentFormClosed, consentStatus - {consent.getStatus()}");
+		if(_isTesting) print($"ConsentFormListener - onConsentFormClosed, consentStatus - {consent.getStatus()}");
 		InitializeAppodeal();
 	}
 

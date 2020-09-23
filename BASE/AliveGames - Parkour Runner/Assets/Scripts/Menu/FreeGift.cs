@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Timers;
 using AEngine;
 using UnityEngine;
@@ -19,8 +21,7 @@ namespace DefaultNamespace.Menu {
 		[SerializeField]         private Image      GiftImage;
 		[SerializeField]         private Text       GiftText;
 
-		[Space] [SerializeField] private Sprite                CoinsSprite;
-		[SerializeField]         private LocalizationComponent CoinsText;
+		[Space] [SerializeField] private List<GiftType> GiftTypes;
 
 		private readonly WaitForSeconds _oneSecond = new WaitForSeconds(1f);
 		private readonly TimeSpan       _maxTimer  = new TimeSpan(0, 0, 30, 0);
@@ -87,7 +88,8 @@ namespace DefaultNamespace.Menu {
 
 
 		public void OnOpenButtonClick() {
-			if(AdManager.EnableAds) AdManager.Instance.ShowRewardedVideo(TakeGift, null, TakeGift);
+			if (AdManager.EnableAds) AdManager.Instance.ShowRewardedVideo(TakeGift, null, TakeGift);
+			TakeGift();
 		}
 
 
@@ -97,12 +99,13 @@ namespace DefaultNamespace.Menu {
 			var gift = GetRandomGift();
 			OpenGiftPanel(gift);
 			OpenGift(gift);
+			GiftButton.interactable = false;
 		}
 
 
 		private void OpenGiftPanel(Gift gift) {
 			GiftImage.sprite = gift.Icon;
-			GiftText.text    = GetGiftDescription(gift);
+			GiftText.text = gift.Description;//GetGiftDescription(gift);
 
 			GiftPanel.SetActive(true);
 		}
@@ -113,12 +116,21 @@ namespace DefaultNamespace.Menu {
 		}
 
 
-		private string GetGiftDescription(Gift gift) {
-			switch (gift.GiftType) {
+		private string GetGiftDescription(GiftType gift, int amount) {
+			if(gift.Description) return $"x{amount} {gift.Description.Text}";
+			return $"x{amount}";
+
+			/*switch (gift.GiftType) {
 				case Gift.Type.Coins:
-					return $"{gift.Data} {CoinsText.Text}";
+					return $"{gift.Amount} {CoinsText.Text}";
+				case Gift.Type.Boost:
+				case Gift.Type.Jump:
+				case Gift.Type.Magnet:
+				case Gift.Type.Shield:
+				case Gift.Type.DoubleCoins:
+					return $"{gift.Amount}x{gift.GiftType}";
 				default: return string.Empty;
-			}
+			}*/
 		}
 
 
@@ -126,25 +138,72 @@ namespace DefaultNamespace.Menu {
 			AudioManager.Instance.PlaySound(Sounds.ShopSelect);
 			switch (gift.GiftType) {
 				case Gift.Type.Coins:
-					Wallet.Instance.AddCoins(int.Parse(gift.Data), Wallet.WalletMode.Global);
+					Wallet.Instance.AddCoins(gift.Amount, Wallet.WalletMode.Global);
+					break;
+				case Gift.Type.Boost:
+				case Gift.Type.Jump:
+				case Gift.Type.Magnet:
+				case Gift.Type.Shield:
+				case Gift.Type.DoubleCoins:
+					BonusName type;
+					switch (gift.GiftType) {
+						case Gift.Type.Boost:
+							type = BonusName.Boost;
+							break;
+						case Gift.Type.Jump:
+							type = BonusName.Jump;
+							break;
+						case Gift.Type.Magnet:
+							type = BonusName.Magnet;
+							break;
+						case Gift.Type.Shield:
+							type = BonusName.Shield;
+							break;
+						case Gift.Type.DoubleCoins:
+							type = BonusName.DoubleCoins;
+							break;
+						default:
+							throw new ArgumentOutOfRangeException();
+					}
+					CollectibleBonuses.AddBonus(type, gift.Amount);
 					break;
 			}
 		}
 
 
 		private Gift GetRandomGift() {
-			var randomCoins = Random.Range(4, 10) * 50;
-			return new Gift {Icon = CoinsSprite, Data = randomCoins.ToString(), GiftType = Gift.Type.Coins};
+			var rnd = Random.Range(0, 100);
+			var giftType     = GiftTypes.FirstOrDefault(g => rnd >= g.FromChance && rnd <= g.ToChance);
+			var randomAmount = Random.Range(giftType.MinAmount, giftType.MaxAmount) * giftType.AmountMultiplier;
+			return new Gift {Icon = giftType.Icon, Amount = randomAmount, GiftType = giftType.Type, Description = GetGiftDescription(giftType, randomAmount)};
 		}
 
+
+		[Serializable]
+		private struct GiftType {
+			public                 Sprite                Icon;
+			public                 Gift.Type             Type;
+			[Range(0, 100)] public int                   FromChance;
+			[Range(0, 100)] public int                   ToChance;
+			public                 int                   MinAmount;
+			public                 int                   MaxAmount;
+			public                 int                   AmountMultiplier;
+			public                 LocalizationComponent Description;
+		}
 
 		private struct Gift {
 			public Sprite Icon;
 			public Type   GiftType;
-			public string Data;
+			public int    Amount;
+			public string Description;
 
 			public enum Type {
-				Coins
+				Coins,
+				Boost,
+				DoubleCoins,
+				Jump,
+				Magnet,
+				Shield,
 			}
 		}
 	}

@@ -29,6 +29,7 @@ namespace AppodealAds.Unity.Common
         void setBannerAnimation(bool value);
         void setBannerBackground(bool value);
         void setTabletBanners(bool value);
+        void setBannerRotation(int leftBannerRotation, int rightBannerRotation);
         void setTesting(bool test);
         void setLogLevel(Appodeal.LogLevel level);
         void setChildDirectedTreatment(bool value);
@@ -47,6 +48,10 @@ namespace AppodealAds.Unity.Common
         void setSegmentFilter(string name, int value);
         void setSegmentFilter(string name, double value);
         void setSegmentFilter(string name, string value);
+        void setCustomFilter(string name, bool value);
+        void setCustomFilter(string name, int value);
+        void setCustomFilter(string name, double value);
+        void setCustomFilter(string name, string value);
         void setExtraData(string key, bool value);
         void setExtraData(string key, int value);
         void setExtraData(string key, double value);

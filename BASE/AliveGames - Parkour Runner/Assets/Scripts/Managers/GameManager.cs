@@ -360,6 +360,29 @@ namespace ParkourRunner.Scripts.Managers {
 					GetComponent<BoostBonus>().RefreshTime();
 					break;
 			}
+
+			PlayBonusSound(bonusName);
+		}
+
+
+		private void PlayBonusSound(BonusName bonusName) {
+			_audio = AudioManager.Instance;
+
+			switch (bonusName)
+			{
+				case BonusName.DoubleCoins:
+					_audio.PlaySound(Sounds.BonusX2);
+					break;
+
+				case BonusName.Shield:
+					_audio.PlaySound(Sounds.Bonus);
+					_audio.PlaySound(Sounds.BonusShield);
+					break;
+
+				default:
+					_audio.PlaySound(Sounds.Bonus);
+					break;
+			}
 		}
 
 

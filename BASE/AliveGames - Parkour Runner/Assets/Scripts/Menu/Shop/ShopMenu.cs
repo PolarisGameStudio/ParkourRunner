@@ -5,6 +5,8 @@ using AEngine;
 using Managers;
 
 public class ShopMenu : Menu {
+	public const string FirstOpenKey = "ShopOpenedEarlier";
+
 	public static event Action OnShowMenu;
 	public static event Action OnHideMenu;
 
@@ -17,6 +19,7 @@ public class ShopMenu : Menu {
 	[SerializeField] private AlphaAnimation  _backgroundAnim;
 
 	[Space] [SerializeField] private GameObject RestoreButton;
+	[SerializeField] private StarterPack StarterPack;
 
 
 	private void Start() {
@@ -37,6 +40,14 @@ public class ShopMenu : Menu {
 		sequence.Insert(_showAfterBgDelay, _shopAnim.Show());
 		sequence.Insert(_showAfterBgDelay, _playerStatusAnim.Show());
 		sequence.Insert(_showAfterBgDelay, _homeButtonAnim.Show());
+		sequence.onComplete += delegate {
+			if (!PlayerPrefs.HasKey(FirstOpenKey) || PlayerPrefs.GetInt(FirstOpenKey) == 0) {
+				if (StarterPack.CanBuy) {
+					StarterPack.Show();
+					PlayerPrefs.SetInt(FirstOpenKey, 1);
+				}
+			}
+		};
 
 		AppsFlyerManager.SendBaseEvent(AppsFlyerManager.BaseEvents.shop_menu_open);
 	}
@@ -67,6 +78,7 @@ public class ShopMenu : Menu {
 
 
 	public void OnRestoreButton() {
+		_audio.PlaySound(Sounds.Tap);
 		InAppManager.Instance.RestorePurchases();
 	}
 

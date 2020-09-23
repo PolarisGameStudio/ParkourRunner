@@ -142,6 +142,11 @@ namespace ParkourRunner.Scripts.Player
         {
             if (IsDismembered) return;
             if (collision.transform.gameObject.layer == LayerMask.NameToLayer("DamageToRagdoll")) {
+                if (collision.relativeVelocity.magnitude > 2.5f)
+                {
+                    if(Vibrations.Enabled) Handheld.Vibrate();
+                }
+
                 if (collision.relativeVelocity.magnitude > GameManager.Instance.VelocityToDismember)
                 {
                     DismemberMuscleRecursive();

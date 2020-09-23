@@ -8,16 +8,13 @@ public class DailyQuestController : MonoBehaviour
     [SerializeField] private float _animationDuration;
     [SerializeField] private List<QuestItem> _quests;
 
-    private QuestManager _manager;
+    private QuestManager _manager => QuestManager.Instance;
     private List<QuestItem> _activeQuests;
 
     private void OnEnable()
     {
-        if (_manager == null)
-            _manager = QuestManager.Instance;
-
-        ShowActiveQuests();
         _group.alpha = 1f;
+        ShowActiveQuests();
 
         _manager.OnUpdateActiveQuestsEvent -= OnUpdateQuests;
         _manager.OnUpdateActiveQuestsEvent += OnUpdateQuests;        
@@ -38,8 +35,12 @@ public class DailyQuestController : MonoBehaviour
         {
             var target = FindQuest(item.ID);
 
-            if (target != null)
+            if (target != null) {
                 target.gameObject.SetActive(true);
+                var canvasGroup = target.GetComponent<CanvasGroup>();
+                print(canvasGroup);
+                canvasGroup.alpha = _manager.CompletedQuests.Contains(item.ID) ? 0.3f : 1f;
+            }
         }
     }
 

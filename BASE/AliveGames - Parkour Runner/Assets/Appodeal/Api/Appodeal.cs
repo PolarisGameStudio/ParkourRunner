@@ -8,38 +8,36 @@ using UnityEngine;
 namespace AppodealAds.Unity.Api
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class AppodealNetworks
     {
-        public const string ADCOLONY = "adcolony";
-        public const string ADMOB = "admob";
-        public const string AMAZON_ADS = "amazon_ads";
-        public const string APPLOVIN = "applovin";
-        public const string APPNEXUS = "appnexus";
-        public const string APPODEAL = "appodeal";
-        public const string APPODEALX = "appodealx";
-        public const string CHARTBOOST = "chartboost";
-        public const string FACEBOOK = "facebook";
-        public const string FLURRY = "flurry";
-        public const string INMOBI = "inmobi";
-        public const string INNER_ACTIVE = "inner-active";
-        public const string IRON_SOURCE = "ironsource";
-        public const string MY_TARGET = "my_target";
-        public const string MINTEGRAL = "mintegral";
-        public const string MOPUB = "mopub";
-        public const string MRAID = "mraid";
-        public const string MRAID_VA = "mraid_va";
-        public const string NAST = "nast";
-        public const string OGURY_PRESAGE = "ogury";
-        public const string OPENX = "openx";
-        public const string PUBNATIVE = "pubnative";
+        public const string VUNGLE = "vungle";
         public const string SMAATO = "smaato";
+        public const string INMOBI = "inmobi";
+        public const string FYBER = "fyber";
         public const string STARTAPP = "startapp";
         public const string TAPJOY = "tapjoy";
+        public const string APPLOVIN = "applovin";
+        public const string ADCOLONY = "adcolony";
+        public const string MY_TARGET = "my_target";
+        public const string APPODEALX = "appodealx";
+        public const string FLURRY = "flurry";
+        public const string AMAZON_ADS = "amazon_ads";
+        public const string ADMOB = "admob";
         public const string UNITY_ADS = "unity_ads";
-        public const string VAST = "vast";
-        public const string VPAID = "vpaid";
-        public const string VUNGLE = "vungle";
+        public const string FACEBOOK = "facebook";
         public const string YANDEX = "yandex";
+        public const string APPODEAL = "appodeal";
+        public const string IRONSOURCE = "ironsource";
+        public const string A4G = "a4g";
+        public const string MOPUB = "mopub";
+        public const string CHARTBOOST = "chartboost";
+        public const string MRAID = "mraid";
+        public const string MINTEGRAL = "mintegral";
+        public const string NAST = "nast";
+        public const string OGURY = "ogury";
+        public const string INNER_ACTIVE = "inner-active";
+        public const string VAST = "vast";
     }
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -55,6 +53,8 @@ namespace AppodealAds.Unity.Api
         public const int BANNER_VIEW = 64;
         public const int MREC = 512;
         public const int REWARDED_VIDEO = 128;
+        public const int BANNER_LEFT = 1024;
+        public const int BANNER_RIGHT = 2048;
 #if UNITY_ANDROID || UNITY_EDITOR
         public const int NON_SKIPPABLE_VIDEO = 128;
 #elif UNITY_IPHONE
@@ -66,7 +66,7 @@ namespace AppodealAds.Unity.Api
         public const int BANNER_HORIZONTAL_RIGHT = -3;
         public const int BANNER_HORIZONTAL_LEFT = -4;
 
-        public const string APPODEAL_PLUGIN_VERSION = "2.10.1-Beta";
+        public const string APPODEAL_PLUGIN_VERSION = "2.10.5-Beta";
 
         public enum LogLevel
         {
@@ -176,6 +176,11 @@ namespace AppodealAds.Unity.Api
         {
             getInstance().setTabletBanners(value);
         }
+        
+        public static void setBannerRotation(int leftBannerRotation, int rightBannerRotation)
+        {
+            getInstance().setBannerRotation(leftBannerRotation, rightBannerRotation);
+        }
 
         public static void setTesting(bool test)
         {
@@ -265,6 +270,26 @@ namespace AppodealAds.Unity.Api
         public static void setSegmentFilter(string name, string value)
         {
             getInstance().setSegmentFilter(name, value);
+        }
+        
+        public static void setCustomFilter(string name, bool value)
+        {
+            getInstance().setCustomFilter(name, value);
+        }
+
+        public static void setCustomFilter(string name, int value)
+        {
+            getInstance().setCustomFilter(name, value);
+        }
+
+        public static void setCustomFilter(string name, double value)
+        {
+            getInstance().setCustomFilter(name, value);
+        }
+
+        public static void setCustomFilter(string name, string value)
+        {
+            getInstance().setCustomFilter(name, value);
         }
 
         public static void setExtraData(string key, bool value)

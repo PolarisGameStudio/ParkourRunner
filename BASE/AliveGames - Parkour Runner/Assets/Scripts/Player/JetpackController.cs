@@ -100,6 +100,8 @@ namespace ParkourRunner.Scripts.Player {
 
 
 		private void Start() {
+			if(Jetpacks.ActiveJetpackType == Jetpacks.JetpacksType.NoJetpack) return;
+
 			InstantiateJetpack();
 			InstantiateSound();
 		}

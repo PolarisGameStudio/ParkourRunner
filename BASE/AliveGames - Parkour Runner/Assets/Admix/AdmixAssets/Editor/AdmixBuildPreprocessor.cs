@@ -1,8 +1,10 @@
-﻿using Admix.AdmixCore;
+﻿using System.Linq;
+using Admix.AdmixCore;
 using Admix.AdmixCore.Editor;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEngine;
+using Admix.AdmixCore.AdmixLoggingMechanism;
 #if UNITY_2018_1_OR_NEWER
 using UnityEditor.Build.Reporting;
 #endif
@@ -23,8 +25,7 @@ namespace Assets.Admix.AdmixAssets.Editor
         /// </summary>
         private void PlacementsUpdate()
         {
-            AdmixEditor.UMenuShowEditorWindow();
-            ((AdmixEditor)AdmixEditor.AdmixEditorWindow).CheckAllPlacements();
+            AdmixEditor.CheckAllPlacements();
         }
 
         public int callbackOrder { get { return 0; } }
@@ -32,13 +33,12 @@ namespace Assets.Admix.AdmixAssets.Editor
         /// This method will be called before build start.
         /// </summary>
 #if UNITY_2018_1_OR_NEWER
-    public void OnPreprocessBuild(BuildReport report)
+        public void OnPreprocessBuild(BuildReport report)
 #else
         public void OnPreprocessBuild(BuildTarget target, string path)
 #endif
         {
             MaterialBuildHelper.TurnOffPlacementsTextures();
-
             PlacementsUpdate();
 
             bool appTokenIsEmpty = AdmixPreferences.Instance != null && AdmixPreferences.Instance.ApplicationTokenPresent;
@@ -54,28 +54,33 @@ namespace Assets.Admix.AdmixAssets.Editor
 
             if (appTokenIsEmpty)
             {
-                if (EditorUtility.DisplayDialog("Admix", "Your application token is empty!\nPlease, save placements before the build.",
-                    "OK"))
-                    Selection.objects = new UnityEngine.Object[] { AdmixPreferences.Instance };
+                EditorUtility.DisplayDialog("Admix",
+                    "Your application token is empty!\nPlease, save placements before the build.",
+                    "OK");
+
+                Selection.objects = new UnityEngine.Object[] { AdmixPreferences.Instance };
+                Debug.LogError("Admix: App token is empty.", AdmixPreferences.Instance);
+
             }
             else if (applicationIdentifierIsEmpty || applicationNameIsEmpty)
             {
-                if (EditorUtility.DisplayDialog("Admix",
+                EditorUtility.DisplayDialog("Admix",
                     "Your application identifier or application name is empty!\nPlease click \"Save Placements\" button before the build.",
-                    "OK"))
+                    "OK");
+
+                try
                 {
-                    try
-                    {
-                        EditorWindow.GetWindow<global::Admix.AdmixCore.Editor.AdmixEditor>();
-
-                    }
-                    catch (System.Exception)
-                    {
-                        AdmixDebug.LogWarning("Failed GetWindow()");
-                    }
-
-                    Selection.objects = new UnityEngine.Object[] { AdmixPreferences.Instance };
+                    EditorWindow.GetWindow<global::Admix.AdmixCore.Editor.AdmixEditor>();
                 }
+                catch (System.Exception)
+                {
+                    AdmixLogger.LogWarning(EditorLogs.WindowNotFound);
+                }
+
+                Selection.objects = new UnityEngine.Object[] { AdmixPreferences.Instance };
+
+                Debug.LogError("Admix: App info empty.");
+
             }
             else if (forceSandboxModeEnabled)
             {
@@ -86,12 +91,18 @@ namespace Assets.Admix.AdmixAssets.Editor
 
             if ((EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android ||
                  EditorUserBuildSettings.activeBuildTarget == BuildTarget.iOS) && PlayerSettings.stripEngineCode)
+            {
                 if (EditorUtility.DisplayDialog("Admix",
                     "Strip engine code may break Admix web view!\nPlease, use managed stripping only.",
                     "OK"))
                 {
                     PlayerSettings.stripEngineCode = false;
                 }
+                else
+                {
+                    Debug.LogError("Admix: Strip engine code enabled.");
+                }
+            }
         }
     }
 }

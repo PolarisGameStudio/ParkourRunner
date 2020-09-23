@@ -4,11 +4,9 @@ labels:
 - gvh
 - gvh_manifest
 - gvh_version-1.2.137.0
-- gvh_version-1.2.155
 - gvhp_exportpath-PlayServicesResolver/Editor/play-services-resolver_v1.2.137.0.txt
-timeCreated: 1474401009
-licenseType: Pro
 TextScriptImporter:
-  userData:
-  assetBundleName:
-  assetBundleVariant:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

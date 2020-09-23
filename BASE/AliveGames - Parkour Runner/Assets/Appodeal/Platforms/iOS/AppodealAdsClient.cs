@@ -24,6 +24,8 @@ namespace AppodealAds.Unity.iOS
         private const int AppodealShowStyleBannerBottom = 8;
         private const int AppodealShowStyleRewardedVideo = 16;
         private const int AppodealShowStyleNonSkippableVideo = 32;
+        private const int AppodealShowStyleBannerLeft = 1 << 6;
+        private const int AppodealShowStyleBannerRight = 1 << 7;
 
         #region Singleton
 
@@ -37,7 +39,7 @@ namespace AppodealAds.Unity.iOS
 
         public void requestAndroidMPermissions(IPermissionGrantedListener listener)
         {
-            // not supported on ios
+            Debug.LogWarning("Not supported on iOS platform");
         }
 
         private static IInterstitialAdListener interstitialListener;
@@ -357,6 +359,8 @@ namespace AppodealAds.Unity.iOS
             if ((adTypes & Appodeal.BANNER) > 0 ||
                 (adTypes & Appodeal.BANNER_VIEW) > 0 ||
                 (adTypes & Appodeal.BANNER_TOP) > 0 ||
+                (adTypes & Appodeal.BANNER_LEFT) > 0 ||
+                (adTypes & Appodeal.BANNER_RIGHT) > 0 ||
                 (adTypes & Appodeal.BANNER_BOTTOM) > 0)
             {
                 nativeAdTypes |= AppodealAdTypeBanner;
@@ -397,6 +401,16 @@ namespace AppodealAds.Unity.iOS
                 return AppodealShowStyleBannerBottom;
             }
 
+            if ((adTypes & Appodeal.BANNER_LEFT) > 0)
+            {
+                return AppodealShowStyleBannerLeft;
+            }
+
+            if ((adTypes & Appodeal.BANNER_RIGHT) > 0)
+            {
+                return AppodealShowStyleBannerRight;
+            }
+
             if ((adTypes & Appodeal.REWARDED_VIDEO) > 0)
             {
                 return AppodealShowStyleRewardedVideo;
@@ -429,7 +443,7 @@ namespace AppodealAds.Unity.iOS
 
         public bool isInitialized(int adType)
         {
-            return AppodealObjCBridge.AppodealIsInitialized(adType);
+            return AppodealObjCBridge.AppodealIsInitialized(nativeAdTypesForType(adType));
         }
 
         public bool show(int adTypes)
@@ -487,7 +501,7 @@ namespace AppodealAds.Unity.iOS
 
         public bool isPrecache(int adTypes)
         {
-            return false;
+            return AppodealObjCBridge.AppodealIsPrecacheAd(nativeAdTypesForType(adTypes));
         }
 
         public void onResume(int adTypes)
@@ -512,6 +526,11 @@ namespace AppodealAds.Unity.iOS
         public void setTabletBanners(bool value)
         {
             AppodealObjCBridge.AppodealSetTabletBanners(value);
+        }
+        
+        public void setBannerRotation(int leftBannerRotation, int rightBannerRotation)
+        {
+            AppodealObjCBridge.AppodealSetBannerRotation(leftBannerRotation, rightBannerRotation);
         }
 
         public void setTesting(bool test)
@@ -595,12 +614,12 @@ namespace AppodealAds.Unity.iOS
 
         public bool canShow(int adTypes, string placement)
         {
-            return AppodealObjCBridge.AppodealCanShowWithPlacement(nativeShowStyleForType(adTypes), placement);
+            return AppodealObjCBridge.AppodealCanShowWithPlacement(nativeAdTypesForType(adTypes), placement);
         }
 
         public bool canShow(int adTypes)
         {
-            return AppodealObjCBridge.AppodealCanShow(nativeShowStyleForType(adTypes));
+            return AppodealObjCBridge.AppodealCanShow(nativeAdTypesForType(adTypes));
         }
 
         public string getRewardCurrency(string placement)
@@ -646,6 +665,26 @@ namespace AppodealAds.Unity.iOS
         public void setSegmentFilter(string name, string value)
         {
             AppodealObjCBridge.AppodealSetSegmentFilterString(name, value);
+        }
+        
+        public void setCustomFilter(string name, bool value)
+        {
+            AppodealObjCBridge.AppodealSetCustomFilterBool(name, value);
+        }
+
+        public void setCustomFilter(string name, int value)
+        {
+            AppodealObjCBridge.AppodealSetCustomFilterInt(name, value);
+        }
+
+        public void setCustomFilter(string name, double value)
+        {
+            AppodealObjCBridge.AppodealSetCustomFilterDouble(name, value);
+        }
+
+        public void setCustomFilter(string name, string value)
+        {
+            AppodealObjCBridge.AppodealSetCustomFilterString(name, value);
         }
 
         public void setExtraData(string key, bool value)

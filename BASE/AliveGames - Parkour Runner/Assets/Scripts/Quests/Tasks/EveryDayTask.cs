@@ -21,7 +21,7 @@ public class EveryDayTask : QuestTask
 
     private void OnEnable()
     {
-        if (IsEnable)
+        if (IsEnable && !QuestManager.Instance.CompletedQuests.Contains(_data.ID))
         {
             StartCoroutine(CompleteProcess());
         }
@@ -58,14 +58,22 @@ public class EveryDayTask : QuestTask
 
         while (time >= 0f)
         {
-            _targetQuest.localScale = Vector3.Lerp(Vector3.one * _minScale, Vector3.one * _maxScale, Mathf.Clamp01(time / duration));
-            _targetGroup.alpha = Mathf.Clamp01(time / duration);
+            var progress = time / duration;
+
+            if (progress >= 0.5f) {
+                _targetQuest.localScale = Vector3.Lerp(Vector3.one * _minScale, Vector3.one * _maxScale, Mathf.Clamp01((progress - 0.5f) * 2f));
+            }
+            else {
+                _targetQuest.localScale = Vector3.Lerp(Vector3.one, Vector3.one * _minScale, Mathf.Clamp01(progress * 2f));
+            }
+            _targetGroup.alpha = Mathf.Lerp(0.3f, 1f, progress);
+            _targetQuest.localScale = Vector3.one;
             time -= Time.deltaTime;
 
             yield return null;
         }
 
-        _targetGroup.alpha = 0f;
+        _targetGroup.alpha = 0.3f;
 
         yield return new WaitForEndOfFrame();
 
@@ -96,7 +104,7 @@ public class EveryDayTask : QuestTask
         CompleteQuest(false);
 
         _targetQuest.localScale = Vector3.one;
-        _targetQuest.gameObject.SetActive(false);
+        _targetQuest.gameObject.SetActive(true);
     }
 
     #region Events

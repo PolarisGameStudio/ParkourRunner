@@ -19,7 +19,7 @@
 static AppodealUnityBannerView *bannerUnity;
 static AppodealUnityMrecView *mrecUnity;
 
-static UIViewController* RootViewController() {
+ UIViewController* RootViewController() {
     return ((UnityAppController *)[UIApplication sharedApplication].delegate).rootViewController;
 }
 
@@ -93,6 +93,13 @@ void AppodealSetTabletBanners(bool value) {
     if(!bannerUnity) {
         bannerUnity = [AppodealUnityBannerView sharedInstance];
     }
+    
+    if(value){
+           [Appodeal setPreferredBannerAdSize:kAppodealUnitSize_728x90]; 
+        } else {
+           [Appodeal setPreferredBannerAdSize:kAppodealUnitSize_320x50];
+        }
+        
     [bannerUnity setTabletBanner:value];
 }
 
@@ -102,6 +109,10 @@ void AppodealSetBannerBackground(BOOL value) {
 
 void AppodealSetBannerAnimation(BOOL value) {
     [Appodeal setBannerAnimationEnabled:value];
+}
+
+void AppodealSetBannerRotation(int leftBannerRotation, int rightBannerRotation){
+[Appodeal setBannerLeftRotationAngleDegrees:leftBannerRotation rightRotationAngleDegrees: rightBannerRotation];
 }
 
 void AppodealSetLogLevel(int level) {
@@ -182,6 +193,10 @@ BOOL AppodealCanShowWithPlacement(int style, const char *placement) {
     return [Appodeal canShow:style forPlacement:[NSString stringWithUTF8String:placement]];
 }
 
+BOOL AppodealIsPrecacheAd(int adType) {
+    return [Appodeal isPrecacheAd:adType];
+}
+
 void AppodealSetSegmentFilterBool(const char *name, BOOL value) {
     NSString * key = [NSString stringWithUTF8String:name];
     NSNumber * valueNum = [NSNumber numberWithBool:value];
@@ -205,6 +220,31 @@ void AppodealSetSegmentFilterString(const char *name, const char *value) {
     NSDictionary *tempDictionary = @{[NSString stringWithUTF8String:name]: [NSString stringWithUTF8String:value]};
     NSDictionary *dict =  [NSDictionary dictionaryWithDictionary:tempDictionary];
     [Appodeal setSegmentFilter:dict];
+}
+
+void AppodealSetCustomFilterBool(const char *name, BOOL value) {
+    NSString * key = [NSString stringWithUTF8String:name];
+    NSNumber * valueNum = [NSNumber numberWithBool:value];
+    NSDictionary * objCRule = key ? @{key : valueNum} : @{};
+    [Appodeal setCustomState:objCRule];
+}
+
+void AppodealSetCustomFilterInt(const char *name, int value) {
+    NSDictionary *tempDictionary = @{[NSString stringWithUTF8String:name]: [NSNumber numberWithInt:value]};
+    NSDictionary *dict =  [NSDictionary dictionaryWithDictionary:tempDictionary];
+    [Appodeal setCustomState:dict];
+}
+
+void AppodealSetCustomFilterDouble(const char *name, double value) {
+    NSDictionary *tempDictionary = @{[NSString stringWithUTF8String:name]: [NSNumber numberWithDouble:value]};
+    NSDictionary *dict =  [NSDictionary dictionaryWithDictionary:tempDictionary];
+    [Appodeal setCustomState:dict];
+}
+
+void AppodealSetCustomFilterString(const char *name, const char *value) {
+    NSDictionary *tempDictionary = @{[NSString stringWithUTF8String:name]: [NSString stringWithUTF8String:value]};
+    NSDictionary *dict =  [NSDictionary dictionaryWithDictionary:tempDictionary];
+    [Appodeal setCustomState:dict];
 }
 
 void AppodealSetExtraDataBool(const char *name, BOOL value) {

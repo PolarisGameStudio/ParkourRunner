@@ -342,7 +342,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods {
 			ReduceStamina(jumpStamina, false);
 			currentStaminaRecoveryDelay = 1f;
 
-			ParkourCamera.Instance.OnJump(0.1f);
+			ParkourCamera.Instance.OnJump(0.175f);
 
 			AudioManager.Instance.PlaySound(Sounds.Jump);
 		}
@@ -371,7 +371,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods {
 			animator.CrossFadeInFixedTime("JumpMove", .2f);
 
 			CameraEffects.Instance.IsHighJumping = true;
-			ParkourCamera.Instance.OnJump(0.1f, 0.5f);
+			ParkourCamera.Instance.OnJump(0.175f, 0.5f);
 
 			StartCoroutine(FreezeInAir(speed, height));
 

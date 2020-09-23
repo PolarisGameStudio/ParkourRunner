@@ -2,6 +2,11 @@
 
 public class WatchAdsTask : QuestTask
 {
+    public void WatchAdsClick() {
+        AdManager.Instance.ShowRewardedVideo(null, null, null);
+    }
+
+
     private void OnEnable()
     {
         if (IsEnable)

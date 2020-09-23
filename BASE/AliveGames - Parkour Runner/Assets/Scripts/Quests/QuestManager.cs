@@ -9,6 +9,7 @@ public class QuestManager : MonoBehaviour
     public const string JUMP_PROGRESS_KEY = "QUEST_JUMP";
 
     private const string ACTIVE_QUESTS_KEY = "QUEST";
+    private const string COMPLETED_QUESTS_KEY = "COMPLETED_QUESTS";
     private const string DATE_YEAR_KEY = "DATE_YEAR";
     private const string DATE_MONTH_KEY = "DATE_MONTH";
     private const string DATE_DAY_KEY = "DATE_DAY";
@@ -27,6 +28,7 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private List<QuestData> _quests;
 
     public List<QuestData> ActiveQuests { get; private set; }
+    public List<int> CompletedQuests { get; private set; }
 
     public double LeftSeconds { get; set; }
 
@@ -53,7 +55,8 @@ public class QuestManager : MonoBehaviour
         {
             if (this.ActiveQuests[i].ID == id)
             {
-                this.ActiveQuests.RemoveAt(i);
+                // this.ActiveQuests.RemoveAt(i);
+                CompletedQuests.Add(id);
                 SaveActiveQuests();
                 return;
             }
@@ -153,6 +156,7 @@ public class QuestManager : MonoBehaviour
     private void SelectRandomQuests()
     {
         this.ActiveQuests.Clear();
+        CompletedQuests = new List<int>();
 
         List<QuestData> list = _quests.Where(x => x.Enable).ToList();
 
@@ -164,8 +168,9 @@ public class QuestManager : MonoBehaviour
             //Jump quest
             if (item.ID == JUMP_QUEST_ID)
                 ClearJumpProgress();
-                        
-            list = list.Where(x => x.Enable && x.ID != item.ID).ToList();
+
+            list.Remove(item);
+            // list = list.Where(x => x.Enable && x.ID != item.ID).ToList();
         }
     }
 
@@ -182,6 +187,7 @@ public class QuestManager : MonoBehaviour
                 string key = ACTIVE_QUESTS_KEY + _quests[i].ID;
                 PlayerPrefs.SetInt(key, this.ActiveQuests.Contains(_quests[i]) ? 1 : 0);
             }
+            PlayerPrefs.SetString(COMPLETED_QUESTS_KEY, string.Join(",", CompletedQuests));
 
             PlayerPrefs.Save();
         }
@@ -189,6 +195,7 @@ public class QuestManager : MonoBehaviour
 
     private void LoadActiveQuests()
     {
+        print("Loading quests");
         this.ActiveQuests.Clear();
 
         for (int i = 0; i < _quests.Count; i++)
@@ -209,6 +216,20 @@ public class QuestManager : MonoBehaviour
                 if (isActive == 1)
                     this.ActiveQuests.Add(_quests[i]);
             }
+        }
+
+        if (PlayerPrefs.HasKey(COMPLETED_QUESTS_KEY)) {
+            var completedQuestsStr = PlayerPrefs.GetString(COMPLETED_QUESTS_KEY);
+            if(string.IsNullOrEmpty(completedQuestsStr)) CompletedQuests = new List<int>();
+            else {
+                var completedQuestsStrArr = completedQuestsStr.Split(',');
+                CompletedQuests = Array.ConvertAll(completedQuestsStrArr, int.Parse).ToList();
+                print($"Loaded Completed Quests: {CompletedQuests.Count}");
+            }
+        }
+        else {
+            print("new CompletedQuests");
+            CompletedQuests = new List<int>();
         }
     }
 }

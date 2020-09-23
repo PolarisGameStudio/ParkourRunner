@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using Appodeal.Unity.Editor;
+using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
 

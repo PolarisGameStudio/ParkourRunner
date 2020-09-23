@@ -18,7 +18,7 @@ public class ShopDonatsPanel : MonoBehaviour {
 	private bool         _isInitialized = false;
 
 
-	private void OnEnable() {
+	private void Start() {
 		_purchaseManager = InAppManager.Instance;
 
 		if (_coinsText != null)
@@ -58,6 +58,10 @@ public class ShopDonatsPanel : MonoBehaviour {
 
 	public void OnBuyButtonClick() {
 		AudioManager.Instance.PlaySound(Sounds.Tap);
+#if UNITY_EDITOR
+		OnBuySuccess(_donatData.DonatKind);
+		return;
+#endif
 		_purchaseManager.BuyProductID(_donatData.ProductGameId);
 	}
 
@@ -79,9 +83,9 @@ public class ShopDonatsPanel : MonoBehaviour {
 
 		_purchasePrice.gameObject.SetActive(false);
 		_purchaseCurrency.gameObject.SetActive(false);
-		_purchaseText.SetActive(false);
 
-		_onPurchasedText.SetActive(true);
+		if (_purchaseText) _purchaseText.SetActive(false);
+		if (_onPurchasedText) _onPurchasedText.SetActive(true);
 	}
 
 	#endregion

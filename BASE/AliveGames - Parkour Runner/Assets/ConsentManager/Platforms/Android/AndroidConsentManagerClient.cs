@@ -342,7 +342,6 @@ namespace ConsentManager.Platforms.Android
 
         public IConsentForm build()
         {
-            consent = new AndroidJavaObject("com.explorestack.consent.ConsentForm");
             consent = getConsentBuilder().Call<AndroidJavaObject>("build");
             return new AndroidConsentForm(consent);
         }

@@ -3,7 +3,7 @@ using AEngine;
 
 public class QuestTask : MonoBehaviour
 {
-    [SerializeField] private QuestData _data;
+    [SerializeField] protected QuestData _data;
 
     protected bool IsEnable { get { return QuestManager.Instance.ActiveQuests.Contains(_data); } }
 

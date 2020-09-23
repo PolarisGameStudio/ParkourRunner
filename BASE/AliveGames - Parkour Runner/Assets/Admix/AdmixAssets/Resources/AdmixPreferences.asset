@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: AdmixPreferences
   m_EditorClassIdentifier: 
   ApplicationName: AliveGames - Parkour Runner
+  GenericPackageName: com.DefaultCompany.ProductName
   ApplicationIdentifier: 8813ee4d-f588-47ed-8097-657e7f538be7
-  _applicationToken: ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmZhV1FpT2lJNE9ERXpaV1UwWkMxbU5UZzRMVFEzWldRdE9EQTVOeTAyTlRkbE4yWTFNemhpWlRjaUxDSjFjMlZ5U1dRaU9pSXdOMlF3TkRoaFlTMHpNVGd6TFRRd05Ua3RPVFJrWkMwd1kyVXlNalZrWXpKbVltTWlMQ0poY0hCRmJtZHBibVVpT2lKVmJtbDBlU0lzSW1saGRDSTZNVFU0T0RBMU56RXpObjAuV3g0QmJCVUduZEt3MjktRWxmemE4WC1wRHJkQ056anB5Tk1hdnVOdmFSSQ==
-  _logBehaviour: 0
+  _applicationToken: ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmZhV1FpT2lJNE9ERXpaV1UwWkMxbU5UZzRMVFEzWldRdE9EQTVOeTAyTlRkbE4yWTFNemhpWlRjaUxDSjFjMlZ5U1dRaU9pSXdOMlF3TkRoaFlTMHpNVGd6TFRRd05Ua3RPVFJrWkMwd1kyVXlNalZrWXpKbVltTWlMQ0poY0hCRmJtZHBibVVpT2lKVmJtbDBlU0lzSW1saGRDSTZNVFl3TURJME5UYzRNbjAudk9mSmFzVGVNeG9iZ3FHMi05UGFacFZxN2dMeWZKVlhhTldiZm9YMUlqYw==
+  _logBehaviour: 3
   SceneIdentifiersManager:
     SceneStructsList:
     - _sceneName: Game
@@ -30,5 +31,4 @@ MonoBehaviour:
       _sceneIdentifier: ffe438bb-52d4-41db-ab43-57c6220c0c58
       _scenePath: Assets/Scenes/Menu.unity
       _applicationName: AliveGames - Parkour Runner
-  SimRequestLimit: 1
-  IsEditor: 1
+  AppStateMode: 0

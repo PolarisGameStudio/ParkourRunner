@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
@@ -15,6 +16,14 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
         IBannerAdListener, IMrecAdListener, IRewardedVideoAdListener, IInterstitialAdListener,
         IPermissionGrantedListener
     {
+        #region Constants
+
+        private const string CACHE_INTERSTITIAL = "CACHE INTERSTITIAL";
+        private const string SHOW_INTERSTITIAL = "SHOW INTERSTITIAL";
+        private const string CACHE_REWARDED_VIDEO = "CACHE REWARDED VIDEO";
+
+        #endregion
+        
         #region UI
 
         [SerializeField] public Toggle tgTesting;
@@ -40,24 +49,14 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
         private Api.ConsentManager consentManager;
         private bool isShouldSaveConsentForm;
         public Consent currentConsent;
-
-        private bool isTesting;
-        private bool isLogging;
-
+        
         private void Start()
         {
-            isLogging = true;
-            isTesting = true;
-
             consentManagerPanel.gameObject.SetActive(true);
             appodealPanel.gameObject.SetActive(false);
 
-
-            btnShowInterstitial.GetComponentInChildren<Text>().text = "CACHE INTERSTITIAL";
-            btnShowRewardedVideo.GetComponentInChildren<Text>().text = "CACHE REWARDED VIDEO";
-
-            tgTesting.onValueChanged.AddListener(delegate { setTesting(tgTesting); });
-            tgLogging.onValueChanged.AddListener(delegate { setLogging(tgLogging); });
+            btnShowInterstitial.GetComponentInChildren<Text>().text = CACHE_INTERSTITIAL;
+            btnShowRewardedVideo.GetComponentInChildren<Text>().text = CACHE_REWARDED_VIDEO;
 
             consentManager = Api.ConsentManager.getInstance();
         }
@@ -65,6 +64,17 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
         private void Awake()
         {
             Appodeal.requestAndroidMPermissions(this);
+        }
+
+        private void OnDestroy()
+        {
+            Appodeal.destroy(Appodeal.BANNER); 
+        }
+
+        private void OnApplicationFocus(bool hasFocus) {
+            if(hasFocus) {
+                Appodeal.onResume(Appodeal.BANNER_BOTTOM);
+            }
         }
 
         public void requestConsentInfoUpdate()
@@ -87,38 +97,38 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
 
             var vendor = consentManager.getCustomVendor("com.appodeal.test");
             if (vendor == null) return;
-            print("Vendor getName: " + vendor.getName());
-            print("Vendor getBundle: " + vendor.getBundle());
-            print("Vendor getPolicyUrl: " + vendor.getPolicyUrl());
+            Debug.Log("Vendor getName: " + vendor.getName());
+            Debug.Log("Vendor getBundle: " + vendor.getBundle());
+            Debug.Log("Vendor getPolicyUrl: " + vendor.getPolicyUrl());
             foreach (var purposeId in vendor.getPurposeIds())
             {
-                print("Vendor getPurposeIds: " + purposeId);
+                Debug.Log("Vendor getPurposeIds: " + purposeId);
             }
 
             foreach (var featureId in vendor.getFeatureIds())
             {
-                print("Vendor getFeatureIds: " + featureId);
+                Debug.Log("Vendor getFeatureIds: " + featureId);
             }
 
             foreach (var legitimateInterestPurposeId in vendor.getLegitimateInterestPurposeIds())
             {
-                print("Vendor getLegitimateInterestPurposeIds: " + legitimateInterestPurposeId);
+                Debug.Log("Vendor getLegitimateInterestPurposeIds: " + legitimateInterestPurposeId);
             }
         }
 
         public void shouldShowForm()
         {
-            print("shouldShowConsentDialog: " + consentManager.shouldShowConsentDialog());
+            Debug.Log("shouldShowConsentDialog: " + consentManager.shouldShowConsentDialog());
         }
 
         public void getConsentZone()
         {
-            print("getConsentZone: " + consentManager.getConsentZone());
+            Debug.Log("getConsentZone: " + consentManager.getConsentZone());
         }
 
         public void getConsentStatus()
         {
-            print("getConsentStatus: " + consentManager.getConsentStatus());
+            Debug.Log("getConsentStatus: " + consentManager.getConsentStatus());
         }
 
         public void loadConsentForm()
@@ -131,7 +141,7 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
         {
             if (consentForm != null)
             {
-                print("isLoadedConsentForm:  " + consentForm.isLoaded());
+                Debug.Log("isLoadedConsentForm:  " + consentForm.isLoaded());
             }
         }
 
@@ -143,7 +153,7 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
             }
             else
             {
-                print("showForm - false");
+                Debug.Log("showForm - false");
             }
         }
 
@@ -155,41 +165,31 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
             }
             else
             {
-                print("showForm - false");
+                Debug.Log("showForm - false");
             }
         }
 
         public void printIABString()
         {
-            print("Consent IAB String is: " + consentManager.getConsent().getIabConsentString());
+            Debug.Log("Consent IAB String is: " + consentManager.getConsent().getIabConsentString());
         }
 
         public void printCurrentConsent()
         {
             if (consentManager.getConsent() == null) return;
-            print(
+            Debug.Log(
                 "consent.getIabConsentString() - " + consentManager.getConsent().getIabConsentString());
-            print(
+            Debug.Log(
                 "consent.hasConsentForVendor() - " +
                 consentManager.getConsent().hasConsentForVendor("com.appodeal.test"));
-            print("consent.getStatus() - " + consentManager.getConsent().getStatus());
-            print("consent.getZone() - " + consentManager.getConsent().getZone());
+            Debug.Log("consent.getStatus() - " + consentManager.getConsent().getStatus());
+            Debug.Log("consent.getZone() - " + consentManager.getConsent().getZone());
         }
 
         public void showAppodealLogic()
         {
             consentManagerPanel.SetActive(false);
             appodealPanel.SetActive(true);
-        }
-
-        private void setTesting(Toggle toggle)
-        {
-            isTesting = toggle.isOn;
-        }
-
-        private void setLogging(Toggle toggle)
-        {
-            isLogging = toggle.isOn;
         }
 
         public void initialize()
@@ -206,8 +206,8 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
 
         public void initWithConsent(bool isConsent)
         {
-            Appodeal.setTesting(isTesting);
-            Appodeal.setLogLevel(isLogging ? Appodeal.LogLevel.Verbose : Appodeal.LogLevel.None);
+            Appodeal.setTesting(tgTesting.isOn);
+            Appodeal.setLogLevel(tgLogging.isOn ? Appodeal.LogLevel.Verbose : Appodeal.LogLevel.None);
             Appodeal.setUserId("1");
             Appodeal.setUserAge(1);
             Appodeal.setUserGender(UserSettings.Gender.OTHER);
@@ -215,9 +215,9 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
             Appodeal.disableWriteExternalStoragePermissionCheck();
             Appodeal.setTriggerOnLoadedOnPrecache(Appodeal.INTERSTITIAL, true);
             Appodeal.setSmartBanners(true);
-            Appodeal.setBannerAnimation(true);
-            Appodeal.setTabletBanners(true);
-            Appodeal.setBannerBackground(true);
+            Appodeal.setBannerAnimation(false);
+            Appodeal.setTabletBanners(false);
+            Appodeal.setBannerBackground(false);
             Appodeal.setChildDirectedTreatment(false);
             Appodeal.muteVideosIfCallsMuted(true);
             Appodeal.setAutoCache(Appodeal.INTERSTITIAL, false);
@@ -226,13 +226,13 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
             if (isConsent)
             {
                 Appodeal.initialize(appKey,
-                    Appodeal.INTERSTITIAL | Appodeal.BANNER_VIEW | Appodeal.REWARDED_VIDEO | Appodeal.MREC,
+                    Appodeal.INTERSTITIAL | Appodeal.BANNER | Appodeal.REWARDED_VIDEO | Appodeal.MREC,
                     currentConsent);
             }
             else
             {
                 Appodeal.initialize(appKey,
-                    Appodeal.INTERSTITIAL | Appodeal.BANNER_VIEW | Appodeal.REWARDED_VIDEO | Appodeal.MREC,
+                    Appodeal.INTERSTITIAL | Appodeal.BANNER | Appodeal.REWARDED_VIDEO | Appodeal.MREC,
                     true);
             }
 
@@ -240,6 +240,7 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
             Appodeal.setInterstitialCallbacks(this);
             Appodeal.setRewardedVideoCallbacks(this);
             Appodeal.setMrecCallbacks(this);
+
             Appodeal.setSegmentFilter("newBoolean", true);
             Appodeal.setSegmentFilter("newInt", 1234567890);
             Appodeal.setSegmentFilter("newDouble", 123.123456789);
@@ -302,9 +303,14 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
             Appodeal.hideMrecView();
         }
 
-        public void showTestScreen()
+        public void showBannerLeft()
         {
-            Appodeal.showTestScreen();
+            Appodeal.show(Appodeal.BANNER_LEFT);
+        }
+
+        public void showBannerRight()
+        {
+            Appodeal.show(Appodeal.BANNER_RIGHT);
         }
 
 
@@ -312,23 +318,23 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
 
         public void onConsentFormLoaded()
         {
-            print("ConsentFormListener - onConsentFormLoaded");
+            Debug.Log("ConsentFormListener - onConsentFormLoaded");
         }
 
         public void onConsentFormError(ConsentManagerException exception)
         {
-            print($"ConsentFormListener - onConsentFormError, reason - {exception.getReason()}");
+            Debug.Log($"ConsentFormListener - onConsentFormError, reason - {exception.getReason()}");
         }
 
         public void onConsentFormOpened()
         {
-            print("ConsentFormListener - onConsentFormOpened");
+            Debug.Log("ConsentFormListener - onConsentFormOpened");
         }
 
         public void onConsentFormClosed(Consent consent)
         {
             currentConsent = consent;
-            print($"ConsentFormListener - onConsentFormClosed, consentStatus - {consent.getStatus()}");
+            Debug.Log($"ConsentFormListener - onConsentFormClosed, consentStatus - {consent.getStatus()}");
         }
 
         #endregion
@@ -338,30 +344,30 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
         public void onConsentInfoUpdated(Consent consent)
         {
             currentConsent = consent;
-            print("onConsentInfoUpdated");
+            Debug.Log("onConsentInfoUpdated");
         }
 
         public void onFailedToUpdateConsentInfo(ConsentManagerException error)
         {
-            print($"onFailedToUpdateConsentInfo");
+            Debug.Log($"onFailedToUpdateConsentInfo");
 
             if (error == null) return;
-            print($"onFailedToUpdateConsentInfo Reason: {error.getReason()}");
+            Debug.Log($"onFailedToUpdateConsentInfo Reason: {error.getReason()}");
 
             switch (error.getCode())
             {
                 case 0:
-                    print("onFailedToUpdateConsentInfo - UNKNOWN");
+                    Debug.Log("onFailedToUpdateConsentInfo - UNKNOWN");
                     break;
                 case 1:
-                    print(
+                    Debug.Log(
                         "onFailedToUpdateConsentInfo - INTERNAL - Error on SDK side. Includes JS-bridge or encoding/decoding errors");
                     break;
                 case 2:
-                    print("onFailedToUpdateConsentInfo - NETWORKING - HTTP errors, parse request/response ");
+                    Debug.Log("onFailedToUpdateConsentInfo - NETWORKING - HTTP errors, parse request/response ");
                     break;
                 case 3:
-                    print("onFailedToUpdateConsentInfo - INCONSISTENT - Incorrect SDK API usage");
+                    Debug.Log("onFailedToUpdateConsentInfo - INCONSISTENT - Incorrect SDK API usage");
                     break;
             }
         }
@@ -372,27 +378,29 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
 
         public void onBannerLoaded(int height, bool precache)
         {
-            print("banner loaded");
+            Debug.Log("onBannerLoaded");
+            Debug.Log($"Banner height - {height}");
+            Debug.Log($"Banner precache - {precache}");
         }
 
         public void onBannerFailedToLoad()
         {
-            print("banner failed");
+            Debug.Log("onBannerFailedToLoad");
         }
 
         public void onBannerShown()
         {
-            print("banner opened");
+            print("onBannerShown");
         }
 
         public void onBannerClicked()
         {
-            print("banner clicked");
+            print("onBannerClicked");
         }
 
         public void onBannerExpired()
         {
-            print("banner expired");
+            print("onBannerExpired");
         }
 
         #endregion
@@ -403,45 +411,45 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
         {
             if (!isPrecache)
             {
-                btnShowInterstitial.GetComponentInChildren<Text>().text = "SHOW INTERSTITIAL";
+                btnShowInterstitial.GetComponentInChildren<Text>().text = SHOW_INTERSTITIAL;
             }
             else
             {
-                print("Appodeal. Interstitial loaded. isPrecache - true");
+                Debug.Log("Appodeal. Interstitial loaded. isPrecache - true");
             }
 
-            print("Appodeal. Interstitial loaded");
+            Debug.Log("onInterstitialLoaded");
         }
 
         public void onInterstitialFailedToLoad()
         {
-            print("Appodeal. Interstitial failed");
+            Debug.Log("onInterstitialFailedToLoad");
         }
 
         public void onInterstitialShowFailed()
         {
-            print("Appodeal. Interstitial show failed");
+            Debug.Log("onInterstitialShowFailed");
         }
 
         public void onInterstitialShown()
         {
-            print("Appodeal. Interstitial opened");
+            Debug.Log("onInterstitialShown");
         }
 
         public void onInterstitialClosed()
         {
-            btnShowInterstitial.GetComponentInChildren<Text>().text = "CACHE INTERSTITIAL";
-            print("Appodeal. Interstitial closed");
+            btnShowInterstitial.GetComponentInChildren<Text>().text = CACHE_INTERSTITIAL;
+            Debug.Log("onInterstitialClosed");
         }
 
         public void onInterstitialClicked()
         {
-            print("Appodeal. Interstitial clicked");
+            Debug.Log("onInterstitialClicked");
         }
 
         public void onInterstitialExpired()
         {
-            print("Appodeal. Interstitial expired");
+            Debug.Log("onInterstitialExpired");
         }
 
         #endregion
@@ -451,43 +459,43 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
         public void onRewardedVideoLoaded(bool isPrecache)
         {
             btnShowRewardedVideo.GetComponentInChildren<Text>().text = "SHOW REWARDED VIDEO";
-            print("Appodeal. Video loaded");
+            print("onRewardedVideoLoaded");
         }
 
         public void onRewardedVideoFailedToLoad()
         {
-            print("Appodeal. Video failed");
+            print("onRewardedVideoFailedToLoad");
         }
 
         public void onRewardedVideoShowFailed()
         {
-            print("Appodeal. RewardedVideo show failed");
+            print("onRewardedVideoShowFailed");
         }
 
         public void onRewardedVideoShown()
         {
-            print("Appodeal. Video shown");
+            print("onRewardedVideoShown");
         }
 
         public void onRewardedVideoClosed(bool finished)
         {
             btnShowRewardedVideo.GetComponentInChildren<Text>().text = "CACHE REWARDED VIDEO";
-            print("Appodeal. Video closed");
+            print($"onRewardedVideoClosed. Finished - {finished}");
         }
 
         public void onRewardedVideoFinished(double amount, string name)
         {
-            print("Appodeal. Reward: " + amount + " " + name);
+            print("onRewardedVideoFinished. Reward: " + amount + " " + name);
         }
 
         public void onRewardedVideoExpired()
         {
-            print("Appodeal. Video expired");
+            print("onRewardedVideoExpired");
         }
 
         public void onRewardedVideoClicked()
         {
-            print("Appodeal. Video clicked");
+            print("onRewardedVideoClicked");
         }
 
         #endregion
@@ -496,27 +504,27 @@ namespace ConsentManager.ConsentManagerDemo.Scripts
 
         public void onMrecLoaded(bool precache)
         {
-            print("mrec loaded");
+            print($"onMrecLoaded. Precache - {precache}");
         }
 
         public void onMrecFailedToLoad()
         {
-            print("mrec failed");
+            print("onMrecFailedToLoad");
         }
 
         public void onMrecShown()
         {
-            print("mrec opened");
+            print("onMrecShown");
         }
 
         public void onMrecClicked()
         {
-            print("mrec clicked");
+            print("onMrecClicked");
         }
 
         public void onMrecExpired()
         {
-            print("mrec expired");
+            print("onMrecExpired");
         }
 
         #endregion

@@ -31,7 +31,7 @@ namespace AppodealAds.Unity.Editor.Checkers
         public const string GRADLE_DEPENDENCIES = "**DEPS**";
         public const string GRADLE_APP_ID = "**APPLICATIONID**";
         public const string GRADLE_USE_PROGUARD = "useProguard";
-        public const string GRADLE_MULTIDEX_DEPENDENCY_WO_VERSION = "com.android.support:multidex:";
+        public const string GRADLE_MULTIDEX_DEPENDENCY_WO_VERSION = "androidx.multidex:multidex:";
         public const string GRAFLE_DEFAULT_CONFIG = "defaultConfig";
         public const string COMPILE_OPTIONS = "compileOptions {";
         public const string GRADLE_JAVA_VERSION_1_8 = "JavaVersion.VERSION_1_8";
@@ -41,11 +41,11 @@ namespace AppodealAds.Unity.Editor.Checkers
         //Gradle add lines
         public const string GRADLE_COMPILE = "compile ";
         public const string GRADLE_IMPLEMENTATION = "implementation ";
-        public const string GRADLE_MULTIDEX_DEPENDENCY = "'com.android.support:multidex:1.0.3'";
+        public const string GRADLE_MULTIDEX_DEPENDENCY = "'androidx.multidex:multidex:2.0.1'";
         public const string GRADLE_MULTIDEX_ENABLE = "multiDexEnabled true";
 
         //Manifest add lines
-        public const string manifestMutlidexApp = "android.support.multidex.MultiDexApplication";
+        public const string manifestMutlidexApp = "androidx.multidex.MultiDexApplication";
 
         public override string getName()
         {

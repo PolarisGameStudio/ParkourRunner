@@ -117,6 +117,11 @@ namespace AppodealAds.Unity.Dummy
             Debug.Log("Call to Appodeal.setTabletBanners on not supported platform");
         }
 
+        public void setBannerRotation(int leftBannerRotation, int rightBannerRotation)
+        {
+            Debug.Log("Call to Appodeal.setBannerRotation on not supported platform");
+        }
+
         public void setTesting(bool test)
         {
             Debug.Log("Call to Appodeal.setTesting on not supported platform");
@@ -214,6 +219,26 @@ namespace AppodealAds.Unity.Dummy
             Debug.Log("Call to Appodeal.setSegmentFilter on not supported platform");
         }
 
+        public void setCustomFilter(string name, bool value)
+        {
+            Debug.Log("Call to Appodeal.setCustomFilter on not supported platform");
+        }
+
+        public void setCustomFilter(string name, int value)
+        {
+            Debug.Log("Call to Appodeal.setCustomFilter on not supported platform");
+        }
+
+        public void setCustomFilter(string name, double value)
+        {
+            Debug.Log("Call to Appodeal.setCustomFilter on not supported platform");
+        }
+
+        public void setCustomFilter(string name, string value)
+        {
+            Debug.Log("Call to Appodeal.setCustomFilter on not supported platform");
+        }
+
         public void trackInAppPurchase(double amount, string currency)
         {
             Debug.Log("Call to Appodeal.trackInAppPurchase on not supported platform");
@@ -298,7 +323,7 @@ namespace AppodealAds.Unity.Dummy
         {
             Debug.Log("Call to Appodeal.requestAndroidMPermissions on not supported platform");
         }
-        
+
         public void requestAndroidMPermissions()
         {
             Debug.Log("Call to Appodeal.requestAndroidMPermissions on not supported platform");
@@ -308,7 +333,7 @@ namespace AppodealAds.Unity.Dummy
         {
             Debug.Log("Call to Appodeal.destroy on not supported platform");
         }
-        
+
         #region User settings
 
         public void getUserSettings()
@@ -331,6 +356,5 @@ namespace AppodealAds.Unity.Dummy
         }
 
         #endregion
-
     }
 }

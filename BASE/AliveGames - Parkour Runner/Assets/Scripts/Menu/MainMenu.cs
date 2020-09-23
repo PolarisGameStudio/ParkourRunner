@@ -42,7 +42,7 @@ public class MainMenu : Menu
             finalSecuance.Append(_buttonsBlockAnim.Show(_buttonsBlockAnim.showPoint.anchoredPosition, _buttonsBlockAnim.duration * 0.1f));
             finalSecuance.Append(_questBlock.Show(_questBlock.showPoint.anchoredPosition, _questBlock.duration * 0.1f));
 
-            AdManager.Instance.ShowBottomBanner();
+            // AdManager.Instance.ShowBottomBanner();
             AppsFlyerManager.SendBaseEvent(AppsFlyerManager.BaseEvents.main_menu_open);
         });
     }

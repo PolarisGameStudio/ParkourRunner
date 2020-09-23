@@ -27,6 +27,8 @@ namespace AppodealAds.Unity.Android
         public const int BANNER_BOTTOM = 8;
         public const int BANNER_TOP = 16;
         public const int BANNER_VIEW = 64;
+        public const int BANNER_LEFT = 1024;
+        public const int BANNER_RIGHT = 2048;
         public const int MREC = 256;
         public const int REWARDED_VIDEO = 128;
 
@@ -52,6 +54,16 @@ namespace AppodealAds.Unity.Android
             if ((adTypes & Appodeal.BANNER_TOP) > 0)
             {
                 nativeAdTypes |= Appodeal.BANNER_TOP;
+            }
+            
+            if ((adTypes & Appodeal.BANNER_LEFT) > 0)
+            {
+                nativeAdTypes |= Appodeal.BANNER_LEFT;
+            }
+
+            if ((adTypes & Appodeal.BANNER_RIGHT) > 0)
+            {
+                nativeAdTypes |= Appodeal.BANNER_RIGHT;
             }
 
             if ((adTypes & Appodeal.BANNER_BOTTOM) > 0)
@@ -114,11 +126,11 @@ namespace AppodealAds.Unity.Android
         public void initialize(string appKey, int adTypes, bool hasConsent)
         {
             getAppodealClass().CallStatic("setFramework", "unity", Appodeal.getPluginVersion(),
-                Appodeal.getUnityVersion(), false, false);
+                Appodeal.getUnityVersion(), true, false);
             getAppodealClass().CallStatic("initialize", getActivity(), appKey, nativeAdTypesForType(adTypes),
                 hasConsent);
         }
-        
+
         public void initialize(string appKey, int adTypes, Consent consent)
         {
             getAppodealClass().CallStatic("setFramework", "unity", Appodeal.getPluginVersion(),
@@ -213,6 +225,11 @@ namespace AppodealAds.Unity.Android
         {
             getAppodealClass().CallStatic("set728x90Banners", value);
         }
+        
+        public void setBannerRotation(int leftBannerRotation, int rightBannerRotation)
+        {
+            getAppodealClass().CallStatic("setBannerRotation", leftBannerRotation, rightBannerRotation);
+        }
 
         public void setTesting(bool test)
         {
@@ -224,6 +241,13 @@ namespace AppodealAds.Unity.Android
             var integerClass = new AndroidJavaClass("java.lang.Integer");
             var integer = integerClass.CallStatic<AndroidJavaObject>("valueOf", value);
             return integer;
+        }
+
+        private static AndroidJavaObject boolToAndroid(bool value)
+        {
+            var boleanClass = new AndroidJavaClass("java.lang.Boolean");
+            var boolean = boleanClass.CallStatic<AndroidJavaObject>("valueOf", value);
+            return boolean;
         }
 
         public void setLogLevel(Appodeal.LogLevel logging)
@@ -263,9 +287,9 @@ namespace AppodealAds.Unity.Android
 
         public void updateConsent(bool value)
         {
-            getAppodealClass().CallStatic("updateConsent", value);
+            getAppodealClass().CallStatic("updateConsent", boolToAndroid(value));
         }
-        
+
         public void updateConsent(Consent consent)
         {
             var androidConsent = (AndroidConsent) consent.getConsent();
@@ -332,7 +356,7 @@ namespace AppodealAds.Unity.Android
         {
             getAppodealClass().CallStatic("setSegmentFilter", name, value);
         }
-
+        
         public void setSegmentFilter(string name, double value)
         {
             getAppodealClass().CallStatic("setSegmentFilter", name, value);
@@ -341,6 +365,26 @@ namespace AppodealAds.Unity.Android
         public void setSegmentFilter(string name, string value)
         {
             getAppodealClass().CallStatic("setSegmentFilter", name, value);
+        }
+        
+        public void setCustomFilter(string name, bool value)
+        {
+            getAppodealClass().CallStatic("setCustomFilter", name, value);
+        }
+
+        public void setCustomFilter(string name, int value)
+        {
+            getAppodealClass().CallStatic("setCustomFilter", name, value);
+        }
+
+        public void setCustomFilter(string name, double value)
+        {
+            getAppodealClass().CallStatic("setCustomFilter", name, value);
+        }
+
+        public void setCustomFilter(string name, string value)
+        {
+            getAppodealClass().CallStatic("setCustomFilter", name, value);
         }
 
         public void setExtraData(string key, bool value)

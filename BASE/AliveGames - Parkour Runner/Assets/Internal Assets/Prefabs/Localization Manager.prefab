@@ -614,6 +614,36 @@ MonoBehaviour:
       text: Sec
     - language: 30
       text: "\u0441\u0435\u043A"
+  - key: starter_skin
+    _localizations:
+    - language: 10
+      text: Black Skin
+    - language: 30
+      text: "\u0427\u0435\u0440\u043D\u044B\u0439 \u0421\u043A\u0438\u043D"
+  - key: starter_helmet
+    _localizations:
+    - language: 10
+      text: Helmet
+    - language: 30
+      text: "\u0428\u043B\u0435\u043C"
+  - key: starter_jetpack
+    _localizations:
+    - language: 10
+      text: Jetpack
+    - language: 30
+      text: "\u0414\u0436\u0435\u0442\u043F\u0430\u043A"
+  - key: starter_btn_text1
+    _localizations:
+    - language: 10
+      text: For You
+    - language: 30
+      text: "\u0414\u043B\u044F \u0442\u0435\u0431\u044F"
+  - key: starter_btn_text2
+    _localizations:
+    - language: 10
+      text: x2 Coins, Skin, Jetpack
+    - language: 30
+      text: "x2 \u043C\u043E\u043D\u0435\u0442, \u0421\u043A\u0438\u043D, \u0414\u0436\u0435\u0442\u043F\u0430\u043A"
 --- !u!1 &4521531996172924318
 GameObject:
   m_ObjectHideFlags: 0

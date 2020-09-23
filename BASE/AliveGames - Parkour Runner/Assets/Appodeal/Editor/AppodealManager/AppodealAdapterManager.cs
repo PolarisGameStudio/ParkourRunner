@@ -15,6 +15,7 @@ using UnityEditor;
 using UnityEngine;
 using File = UnityEngine.Windows.File;
 using UnityEngine.Networking;
+using Version = System.Version;
 
 #pragma warning disable 618
 
@@ -376,7 +377,7 @@ namespace Appodeal.Editor.AppodealManager.AppodealDependencies
                 using (TextWriter writer = new StreamWriter(path, false))
                 {
                     writer.WriteLine(AppodealDependencyUtils.SpecOpenDependencies
-                                     + content + AppodealDependencyUtils.SpecCloseDependencies);
+                                     + content + "\n" + AppodealDependencyUtils.SpecCloseDependencies);
                     writer.Close();
                 }
 
@@ -616,10 +617,23 @@ namespace Appodeal.Editor.AppodealManager.AppodealDependencies
                         packageInfoStyle);
                     GUILayout.Space(15);
 
-                    CompareForAction(AppodealDependencyUtils.CompareVersion(
-                            AppodealDependencyUtils.ReplaceBetaVersion(currentVersion),
-                            AppodealDependencyUtils.ReplaceBetaVersion(latestVersion)),
-                        nameDep, internalContent, latestContent);
+                    var current = AppodealDependencyUtils.GetMajorVersion(
+                        AppodealDependencyUtils.ReplaceBetaVersion(currentVersion));
+                    var last = AppodealDependencyUtils.GetMajorVersion(
+                        AppodealDependencyUtils.ReplaceBetaVersion(latestVersion));
+                    
+                    if (AppodealDependencyUtils.CompareVersion(current, last) < 0)
+                    {
+                        CompareForAction(0,
+                            nameDep, internalContent, latestContent);
+                    }
+                    else
+                    {
+                        CompareForAction(AppodealDependencyUtils.CompareVersion(
+                                AppodealDependencyUtils.ReplaceBetaVersion(currentVersion),
+                                AppodealDependencyUtils.ReplaceBetaVersion(latestVersion)),
+                            nameDep, internalContent, latestContent);
+                    }
                 }
             }
         }
@@ -796,6 +810,13 @@ namespace Appodeal.Editor.AppodealManager.AppodealDependencies
             else
             {
                 if (string.IsNullOrEmpty(requestAdapters.downloadHandler.text)) yield break;
+                if (requestAdapters.downloadHandler.text.Contains("error"))
+                {
+                    AppodealDependencyUtils.ShowInternalErrorDialog(this,
+                        $"Can't find network configs by {AppodealAds.Unity.Api.Appodeal.APPODEAL_PLUGIN_VERSION} version",
+                        string.Empty);
+                    yield break;
+                }
                 var networkDependencies = JsonHelper.FromJson<NetworkDependency>(
                     JsonHelper.fixJson(requestAdapters.downloadHandler.text));
 
