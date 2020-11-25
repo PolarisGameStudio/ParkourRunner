@@ -16,8 +16,8 @@ namespace Managers.Advertising.Admix {
 
 		public static void ActivateBundle(Transform banner1X2, Transform banner6X5, Transform banner32X5,
 										Transform   video4X3,  Transform video16X9) {
+			if(!Instance) return;
 			if (++Instance._lastUsedBundle >= Instance.Bundles.Length) Instance._lastUsedBundle = 0;
-			print($"Set bundle {Instance._lastUsedBundle}");
 			var bundle = Instance.Bundles[Instance._lastUsedBundle];
 
 			if (banner1X2) {

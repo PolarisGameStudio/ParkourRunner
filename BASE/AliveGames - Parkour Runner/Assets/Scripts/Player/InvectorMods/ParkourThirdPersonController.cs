@@ -95,7 +95,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods {
 			}
 
 			base.Awake();
-			instance = this;
+			if(!instance) instance = this;
 		}
 
 
@@ -310,6 +310,10 @@ namespace ParkourRunner.Scripts.Player.InvectorMods {
 
 			string randomRoll = RandomTricks.GetRoll();
 			animator.CrossFadeInFixedTime(randomRoll, 0.1f);
+			var pView = GetComponent<PhotonView>();
+			if (pView.IsMine) {
+				pView.RPC(nameof(PhotonPlayer.Die), RpcTarget.Others);
+			}
 			_capsuleCollider.isTrigger = false;
 
 			ParkourCamera.Instance.OnRoll();
@@ -354,7 +358,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods {
 
 			var pView = GetComponent<PhotonView>();
 			if (pView.IsMine) {
-				pView.RPC("Die", RpcTarget.Others);
+				pView.RPC(nameof(PhotonPlayer.Die), RpcTarget.Others);
 			}
 		}
 

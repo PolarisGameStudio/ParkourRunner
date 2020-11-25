@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GenerationPoints: []
+  WaypointLines: []
   Type: 1
   Next: {fileID: 0}
 --- !u!95 &6106200298597712586

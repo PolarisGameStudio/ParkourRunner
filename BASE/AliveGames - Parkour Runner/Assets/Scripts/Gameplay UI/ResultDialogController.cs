@@ -26,7 +26,7 @@ public class ResultDialogController : MonoBehaviour
 
     public void Show()
     {
-        AdManager.Instance.ShowBottomBanner();
+        // AdManager.Instance.ShowBottomBanner();
         GameManager manager = GameManager.Instance;
 
         _distanceLabel.text = string.Format("{0}  {1} m", _distanceLocalization.Text, (int)manager.DistanceRun);
@@ -53,7 +53,7 @@ public class ResultDialogController : MonoBehaviour
         
     public void Hide()
     {
-        AdManager.Instance.HideBottomBanner();
+        // AdManager.Instance.HideBottomBanner();
         this.gameObject.SetActive(false);
     }
 

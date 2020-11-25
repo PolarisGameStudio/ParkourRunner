@@ -16,8 +16,8 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 	[SerializeField] private string _iosAppKey;
 	[SerializeField] private bool   _isTesting;
 
-	private Coroutine   _bottomBanner;
-	private ConsentForm _consentForm;
+	private Coroutine                         _bottomBanner;
+	private ConsentForm                       _consentForm;
 	private ConsentManager.Api.ConsentManager _consentManager;
 
 	private string AppKey {
@@ -52,7 +52,8 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 
 
 	private void InitializeAppodeal() {
-		if(_isTesting) print($"InitializeAppodeal. App key: {AppKey}");
+#if UNITY_ANDROID || UNITY_EDITOR || UNITY_IPHONE
+		if (_isTesting) print($"InitializeAppodeal. App key: {AppKey}");
 		Appodeal.setTesting(_isTesting);
 		Appodeal.setSmartBanners(true);
 		Appodeal.setTabletBanners(true);
@@ -60,7 +61,7 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 		Appodeal.setLogLevel(Appodeal.LogLevel.Verbose);
 
 		var consent = _consentManager.getConsent();
-		if(_isTesting) print(consent);
+		if (_isTesting) print(consent);
 		if (consent != null) {
 			Appodeal.initialize(AppKey,
 								Appodeal.INTERSTITIAL | Appodeal.BANNER_BOTTOM | Appodeal.REWARDED_VIDEO |
@@ -78,6 +79,7 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 		Appodeal.setRewardedVideoCallbacks(this);
 		Appodeal.setNonSkippableVideoCallbacks(this);
 		Appodeal.setBannerCallbacks(this);
+#endif
 	}
 
 
@@ -100,17 +102,29 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 
 
 	public override bool InterstitialIsLoaded() {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+		return false;
+#else
 		return Appodeal.isLoaded(Appodeal.INTERSTITIAL);
+#endif
 	}
 
 
 	public override bool RewardedVideoLoaded() {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+		return false;
+#else
 		return Appodeal.isLoaded(Appodeal.REWARDED_VIDEO);
+#endif
 	}
 
 
 	public override bool NonSkippableVideoIsLoaded() {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+		return false;
+#else
 		return Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO);
+#endif
 	}
 
 
@@ -119,61 +133,61 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 	public override void ShowInterstitial() {
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
 		HandleAdResult(AdResults.Finished, AdType.Interstitial);
-		return;
-#endif
+#else
 		StartCoroutine(ShowInterstitialProcess());
+#endif
 	}
 
 
 	public override void ShowBanner() {
-#if UNITY_EDITOR || UNITY_STANDALONE_WIN
-		return;
-#endif
+#if !UNITY_EDITOR && !UNITY_STANDALONE_WIN
 		// StartCoroutine(ShowBannerProcess());
+#endif
 	}
 
 
 	public override void ShowBottomBanner() {
-#if UNITY_EDITOR || UNITY_STANDALONE_WIN
-		return;
-#endif
+#if !UNITY_EDITOR && !UNITY_STANDALONE_WIN
 		if (_bottomBanner != null) return;
-		if(_isTesting) print($"Starting Coroutine \"ShowBottomBannerProcess\"");
+		if (_isTesting) print($"Starting Coroutine \"ShowBottomBannerProcess\"");
 		_bottomBanner = StartCoroutine(ShowBottomBannerProcess());
+#endif
 	}
 
 
 	public override void HideBottomBanner() {
-#if UNITY_EDITOR || UNITY_STANDALONE_WIN
-		return;
-#endif
+#if !UNITY_EDITOR && !UNITY_STANDALONE_WIN
 		if (_bottomBanner != null) StopCoroutine(_bottomBanner);
 		Appodeal.hide(Appodeal.BANNER_BOTTOM);
 		_bottomBanner = null;
+#endif
 	}
 
 
 	public override void ShowRewardedVideo() {
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
 		HandleAdResult(AdResults.Finished, AdType.RewardedVideo);
-		return;
-#endif
+#else
 		StartCoroutine(ShowVideoProcess());
+#endif
 	}
 
 
 	public override void ShowNonSkippableVideo() {
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
 		HandleAdResult(AdResults.Finished, AdType.NonSkippableVideo);
-		return;
-#endif
+#else
 		StartCoroutine(ShowNonSkipVideoProcess());
+#endif
 	}
 
 	#endregion
 
 
 	#region Process Ad
+
+#if UNITY_ANDROID || UNITY_EDITOR || UNITY_IPHONE
+
 
 	private IEnumerator ShowInterstitialProcess() {
 		yield return new WaitUntil(() => Appodeal.isLoaded(Appodeal.INTERSTITIAL));
@@ -190,9 +204,9 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 
 
 	private IEnumerator ShowBottomBannerProcess() {
-		if(_isTesting)  print($"Banner is Loaded: {Appodeal.isLoaded(Appodeal.BANNER_BOTTOM)}. Waiting if not");
+		if (_isTesting)  print($"Banner is Loaded: {Appodeal.isLoaded(Appodeal.BANNER_BOTTOM)}. Waiting if not");
 		yield return new WaitUntil(() => Appodeal.isLoaded(Appodeal.BANNER_BOTTOM));
-		if(_isTesting) print($"Banner Is Loaded. Show Banner");
+		if (_isTesting) print($"Banner Is Loaded. Show Banner");
 		Appodeal.show(Appodeal.BANNER_BOTTOM);
 		AppsFlyerManager.SendBaseEvent(AppsFlyerManager.BaseEvents.banner_shown);
 	}
@@ -209,6 +223,9 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 		yield return new WaitUntil(() => Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO));
 		Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
 	}
+
+
+#endif
 
 	#endregion
 
@@ -351,12 +368,12 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 	#region ConsentInfoUpdateListener
 
 	public void onConsentInfoUpdated(Consent consent) {
-		if(_isTesting) print("onConsentInfoUpdated");
+		if (_isTesting) print("onConsentInfoUpdated");
 		var consentZone       = _consentManager.getConsentZone();
 		var consentStatus     = _consentManager.getConsentStatus();
 		var consentShouldShow = _consentManager.shouldShowConsentDialog();
 
-		if(_isTesting) print($"consentShouldShow: {consentShouldShow}");
+		if (_isTesting) print($"consentShouldShow: {consentShouldShow}");
 		if (consentShouldShow == Consent.ShouldShow.TRUE) {
 			// show dialog
 			ShowConsent();
@@ -374,8 +391,7 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 		if (error == null) return;
 		Debug.Log($"onFailedToUpdateConsentInfo Reason: {error.getReason()}");
 
-		switch (error.getCode())
-		{
+		switch (error.getCode()) {
 			case 0:
 				Debug.Log("onFailedToUpdateConsentInfo - UNKNOWN");
 				break;
@@ -409,12 +425,12 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 
 
 	public void onConsentFormOpened() {
-		if(_isTesting) print("ConsentFormListener - onConsentFormOpened");
+		if (_isTesting) print("ConsentFormListener - onConsentFormOpened");
 	}
 
 
 	public void onConsentFormClosed(Consent consent) {
-		if(_isTesting) print($"ConsentFormListener - onConsentFormClosed, consentStatus - {consent.getStatus()}");
+		if (_isTesting) print($"ConsentFormListener - onConsentFormClosed, consentStatus - {consent.getStatus()}");
 		InitializeAppodeal();
 	}
 

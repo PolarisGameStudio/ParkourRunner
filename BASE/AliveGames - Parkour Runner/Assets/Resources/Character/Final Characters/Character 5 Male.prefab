@@ -2438,6 +2438,7 @@ GameObject:
   - component: {fileID: 5845856010222988884}
   - component: {fileID: 3396821240127003235}
   - component: {fileID: 4903258867349014331}
+  - component: {fileID: 2531789074236275376}
   m_Layer: 8
   m_Name: ParkourRunner
   m_TagString: Player
@@ -3114,10 +3115,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerCanvas: {fileID: 0}
   PhotonView: {fileID: 0}
+  BotController: {fileID: 0}
   IsFinished: 0
   FinishPlace: 0
   Ready: 0
   UserId: 
+  IsBot: 0
 --- !u!114 &4903258867349014331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3130,8 +3133,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c6c919e5614dfc948b467852467578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerInput: {fileID: 114002340589852636}
   JetpackParent: {fileID: 4710017260326746050}
+--- !u!114 &2531789074236275376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317987185207966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 945ada0fe64b4d2abde23933d24b13cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Helmets:
+  - {fileID: 7345378399684351818}
+  - {fileID: 6776479522122073804}
+  - {fileID: 5652003640106237782}
 --- !u!1 &1331984509300426
 GameObject:
   m_ObjectHideFlags: 0
@@ -31729,15 +31747,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbd80256dcc25ac43b7c8434c7feb16d, type: 3}
---- !u!1 &5652003640106237782 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2027185013688166963, guid: dbd80256dcc25ac43b7c8434c7feb16d,
-    type: 3}
-  m_PrefabInstance: {fileID: 5930661657450632549}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4676576738947856360 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1345301537031234189, guid: dbd80256dcc25ac43b7c8434c7feb16d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5930661657450632549}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5652003640106237782 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2027185013688166963, guid: dbd80256dcc25ac43b7c8434c7feb16d,
     type: 3}
   m_PrefabInstance: {fileID: 5930661657450632549}
   m_PrefabAsset: {fileID: 0}

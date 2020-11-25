@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MainMenuAndShop.Jetpacks;
 using Managers;
 using ParkourRunner.Scripts.Player;
 using ParkourRunner.Scripts.Player.InvectorMods;
@@ -11,15 +12,23 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 public class PhotonPlayer : MonoBehaviourPunCallbacks {
-	[HideInInspector] public PlayerCanvas PlayerCanvas;
-	[HideInInspector] public PhotonView   PhotonView;
-	[HideInInspector] public bool         IsFinished;
-	[HideInInspector] public int          FinishPlace;
-	[HideInInspector] public bool         Ready;
-	[HideInInspector] public string       UserId;
+	[HideInInspector] public PlayerCanvas  PlayerCanvas;
+	[HideInInspector] public PhotonView    PhotonView;
+	[HideInInspector] public BotController BotController;
+	[HideInInspector] public bool          IsFinished;
+	[HideInInspector] public int           FinishPlace;
+	[HideInInspector] public bool          Ready;
+	[HideInInspector] public string        UserId;
+
+	public bool IsBot;
 
 	private ParkourThirdPersonInput _playerInput;
 	private Animator                _animator;
+	private Transform               _transform;
+
+	private Vector3    _freezePosition;
+	private Quaternion _freezeRotation;
+	private bool       _freeze;
 
 
 	private void Awake() {
@@ -39,15 +48,24 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks {
 	private void Start() {
 		if (!PhotonGameManager.IsMultiplayerAndConnected) return;
 		PhotonGameManager.AddPlayer(this);
+		if (!IsBot) {
+			PlayerCanvas.SetNickname(PhotonView.IsMine ? "(You)" : PhotonView.Owner.NickName);
+			if (PhotonView.IsMine) {
+				transform.parent.GetComponentInChildren<HeadDismember>().ActivateHelmet();
+				GetComponent<JetpackController>().CreateJetpack(Jetpacks.GetActiveJetpack());
+			}
+		}
 	}
 
 
 	private void GetComponents() {
-		_playerInput = GetComponent<ParkourThirdPersonInput>();
-		_animator    = GetComponent<Animator>();
+		_playerInput  = GetComponent<ParkourThirdPersonInput>();
+		_animator     = GetComponent<Animator>();
+		_transform    = transform;
+		BotController = GetComponent<BotController>();
 
-		for (int i = 0; i < transform.childCount; i++) {
-			var child = transform.GetChild(i);
+		for (int i = 0; i < _transform.childCount; i++) {
+			var child = _transform.GetChild(i);
 			if (child.name.Equals("MultiplayerCanvas")) {
 				PlayerCanvas            = child.GetComponent<PlayerCanvas>();
 				PlayerCanvas.PhotonView = PhotonView;
@@ -69,11 +87,16 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks {
 		else if (Input.GetKeyDown(KeyCode.P)) {
 			_playerInput.LockRunning = !_playerInput.LockRunning;
 		}
+
+		if (_freeze) {
+			_transform.position      = _freezePosition;
+			_transform.localRotation = _freezeRotation;
+		}
 	}
 
 
 	public void DestroyComponents() {
-		var parent = transform.parent;
+		var parent = _transform.parent;
 
 		var childs = new List<Transform>();
 		for (int i = 0; i < parent.childCount; i++) {
@@ -88,7 +111,9 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks {
 		Destroy(GetComponent<InvectorPlusPuppet>());
 		Destroy(GetComponent<CharacterEffects>());
 		Destroy(GetComponent<JetpackController>());
-		Destroy(transform.parent.GetComponent<ExtremlyReloader>());
+		Destroy(_transform.parent.GetComponent<ExtremlyReloader>());
+
+		_animator.applyRootMotion = false;
 	}
 
 
@@ -118,7 +143,8 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks {
 
 
 	[PunRPC]
-	public void PlayerReady() {
+	public virtual void PlayerReady() {
+		print($"Player {gameObject.name} is ready");
 		PlayerCanvas.PlayerReady();
 		Ready = true;
 
@@ -127,13 +153,13 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks {
 
 
 	[PunRPC]
-	public void StartGame() {
+	public virtual void StartGame() {
 		if (!PhotonView.IsMine) return;
 
 		var startPosition = ParkourThirdPersonController.instance.StartPosition;
-		startPosition.x         = transform.position.x;
-		transform.position      = startPosition;
-		transform.localRotation = Quaternion.identity;
+		startPosition.x          = _transform.position.x;
+		_transform.position      = startPosition;
+		_transform.localRotation = Quaternion.identity;
 		StartRun();
 	}
 
@@ -162,43 +188,55 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks {
 	}
 
 
-	[PunRPC]
+	/*[PunRPC]
 	public void Finish() {
 		if (PhotonView.IsMine) {
 			StopInput();
 		}
-	}
+	}*/
 
 
 	[PunRPC]
-	public void SetPosition(Vector3 position) {
+	public virtual void SetPosition(Vector3 position) {
 		if (!PhotonView.IsMine) return;
 
-		transform.position = position;
+		_transform.position = position;
 	}
 
 
 	[PunRPC]
-	public void SetLocalRotation(Quaternion rotation) {
+	public virtual void SetLocalRotation(Quaternion rotation) {
 		if (!PhotonView.IsMine) return;
-		transform.localRotation = rotation;
+		_transform.localRotation = rotation;
 	}
 
 
 	[PunRPC]
+	public virtual void FreezePosition(Vector3 position, Quaternion rotation) {
+		if (!PhotonView.IsMine) return;
+
+		_freezePosition = position;
+		_freezeRotation = rotation;
+		_freeze         = true;
+
+		GetComponent<Rigidbody>().isKinematic = true;
+	}
+
+
+	// [PunRPC]
 	public void LockCamera() {
 		ParkourCamera.Instance.LockCamera = true;
 	}
 
 
-	[PunRPC]
+	// [PunRPC]
 	public void UnlockCamera() {
 		ParkourCamera.Instance.LockCamera = false;
 	}
 
 
 	[PunRPC]
-	public void SetReward(int reward) {
+	public virtual void SetReward(int reward) {
 		PlayerCanvas.SetReward(reward);
 		if (PhotonView.IsMine) {
 			Wallet.Instance.AddCoins(reward, Wallet.WalletMode.InGame);
@@ -207,7 +245,20 @@ public class PhotonPlayer : MonoBehaviourPunCallbacks {
 
 
 	[PunRPC]
-	public void SetFinishPlace(int place) {
+	public virtual void SetFinishPlace(int place) {
 		FinishPlace = place;
+	}
+
+
+	[PunRPC]
+	public void SetIsBot(string botName, int botIndex) {
+		IsBot  = true;
+		UserId = botName;
+
+		DestroyComponents();
+
+		BotController.ActivateBot(botIndex);
+		PlayerCanvas.SetNickname(botName);
+		PlayerCanvas.SetNickname(botName);
 	}
 }

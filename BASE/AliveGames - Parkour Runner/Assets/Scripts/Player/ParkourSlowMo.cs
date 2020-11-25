@@ -20,14 +20,14 @@ public class ParkourSlowMo : MonoBehaviour
     public void Slow()
     {
         Time.timeScale = SlowTimeScale;
-        Time.fixedDeltaTime = SlowUpdateRate;
+        // Time.fixedDeltaTime = SlowUpdateRate;
     }
 
     // Regain balance
     public void UnSlow()
     {
         Time.timeScale = 1f;
-        Time.fixedDeltaTime = DefaultfixedDeltaTime;
+        // Time.fixedDeltaTime = DefaultfixedDeltaTime;
     }
 
     // Lose balance

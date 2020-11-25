@@ -14,15 +14,18 @@ public class PlayerCanvas : MonoBehaviour {
 	[SerializeField] private GameObject LoadedText, ReadyText;
 
 
-	private void Start() {
+	private void Awake() {
 		if (!PhotonGameManager.IsMultiplayerAndConnected) return;
 
 		Canvas.worldCamera = Camera.current;
 		Nickname.gameObject.SetActive(true);
 
-		Nickname.text = PhotonView.Owner.NickName;
-		if (PhotonView.IsMine) Nickname.text += "(You)";
-		else LoadedText.SetActive(true);
+		if (!PhotonView.IsMine) LoadedText.SetActive(true);
+	}
+
+
+	public void SetNickname(string nickname) {
+		Nickname.text = nickname;
 	}
 
 

@@ -24,7 +24,7 @@ namespace MainMenuAndShop.Jetpacks {
 			get {
 				if (_instance != null) return _instance;
 
-				_instance = Resources.Load("Character/Jetpacks Shop Configuration") as Jetpacks;
+				_instance = Resources.Load("Character/Jetpacks/Jetpacks Shop Configuration") as Jetpacks;
 				if (_instance == null) {
 					throw new FileNotFoundException("Can't found 'Jetpacks' file");
 				}

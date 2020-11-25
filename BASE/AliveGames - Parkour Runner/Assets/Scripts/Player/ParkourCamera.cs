@@ -55,17 +55,28 @@ public class ParkourCamera : MonoBehaviour
 
     private void Awake()
     {
+        print("Awake ParkourCamera");
         Instance = this;
         ParkourSlowMo = GetComponent<ParkourSlowMo>();
         this.LockCamera = false;
         _defaultFollowSmooth = FollowSmooth;
     }
 
+
+    private void OnDestroy() {
+        Debug.Log("Destroy ParkourCamera");
+    }
+
     void Start ()
     {
 	    if (_puppetMaster == null)
 	    {
-	        _puppetMaster = FindObjectOfType<PuppetMaster>();
+            if (PhotonGameManager.IsMultiplayerAndConnected) {
+                _puppetMaster = PhotonGameManager.LocalPlayer.transform.parent.GetComponentInChildren<PuppetMaster>();
+            }
+            else {
+                _puppetMaster = FindObjectOfType<PuppetMaster>();
+            }
 	    }
 
 	    if (SetOffsetAtStart)

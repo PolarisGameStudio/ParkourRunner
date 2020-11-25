@@ -44,7 +44,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
             var pView = GetComponent<PhotonView>();
             if (pView.IsMine) {
-                pView.RPC("LoseBalance", RpcTarget.Others);
+                pView.RPC(nameof(PhotonPlayer.LoseBalance), RpcTarget.Others);
             }
         }
 
@@ -56,7 +56,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
 
             var pView = GetComponent<PhotonView>();
             if (pView.IsMine) {
-                pView.RPC("RegainBalance", RpcTarget.Others);
+                pView.RPC(nameof(PhotonPlayer.RegainBalance), RpcTarget.Others);
             }
         }
 

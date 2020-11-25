@@ -7,19 +7,14 @@ namespace Quests {
 		[SerializeField] private Text Counter;
 
 
-		private void Start() {
-			QuestManager.Instance.OnUpdateActiveQuestsEvent += UpdateCounter;
+		private void OnEnable() {
 			UpdateCounter();
 		}
 
 
-		private void OnDestroy() {
-			QuestManager.Instance.OnUpdateActiveQuestsEvent -= UpdateCounter;
-		}
-
-
 		private void UpdateCounter() {
-			var count = QuestManager.Instance.ActiveQuests.Count;
+			print("UpdateCounter");
+			var count = QuestManager.Instance.ActiveQuests.Count - QuestManager.Instance.CompletedQuests.Count;
 			gameObject.SetActive(count > 0);
 			Counter.text = count.ToString();
 		}

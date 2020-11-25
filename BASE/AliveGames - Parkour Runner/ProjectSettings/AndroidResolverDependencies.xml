@@ -11,10 +11,6 @@
     <package>androidx.recyclerview:recyclerview:1.0.0@aar</package>
     <package>com.adcolony:sdk:4.2.2</package>
     <package>com.android.installreferrer:installreferrer:1.1.2</package>
-    <package>com.android.support:appcompat-v7:25.3.1</package>
-    <package>com.android.support:cardview-v7:25.3.1</package>
-    <package>com.android.support:customtabs:25.3.1</package>
-    <package>com.android.support:support-v4:25.3.1</package>
     <package>com.applovin:applovin-sdk:9.13.4</package>
     <package>com.appodeal.ads.sdk.networks:a4g:2.7.3.4@aar</package>
     <package>com.appodeal.ads.sdk.networks:adcolony:2.7.3.7@aar</package>
@@ -23,7 +19,6 @@
     <package>com.appodeal.ads.sdk.networks:applovin:2.7.3.6@aar</package>
     <package>com.appodeal.ads.sdk.networks:appodealx:2.7.3.2</package>
     <package>com.appodeal.ads.sdk.networks:chartboost:2.7.3.3@aar</package>
-    <package>com.appodeal.ads.sdk.networks:facebook:2.7.3.5@aar</package>
     <package>com.appodeal.ads.sdk.networks:inmobi:2.7.3.4@aar</package>
     <package>com.appodeal.ads.sdk.networks:inner-active:2.7.3.2</package>
     <package>com.appodeal.ads.sdk.networks:ironsource:2.7.3.6@aar</package>
@@ -44,7 +39,6 @@
     <package>com.chartboost:chartboost-sdk:8.1.0</package>
     <package>com.explorestack.ogury:sdk:4.7.6</package>
     <package>com.explorestack:consent:1.0.1</package>
-    <package>com.facebook.android:audience-network-sdk:5.10.1</package>
     <package>com.google.android.exoplayer:exoplayer-core:2.8.4</package>
     <package>com.google.android.exoplayer:exoplayer-hls:2.8.4</package>
     <package>com.google.android.gms:play-services-ads:18.1.0</package>

@@ -16,6 +16,9 @@ public class LocalizationComponent : MonoBehaviour
     {
         get
         {
+            return Assets.SimpleLocalization.LocalizationManager.Localize(_key);
+
+
             if (_locManager == null)
                 _locManager = LocalizationManager.Instance;
 

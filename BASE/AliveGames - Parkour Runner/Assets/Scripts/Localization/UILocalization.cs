@@ -8,12 +8,24 @@ public class UILocalization : MonoBehaviour
 
     private void Start()
     {
-        if (!LocalizationManager.Instance.LockLocalization)
+        Localize();
+        Assets.SimpleLocalization.LocalizationManager.LocalizationChanged += Localize;
+        /*if (!LocalizationManager.Instance.LockLocalization)
         {
             string txt = LocalizationManager.Instance.GetText(_key);
 
             if (!string.IsNullOrEmpty(txt))
                 _text.text = txt;
-        }
+        }*/
+    }
+
+    public void OnDestroy()
+    {
+        Assets.SimpleLocalization.LocalizationManager.LocalizationChanged -= Localize;
+    }
+
+    private void Localize()
+    {
+        _text.text = Assets.SimpleLocalization.LocalizationManager.Localize(_key);
     }
 }

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Managers;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace ParkourRunner.Scripts.Player {
 	public class HeadDismember : MuscleDismember {
@@ -15,8 +17,13 @@ namespace ParkourRunner.Scripts.Player {
 
 
 		private void Start() {
-			Helmets.ForEach(h => h.SetActive(false));
+			if(PhotonGameManager.IsMultiplayerAndConnected) return;
+			ActivateHelmet();
+		}
 
+
+		public void ActivateHelmet() {
+			Helmets.ForEach(h => h.SetActive(false));
 			var helmetIndex = (int) MainMenuAndShop.Helmets.Helmets.CurrentHelmetType;
 			_helmet = helmetIndex > 0 ? Helmets[helmetIndex - 1] : null;
 			_helmet?.SetActive(true);

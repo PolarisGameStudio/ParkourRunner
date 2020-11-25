@@ -62,7 +62,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods
                 if (PhotonGameManager.IsMultiplayerAndConnected) {
                     var pView = GetComponent<PhotonView>();
                     if (pView.IsMine) {
-                        pView.RPC("PlayAnimation", RpcTarget.Others, _randomAnimation);
+                        pView.RPC(nameof(PhotonPlayer.PlayAnimation), RpcTarget.Others, _randomAnimation);
                     }
                 }
             }

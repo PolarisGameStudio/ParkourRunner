@@ -17,14 +17,14 @@ namespace Managers {
 
 		public static List<PhotonPlayer> Players = new List<PhotonPlayer>();
 		public static PhotonPlayer       LocalPlayer;
-		public static bool IsMultiplayer =>
-			PlayerPrefs.GetInt(EnvironmentController.MULTIPLAYER_KEY) == 1;
-		public static bool IsConnected =>
-			PhotonNetwork.IsConnectedAndReady && PhotonNetwork.InRoom;
-		public static bool IsMultiplayerAndConnected => IsMultiplayer && IsConnected;
 
-		public static  bool              GameIsStarted;
-		public static  bool              GameEnded;
+		public static bool IsMultiplayer             => PlayerPrefs.GetInt(EnvironmentController.MULTIPLAYER_KEY) == 1;
+		public static bool IsConnected               => PhotonNetwork.IsConnectedAndReady && PhotonNetwork.InRoom;
+		public static bool IsMultiplayerAndConnected => IsMultiplayer                     && IsConnected;
+
+		public static bool GameIsStarted;
+		public static bool GameEnded;
+
 		private static PhotonGameManager Instance;
 
 		public Transform[] StartPositions;
@@ -52,17 +52,38 @@ namespace Managers {
 			Wallet.Instance.AddCoins(-bet, Wallet.WalletMode.InGame);
 
 			LocalPlayer.LockCamera();
+			SetStartPosition();
+			SetBotsStartPosition();
+		}
 
+
+		private void SetStartPosition() {
 			var playerIndex = PhotonNetwork.LocalPlayer.ActorNumber;
 			var startPlace  = StartPositions[playerIndex - 1];
 
 			LocalPlayer.transform.position      = startPlace.position;
 			LocalPlayer.transform.localRotation = startPlace.rotation;
 
-			var cameraPosition = StartPositions[0].position + new Vector3(1, 0.25f, -5);
-			var lookPosition   = StartPositions[0].position + new Vector3(0, 1.5f,  0);
+			var cameraPosition = StartPositions[1].position + new Vector3(0, 0.50f, -5);
+			var lookPosition   = StartPositions[0].position + new Vector3(1, 1.75f,  0);
 			ParkourCamera.Instance.transform.position = cameraPosition;
 			ParkourCamera.Instance.transform.LookAt(lookPosition);
+		}
+
+
+		private void SetBotsStartPosition() {
+			if (!PhotonNetwork.IsMasterClient) return;
+
+			var playersCount = PhotonNetwork.CurrentRoom.PlayerCount;
+			var bots         = Players.Where(p => p.IsBot).ToList();
+			for (int i = 0; i < bots.Count(); i++) {
+				var placeIndex = playersCount + i;
+				var startPlace = StartPositions[placeIndex];
+
+				var botTransform = bots[i].transform;
+				botTransform.position      = startPlace.position;
+				botTransform.localRotation = startPlace.rotation;
+			}
 		}
 
 
@@ -75,7 +96,7 @@ namespace Managers {
 			if (Players.Contains(player)) return;
 
 			Players.Add(player);
-			if (player.PhotonView.IsMine) LocalPlayer = player;
+			if (player.PhotonView.IsMine && !player.IsBot) LocalPlayer = player;
 
 			CheckReady();
 
@@ -86,14 +107,14 @@ namespace Managers {
 
 
 		public void OnPlayerReadyButton() {
-			LocalPlayer.PhotonView.RPC("PlayerReady", RpcTarget.All);
+			LocalPlayer.PhotonView.RPC(nameof(PhotonPlayer.PlayerReady), RpcTarget.All);
 		}
 
 
 		public void OnContinueFinishButton() {
 			HUDManager.Instance.PostMortemScreen.ShowMultiplayerResultScreen();
 			MultiplayerUI.Instance.SetContinueFinishButton(false);
-			PhotonNetwork.LeaveRoom();
+			// PhotonNetwork.LeaveRoom();
 		}
 
 
@@ -125,9 +146,16 @@ namespace Managers {
 
 			MultiplayerUI.Instance.HideWaitingText();
 			HUDManager.Instance.FadeIn(delegate {
-				GameManager.Instance.UnPause();
 				LocalPlayer.UnlockCamera();
 				LocalPlayer.transform.localRotation = Quaternion.identity;
+
+				if (PhotonNetwork.IsMasterClient) {
+					var bots = Players.Where(p => p.IsBot);
+					foreach (var bot in bots) {
+						bot.transform.localRotation = Quaternion.identity;
+					}
+				}
+
 				foreach (var player in Players) {
 					player.PlayerCanvas.HideReady();
 					player.PlayerCanvas.HideNickname();
@@ -161,7 +189,12 @@ namespace Managers {
 			}
 
 			if (PhotonNetwork.IsMasterClient) {
-				PhotonView.RPC("StartGame", RpcTarget.All);
+				PhotonView.RPC(nameof(StartGame), RpcTarget.All);
+
+				var bots = Players.Where(p => p.IsBot);
+				foreach (var bot in bots) {
+					bot.StartGame();
+				}
 			}
 
 			MultiplayerUI.Instance.SetTimerTextValue("GO!");
@@ -175,6 +208,7 @@ namespace Managers {
 			SendStartEvent();
 			GameIsStarted = true;
 			MultiplayerUI.Instance.ShowPosition();
+			GameManager.Instance.UnPause();
 			LocalPlayer.StartGame();
 		}
 
@@ -186,11 +220,10 @@ namespace Managers {
 
 			var photonPlayer = player.GetComponent<PhotonPlayer>();
 			photonPlayer.IsFinished = true;
-			// photonPlayer.PhotonView.RPC("Finish", RpcTarget.All);
 
 			// Если финишировал первый игрок, то запуск обратного отсчета
 			if (Instance.FinishedPlayers.Count <= 1) {
-				Instance.PhotonView.RPC("RunFinishTimer", RpcTarget.All);
+				Instance.PhotonView.RPC(nameof(RunFinishTimer), RpcTarget.All);
 			}
 		}
 
@@ -213,7 +246,7 @@ namespace Managers {
 
 			print("End timer");
 			if (PhotonNetwork.IsMasterClient) {
-				PhotonView.RPC("EndGame", RpcTarget.All);
+				PhotonView.RPC(nameof(EndGame), RpcTarget.All);
 			}
 		}
 
@@ -227,9 +260,16 @@ namespace Managers {
 
 			HUDManager.Instance.FadeIn(delegate {
 				ShowPedestal();
+				QuestManager.Instance.CompleteQuest(QuestManager.MULTIPLAYER_QUEST_ID);
 				LocalPlayer.GetComponent<ParkourThirdPersonController>().PuppetMaster.enabled = false;
 				LocalPlayer.StopRun();
 				LocalPlayer.PlayerCanvas.ShowNickname();
+
+				var bots = Players.Where(p => p.IsBot);
+				foreach (var bot in bots) {
+					bot.PlayerCanvas.ShowNickname();
+				}
+
 				MultiplayerUI.Instance.HidePosition();
 				MultiplayerUI.Instance.HideTimer();
 				if (_finishTimerCoroutine != null) StopCoroutine(_finishTimerCoroutine);
@@ -238,6 +278,7 @@ namespace Managers {
 					SetFinishPositions();
 				}
 				HUDManager.Instance.FadeOut(null);
+				PhotonNetwork.LeaveRoom();
 			});
 		}
 
@@ -246,16 +287,15 @@ namespace Managers {
 			foreach (var player in Players) {
 				var position = GetPlayerPosition(player);
 
-				player.PhotonView.RPC("SetFinishPlace", RpcTarget.All, position);
+				player.PhotonView.RPC(nameof(PhotonPlayer.SetFinishPlace), RpcTarget.All, position);
 
 				if (position > 3) continue;
 				var reward = GetReward(position);
 				print($"Reward for {position} place: {reward}");
 
 				var pedestalPlace = Instance.PedestalPositions[position - 1];
-				player.PhotonView.RPC("SetPosition",      RpcTarget.All, pedestalPlace.position);
-				player.PhotonView.RPC("SetLocalRotation", RpcTarget.All, pedestalPlace.rotation);
-				if (reward > 0) player.PhotonView.RPC("SetReward", RpcTarget.All, reward);
+				player.PhotonView.RPC(nameof(PhotonPlayer.FreezePosition), RpcTarget.All, pedestalPlace.position, pedestalPlace.rotation);
+				if (reward > 0) player.PhotonView.RPC(nameof(PhotonPlayer.SetReward), RpcTarget.All, reward);
 			}
 		}
 

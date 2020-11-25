@@ -17235,6 +17235,7 @@ GameObject:
   - component: {fileID: 2881581248909756382}
   - component: {fileID: 2121701023241191174}
   - component: {fileID: 6736000378577563817}
+  - component: {fileID: 6320581490310914907}
   m_Layer: 8
   m_Name: ParkourRunner
   m_TagString: Player
@@ -17284,7 +17285,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 0b9331d526be3fd468a9ccf6900b1e19, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -17911,10 +17912,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerCanvas: {fileID: 0}
   PhotonView: {fileID: 0}
+  BotController: {fileID: 0}
   IsFinished: 0
   FinishPlace: 0
   Ready: 0
   UserId: 
+  IsBot: 0
 --- !u!114 &6736000378577563817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17927,8 +17930,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c6c919e5614dfc948b467852467578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerInput: {fileID: 114621496713064628}
   JetpackParent: {fileID: 6685143364768469809}
+--- !u!114 &6320581490310914907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548775003968052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 945ada0fe64b4d2abde23933d24b13cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Helmets:
+  - {fileID: 918908305467749767}
+  - {fileID: 340032906034664911}
+  - {fileID: 8023312088973936708}
 --- !u!1 &1557439730234918
 GameObject:
   m_ObjectHideFlags: 0

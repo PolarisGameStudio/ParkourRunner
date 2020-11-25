@@ -1,4 +1,6 @@
-﻿using ParkourRunner.Scripts.Player.InvectorMods;
+﻿using Managers;
+using ParkourRunner.Scripts.Player.InvectorMods;
+using RootMotion.Dynamics;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
@@ -18,7 +20,22 @@ namespace ParkourRunner.Scripts.Player
         [SerializeField] private GameObject _fourButtonsContaner;
         [SerializeField] private GameObject _tiltContaner;
 
-        [SerializeField] private ParkourThirdPersonInput _playerInput;
+        public ParkourThirdPersonInput PlayerInput {
+            get {
+                if (_playerInput) return _playerInput;
+
+                if (PhotonGameManager.IsMultiplayerAndConnected) {
+                    print(PhotonGameManager.LocalPlayer);
+                    _playerInput = PhotonGameManager.LocalPlayer.GetComponent<ParkourThirdPersonInput>();
+                }
+                else {
+                    _playerInput = FindObjectOfType<ParkourThirdPersonInput>();
+                }
+
+                return _playerInput;
+            }
+        }
+        private ParkourThirdPersonInput _playerInput;
 
         public Dropdown DebugDropdown;
 
@@ -51,11 +68,6 @@ namespace ParkourRunner.Scripts.Player
         private void Start()
         {
             SwitchMode(Configuration.Instance.GetInputConfiguration());
-
-            if (_playerInput == null)
-            {
-                _playerInput = FindObjectOfType<ParkourThirdPersonInput>();
-            }
         }
 
         public void OnSwitchModeDebug()
@@ -201,14 +213,14 @@ namespace ParkourRunner.Scripts.Player
 
         public void Jump()
         {
-            _playerInput.Jump();
+            PlayerInput.Jump();
             /*CrossPlatformInputManager.SetButtonDown("Jump");
         CrossPlatformInputManager.SetButtonUp("Jump");*/
         }
 
         public void Roll()
         {
-            _playerInput.Roll();
+            PlayerInput.Roll();
             /*CrossPlatformInputManager.SetButtonDown("Roll");
         CrossPlatformInputManager.SetButtonUp("Roll");*/
         }

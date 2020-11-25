@@ -12,9 +12,8 @@ public class AnimationByTrigger : BaseAnimatorController
             animator.enabled = false;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.transform == _player)
+    private void OnTriggerEnter(Collider other) {
+        if (other.transform == _player || other.CompareTag("Bot Player"))
         {
             foreach (var animator in _animators)
                 animator.enabled = true;

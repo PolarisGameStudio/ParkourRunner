@@ -23099,6 +23099,7 @@ GameObject:
   - component: {fileID: 2106722765096685985}
   - component: {fileID: 4720093104238451576}
   - component: {fileID: 838396528992740765}
+  - component: {fileID: 6715898788839364370}
   m_Layer: 8
   m_Name: ParkRunFem
   m_TagString: Player
@@ -23150,7 +23151,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 0b9331d526be3fd468a9ccf6900b1e19, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -23777,10 +23778,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerCanvas: {fileID: 0}
   PhotonView: {fileID: 0}
+  BotController: {fileID: 0}
   IsFinished: 0
   FinishPlace: 0
   Ready: 0
   UserId: 
+  IsBot: 0
 --- !u!114 &838396528992740765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23794,6 +23797,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JetpackParent: {fileID: 787882526192641718}
+--- !u!114 &6715898788839364370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4217380908563390469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 945ada0fe64b4d2abde23933d24b13cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Helmets:
+  - {fileID: 315022976269776119}
+  - {fileID: 4970700638696408547}
+  - {fileID: 2275750878918320415}
 --- !u!1 &4217380908599934208
 GameObject:
   m_ObjectHideFlags: 0
@@ -31544,15 +31563,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbd80256dcc25ac43b7c8434c7feb16d, type: 3}
---- !u!1 &2275750878918320415 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2027185013688166963, guid: dbd80256dcc25ac43b7c8434c7feb16d,
-    type: 3}
-  m_PrefabInstance: {fileID: 267706180851551020}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1232981089314531745 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1345301537031234189, guid: dbd80256dcc25ac43b7c8434c7feb16d,
+    type: 3}
+  m_PrefabInstance: {fileID: 267706180851551020}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2275750878918320415 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2027185013688166963, guid: dbd80256dcc25ac43b7c8434c7feb16d,
     type: 3}
   m_PrefabInstance: {fileID: 267706180851551020}
   m_PrefabAsset: {fileID: 0}

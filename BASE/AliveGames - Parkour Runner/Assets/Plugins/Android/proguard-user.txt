@@ -1,5 +1,3 @@
--keep class com.facebook.** {*;}
-
 #GameService Rules
 -keep class com.google.android.gms.** { *; }
 -keep class com.google.games.bridge.** { *; }

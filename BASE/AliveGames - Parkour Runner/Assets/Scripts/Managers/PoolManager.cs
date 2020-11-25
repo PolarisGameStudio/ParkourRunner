@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Basic_Locomotion.Scripts.CharacterController;
+using ParkourRunner.Scripts.Player.InvectorMods;
 using ParkourRunner.Scripts.Track.Pick_Ups;
 using UnityEngine;
 
@@ -36,7 +37,7 @@ namespace ParkourRunner.Scripts.Managers
         private void Start()
         {
             StartCoroutine(PoolTick());
-            _player = FindObjectOfType<vThirdPersonController>().transform;
+            _player = ParkourThirdPersonController.instance.transform;
         }
 
         private IEnumerator PoolTick()

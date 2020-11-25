@@ -28,6 +28,7 @@ public class MultiplayerMenu : Menu {
 
 	private void Update() {
 		if (!PhotonNetwork.IsMasterClient && PhotonNetwork.InRoom && PhotonNetwork.LevelLoadingProgress > 0 && !_gameLoader.activeSelf) {
+			print(PhotonNetwork.LevelLoadingProgress);
 			OpenGame();
 			Hide(null);
 		}
@@ -49,6 +50,7 @@ public class MultiplayerMenu : Menu {
 
 
 	protected override void StartHide(Action callback) {
+		print("Hide");
 		base.StartHide(callback);
 
 		var sequence = DOTween.Sequence();

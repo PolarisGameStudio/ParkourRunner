@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using AEngine;
 using MainMenuAndShop.Jetpacks;
+using Managers;
 using ParkourRunner.Scripts.Managers;
 using ParkourRunner.Scripts.Player.InvectorMods;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -30,13 +32,15 @@ namespace ParkourRunner.Scripts.Player {
 		private ParkourThirdPersonController PlayerController;
 		private Coroutine                    _jetpackCoroutine;
 
-		private static readonly int         _isUsedParameter = Animator.StringToHash("IsUsed");
-		private                 AudioSource _audioSourceOn, _audioSourceFly, _audioSourceOff;
-		private                 AudioClip   _jetpackOnClip, _jetpackOffClip, _jetpackFlyingClip;
+		private static readonly int _isUsedParameter = Animator.StringToHash("IsUsed");
+
+		private AudioSource _audioSourceOn, _audioSourceFly, _audioSourceOff;
+		private AudioClip   _jetpackOnClip, _jetpackOffClip, _jetpackFlyingClip;
+		private PhotonView  _photonView;
 
 
 		public void ActivateJetpack() {
-			if (_jetpackCoroutine != null) return;
+			if (_jetpackCoroutine              != null) return;
 			if (GameManager.Instance.gameState == GameManager.GameState.Dead) return;
 
 			PlayerController = GetComponent<ParkourThirdPersonController>();
@@ -99,25 +103,40 @@ namespace ParkourRunner.Scripts.Player {
 		}
 
 
-		private void Start() {
-			if(Jetpacks.ActiveJetpackType == Jetpacks.JetpacksType.NoJetpack) return;
+		private void Awake() {
+			_photonView = GetComponent<PhotonView>();
+			if (PhotonGameManager.IsMultiplayerAndConnected) return;
 
-			InstantiateJetpack();
-			InstantiateSound();
+			CreateJetpack(Jetpacks.GetActiveJetpack());
 		}
 
 
-		private void InstantiateJetpack() {
-			var activeJetpack = Jetpacks.GetActiveJetpack();
-			_fuel = _maxFuel  = activeJetpack.BoostTime;
+		public void CreateJetpack(Jetpacks.Jetpack jetpack) {
+			if (Jetpacks.ActiveJetpackType == Jetpacks.JetpacksType.NoJetpack) return;
 
-			_jetpackInstance = Instantiate(activeJetpack.JetpackPrefab, JetpackParent);
+			_fuel = _maxFuel = jetpack.BoostTime;
 
+			InstantiateJetpack(jetpack.JetpackType.ToString());
+
+			if (PhotonGameManager.IsMultiplayerAndConnected) {
+				_photonView.RPC(nameof(InstantiateJetpack), RpcTarget.Others, jetpack.JetpackType.ToString());
+			}
+		}
+
+
+		[PunRPC]
+		public void InstantiateJetpack(string typeStr) {
+			var type = (Jetpacks.JetpacksType) Enum.Parse(typeof(Jetpacks.JetpacksType), typeStr);
+			var jetpack = Jetpacks.GetJetpackData(type);
+
+			_jetpackInstance                         = Instantiate(jetpack.JetpackPrefab, JetpackParent);
 			_jetpackInstance.transform.localPosition = Vector3.zero;
 			_jetpackInstance.transform.localRotation = Quaternion.identity;
 
 			_jetpackAnimator  = _jetpackInstance.GetComponent<Animator>();
 			_jetpackParticles = _jetpackInstance.GetComponentInChildren<ParticleSystem>();
+
+			InstantiateSound();
 		}
 
 

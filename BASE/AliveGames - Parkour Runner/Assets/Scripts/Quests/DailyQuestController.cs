@@ -38,8 +38,9 @@ public class DailyQuestController : MonoBehaviour
             if (target != null) {
                 target.gameObject.SetActive(true);
                 var canvasGroup = target.GetComponent<CanvasGroup>();
-                print(canvasGroup);
-                canvasGroup.alpha = _manager.CompletedQuests.Contains(item.ID) ? 0.3f : 1f;
+                var questIsCompleted = _manager.CompletedQuests.Contains(item.ID);
+                canvasGroup.alpha = questIsCompleted ? 0.3f : 1f;
+                canvasGroup.interactable = !questIsCompleted;
             }
         }
     }

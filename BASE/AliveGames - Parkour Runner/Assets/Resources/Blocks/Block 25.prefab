@@ -25145,6 +25145,7 @@ MonoBehaviour:
   GenerationPoints:
   - {fileID: 114299245913310866}
   - {fileID: 114598114474588702}
+  WaypointLines: []
   Type: 0
   Next: {fileID: 0}
 --- !u!95 &95530909698446560

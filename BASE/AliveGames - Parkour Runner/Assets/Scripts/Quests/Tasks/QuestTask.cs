@@ -9,6 +9,8 @@ public class QuestTask : MonoBehaviour
 
     protected void CompleteQuest(bool playSound)
     {
+        if(QuestManager.Instance.CompletedQuests.Contains(_data.ID)) return;
+
         if (playSound)
             AudioManager.Instance.PlaySound(Sounds.WinQuest);
 

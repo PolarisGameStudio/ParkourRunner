@@ -18,9 +18,9 @@ namespace ParkourRunner.Scripts.Track.Pick_Ups
                 
         private void TriggerEvent(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag("Player") || other.CompareTag("Bot Player"))
             {
-                if (!PhotonGameManager.IsMultiplayerAndConnected || other.GetComponent<PhotonView>().IsMine) {
+                if (!PhotonGameManager.IsMultiplayerAndConnected || other.CompareTag("Player") && other.GetComponent<PhotonView>().IsMine) {
                     Pick();
                 }
 

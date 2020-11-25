@@ -2166,7 +2166,6 @@ MonoBehaviour:
   _screenButtonsContaner: {fileID: 1404476060698282}
   _fourButtonsContaner: {fileID: 1928505502258392}
   _tiltContaner: {fileID: 1476175330329362}
-  _playerInput: {fileID: 0}
   DebugDropdown: {fileID: 114193325566742092}
   _controlsMode: 2
   _startTouch: {x: 0, y: 0}
@@ -11571,8 +11570,8 @@ RectTransform:
   m_Father: {fileID: 180462155269391195}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0.25}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

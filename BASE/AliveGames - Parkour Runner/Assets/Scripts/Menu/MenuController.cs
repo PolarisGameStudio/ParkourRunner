@@ -32,7 +32,7 @@ public class MenuController : MonoBehaviour
 
         Time.timeScale = 1f;
 
-        OpenMenu(TransitionTarget == MenuKinds.None ? MenuKinds.MainMenu : TransitionTarget);
+        OpenMenu(TransitionTarget == MenuKinds.None ? _defaultMenu : TransitionTarget);
     }
 
 

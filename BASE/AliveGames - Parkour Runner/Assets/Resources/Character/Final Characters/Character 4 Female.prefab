@@ -13914,6 +13914,7 @@ GameObject:
   - component: {fileID: 106810045148708404}
   - component: {fileID: 5182055614198727107}
   - component: {fileID: 3073761976227401353}
+  - component: {fileID: 892663176734403745}
   m_Layer: 8
   m_Name: ParkRunFem
   m_TagString: Player
@@ -14592,10 +14593,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerCanvas: {fileID: 0}
   PhotonView: {fileID: 0}
+  BotController: {fileID: 0}
   IsFinished: 0
   FinishPlace: 0
   Ready: 0
   UserId: 
+  IsBot: 0
 --- !u!114 &3073761976227401353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14609,6 +14612,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JetpackParent: {fileID: 4107915315505019353}
+--- !u!114 &892663176734403745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9191156142363533848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 945ada0fe64b4d2abde23933d24b13cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Helmets:
+  - {fileID: 6806846432984533239}
+  - {fileID: 6597205318832440130}
+  - {fileID: 2846203740956531355}
 --- !u!1 &9191156142377652674
 GameObject:
   m_ObjectHideFlags: 0
@@ -31755,15 +31774,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbd80256dcc25ac43b7c8434c7feb16d, type: 3}
---- !u!1 &2846203740956531355 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2027185013688166963, guid: dbd80256dcc25ac43b7c8434c7feb16d,
-    type: 3}
-  m_PrefabInstance: {fileID: 4277783301247922344}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3023821498167218725 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1345301537031234189, guid: dbd80256dcc25ac43b7c8434c7feb16d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4277783301247922344}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2846203740956531355 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2027185013688166963, guid: dbd80256dcc25ac43b7c8434c7feb16d,
     type: 3}
   m_PrefabInstance: {fileID: 4277783301247922344}
   m_PrefabAsset: {fileID: 0}

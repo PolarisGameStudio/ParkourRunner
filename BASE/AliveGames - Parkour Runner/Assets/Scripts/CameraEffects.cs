@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class CameraEffects : MonoBehaviour
 {
@@ -8,10 +9,17 @@ public class CameraEffects : MonoBehaviour
     public bool IsRunningFast;
     public bool IsHighJumping;
 
-    private void Start()
+    private void Awake()
     {
+        print("CameraEffects awake");
         Instance = this;
     }
+
+
+    private void OnDestroy() {
+        Debug.Log("Destroy CameraEffects");
+    }
+
 
     private void Update()
     {

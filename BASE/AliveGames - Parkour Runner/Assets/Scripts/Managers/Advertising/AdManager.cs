@@ -34,7 +34,7 @@ public class AdManager : MonoBehaviour {
 
 	public void Start() {
 		_ad.Initialize();
-		ShowInterstitial(null, null, null);
+		// ShowInterstitial(null, null, null);
 	}
 
 

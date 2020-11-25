@@ -10,7 +10,7 @@ public class FinishCamera : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             if (PhotonGameManager.IsMultiplayerAndConnected) {
-                if(!other.GetComponent<PhotonView>().IsMine) return;
+                if(!other.GetComponent<PhotonView>().IsMine || other.CompareTag("Bot Player")) return;
             }
 
             ParkourCamera.Instance.LockCamera = true;

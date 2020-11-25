@@ -25,7 +25,7 @@ namespace AppodealAds.Unity.Api
         public const string AMAZON_ADS = "amazon_ads";
         public const string ADMOB = "admob";
         public const string UNITY_ADS = "unity_ads";
-        public const string FACEBOOK = "facebook";
+        // public const string FACEBOOK = "facebook";
         public const string YANDEX = "yandex";
         public const string APPODEAL = "appodeal";
         public const string IRONSOURCE = "ironsource";

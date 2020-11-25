@@ -11,10 +11,10 @@ public class FinishMessage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Bot Player"))
         {
             if (PhotonGameManager.IsMultiplayerAndConnected) {
-                if(other.GetComponent<PhotonView>().IsMine) {
+                if(other.GetComponent<PhotonView>().IsMine && !other.CompareTag("Bot Player")) {
                     HUDManager.Instance.ShowGreatMessage(HUDManager.Messages.LevelComplete);
                 }
 

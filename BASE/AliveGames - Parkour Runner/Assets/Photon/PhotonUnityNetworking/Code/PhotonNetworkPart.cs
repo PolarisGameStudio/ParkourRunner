@@ -225,6 +225,7 @@ namespace Photon.Pun
                 _AsyncLevelLoadingOperation.allowSceneActivation = false;
                 _AsyncLevelLoadingOperation = null;
             }
+            _levelLoadingProgress = 0f;
 
 
             bool wasInRoom = NetworkingClient.CurrentRoom != null;

@@ -44755,6 +44755,7 @@ MonoBehaviour:
   - {fileID: 4807279359085438799}
   - {fileID: 4807536741066779223}
   - {fileID: 4807195905823646675}
+  WaypointLines: []
   Type: 0
   Next: {fileID: 0}
 --- !u!95 &4788870361325124513

@@ -1,6 +1,7 @@
 using System;
 using MainMenuAndShop.Jetpacks;
 using ParkourRunner.Scripts.Player;
+using ParkourRunner.Scripts.Player.InvectorMods;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,7 @@ public class JetpackButton : MonoBehaviour {
 
 
 	private void Start() {
-		_jetpackController = FindObjectOfType<JetpackController>();
+		_jetpackController = ParkourThirdPersonController.instance.GetComponent<JetpackController>();
 		gameObject.SetActive(Jetpacks.ActiveJetpackType != Jetpacks.JetpacksType.NoJetpack);
 	}
 

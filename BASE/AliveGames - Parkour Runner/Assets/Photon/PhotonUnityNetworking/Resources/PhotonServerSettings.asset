@@ -53,5 +53,10 @@ MonoBehaviour:
   - UnlockCamera
   - SetReward
   - SetFinishPlace
+  - SetParent
+  - SetIsBot
+  - FreezePosition
+  - OpenGame
+  - InstantiateJetpack
   DisableAutoOpenWizard: 1
   ShowSettings: 1

@@ -27,6 +27,7 @@ TagManager:
   - Wood
   - Boss
   - Admix
+  - Bot Player
   layers:
   - Default
   - TransparentFX

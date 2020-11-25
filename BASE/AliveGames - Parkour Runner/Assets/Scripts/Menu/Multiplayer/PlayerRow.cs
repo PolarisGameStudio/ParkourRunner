@@ -14,6 +14,7 @@ public class PlayerRow : MonoBehaviour {
 
 
 	public void SetReady(bool ready) {
+		print($"Set ready {ready} for nickname {Nickname.text}");
 		Ready = ready;
 		Checkmark.SetActive(ready);
 	}
