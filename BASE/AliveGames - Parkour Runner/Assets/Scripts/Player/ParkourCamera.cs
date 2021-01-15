@@ -55,16 +55,10 @@ public class ParkourCamera : MonoBehaviour
 
     private void Awake()
     {
-        print("Awake ParkourCamera");
         Instance = this;
         ParkourSlowMo = GetComponent<ParkourSlowMo>();
         this.LockCamera = false;
         _defaultFollowSmooth = FollowSmooth;
-    }
-
-
-    private void OnDestroy() {
-        Debug.Log("Destroy ParkourCamera");
     }
 
     void Start ()

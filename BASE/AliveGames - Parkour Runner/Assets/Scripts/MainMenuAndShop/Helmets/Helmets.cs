@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -13,6 +14,26 @@ namespace MainMenuAndShop.Helmets {
 		}
 
 		[SerializeField] private List<Data> _helmets = new List<Data>();
+
+
+		#region Load From Resources
+
+		private static Helmets Instance {
+			get {
+				if (_instance != null) return _instance;
+
+				_instance = Resources.Load("Character/Helmets Configuration") as Helmets;
+				if (_instance == null) {
+					throw new FileNotFoundException("Can't found 'Jetpacks' file");
+				}
+				return _instance;
+			}
+		}
+
+		private static Helmets _instance;
+
+		#endregion
+
 
 		[Serializable]
 		public class Data {
@@ -35,8 +56,25 @@ namespace MainMenuAndShop.Helmets {
 		}
 
 
-		public Data GetHelmetData(HelmetsType helmetType) {
-			return _helmets.FirstOrDefault(h => h.HelmetType == helmetType);
+		public static Data GetHelmetData(HelmetsType helmetType) {
+			return Instance._helmets.FirstOrDefault(h => h.HelmetType == helmetType);
+		}
+
+
+		public static List<HelmetsType> GetFreeHelmetsList() {
+			var helmets      = new List<HelmetsType>();
+			var allHelmets = Enum.GetValues(typeof(HelmetsType)).OfType<object>().Select(c => (HelmetsType) c).ToList();
+
+			foreach (var helmet in allHelmets) {
+				if(helmet == HelmetsType.NoHelmet) continue;
+
+				var key = HELMET_KEY + helmet;
+				if (!PlayerPrefs.HasKey(key) || PlayerPrefs.GetInt(key) == 0) {
+					helmets.Add(helmet);
+				}
+			}
+
+			return helmets;
 		}
 
 

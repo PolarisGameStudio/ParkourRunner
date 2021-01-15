@@ -210,14 +210,12 @@
     <None Include="Assets\Appodeal\Editor\NetworkConfigs\AdColonyDependencies.xml" />
     <None Include="Assets\Appodeal\Editor\NetworkConfigs\SmaatoDependencies.xml" />
     <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver_v1.2.137.0.txt" />
-    <None Include="Assets\Appodeal\Editor\NetworkConfigs\MintegralDependencies.xml" />
     <None Include="Assets\Appodeal\Editor\NetworkConfigs\InnerActiveDependencies.xml" />
     <None Include="Assets\Appodeal\Editor\NetworkConfigs\ChartboostDependencies.xml" />
     <None Include="Assets\Appodeal\Editor\NetworkConfigs\VungleDependencies.xml" />
     <None Include="Assets\GoogleMobileAds\Editor\GoogleMobileAdsDependencies.xml" />
     <None Include="Assets\ConsentManager\Editor\ConsentMangerDependencies.xml" />
     <None Include="Assets\Appodeal\Editor\NetworkConfigs\OguryDependencies.xml" />
-    <None Include="Assets\Appodeal\Editor\NetworkConfigs\FacebookAudienceDependencies.xml" />
     <None Include="Assets\Appodeal\Editor\NetworkConfigs\AppLovinDependencies.xml" />
     <Reference Include="UnityEditor.TestRunner">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
@@ -584,6 +582,9 @@
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
+    </Reference>
+    <Reference Include="AdinmoPlugin">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Adinmo/Plugins/AdinmoPlugin.dll</HintPath>
     </Reference>
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>

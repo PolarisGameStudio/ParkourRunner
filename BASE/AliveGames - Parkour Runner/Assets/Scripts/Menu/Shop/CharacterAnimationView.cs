@@ -50,7 +50,7 @@ public class CharacterAnimationView : MonoBehaviour {
 
 
 	private void OnHideMenuFinished() {
-		_animator.Play(_appearClip, 0, 0f);
+		// _animator.Play(_appearClip, 0, 0f);
 	}
 
 	#endregion

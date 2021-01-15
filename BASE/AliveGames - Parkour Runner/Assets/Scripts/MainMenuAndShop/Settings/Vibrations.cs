@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Vibrations : MonoBehaviour
+public class Vibrations : SettingsBase
 {
 	private const string VibrationKey = "InGameVibration";
 	public static bool Enabled {
@@ -20,7 +20,7 @@ public class Vibrations : MonoBehaviour
     }
 
 
-	public void OnClick() {
+	public override void OnClick() {
 		Enabled = !Enabled;
 		UpdateIcon();
 	}

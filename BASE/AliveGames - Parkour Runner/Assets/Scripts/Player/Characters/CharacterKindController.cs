@@ -16,13 +16,12 @@ public class CharacterKindController : MonoBehaviour {
 	private CharacterKinds _kind;
 
 	[SerializeField] private Vector3        _startPosition;
-	[SerializeField] private CharactersData _data;
 
 
 	private void Awake() {
 		_camera.SetActive(false);
 
-		CharactersData.Data targetData = _data.GetCharacterData(_selectBySettings ? LoadChoosenKind() : _kind);
+		CharactersData.Data targetData = CharactersData.GetCharacterData(_selectBySettings ? LoadChoosenKind() : _kind);
 
 		if (targetData != null) {
 			if (PhotonGameManager.IsMultiplayerAndConnected) {
@@ -62,7 +61,7 @@ public class CharacterKindController : MonoBehaviour {
 	private void InstantiateBot(string botName, int botIndex) {
 		var characterKinds = Enum.GetValues(typeof(CharacterKinds));
 		var randomKind     = (CharacterKinds) characterKinds.GetValue(Random.Range(0, characterKinds.Length));
-		var prefab         = _data.GetCharacterData(randomKind);
+		var prefab         = CharactersData.GetCharacterData(randomKind);
 
 		var bot = PhotonNetwork.Instantiate("Character/Final Characters/" + prefab.targetPrefab.name, _startPosition, Quaternion.identity);
 		var photonPlayer = bot.GetComponentInChildren<PhotonPlayer>();

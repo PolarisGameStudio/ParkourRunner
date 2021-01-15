@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using AEngine;
@@ -26,7 +27,10 @@ public class ShopDonatsPanel : MonoBehaviour {
 
 		if (!_isInitialized)
 			StartCoroutine(LoadingDataProcess());
+	}
 
+
+	private void OnEnable() {
 		InAppManager.OnBuySuccess += OnBuySuccess;
 	}
 

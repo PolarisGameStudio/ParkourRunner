@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 public class CharactersView : MonoBehaviour {
-	[SerializeField] private CharactersData   _data;
 	[SerializeField] private CharacterBlock[] _characters;
 
 	[Space] [SerializeField] private Vector3 DefaultRotation;
@@ -16,7 +15,7 @@ public class CharactersView : MonoBehaviour {
 
 
 	private void Start() {
-		OnSelectCharacter(_data.CurrentCharacter);
+		OnSelectCharacter(CharactersData.CurrentCharacter);
 		OnSelectHelmet(Helmets.CurrentHelmetType);
 	}
 
@@ -61,7 +60,7 @@ public class CharactersView : MonoBehaviour {
 	private void OnSelectJetpack(Jetpacks.JetpacksType jetpacksType) {
 		if (_jetpack) Destroy(_jetpack);
 
-		var character   = _characters.FirstOrDefault(c => c.kind == _data.CurrentCharacter);
+		var character   = _characters.FirstOrDefault(c => c.kind == CharactersData.CurrentCharacter);
 		var jetpackData = Jetpacks.GetActiveJetpack();
 		if (jetpackData.JetpackType == Jetpacks.JetpacksType.NoJetpack) return;
 

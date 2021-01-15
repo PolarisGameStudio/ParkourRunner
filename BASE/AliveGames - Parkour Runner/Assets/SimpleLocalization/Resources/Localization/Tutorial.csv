@@ -1,9 +1,9 @@
-Key,English,Russian,Japanese,Portuguese
-tap,Tap to continue,Нажмите для продолжения,タップして続行,Clique para continuar
-tutorial1,Jump over the obstacle,Перепрыгивайте препятствия,障害物を飛び越える,Pule o obstáculo
-tutorial2,Go under the obstacle. It can also be jumped.,Пройдите под препятствием. Но можно и перепрыгнуть.,障害物の下に行きます。 ジャンプすることもできます。,Passe por baixo do obstáculo. Também pode ser saltado.
-tutorial3,Avoid the mines!,Избегайте мин!,地雷を避けてください！,Evite as minas!
-tutorial4,Avoid laser beams,Избегайте лазерных лучей,レーザー光線を避ける,Evite feixes de laser
-tutorial5,Use a square platform for a high jump,Используйте квадратные платформы для высокого прыжка,走り高跳びには正方形のプラットフォームを使用する,Use uma plataforma quadrada para um salto em altura
-tutorial6,Use the bonus to jump over the wall,"Используйте бонус, чтобы перепрыгнуть стену",ボーナスを使って壁を飛び越えてください,Use o bônus para pular a parede
-tutorial7,Use the shield bonus to protect yourself from the laser,Возьмите защитный бонус и пройдите сквозь лазер,シールドボーナスを使用してレーザーから身を守る,Use o bônus de escudo para se proteger do laser
+Key,English,Russian,Japanese,Portuguese,Spain
+tap,Tap to continue,Нажмите для продолжения,タップして続行,Clique para continuar,Pulse para continuar
+tutorial1,Jump over the obstacle,Перепрыгивайте препятствия,障害物を飛び越える,Pule o obstáculo,Salta el obstáculo
+tutorial2,Go under the obstacle. It can also be jumped.,Пройдите под препятствием. Но можно и перепрыгнуть.,障害物の下に行きます。 ジャンプすることもできます。,Passe por baixo do obstáculo. Também pode ser saltado.,Pasa por debajo del obstáculo. También se puede saltar.
+tutorial3,Avoid the mines!,Избегайте мин!,地雷を避けてください！,Evite as minas!,¡Evita las minas!
+tutorial4,Avoid laser beams,Избегайте лазерных лучей,レーザー光線を避ける,Evite feixes de laser,Evite los rayos láser
+tutorial5,Use a square platform for a high jump,Используйте квадратные платформы для высокого прыжка,走り高跳びには正方形のプラットフォームを使用する,Use uma plataforma quadrada para um salto em altura,Usa una plataforma cuadrada para un salto de altura
+tutorial6,Use the bonus to jump over the wall,"Используйте бонус, чтобы перепрыгнуть стену",ボーナスを使って壁を飛び越えてください,Use o bônus para pular a parede,Usa la bonificación para saltar sobre la pared
+tutorial7,Use the shield bonus to protect yourself from the laser,Возьмите защитный бонус и пройдите сквозь лазер,シールドボーナスを使用してレーザーから身を守る,Use o bônus de escudo para se proteger do laser,Usa el bono de escudo para protegerte del láser.

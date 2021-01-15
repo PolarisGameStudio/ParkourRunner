@@ -231,7 +231,7 @@ public class DailyReward : Menu {
 
 	private Reward GetDailyReward(int day, SavedReward savedReward) {
 		var reward = Rewards[day];
-		var skins  = GetFreeSkinList();
+		var skins  = CharactersData.GetFreeSkinList();
 		if (savedReward.RewardType == RewardType.FreeSkin) {
 			if (!savedReward.IsPicked && !skins.Contains((CharacterKinds) savedReward.Value)) {
 				savedReward.RewardType = RewardType.Coins;
@@ -263,26 +263,8 @@ public class DailyReward : Menu {
 	}
 
 
-	private List<CharacterKinds> GetFreeSkinList() {
-		var skins = new List<CharacterKinds>();
-
-		var characters = Enum.GetValues(typeof(CharacterKinds));
-		foreach (var character in characters) {
-			var characterKind = (CharacterKinds) character;
-			if (characterKind == CharacterKinds.Base) continue;
-
-			var key = CharactersData.CHARACTER_KEY + " : " + characterKind;
-			if (!PlayerPrefs.HasKey(key) || PlayerPrefs.GetInt(key) == 0) {
-				skins.Add(characterKind);
-			}
-		}
-
-		return skins;
-	}
-
-
 	private void UpdateFreeSkin() {
-		_freeSkinList = GetFreeSkinList();
+		_freeSkinList = CharactersData.GetFreeSkinList();
 	}
 
 

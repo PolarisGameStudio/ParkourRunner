@@ -12,8 +12,145 @@ MonoBehaviour:
   m_Script: {fileID: 1566008119, guid: abf3c058d94959640bec02372a894b38, type: 3}
   m_Name: AdmixEditorPreferences
   m_EditorClassIdentifier: 
-  ApplicationsList:
-  - AliveGames - Parkour Runner
-  _accessToken: ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmZhV1FpT2lJd04yUXdORGhoWVMwek1UZ3pMVFF3TlRrdE9UUmtaQzB3WTJVeU1qVmtZekptWW1NaUxDSmxlSEFpT2pFMU9EUXhPRGsxTlRrc0ltbGhkQ0k2TVRVNE16VTRPVFUxT1gwLi0zSzhyUHhXUjUzMWZJOHd3dm9JaXdwWE9rcnZNUjhCWW9Gdlg5YllmM3M=
+  AccessToken: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImIyY0BhbGl2ZWdhbWVzLnJ1IiwiZXhQdWJsaXNoZXJJZCI6IjA3ZDA0OGFhLTMxODMtNDA1OS05NGRkLTBjZTIyNWRjMmZiYyIsInBlcm1pc3Npb25zIjpbIlswXS5bMV0iLCJbMF0uWzJdIiwiWzBdLls0XSIsIlswXS5bOF0iLCJbMF0uWzMyXSIsIlsxXS5bMV0iLCJbMV0uWzJdIiwiWzFdLls0XSIsIlsyXS5bMV0iLCJbMl0uWzJdIiwiWzJdLls0XSIsIls0XS5bMV0iLCJbNV0uWzFdIl0sInBlcm1zIjoiLzM4SEFBRUIiLCJwdWJsaXNoZXJJZCI6IjVmMmMyZjQ5M2U4MDM0NTkwZTQwMDhhOCIsInJvbGUiOiJmdWxsIiwidXNlcklkIjoiNWYyYzJmNWUzZTgwMzQ1OTBlNDAxNGM2IiwiaWF0IjoxNjEwNTMxMzcxLCJleHAiOjE2MTQxMzEzNzF9.zvJpxFUMrn4MtmPi0n1PQZvxxw2nbHYyqhyCkkhW16kHLziUl2id9mRNeYUWl4x9kYYqunie6gg6GtkvpNqqLXdsmv-zIaJHJZFrk-2f1CVf4glwD_me8K2a3E7VJnUg3TPEQUbVLdpqqxcdyFVCDyrWhHQ3gqvD9zDDzOBkLzgT8uFU6AmHRK82RMxbCYeConoipdw62_zg--dnnALCT8kJIH7E6PDvvA5vmS9YGmXZ6gs9aSR9HrTLpU24NZLRo5x2VJIhxMcpP2rPDFeQYJt4CD9GIpOLPqJftKw7P9jCZ5rhu9nrs8kGXoh4RCVUaiRjmnpftAkvr27PqyuvYCNomHnANUvND_0BRxc7tsdZiGh_W_DmQYuZ8XRMgGcKCXHnu6ka2OdqQSFqe2RPKQtn7MAh2v0DusW4TTv9A3-c7qcr4Gzt5zJwljbXjMZnLx6tl41B8qJqTo0fzTi-P2CauaC2wyb-g1npnU7Vhi7mNMlUmUOBk6BUsg8JhKRbDHJWICQWnY3RvZSUcXZjx8jcpCDd0716FX0Ap_XpQGamDmMoVN9I7BF7P56KHukm_0i5HjGncW3cq30zWo1cWkq5VFE2moEyYYVCpnQmnJZDsfL1TyhWU2V3A6WyphuaMy6uJcivpiJSL5IAcZda_KPLuib2IQ2Z0NtzxoRSvp4
+  userId: 5f2c2f5e3e8034590e4014c6
+  RefreshToken: 10181f2829ad478d63cf316fc2df8f2f121d521cc4647161421b54336e6e980e
   _userLogin: b2c@alivegames.ru
+  ApplicationName: AliveGames - Parkour Runner
+  ApplicationIdentifier: 8813ee4d-f588-47ed-8097-657e7f538be7
+  _applicationToken: 
   _profileStatus: 1000
+  _v3Settings:
+    v3url_dashboard: https://app.admixplay.com/
+    v3url_docs: https://docs.admix.in/docs/getting-started/admix-quickstart
+    v3url_login: https://services.admixplay.com/auth-v1/users/tokens
+    v3url_getAllRatios: https://services.admixplay.com/inventory-v1/placement/ratio
+    v3url_createApp: https://services.admixplay.com/sdk-v1/sdk/app
+    v3url_renameApp: https://services.admixplay.com/sdk-v1/sdk/app/rename
+    v3url_createScenes: https://services.admixplay.com/sdk-v1/sdk/scene
+    v3url_createPlacements: https://services.admixplay.com/sdk-v1/sdk/placement
+    v3url_renamePlacements: https://services.admixplay.com/sdk-v1/sdk/placement/rename
+    v3url_deletePlacements: https://services.admixplay.com/sdk-v1/sdk/placement/delete
+    v3url_getAppData: https://services.admixplay.com/sdk-v1/sdk/app
+    v3url_getMyApps: https://services.admixplay.com/sdk-v1/sdk/app/mine
+    placementRatios:
+    - id: 5ee7e9e47cea8d42a8b60ac6
+      placementMode: 1
+      uiDisplayStr: 4x3
+      defaultGameobjectName: Video_4x3
+      resolutionKey: 640x480
+      referenceAspectCoeff: 1.333
+      defaultScale: {x: 4, y: 3, z: 1}
+      textureName: Info_4x3
+      uiPriority: 1000
+      uiColor:
+        serializedVersion: 2
+        rgba: 4284441840
+      uiRectX: 70
+      uiRectY: 52
+      placementTextureResolution: {x: 640, y: 480}
+    - id: 5ee7e9fb7cea8d42a8b60ac7
+      placementMode: 1
+      uiDisplayStr: 16x9
+      defaultGameobjectName: Video_16x9
+      resolutionKey: 640x360
+      referenceAspectCoeff: 1.778
+      defaultScale: {x: 5, y: 2.8125, z: 1}
+      textureName: Info_16x9
+      uiPriority: 1010
+      uiColor:
+        serializedVersion: 2
+        rgba: 4284441840
+      uiRectX: 70
+      uiRectY: 40
+      placementTextureResolution: {x: 640, y: 360}
+    - id: 5ee7e8d47cea8d42a8b60ac0
+      placementMode: 0
+      uiDisplayStr: 6x5
+      defaultGameobjectName: Banner_6x5
+      resolutionKey: 300x250
+      referenceAspectCoeff: 1.2
+      defaultScale: {x: 6, y: 5, z: 1}
+      textureName: Info_6x5
+      uiPriority: 2000
+      uiColor:
+        serializedVersion: 2
+        rgba: 4290689300
+      uiRectX: 60
+      uiRectY: 50
+      placementTextureResolution: {x: 300, y: 250}
+    - id: 5ee7e90e7cea8d42a8b60ac1
+      placementMode: 0
+      uiDisplayStr: 32x5
+      defaultGameobjectName: Banner_32x5
+      resolutionKey: 320x050
+      referenceAspectCoeff: 6.4
+      defaultScale: {x: 6.4, y: 1, z: 1}
+      textureName: Info_32x5
+      uiPriority: 2010
+      uiColor:
+        serializedVersion: 2
+        rgba: 4290689300
+      uiRectX: 64
+      uiRectY: 10
+      placementTextureResolution: {x: 320, y: 50}
+    - id: 5ee7e9437cea8d42a8b60ac2
+      placementMode: 0
+      uiDisplayStr: 364x45
+      defaultGameobjectName: Banner_364x45
+      resolutionKey: 728x090
+      referenceAspectCoeff: 8.089
+      defaultScale: {x: 8.09, y: 1, z: 1}
+      textureName: Info_97x25
+      uiPriority: 2020
+      uiColor:
+        serializedVersion: 2
+        rgba: 4290689300
+      uiRectX: 74
+      uiRectY: 10
+      placementTextureResolution: {x: 728, y: 90}
+    - id: 5ee7e9587cea8d42a8b60ac3
+      placementMode: 0
+      uiDisplayStr: 4x15
+      defaultGameobjectName: Banner_4x15
+      resolutionKey: 160x600
+      referenceAspectCoeff: 0.267
+      defaultScale: {x: 2, y: 7.5, z: 1}
+      textureName: Info_4x15
+      uiPriority: 2030
+      uiColor:
+        serializedVersion: 2
+        rgba: 4290689300
+      uiRectX: 16
+      uiRectY: 60
+      placementTextureResolution: {x: 160, y: 600}
+    - id: 5ee7e9657cea8d42a8b60ac4
+      placementMode: 0
+      uiDisplayStr: 1x2
+      defaultGameobjectName: Banner_1x2
+      resolutionKey: 300x600
+      referenceAspectCoeff: 0.5
+      defaultScale: {x: 2.5, y: 5, z: 1}
+      textureName: Info_1x2
+      uiPriority: 2040
+      uiColor:
+        serializedVersion: 2
+        rgba: 4290689300
+      uiRectX: 30
+      uiRectY: 60
+      placementTextureResolution: {x: 300, y: 600}
+    - id: 5ee7e9757cea8d42a8b60ac5
+      placementMode: 0
+      uiDisplayStr: 97x25
+      defaultGameobjectName: Banner_97x25
+      resolutionKey: 970x250
+      referenceAspectCoeff: 3.88
+      defaultScale: {x: 7.76, y: 2, z: 1}
+      textureName: Info_97x25
+      uiPriority: 2040
+      uiColor:
+        serializedVersion: 2
+        rgba: 4290689300
+      uiRectX: 66
+      uiRectY: 18
+      placementTextureResolution: {x: 970, y: 250}

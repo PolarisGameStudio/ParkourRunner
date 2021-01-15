@@ -217,7 +217,7 @@ namespace ParkourRunner.Scripts.Managers {
 
 
 		public void ShowPause() {
-			AdManager.Instance.ShowBottomBanner();
+			// AdManager.Instance.ShowBottomBanner();
 			var isMultiplayer = PhotonGameManager.IsMultiplayerAndConnected;
 
 			PauseGo.SetActive(true);

@@ -31,6 +31,9 @@ public static class Shoping {
 				PlayerPrefs.SetInt("NoAds", 1);
 				PlayerPrefs.Save();
 				break;
+			case DonatShopData.DonatKinds.GoldBox:
+				LootBoxesRoom.OpenLootBox(LootBoxesRoom.LootBoxType.Gold);
+				break;
 		}
 	}
 

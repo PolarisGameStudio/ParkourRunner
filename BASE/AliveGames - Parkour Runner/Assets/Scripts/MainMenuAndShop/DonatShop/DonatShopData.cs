@@ -12,6 +12,7 @@ public class DonatShopData : ScriptableObject
         ByCoins3,
         ByCoins4,
         StarterPack,
+        GoldBox,
     }
 
     [Header("Base settings")]

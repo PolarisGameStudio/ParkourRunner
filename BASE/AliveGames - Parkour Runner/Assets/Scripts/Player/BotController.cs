@@ -47,6 +47,7 @@ public class BotController : MonoBehaviour {
 
 
 	private void Awake() {
+		print("Bot controller awaking");
 		_player    = GetComponent<PhotonPlayer>();
 		_animator  = GetComponent<Animator>();
 		_rigidbody = GetComponent<Rigidbody>();
@@ -58,18 +59,30 @@ public class BotController : MonoBehaviour {
 		print($"activate bot {botIndex}");
 
 		_botIndex              = botIndex;
+		print("setup rigidbody");
 		_rigidbody.isKinematic = false;
 
+		print("set tag");
 		gameObject.tag = "Bot Player";
-		LevelGenerator.Instance.LevelUpdate += OnLevelUpdate;
+		print("add listener to LevelGenerator");
+		LevelGenerator.LevelUpdate += OnLevelUpdate;
 
+		print("setup animator");
 		_animator.SetFloat(_inputMagnitude, 0f);
+		print("Spawn helmet");
 		SpawnRandomHelmet();
 
+		print("check player is mine");
 		if (_player.photonView.IsMine) {
 			_player.PhotonView.RPC(nameof(PhotonPlayer.PlayerReady), RpcTarget.All);
+			print("Spawn jetpack");
 			SpawnRandomJetpack();
 		}
+	}
+
+
+	private void OnDestroy() {
+		LevelGenerator.LevelUpdate -= OnLevelUpdate;
 	}
 
 

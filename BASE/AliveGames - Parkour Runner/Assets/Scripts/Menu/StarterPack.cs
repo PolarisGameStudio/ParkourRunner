@@ -24,15 +24,19 @@ public class StarterPack : MonoBehaviour {
 	private readonly TimeSpan       _maxTimer  = new TimeSpan(7, 0, 0, 0);
 	private          DateTime       TimeLeft   = DateTime.Now;
 
-	public bool CanBuy => PlayerPrefs.GetInt(SkinKey, 0) == 0 || !Jetpacks.GetJetpackData(JetpackType).Bought;
+	public static bool CanBuy => PlayerPrefs.GetInt(SkinKey, 0) == 0 || !Jetpacks.GetJetpackData(JetpackType).Bought;
 
 
 	private void Start() {
-		UpdatePackButton();
 		CharacterSelection.OnSelectCharacter += OnSelectCharacter;
 		JetpackSelection.OnSelectJetpack     += OnSelectJetpack;
 
 		StartCoroutine(StartTimer());
+	}
+
+
+	private void OnEnable() {
+		UpdatePackButton();
 	}
 
 

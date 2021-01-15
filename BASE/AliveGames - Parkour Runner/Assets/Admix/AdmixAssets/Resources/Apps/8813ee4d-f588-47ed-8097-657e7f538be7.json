@@ -1,0 +1,396 @@
+{
+    "stamp": "by 5f2c2f5e3e8034590e4014c6 at 25 ноября 2020 г. 13:22:08",
+    "appId": "8813ee4d-f588-47ed-8097-657e7f538be7",
+    "appName": "AliveGames - Parkour Runner",
+    "versionId": "5fbe13bc1b5d540008c25e52",
+    "versionStatus": 0,
+    "versionSeq": 2,
+    "sdkRev": "2000",
+    "scenesList": [
+        {
+            "sceneName": "Game",
+            "id": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+            "currentScenePath": "Assets/Scenes/Game.unity",
+            "pathsHistory": [
+                "Assets/Scenes/Game.unity"
+            ],
+            "placementsList": [
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e8d47cea8d42a8b60ac0",
+                    "idInFile": 829557836,
+                    "placementType": 0,
+                    "placementId": "5fbe13bc1b5d540008c25e53",
+                    "placementName": "GOo2eqkdxZergEt6AZjz",
+                    "placementDisplayName": "AdmixBanner_09/04/2020 06:19:48:506",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 300.0,
+                        "y": 250.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e90e7cea8d42a8b60ac1",
+                    "idInFile": 630716040,
+                    "placementType": 0,
+                    "placementId": "5fbe13bc1b5d540008c25e54",
+                    "placementName": "j8cC1racy7rWgkh6R5Sm",
+                    "placementDisplayName": "AdmixBanner_09/04/2020 06:19:48:507",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 320.0,
+                        "y": 50.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e9657cea8d42a8b60ac4",
+                    "idInFile": 1291171489,
+                    "placementType": 0,
+                    "placementId": "5fbe13bc1b5d540008c25e55",
+                    "placementName": "uIIpelrFHzoeWwMJyMty",
+                    "placementDisplayName": "AdmixBanner_09/04/2020 06:19:48:508",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 300.0,
+                        "y": 600.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e9e47cea8d42a8b60ac6",
+                    "idInFile": 168066046,
+                    "placementType": 1,
+                    "placementId": "5fbe13bc1b5d540008c25e56",
+                    "placementName": "82xZ1mgDIFBKXcAJPR3m",
+                    "placementDisplayName": "AdmixVideo_09/04/2020 06:19:48:507",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 640.0,
+                        "y": 480.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e9fb7cea8d42a8b60ac7",
+                    "idInFile": 894084748,
+                    "placementType": 1,
+                    "placementId": "5fbe13bc1b5d540008c25e57",
+                    "placementName": "LklAMn7CKLOfXSnK7WBa",
+                    "placementDisplayName": "AdmixVideo_09/04/2020 06:19:48:508",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 640.0,
+                        "y": 360.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e8d47cea8d42a8b60ac0",
+                    "idInFile": 2124337923,
+                    "placementType": 0,
+                    "placementId": "5fbe13bc1b5d540008c25e58",
+                    "placementName": "VVRn1gn6TeLxD5SnNDcm",
+                    "placementDisplayName": "AdmixBanner_09/04/2020 06:19:48:509",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 300.0,
+                        "y": 250.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e90e7cea8d42a8b60ac1",
+                    "idInFile": 459941486,
+                    "placementType": 0,
+                    "placementId": "5fbe13bc1b5d540008c25e59",
+                    "placementName": "zeGXNhd5UkY4DKGn5ILa",
+                    "placementDisplayName": "AdmixBanner_09/04/2020 06:19:48:510",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 320.0,
+                        "y": 50.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e9657cea8d42a8b60ac4",
+                    "idInFile": 1601959771,
+                    "placementType": 0,
+                    "placementId": "5fbe13bc1b5d540008c25e5a",
+                    "placementName": "dxuyzi33VqbyDqtolNkY",
+                    "placementDisplayName": "AdmixBanner_09/04/2020 06:19:48:511",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 300.0,
+                        "y": 600.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e9e47cea8d42a8b60ac6",
+                    "idInFile": 149927302,
+                    "placementType": 1,
+                    "placementId": "5fbe13bc1b5d540008c25e5b",
+                    "placementName": "n91lNckv5U9QkCZ23uVa",
+                    "placementDisplayName": "AdmixVideo_09/04/2020 06:19:48:509",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 640.0,
+                        "y": 480.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e9fb7cea8d42a8b60ac7",
+                    "idInFile": 189525551,
+                    "placementType": 1,
+                    "placementId": "5fbe13bc1b5d540008c25e5c",
+                    "placementName": "2rPVzd0u61lmkiM2jzuY",
+                    "placementDisplayName": "AdmixVideo_09/04/2020 06:19:48:510",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 640.0,
+                        "y": 360.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e8d47cea8d42a8b60ac0",
+                    "idInFile": 780002977,
+                    "placementType": 0,
+                    "placementId": "5fbe13bc1b5d540008c25e5d",
+                    "placementName": "b3lJN7qXetiE2uhF1h6a",
+                    "placementDisplayName": "AdmixBanner_09/04/2020 06:19:48:512",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 300.0,
+                        "y": 250.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e90e7cea8d42a8b60ac1",
+                    "idInFile": 2042496437,
+                    "placementType": 0,
+                    "placementId": "5fbe13bc1b5d540008c25e5e",
+                    "placementName": "Olajz8gVgzv02a6FhmEX",
+                    "placementDisplayName": "AdmixBanner_09/04/2020 06:19:48:513",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 320.0,
+                        "y": 50.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e9657cea8d42a8b60ac4",
+                    "idInFile": 1394787239,
+                    "placementType": 0,
+                    "placementId": "5fbe13bc1b5d540008c25e5f",
+                    "placementName": "sEYTl96UhFIF2QSGyrdL",
+                    "placementDisplayName": "AdmixBanner_09/04/2020 06:19:48:514",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 300.0,
+                        "y": 600.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e9e47cea8d42a8b60ac6",
+                    "idInFile": 941670691,
+                    "placementType": 1,
+                    "placementId": "5fbe13bc1b5d540008c25e60",
+                    "placementName": "CfuHz2nnq9FXH3njf9OX",
+                    "placementDisplayName": "AdmixVideo_09/04/2020 06:19:48:511",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 640.0,
+                        "y": 480.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e9fb7cea8d42a8b60ac7",
+                    "idInFile": 1138269729,
+                    "placementType": 1,
+                    "placementId": "5fbe13bc1b5d540008c25e61",
+                    "placementName": "gyjhm4clreSsIIbjwdnL",
+                    "placementDisplayName": "AdmixVideo_09/04/2020 06:19:48:512",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 640.0,
+                        "y": 360.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e8d47cea8d42a8b60ac0",
+                    "idInFile": 1663531391,
+                    "placementType": 0,
+                    "placementId": "5fbe13bc1b5d540008c25e62",
+                    "placementName": "UR8R953ksl6YIoZkNiWz",
+                    "placementDisplayName": "AdmixBanner_09/04/2020 06:19:48:515",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 300.0,
+                        "y": 250.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e90e7cea8d42a8b60ac1",
+                    "idInFile": 1807559931,
+                    "placementType": 0,
+                    "placementId": "5fbe13bd1b5d540008c25e63",
+                    "placementName": "5sDFmXjNBO3goAuXvZxL",
+                    "placementDisplayName": "AdmixBanner_09/04/2020 06:19:48:516",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 320.0,
+                        "y": 50.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e9657cea8d42a8b60ac4",
+                    "idInFile": 1553338349,
+                    "placementType": 0,
+                    "placementId": "5fbe13bd1b5d540008c25e64",
+                    "placementName": "ILsf9Y0MDUfLoghXM57z",
+                    "placementDisplayName": "AdmixBanner_09/04/2020 06:19:48:518",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 300.0,
+                        "y": 600.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e9e47cea8d42a8b60ac6",
+                    "idInFile": 431729547,
+                    "placementType": 1,
+                    "placementId": "5fbe13bd1b5d540008c25e65",
+                    "placementName": "SmY4mRqfMnc46sMBtMHL",
+                    "placementDisplayName": "AdmixVideo_09/04/2020 06:19:48:513",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 640.0,
+                        "y": 480.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e9fb7cea8d42a8b60ac7",
+                    "idInFile": 1489515699,
+                    "placementType": 1,
+                    "placementId": "5fbe13bd1b5d540008c25e66",
+                    "placementName": "wFMD9SfdNtpz69ABKRgz",
+                    "placementDisplayName": "AdmixVideo_09/04/2020 06:19:48:514",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 640.0,
+                        "y": 360.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e8d47cea8d42a8b60ac0",
+                    "idInFile": 291017725,
+                    "placementType": 0,
+                    "placementId": "5fbe13bd1b5d540008c25e67",
+                    "placementName": "0YBdUT6cOzD56OoC2WPm",
+                    "placementDisplayName": "AdmixBanner_09/04/2020 06:19:48:517",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 300.0,
+                        "y": 250.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e90e7cea8d42a8b60ac1",
+                    "idInFile": 1913849263,
+                    "placementType": 0,
+                    "placementId": "5fbe13bd1b5d540008c25e68",
+                    "placementName": "kz829NmFX3zmM1TfIDqy",
+                    "placementDisplayName": "AdmixBanner_09/04/2020 06:19:48:519",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 320.0,
+                        "y": 50.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e9657cea8d42a8b60ac4",
+                    "idInFile": 54120049,
+                    "placementType": 0,
+                    "placementId": "5fbe13bd1b5d540008c25e69",
+                    "placementName": "XSWBVOcDY0NSMGGfZIZm",
+                    "placementDisplayName": "AdmixBanner_09/04/2020 06:19:48:520",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 300.0,
+                        "y": 600.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e9e47cea8d42a8b60ac6",
+                    "idInFile": 891133862,
+                    "placementType": 1,
+                    "placementId": "5fbe13bd1b5d540008c25e6a",
+                    "placementName": "BbKbHP2C1f1nMmuggNza",
+                    "placementDisplayName": "AdmixVideo_09/04/2020 06:19:48:515",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 640.0,
+                        "y": 480.0
+                    }
+                },
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "orphan",
+                    "modelKey": "5ee7e9fb7cea8d42a8b60ac7",
+                    "idInFile": 290374374,
+                    "placementType": 1,
+                    "placementId": "5fbe13bd1b5d540008c25e6b",
+                    "placementName": "LMgZVIj60IXFtyZTXu0m",
+                    "placementDisplayName": "AdmixVideo_09/04/2020 06:19:48:516",
+                    "sceneId": "96cf2c27-ca87-4b10-a7e0-73cd5f78c9e8",
+                    "textureResolution": {
+                        "x": 640.0,
+                        "y": 360.0
+                    }
+                }
+            ]
+        }
+    ]
+}

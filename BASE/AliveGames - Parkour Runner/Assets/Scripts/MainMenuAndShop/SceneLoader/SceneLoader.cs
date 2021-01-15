@@ -13,7 +13,9 @@ public class SceneLoader : MonoBehaviour {
     private void Start()
     {
         if (PlayerPrefs.GetInt(EnvironmentController.MULTIPLAYER_KEY) > 0) {
-            if(PhotonNetwork.IsMasterClient) PhotonNetwork.LoadLevel(_sceneID);
+            if (PhotonNetwork.IsMasterClient) {
+                PhotonNetwork.LoadLevel(_sceneID);
+            }
             StartCoroutine(PhotonLoadProgress());
         }
         else {

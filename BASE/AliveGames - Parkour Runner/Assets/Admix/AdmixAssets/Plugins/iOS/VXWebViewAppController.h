@@ -1,5 +1,5 @@
 /**
-* Copyright 2019 Vuplex Inc. All rights reserved.
+* Copyright (c) 2020 Vuplex Inc. All rights reserved.
 *
 * Licensed under the Vuplex Commercial Software Library License, you may
 * not use this file except in compliance with the License. You may obtain
@@ -15,11 +15,8 @@
 */
 #import <UIKit/UIKit.h>
 #import <Metal/Metal.h>
-#ifdef INCLUDE_UNITY_FOLDER_PREFIX
-    #import "Unity/UnityAppController.h"
-#else
-    #import "UnityAppController.h"
-#endif
+#import "UnityAppController.h"
+#import "UnityInterface.h"
 
 /**
 * Extends UnityAppController to override shouldAttachRenderDelegate

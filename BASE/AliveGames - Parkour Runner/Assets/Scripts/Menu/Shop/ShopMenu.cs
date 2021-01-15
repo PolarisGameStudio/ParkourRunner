@@ -18,8 +18,9 @@ public class ShopMenu : Menu {
 	[SerializeField] private MovingAnimation _shopAnim;
 	[SerializeField] private AlphaAnimation  _backgroundAnim;
 
-	[Space] [SerializeField] private GameObject RestoreButton;
-	[SerializeField] private StarterPack StarterPack;
+	[Space] [SerializeField] private GameObject  RestoreButton;
+	[SerializeField]         private GameObject  CharacterBlock;
+	[SerializeField]         private StarterPack StarterPack;
 
 
 	private void Start() {
@@ -30,9 +31,18 @@ public class ShopMenu : Menu {
 	}
 
 
+	private void Update() {
+		if (Input.GetKeyDown(KeyCode.Keypad1)) LootBoxesRoom.OpenLootBox(LootBoxesRoom.LootBoxType.Brown);
+		else if (Input.GetKeyDown(KeyCode.Keypad2)) LootBoxesRoom.OpenLootBox(LootBoxesRoom.LootBoxType.Red);
+		else if (Input.GetKeyDown(KeyCode.Keypad3)) LootBoxesRoom.OpenLootBox(LootBoxesRoom.LootBoxType.Purple);
+		else if (Input.GetKeyDown(KeyCode.Keypad4)) LootBoxesRoom.OpenLootBox(LootBoxesRoom.LootBoxType.Gold);
+	}
+
+
 	protected override void Show() {
 		base.Show();
 		OnShowMenu.SafeInvoke();
+		CharacterBlock.SetActive(true);
 
 		var sequence = DOTween.Sequence();
 		sequence.Append(_backgroundAnim.Hide());
@@ -54,18 +64,22 @@ public class ShopMenu : Menu {
 
 
 	protected override void StartHide(Action callback) {
+		print("Hide shop");
 		base.StartHide(callback);
 		OnHideMenu.SafeInvoke();
 
-		var secuance = DOTween.Sequence();
+		var sequence = DOTween.Sequence();
 
-		secuance.Append(_shopAnim.Hide());
+		sequence.Append(_shopAnim.Hide());
 
-		secuance.Insert(0f,              _playerStatusAnim.Hide());
-		secuance.Insert(0f,              _homeButtonAnim.Hide());
-		secuance.Insert(_hideForBgDelay, _backgroundAnim.Show());
+		sequence.Insert(0f,              _playerStatusAnim.Hide());
+		sequence.Insert(0f,              _homeButtonAnim.Hide());
+		sequence.Insert(_hideForBgDelay, _backgroundAnim.Show());
 
-		secuance.OnComplete(() => { FinishHide(callback); });
+		sequence.OnComplete(() => {
+			FinishHide(callback);
+			CharacterBlock.SetActive(false);
+		});
 	}
 
 

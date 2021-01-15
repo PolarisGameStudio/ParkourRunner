@@ -521,7 +521,7 @@ public class RoomController : MonoBehaviourPunCallbacks {
 
 		public void ShowPanel() {
 			Panel.SetActive(true);
-			AdManager.Instance.ShowBottomBanner();
+			// AdManager.Instance.ShowBottomBanner();
 		}
 
 
@@ -703,11 +703,13 @@ public class RoomController : MonoBehaviourPunCallbacks {
 
 		public void ShowListPanel() {
 			ListPanel.SetActive(true);
+			// AdManager.Instance.ShowBottomBanner();
 		}
 
 
 		public void HideListPanel() {
 			ListPanel.SetActive(false);
+			AdManager.Instance.HideBottomBanner();
 		}
 
 

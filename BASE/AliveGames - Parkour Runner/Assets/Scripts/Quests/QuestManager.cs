@@ -16,6 +16,7 @@ public class QuestManager : MonoBehaviour {
 	private const string DATE_MINUTE_KEY      = "DATE_MINUTE";
 	private const string DATE_SECOND_KEY      = "DATE_SECOND";
 
+	private const int WATCH_AD_QUEST_ID     = 4;
 	private const int JUMP_QUEST_ID         = 3;
 	public const  int MULTIPLAYER_QUEST_ID  = 8;
 	private const int COMPLETE_ALL_QUEST_ID = 7;
@@ -35,7 +36,6 @@ public class QuestManager : MonoBehaviour {
 
 
 	private void Awake() {
-		print("Awake QuestManager");
 		if (Instance == null) {
 			Instance = this;
 
@@ -155,7 +155,7 @@ public class QuestManager : MonoBehaviour {
 		this.ActiveQuests.Clear();
 		CompletedQuests = new List<int>();
 
-		List<QuestData> list = _quests.Where(x => x.Enable && x.ID != COMPLETE_ALL_QUEST_ID).ToList();
+		List<QuestData> list = _quests.Where(x => x.Enable && x.ID != COMPLETE_ALL_QUEST_ID && x.ID != WATCH_AD_QUEST_ID).ToList();
 
 		for (int i = 0; i < _activeQuestsCount; i++) {
 			QuestData item = list[UnityEngine.Random.Range(0, list.Count)];
@@ -171,6 +171,9 @@ public class QuestManager : MonoBehaviour {
 
 		var completeAllQuest = _quests.FirstOrDefault(x => x.Enable && x.ID == COMPLETE_ALL_QUEST_ID);
 		if (completeAllQuest) ActiveQuests.Add(completeAllQuest);
+
+		var watchAdQuest = _quests.FirstOrDefault(x => x.Enable && x.ID == WATCH_AD_QUEST_ID);
+		if (watchAdQuest) ActiveQuests.Add(watchAdQuest);
 	}
 
 

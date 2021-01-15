@@ -1,64 +1,64 @@
-Key,English,Russian,Japanese,Portuguese
-play,Play,Играть,演奏する,Jogar
-shop,Shop,Магазин,ショップ,Loja
-back,Back,Назад,バック,Costas
-skins,Skins,Скины,スキン,Peles
-coins,Coins,Монеты,コイン,Moedas
-coins2,Coins,Монет,コイン,Moedas
-bonuses,Bonuses,Бонусы,ボーナス,Bônus
-select,Select,Выбрать,選択する,Selecione
-buy,Buy,Купить,購入,Comprar
-purchase,Purchase,Купить,購入,Compra
-howplay,How to play,Как играть,遊び方,Como jogar
-tutorial,Tutorial,Обучение,チュートリアル,Tutorial
-newmode,New mode,Новый режим,新しいモード,Novo modo
-endless,Endless,На рекорд,終わりなき,Sem fim
-levels,Levels,Уровни,レベル,Níveis
-record,Record,Рекорд,記録,Registro
-distance_record,Distance record,Рекорд,距離記録,Recorde de distância
-low_coins,Not enough coins,Недостаточно средств,コインが足りない,Moedas insuficientes
-daily_challanges,Daily challanges,Ежедневные задачи,毎日の挑戦,Desafios diários
-play_endless,Play endless mode game,Сыграйте в режиме на рекорд,エンドレスモードゲームをプレイする,Jogue o modo de jogo sem fim
-finish_level,Finish one level,Окончите один уровень,1つのレベルを終了します,Termine um nível
-watch_ads,Watch ads,Посмотрите рекламу,広告を見る,Assistir a anúncios
-quickly_finish,Finish level in 2 minutes,Пройдите уровень за 2 минуты,2分でレベルを終了します,Termine o nível em 2 minutos
-everyday_bonus,Everyday bonus,Ежедневный бонус,毎日のボーナス,Bônus diário
-jump_over,Jump 20 times over the obstacles,Перепрыгните через 20 препятствий,障害物を20回ジャンプする,Salte 20 vezes sobre os obstáculos
-coming_soon,Coming soon,Скоро,近日公開,Em breve
-multiplayer,Multiplayer,Мультиплеер,マルチプレイヤー,Multijogador
-place,Place,Место,場所,"Lugar, colocar"
-continue,Continue,Продолжить,継続する,Continuar
-create,Create,Создать,作成する,Crio
-start_multiplayer,Start,Начать,開始,Começar
-room_list,Created games,Созданные игры,作成したゲーム,Jogos criados
-leave,Leave,Выход,去る,Sair
-nickname,Enter nickname...,Введите свой ник,ニックネームを入力してください...,Digite o apelido ...
-not_enough_money,Not enough money,Недостаточно денег,お金が足りない,Dinheiro insuficiente
-not_enough_money_other,One of the participants does not have enough money,У одного из участников не хватает денег,参加者の一人が十分なお金を持っていません,Um dos participantes não tem dinheiro suficiente
-restart,Restart,Заново,再起動,Reiniciar
-exit,Exit,Выход,出口,Saída
-noads,No Ads,Отключить рекламу,広告なし,Sem anúncios
-purchased,Purchased,Куплено,購入した,Comprado
-restore_purchases,Restore Purchases,Восстановить покупки,購入を復元,Restaurar compras
-helmets,Helmets,Шлем,ヘルメット,Capacetes
-new,New!,Новинка!,新着！,Novo!
-day,Day,День,日,Dia
-pick,Pick,Забрать,ピック,Escolher
-daily_reward,Daily Reward,Ежедневные награды,毎日の報酬,Recompensa diária
-game_modes,Game Modes,Режимы игры,ゲームモード,Modos de jogo
-free_gift,Gift for the game!,Награда за нахождение в игре,ゲームのプレゼント！,Presente para o jogo!
-tap_to_continue,Tap to continue,Нажмите чтобы продолжить,タップして続行,Clique para continuar
-sec,Sec,сек,秒,Seg
-starter_skin,Black Skin,Черный Скин,黒い皮膚,Pele negra
-starter_helmet,Helmet,Шлем,ヘルメット,Capacete
-starter_jetpack,Jetpack,Джетпак,ジェットパック,Mochila a jato
-starter_btn_text1,For You,Для тебя,あなたのために,Para voce
-starter_btn_text2,"x2 Coins, Skin, Jetpack","x2 монет, Скин, Джетпак",x2コイン、スキン、ジェットパック,"x2 Coins, Skin, Jetpack"
-double_jump,Double Jump,Двойной прыжок,ダブルジャンプ,Salto duplo
-double_coins,Double Coins,Множитель монет,ダブルコイン,Moedas duplas
-shield,Shield,Щит,シールド,Escudo
-magnet,Coins magnet,Магнит монет,コインマグネット,Ímã de moedas
-boost,Boost,Ускорение,ブースト,Impulso
-megapolis,Megapolis,Мегаполис,メガポリス,Megapolis
-finish_all_quests,Finish all quests,Завершите все задачи,すべてのクエストを完了する,Conclua todas as missões
-one_against_all,Play with other players,Сыграйте с другими игроками,他のプレイヤーと遊ぶ,Jogue com outros jogadores
+Key,English,Russian,Japanese,Portuguese,Spain
+play,Play,Играть,演奏する,Jogar,Tocar
+shop,Shop,Магазин,ショップ,Loja,Tienda
+back,Back,Назад,バック,Costas,Atrás
+skins,Skins,Скины,スキン,Peles,Pieles
+coins,Coins,Монеты,コイン,Moedas,Monedas
+coins2,Coins,Монет,コイン,Moedas,Monedas
+bonuses,Bonuses,Бонусы,ボーナス,Bônus,Prima
+select,Select,Выбрать,選択する,Selecione,Seleccione
+buy,Buy,Купить,購入,Comprar,Comprar
+purchase,Purchase,Купить,購入,Compra,Compra
+howplay,How to play,Как играть,遊び方,Como jogar,Cómo jugar
+tutorial,Tutorial,Обучение,チュートリアル,Tutorial,Tutorial
+newmode,New mode,Новый режим,新しいモード,Novo modo,Modo nuevo
+endless,Endless,На рекорд,終わりなき,Sem fim,Interminable
+levels,Levels,Уровни,レベル,Níveis,Niveles
+record,Record,Рекорд,記録,Registro,Grabar
+distance_record,Distance record,Рекорд,距離記録,Recorde de distância,Registro de distancia
+low_coins,Not enough coins,Недостаточно средств,コインが足りない,Moedas insuficientes,No hay suficientes monedas
+daily_challanges,Daily challanges,Ежедневные задачи,毎日の挑戦,Desafios diários,Desafíos diarios
+play_endless,Play endless mode game,Сыграйте в режиме на рекорд,エンドレスモードゲームをプレイする,Jogue o modo de jogo sem fim,Juega al juego de modo sin fin
+finish_level,Finish one level,Окончите один уровень,1つのレベルを終了します,Termine um nível,Termina un nivel
+watch_ads,Watch ads,Посмотрите рекламу,広告を見る,Assistir a anúncios,Ver anuncios
+quickly_finish,Finish level in 2 minutes,Пройдите уровень за 2 минуты,2分でレベルを終了します,Termine o nível em 2 minutos,Termina el nivel en 2 minutos
+everyday_bonus,Everyday bonus,Ежедневный бонус,毎日のボーナス,Bônus diário,Bono diario
+jump_over,Jump 20 times over the obstacles,Перепрыгните через 20 препятствий,障害物を20回ジャンプする,Salte 20 vezes sobre os obstáculos,Salta 20 veces sobre los obstáculos.
+coming_soon,Coming soon,Скоро,近日公開,Em breve,Próximamente
+multiplayer,Multiplayer,Мультиплеер,マルチプレイヤー,Multijogador,Multijugador
+place,Place,Место,場所,"Lugar, colocar",Sitio
+continue,Continue,Продолжить,継続する,Continuar,Seguir
+create,Create,Создать,作成する,Crio,Crear
+start_multiplayer,Start,Начать,開始,Começar,Comienzo
+room_list,Created games,Созданные игры,作成したゲーム,Jogos criados,Juegos creados
+leave,Leave,Выход,去る,Sair,Salida
+nickname,Enter nickname...,Введите свой ник,ニックネームを入力してください...,Digite o apelido ...,Ingrese el apodo
+not_enough_money,Not enough money,Недостаточно денег,お金が足りない,Dinheiro insuficiente,Dinero insuficiente
+not_enough_money_other,One of the participants does not have enough money,У одного из участников не хватает денег,参加者の一人が十分なお金を持っていません,Um dos participantes não tem dinheiro suficiente,Uno de los participantes no tiene suficiente dinero
+restart,Restart,Заново,再起動,Reiniciar,Reiniciar
+exit,Exit,Выход,出口,Saída,Salida
+noads,No Ads,Отключить рекламу,広告なし,Sem anúncios,Sem anúncios
+purchased,Purchased,Куплено,購入した,Comprado,Comprado
+restore_purchases,Restore Purchases,Восстановить покупки,購入を復元,Restaurar compras,Restaurar las compras
+helmets,Helmets,Шлем,ヘルメット,Capacetes,Cascos
+new,New!,Новинка!,新着！,Novo!,¡Nuevo!
+day,Day,День,日,Dia,Día
+pick,Pick,Забрать,ピック,Pegar,Recoger
+daily_reward,Daily Reward,Ежедневные награды,毎日の報酬,Recompensa diária,Recompensa diaria
+game_modes,Game Modes,Режимы игры,ゲームモード,Modos de jogo,Modos de juego
+free_gift,Gift for the game!,Награда за нахождение в игре,ゲームのプレゼント！,Presente para o jogo!,¡Regalo para el juego!
+tap_to_continue,Tap to continue,Нажмите чтобы продолжить,タップして続行,Clique para continuar,Pulse para continuar
+sec,Sec,сек,秒,Seg,Seg
+starter_skin,Black Skin,Черный Скин,黒い皮膚,Pele negra,Piel oscura
+starter_helmet,Helmet,Шлем,ヘルメット,Capacete,Casco
+starter_jetpack,Jetpack,Джетпак,ジェットパック,Mochila a jato,Jetpack
+starter_btn_text1,For You,Для тебя,あなたのために,Para voce,Para ti
+starter_btn_text2,"x2 Coins, Skin, Jetpack","x2 монет, Скин, Джетпак",x2コイン、スキン、ジェットパック,"x2 Coins, Skin, Jetpack","x2 Coins, Skin, Jetpack"
+double_jump,Double Jump,Двойной прыжок,ダブルジャンプ,Salto duplo,Doble salto
+double_coins,Double Coins,Множитель монет,ダブルコイン,Moedas duplas,Monedas dobles
+shield,Shield,Щит,シールド,Escudo,Proteger
+magnet,Coins magnet,Магнит монет,コインマグネット,Ímã de moedas,Imán de monedas
+boost,Boost,Ускорение,ブースト,Aceleração,Aceleración
+megapolis,Megapolis,Мегаполис,メガポリス,Megapolis,Megapolis
+finish_all_quests,Finish all quests,Завершите все задачи,すべてのクエストを完了する,Conclua todas as missões,Termina todas las misiones
+one_against_all,Play with other players,Сыграйте с другими игроками,他のプレイヤーと遊ぶ,Jogue com outros jogadores,Jugar con otros jugadores

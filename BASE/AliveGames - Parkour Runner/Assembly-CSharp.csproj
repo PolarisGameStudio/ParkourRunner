@@ -75,7 +75,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Admix\AdmixAssets\Placements\Materials\TestTexture.cs" />
+    <Compile Include="Assets\Adinmo\Examples\ExampleCallbacks.cs" />
+    <Compile Include="Assets\Adinmo\Scripts\AdinmoCompatibility.cs" />
+    <Compile Include="Assets\Adinmo\Scripts\AdinmoDialog.cs" />
+    <Compile Include="Assets\Adinmo\Scripts\AdinmoTexture.cs" />
     <Compile Include="Assets\Appodeal\Api\Appodeal.cs" />
     <Compile Include="Assets\Appodeal\AppodealDemo\AppodealDemo.cs" />
     <Compile Include="Assets\Appodeal\Common\IAppodealAdsClient.cs" />
@@ -481,6 +484,7 @@
     <Compile Include="Assets\Scripts\Enemy\EnemyBotController.cs" />
     <Compile Include="Assets\Scripts\Enemy\LaserWeapon.cs" />
     <Compile Include="Assets\Scripts\Enemy\Weapon.cs" />
+    <Compile Include="Assets\Scripts\AdinmoBanner.cs" />
     <Compile Include="Assets\Scripts\Gameplay UI\CollectedBonusActivator.cs" />
     <Compile Include="Assets\Scripts\Gameplay UI\PauseAd.cs" />
     <Compile Include="Assets\Scripts\Gameplay UI\ResultDialogController.cs" />
@@ -550,6 +554,8 @@
     <Compile Include="Assets\Scripts\Menu\Daily Reward\RewardCard.cs" />
     <Compile Include="Assets\Scripts\Menu\FreeGift.cs" />
     <Compile Include="Assets\Scripts\Menu\FreeGiftButton.cs" />
+    <Compile Include="Assets\Scripts\Menu\Lootboxes\LootBoxesButton.cs" />
+    <Compile Include="Assets\Scripts\Menu\Lootboxes\LootBoxesRoom.cs" />
     <Compile Include="Assets\Scripts\Menu\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Menu\Menu.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuController.cs" />
@@ -565,6 +571,7 @@
     <Compile Include="Assets\Scripts\Menu\Select Level Type Menu\SelectLevelTypeMenu.cs" />
     <Compile Include="Assets\Scripts\Menu\Shop\CharacterAnimationView.cs" />
     <Compile Include="Assets\Scripts\Menu\Shop\CharactersView.cs" />
+    <Compile Include="Assets\Scripts\Menu\Shop\MaterialEmissionPulse.cs" />
     <Compile Include="Assets\Scripts\Menu\Shop\ShopMenu.cs" />
     <Compile Include="Assets\Scripts\Menu\StarterPack.cs" />
     <Compile Include="Assets\Scripts\Menu\ViewByResolution.cs" />
@@ -709,7 +716,6 @@
     <None Include="Assets\External Assets\Invector-3rdPersonController\Basic Locomotion\Scripts\XInput\Plugins\MITLicense.txt" />
     <None Include="Assets\External Assets\Invector-3rdPersonController\Shooter\Resources\AlphaMask.shader" />
     <None Include="Assets\Art Assets\Effects\1_LowPRunner\BONUSES\Shield\NewShader.shader" />
-    <None Include="Assets\Admix\AdmixAssets\Plugins\Android\ReadMe-proguard-webview.txt" />
     <None Include="Assets\External Assets\VolumetricLines\Shaders\Strip-Additive.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
@@ -717,8 +723,8 @@
     <None Include="Assets\External Assets\Demigiant\DOTween\readme.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
-    <None Include="Assets\Admix\AdmixAssets\Resources\WebView\Shaders\Android\Android.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\Admix\AdmixAssets\Plugins\Android\ReadMe-proguard-webview.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\Art Assets\Animations\Pk Acro\Animation Times\PK_Acro.txt" />
     <None Include="Assets\External Assets\VolumetricLines\Shaders\Fast-AlphaBlended.shader" />
@@ -736,7 +742,6 @@
     <None Include="Assets\External Assets\VolumetricLines\Shaders\_SimpleShader.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
-    <None Include="Assets\Admix\AdmixAssets\Resources\WebView\Shaders\iOS\iOS.shader" />
     <None Include="Assets\Photon\PhotonUnityNetworking\changelog.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\External Assets\SampleScenes\Shaders\Skybox-Procedural.shader" />
@@ -1040,6 +1045,9 @@
     </Reference>
     <Reference Include="UnityEngine.Purchasing">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Library/PackageCache/com.unity.purchasing@2.0.6/UnityEngine.Purchasing.dll</HintPath>
+    </Reference>
+    <Reference Include="AdinmoPlugin">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Adinmo/Plugins/AdinmoPlugin.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>D:/Program Files/Unity Editors/2019.2.18f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

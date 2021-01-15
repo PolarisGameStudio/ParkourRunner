@@ -47,6 +47,25 @@ namespace MainMenuAndShop.Jetpacks {
 		}
 
 
+		public static List<JetpacksType> GetFreeJetpacksList(List<JetpacksType> usedJetpacks = null) {
+			var jetpacks = new List<JetpacksType>();
+			if (usedJetpacks == null) {
+				usedJetpacks = Enum.GetValues(typeof(JetpacksType)).OfType<object>().Select(c => (JetpacksType) c).ToList();
+			}
+
+			foreach (var jetpack in usedJetpacks) {
+				if (jetpack == JetpacksType.NoJetpack) continue;
+
+				var key = JETPACK_KEY + jetpack;
+				if (!PlayerPrefs.HasKey(key) || PlayerPrefs.GetInt(key) == 0) {
+					jetpacks.Add(jetpack);
+				}
+			}
+
+			return jetpacks;
+		}
+
+
 		[Serializable]
 		public class Jetpack {
 			public JetpacksType JetpackType;

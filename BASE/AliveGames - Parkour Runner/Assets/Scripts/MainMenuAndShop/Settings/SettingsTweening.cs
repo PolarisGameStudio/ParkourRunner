@@ -16,7 +16,7 @@ public class SettingsTweening : MonoBehaviour
     [SerializeField] private GameObject _likeBtn;
     [SerializeField] private GameObject _soundBtn;
     [SerializeField] private GameObject _musicBtn;
-    [SerializeField] private GameObject _facebookBtn;
+    [SerializeField] private GameObject _vibrationsBtn;
     [SerializeField] private Ease _ease;
 
     [SerializeField] private Menu.MovingAnimation _questBlock;
@@ -29,6 +29,8 @@ public class SettingsTweening : MonoBehaviour
     [SerializeField] private Color _enableColorBg;
     [SerializeField] private Color _disableColorBg;
     [SerializeField] private float _controlBackgroundDuration;
+
+    [Space] [SerializeField] private GameObject StarterPackObject;
 
     public bool IsOpend { get; private set; }
     public bool IsInProcess { get; private set; }
@@ -49,6 +51,7 @@ public class SettingsTweening : MonoBehaviour
             OpenNext(_AGBtn, _baseBtn);
 
             AudioManager.Instance.PlaySound(Sounds.ShopSlot);
+            StarterPackObject.SetActive(false);
             // AdManager.Instance.HideBottomBanner();
         }
     }
@@ -59,7 +62,8 @@ public class SettingsTweening : MonoBehaviour
 
         _baseBtn.GetComponent<Button>().onClick.RemoveAllListeners();
         RemoveListenersOfSettings();
-        ClosePrevious(_facebookBtn, _musicBtn);
+        ClosePrevious(_vibrationsBtn, _musicBtn);
+        StarterPackObject.SetActive(StarterPack.CanBuy);
 
         AudioManager.Instance.PlaySound(Sounds.ShopSlot);
     }
@@ -145,7 +149,7 @@ public class SettingsTweening : MonoBehaviour
         _likeBtn.GetComponent<Button>().onClick.AddListener(() => _likeBtn.GetComponent<SettingsBase>().OnClick());
         _soundBtn.GetComponent<Button>().onClick.AddListener(() => _soundBtn.GetComponent<SettingsBase>().OnClick());
         _musicBtn.GetComponent<Button>().onClick.AddListener(() =>_musicBtn.GetComponent<SettingsBase>().OnClick());
-        _facebookBtn.GetComponent<Button>().onClick.AddListener(() => _facebookBtn.GetComponent<SettingsBase>().OnClick());
+        _vibrationsBtn.GetComponent<Button>().onClick.AddListener(() => _vibrationsBtn.GetComponent<SettingsBase>().OnClick());
     }
 
     private void RemoveListenersOfSettings()
@@ -154,6 +158,6 @@ public class SettingsTweening : MonoBehaviour
         _likeBtn.GetComponent<Button>().onClick.RemoveAllListeners();
         _soundBtn.GetComponent<Button>().onClick.RemoveAllListeners();
         _musicBtn.GetComponent<Button>().onClick.RemoveAllListeners();
-        _facebookBtn.GetComponent<Button>().onClick.RemoveAllListeners();
+        _vibrationsBtn.GetComponent<Button>().onClick.RemoveAllListeners();
     }
 }

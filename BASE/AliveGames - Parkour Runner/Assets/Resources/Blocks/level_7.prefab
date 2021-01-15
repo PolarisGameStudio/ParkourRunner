@@ -328,6 +328,7 @@ MonoBehaviour:
   - {fileID: 1862844995030117854}
   - {fileID: 1862664770262552988}
   - {fileID: 1861977940427630946}
+  WaypointLines: []
   Type: 0
   Next: {fileID: 0}
 --- !u!1 &879685362328543224

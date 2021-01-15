@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 
 namespace ParkourRunner.Scripts.Track.Generator {
 	public class LevelGenerator : MonoBehaviour {
-		public event Action LevelUpdate;
+		public static event Action LevelUpdate;
 		private const int   DEFAULT_INDEX = 0;
 
 		private enum EnvironmentGenerations {

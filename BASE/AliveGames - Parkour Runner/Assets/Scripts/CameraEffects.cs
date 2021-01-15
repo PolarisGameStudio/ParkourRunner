@@ -11,13 +11,7 @@ public class CameraEffects : MonoBehaviour
 
     private void Awake()
     {
-        print("CameraEffects awake");
         Instance = this;
-    }
-
-
-    private void OnDestroy() {
-        Debug.Log("Destroy CameraEffects");
     }
 
 

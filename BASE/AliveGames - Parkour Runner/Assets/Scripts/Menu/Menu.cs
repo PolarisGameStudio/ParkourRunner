@@ -14,6 +14,7 @@ public enum MenuKinds
     Quests,
     DailyReward,
     SelectLevelType2,
+    LootBoxes,
 }
 
 public class Menu : MonoBehaviour
@@ -50,7 +51,7 @@ public class Menu : MonoBehaviour
     }
 
     [Serializable]
-    protected struct AlphaAnimation
+    public struct AlphaAnimation
     {
         public CanvasGroup target;
         public Ease showEase;

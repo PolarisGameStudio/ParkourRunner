@@ -1,21 +1,21 @@
-Key,English,Russian,Japanese,Portuguese,
-start,Start,Старт,開始,Começar,
-level,Level,Уровень,レベル,Nível,
-level_complete,Level complete!!!,Уровень пройден!!!,レベル完了!!!,Nível completo!!!,
-perfect,Perfect!!!,Супер!!!,完璧!!!,Perfeito!!!,
-great,Great!,Отлично!,すごい！,Ótimo!,
-pause,Pause,Пауза,一時停止,Pausa,
-continue?,Continue?,Продолжить?,継続する？,Continuar?,
-result,Results,Результат,結果,Resultados,
-you_run,You run,Пройдено,あなたが実行します,Você corre,
-best,Best,Рекорд,ベスト,Melhor,
-new_record,New record!,Новый рекорд!,新記録！,Novo recorde!,
-like_game,Do you like our game?,Вам понравилась игра?,あなたは私たちのゲームが好きですか？,Você gosta do nosso jogo?,
-rate,Rate,Оценить,割合,Taxa,
-quest_complete,Quest complete!!!,Квест выполнен!!!,クエスト完了!!!,Missão completa!!!,
-ready,Ready,Готов,準備ができて,pronto,
-waiting_for_players,Waiting For Players,Ожидание игроков,プレイヤーを待っています,Esperando pelos jogadores,
-loaded,Loaded,Загружен,ロードされた,Carregado,
+Key,English,Russian,Japanese,Portuguese,Spain
+start,Start,Старт,開始,Começar,Comienzo
+level,Level,Уровень,レベル,Nível,Nível
+level_complete,Level complete!!!,Уровень пройден!!!,レベル完了!!!,Nível completo!!!,¡Nivel completado!
+perfect,Perfect!!!,Супер!!!,完璧!!!,Perfeito!!!,¡Perfecto!
+great,Great!,Отлично!,すごい！,Ótimo!,¡Excelente!
+pause,Pause,Пауза,一時停止,Pausa,Pausa
+continue?,Continue?,Продолжить?,継続する？,Continuar?,¿Seguir?
+result,Results,Результат,結果,Resultados,Resultados
+you_run,You run,Пройдено,あなたが実行します,Você corre,Terminado
+best,Best,Рекорд,ベスト,Melhor,Grabar
+new_record,New record!,Новый рекорд!,新記録！,Novo recorde!,¡Nuevo record!
+like_game,Do you like our game?,Вам понравилась игра?,あなたは私たちのゲームが好きですか？,Você gosta do nosso jogo?,Te gusta nuestro juego?
+rate,Rate,Оценить,割合,Taxa,Velocidad
+quest_complete,Quest complete!!!,Квест выполнен!!!,クエスト完了!!!,Missão completa!!!,¡Misión completada!
+ready,Ready,Готов,準備ができて,Pronto,Listo
+waiting_for_players,Waiting For Players,Ожидание игроков,プレイヤーを待っています,Esperando pelos jogadores,Esperando a los jugadores
+loaded,Loaded,Загружен,ロードされた,Carregado,Cargado
 ,,,,,
 ,,,,,
 ,,,,,

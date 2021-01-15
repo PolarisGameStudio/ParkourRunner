@@ -10,7 +10,6 @@ public class CharacterSelection : MonoBehaviour
     public static event Action<int> OnNotEnoughCoins;
     private static CharacterKinds _currentSelection;
 
-    [SerializeField] private CharactersData _configuration;
     [SerializeField] private CharacterKinds _kind;
     [SerializeField] private GameObject _activeSelection;
     [SerializeField] private GameObject _selectedSelection;
@@ -29,7 +28,7 @@ public class CharacterSelection : MonoBehaviour
 
     private void Awake()
     {
-        _data = _configuration.GetCharacterData(_kind);
+        _data = CharactersData.GetCharacterData(_kind);
         _priceText.text = _data.price.ToString();
 
         _priceBlock.SetActive(!_data.Bought);
@@ -43,7 +42,7 @@ public class CharacterSelection : MonoBehaviour
         OnSelectCharacter -= OnSelectCharacterHandle;
         OnSelectCharacter += OnSelectCharacterHandle;
 
-        if (_configuration.CurrentCharacter == _kind)
+        if (CharactersData.CurrentCharacter == _kind)
             OnSelectCharacter.SafeInvoke(_kind);
     }
 
@@ -54,7 +53,7 @@ public class CharacterSelection : MonoBehaviour
 
     private void Start()
     {
-        if (_configuration.CurrentCharacter == _kind)
+        if (CharactersData.CurrentCharacter == _kind)
         {
             _currentSelection = _kind;
             OnSelectCharacter.SafeInvoke(_kind);
@@ -72,7 +71,7 @@ public class CharacterSelection : MonoBehaviour
         else
         {
             _selectedSelection.SetActive(false);
-            _activeSelection.SetActive(_configuration.CurrentCharacter == _kind);
+            _activeSelection.SetActive(CharactersData.CurrentCharacter == _kind);
             _disableSelection.SetActive(!_activeSelection.activeSelf);
         }
 

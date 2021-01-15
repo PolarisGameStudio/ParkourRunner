@@ -10,7 +10,6 @@ public class HelmetSelection : MonoBehaviour {
 	public static event Action<int>                 OnNotEnoughCoins;
 	private static Helmets.HelmetsType              _currentSelection;
 
-	[SerializeField] private Helmets             Configuration;
 	[SerializeField] private Helmets.HelmetsType HelmetType;
 	[SerializeField] private GameObject          ActiveSelection;
 	[SerializeField] private GameObject          SelectedSelection;
@@ -27,7 +26,7 @@ public class HelmetSelection : MonoBehaviour {
 
 
 	private void Awake() {
-		_data = Configuration.GetHelmetData(HelmetType);
+		_data = Helmets.GetHelmetData(HelmetType);
 
 		PriceText.text = _data.Price.ToString();
 		PriceBlock.SetActive(!_data.Bought);

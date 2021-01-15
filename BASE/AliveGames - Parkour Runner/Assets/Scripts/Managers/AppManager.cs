@@ -8,10 +8,10 @@ public class AppManager : MonoSingleton<AppManager>
     private const int DEFAULT_VERSION_VALUE = 1;
 
     [SerializeField] private int _appVersion;
-    [SerializeField] private CharactersData _characters;
 
-    public int AppVersion { get { return _appVersion; } }
-    
+    public int AppVersion => _appVersion;
+
+
     protected override void Init()
     {
         base.Init();
@@ -59,7 +59,7 @@ public class AppManager : MonoSingleton<AppManager>
     {
         Debug.Log("Update game settings to version 2");
         
-        CharactersData.Data oldBaseChar = _characters.GetCharacterData(CharacterKinds.Character1);
+        CharactersData.Data oldBaseChar = CharactersData.GetCharacterData(CharacterKinds.Character1);
         oldBaseChar.Bought = false;
 
         PlayerPrefs.SetInt(VERSION_KEY, 2);
