@@ -43,7 +43,7 @@ public class WalletUIController : MonoBehaviour
         
     private void SetCoins(int coins)
     {
-        // if (coins > 0)
+        if (coins > 0)
         {
             int n = coins;
             string txt = string.Empty;
@@ -69,9 +69,9 @@ public class WalletUIController : MonoBehaviour
             txt = _textBefore + txt;
 
             _coinsText.text = _formatPrice ? txt : _textBefore + coins.ToString();
-        }/*
+        }
         else
-            _coinsText.text = "0";*/
+            _coinsText.text = "0";
             
         //if (coins == 0)
         //    _coinsText.text = "0";

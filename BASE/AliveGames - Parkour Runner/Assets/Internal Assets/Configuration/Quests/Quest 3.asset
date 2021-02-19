@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 3
   _enable: 1
-  _reward: 600
+  _reward: 250

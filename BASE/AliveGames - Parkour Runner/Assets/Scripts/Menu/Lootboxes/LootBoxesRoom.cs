@@ -153,7 +153,7 @@ public class LootBoxesRoom : Menu {
 			_openLootBoxOnShowRoom =  null;
 		}
 
-		// AdManager.Instance.ShowBanner();
+		AdManager.Instance.ShowBottomBanner();
 	}
 
 
@@ -162,7 +162,7 @@ public class LootBoxesRoom : Menu {
 		RewardPanelAlphaAnimation.Hide();
 		HomeButtonAnim.Hide();
 		_openLootBox = false;
-		// AdManager.Instance.HideBottomBanner();
+		AdManager.Instance.HideBottomBanner();
 
 		var sequence = DOTween.Sequence();
 		sequence.Append(BackgroundAnim.Show());
@@ -221,7 +221,7 @@ public class LootBoxesRoom : Menu {
 
 	private void OnGiveReward() {
 		ShowRewardPanel(_reward);
-		// GiveReward(_reward);
+		GiveReward(_reward);
 	}
 
 
@@ -418,7 +418,7 @@ public class LootBoxesRoom : Menu {
 
 	private void UpdateTimerText(Text timerText, Animator animator, LootBoxType type) {
 		var timer = GetTimer(type);
-		if (timer <= TimeSpan.Zero) {
+		if (timer <= TimeSpan.Zero || CanOpenBox(type)) {
 			timerText.text = "Tap";
 			animator.SetBool(_canPickProperty, true);
 		}
@@ -473,6 +473,7 @@ public class LootBoxesRoom : Menu {
 	public static bool CanOpenBox(LootBoxType lootBoxType) {
 		switch (lootBoxType) {
 			case LootBoxType.Brown:
+				if (!PlayerPrefs.HasKey(BrownBoxLastPickKey)) return true;
 				var lastPickTime = GetLastPickTime(BrownBoxLastPickKey);
 				if (lastPickTime.Day == DateTime.Now.Day) {
 					if (PlayerPrefs.HasKey(BrownBoxPickTimesKey)) {
@@ -482,8 +483,10 @@ public class LootBoxesRoom : Menu {
 				}
 				return DateTime.Now - lastPickTime > BrownBoxTimerValue;
 			case LootBoxType.Red:
+				if (!PlayerPrefs.HasKey(RedBoxLastPickKey)) return true;
 				return DateTime.Now - GetLastPickTime(RedBoxLastPickKey) > RedBoxTimerValue;
 			case LootBoxType.Purple:
+				if (!PlayerPrefs.HasKey(PurpleBoxLastPickKey)) return true;
 				return DateTime.Now - GetLastPickTime(PurpleBoxLastPickKey) > PurpleBoxTimerValue;
 			default: throw new InvalidEnumArgumentException();
 		}
@@ -504,7 +507,7 @@ public class LootBoxesRoom : Menu {
 			return lastPick;
 		}
 
-		ResetBoxTime(key);
+		// ResetBoxTime(key);
 		return DateTime.Now;
 	}
 

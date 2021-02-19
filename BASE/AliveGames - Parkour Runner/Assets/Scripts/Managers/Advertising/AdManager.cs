@@ -34,7 +34,7 @@ public class AdManager : MonoBehaviour {
 
 	public void Start() {
 		_ad.Initialize();
-		// ShowInterstitial(null, null, null);
+		if(EnableAds) ShowInterstitial(null, null, null);
 	}
 
 
@@ -54,6 +54,10 @@ public class AdManager : MonoBehaviour {
 
 
 	public void ShowInterstitial(Action finishedCallback = null, Action skippedCallback = null, Action failedCallback = null) {
+#if UNITY_EDITOR
+		finishedCallback?.Invoke();
+		return;
+#endif
 		// Debug.Log("Show Interstitial");
 		_ad.InitCallbackHandlers(finishedCallback, skippedCallback, failedCallback, AdType.Interstitial);
 
@@ -63,6 +67,10 @@ public class AdManager : MonoBehaviour {
 
 
 	public void ShowRewardedVideo(Action finishedCallback, Action skippedCallback, Action failedCallback) {
+#if UNITY_EDITOR
+		finishedCallback?.Invoke();
+		return;
+#endif
 		// Debug.Log("Show Rewarded Video");
 		_ad.InitCallbackHandlers(finishedCallback, skippedCallback, failedCallback, AdType.RewardedVideo);
 		_ad.ShowRewardedVideo();
@@ -70,6 +78,10 @@ public class AdManager : MonoBehaviour {
 
 
 	public void ShowNonSkippableVideo(Action finishedCallback, Action skippedCallback, Action failedCallback) {
+#if UNITY_EDITOR
+		finishedCallback?.Invoke();
+		return;
+#endif
 		// Debug.Log("Show Non Skippable Video");
 		_ad.InitCallbackHandlers(finishedCallback, skippedCallback, failedCallback, AdType.NonSkippableVideo);
 		_ad.ShowNonSkippableVideo();
@@ -77,20 +89,38 @@ public class AdManager : MonoBehaviour {
 
 
 	public void ShowBanner() {
+		#if UNITY_EDITOR
+		return;
+		#endif
 		if (!EnableAds) return;
-		// Debug.Log("Show Banner");
+		Debug.Log("Show Banner");
 		_ad.ShowBanner();
 	}
 
 
 	public void ShowBottomBanner() {
+#if UNITY_EDITOR
+		return;
+#endif
 		if (!EnableAds) return;
 		Debug.Log("Show Bottom Banner");
 		_ad.ShowBottomBanner();
 	}
 
 
+	public void HideBanner() {
+#if UNITY_EDITOR
+		return;
+#endif
+		// Debug.Log("Hide Bottom Banner");
+		_ad.HideBanner();
+	}
+
+
 	public void HideBottomBanner() {
+#if UNITY_EDITOR
+		return;
+#endif
 		// Debug.Log("Hide Bottom Banner");
 		_ad.HideBottomBanner();
 	}

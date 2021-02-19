@@ -30415,7 +30415,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3065832544393855707}
   - component: {fileID: 2777494083231085000}
-  - component: {fileID: -7138493864261836780}
+  - component: {fileID: 5665095191394593782}
   m_Layer: 0
   m_Name: Character Male Base
   m_TagString: Untagged
@@ -30453,7 +30453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 3066237343927288985}
---- !u!114 &-7138493864261836780
+--- !u!114 &5665095191394593782
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -30462,7 +30462,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3070306367729319591}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c223413fd650846c1b3c07959a4429ef, type: 3}
+  m_Script: {fileID: 11500000, guid: 364f2e1814fda114191b07ee0dc7b0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _kind: 0

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Adinmo;
 
 ///////////////////////////////////////////////////////////////////
@@ -12,11 +9,11 @@ using Adinmo;
 //
 ///////////////////////////////////////////////////////////////////
 public class AdinmoBanner : MonoBehaviour {
-	private const string _1to1_Key    = "pk_e8f4b332415648d9803dc21b868e8cc2";
-	private const string _1to2_Key    = "pk_4c7790a20c4e4c549e4bef59bee0d0f3";
-	private const string _16to9_Key   = "pk_fb038d68afdc4063bb9b0c8f350c2493";
-	private const string _2to1_Key    = "pk_6a20317b485e43eebc0b28bdc69d6970";
-	private const string _2_35to1_Key = "pk_917c5409bbd749bd8a90781b0ba47237";
+	private const string _1to1_Key    = "pk_719d99b40996493daf51271683ce058c";
+	private const string _1to2_Key    = "pk_e3fd3adced1c44f88568260b531c1b04";
+	private const string _16to9_Key   = "pk_759671a811344b59840c324c1675ce34";
+	private const string _2to1_Key    = "pk_0a752c22215c481cacabb5b33cce9d8f";
+	private const string _2_35to1_Key = "pk_5d7a118a8e5d4340a111fcf653a6f21b";
 
 	[SerializeField] private Size          BannerSize;
 	[SerializeField] private AdinmoTexture m_imageToReplace;
@@ -26,6 +23,7 @@ public class AdinmoBanner : MonoBehaviour {
 
 
 	private void Awake() {
+		if(!AdManager.EnableAds) gameObject.SetActive(false);
 		m_imageToReplace.m_placementKey = GetKey(BannerSize);
 	}
 

@@ -6,7 +6,7 @@
         public const string ANDROID_URL = "https://play.google.com/store/apps/details?id=com.play.game.cyber.parkour.endless.runner.robot.bot.subway.tomb.runbot";
 
         public const int InitialReviveCost = 30; //Изначальная цена возрождения
-        public const int ReviveGrowCost = 20;
+        public const int ReviveGrowCost = 30;
 
         public const float MagnetRadius = 8f;     //Изначальный радиус магнита
         public const float MagnetCoinVelocity = 20f; //Скорость монеток, летящих к игроку при магните

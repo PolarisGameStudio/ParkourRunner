@@ -16,7 +16,7 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 	[SerializeField] private string _iosAppKey;
 	[SerializeField] private bool   _isTesting;
 
-	private Coroutine                         _bottomBanner;
+	private Coroutine                         _bottomBanner, _banner;
 	private ConsentForm                       _consentForm;
 	private ConsentManager.Api.ConsentManager _consentManager;
 
@@ -140,18 +140,18 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 
 
 	public override void ShowBanner() {
-#if !UNITY_EDITOR && !UNITY_STANDALONE_WIN
-		// StartCoroutine(ShowBannerProcess());
-#endif
+		if (_banner != null) return;
+		if (_isTesting) print($"Starting Coroutine \"ShowBottomBannerProcess\"");
+		_banner = StartCoroutine(ShowBannerProcess());
 	}
 
 
 	public override void ShowBottomBanner() {
-#if !UNITY_EDITOR && !UNITY_STANDALONE_WIN
+// #if !UNITY_EDITOR && !UNITY_STANDALONE_WIN
 		if (_bottomBanner != null) return;
 		if (_isTesting) print($"Starting Coroutine \"ShowBottomBannerProcess\"");
 		_bottomBanner = StartCoroutine(ShowBottomBannerProcess());
-#endif
+// #endif
 	}
 
 
@@ -160,6 +160,15 @@ public class AppodealAdController : BaseAdController, IInterstitialAdListener, I
 		if (_bottomBanner != null) StopCoroutine(_bottomBanner);
 		Appodeal.hide(Appodeal.BANNER_BOTTOM);
 		_bottomBanner = null;
+#endif
+	}
+
+
+	public override void HideBanner() {
+#if !UNITY_EDITOR && !UNITY_STANDALONE_WIN
+		if (_banner != null) StopCoroutine(_banner);
+		Appodeal.hide(Appodeal.BANNER);
+		_banner = null;
 #endif
 	}
 

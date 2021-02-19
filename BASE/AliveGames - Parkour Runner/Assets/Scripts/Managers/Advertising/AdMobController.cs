@@ -1,5 +1,5 @@
 ﻿//using UnityEngine;
-
+/*
 using System.Collections;
 using GoogleMobileAds.Api;
 using Managers.Advertising;
@@ -99,3 +99,4 @@ public class AdMobController : BaseAdController
     }
     #endregion
 }
+*/

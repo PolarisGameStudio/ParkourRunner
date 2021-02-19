@@ -45,20 +45,21 @@ namespace ParkourRunner.Scripts.Managers {
 		public BonusPanel       BonusPanel;
 		public PostMortemScreen PostMortemScreen;
 
-		public Animator   MetersRunAnimator;
-		public Text       MetersRunText;
-		public Animator   GreatTextAnimator;
-		public Text       GreatText;
-		public Animator   TrickNameTextAnimator;
-		public Text       TrickNameText;
-		public Animator   RewardTextAnimator;
-		public Text       RewardText;
-		public Animator   PauseAnimator;
-		public GameObject PauseGo;
-		public GameObject PauseButton;
-		public GameObject PauseRestartButton;
-		public GameObject PauseShopButton;
-		public Image      Fade;
+		public Animator                MetersRunAnimator;
+		public Text                    MetersRunText;
+		public Animator                GreatTextAnimator;
+		public Text                    GreatText;
+		public Animator                TrickNameTextAnimator;
+		public Text                    TrickNameText;
+		public Animator                RewardTextAnimator;
+		public Text                    RewardText;
+		public Animator                PauseAnimator;
+		public GameObject              PauseGo;
+		public GameObject              PauseButton;
+		public GameObject              PauseRestartButton;
+		public GameObject              PauseShopButton;
+		public CollectedBonusActivator CollectedBonusActivator;
+		public Image                   Fade;
 
 		public  int ShowDistanceEvery = 500;
 		private int _distanceShownTimes;
@@ -211,7 +212,7 @@ namespace ParkourRunner.Scripts.Managers {
 				HidePause();
 			}
 			else {*/
-				ShowPause();
+			ShowPause();
 			// }
 		}
 
@@ -226,20 +227,22 @@ namespace ParkourRunner.Scripts.Managers {
 			PauseRestartButton.SetActive(!isMultiplayer);
 			PauseShopButton.SetActive(!isMultiplayer);
 
-			if(!isMultiplayer) GameManager.Instance.Pause();
+			if (!isMultiplayer) GameManager.Instance.Pause();
 
 			_audio.PlaySound(Sounds.Tap);
 			_audio.PlaySound(Sounds.WinSimple);
 
+			AdManager.Instance.ShowBottomBanner();
 			AppsFlyerManager.SendBaseEvent(AppsFlyerManager.BaseEvents.show_pause);
 		}
 
 
 		public void HidePause() {
 			AdManager.Instance.HideBottomBanner();
-			if(!PhotonGameManager.IsMultiplayerAndConnected) GameManager.Instance.UnPause();
+			if (!PhotonGameManager.IsMultiplayerAndConnected) GameManager.Instance.UnPause();
 			PauseAnimator.SetBool("IsDisplayed", false);
 
+			AdManager.Instance.HideBottomBanner();
 			_audio.PlaySound(Sounds.Tap);
 			AppsFlyerManager.SendBaseEvent(AppsFlyerManager.BaseEvents.close_pause);
 		}
@@ -251,14 +254,14 @@ namespace ParkourRunner.Scripts.Managers {
 
 
 		public void FadeIn(Action action) {
-			if(_fadeAnimation != null) StopCoroutine(_fadeAnimation);
+			if (_fadeAnimation != null) StopCoroutine(_fadeAnimation);
 
 			_fadeAnimation = StartCoroutine(FadeInAnimation(action));
 		}
 
 
 		public void FadeOut(Action action) {
-			if(_fadeAnimation != null) StopCoroutine(_fadeAnimation);
+			if (_fadeAnimation != null) StopCoroutine(_fadeAnimation);
 
 			_fadeAnimation = StartCoroutine(FadeOutAnimation(action));
 		}

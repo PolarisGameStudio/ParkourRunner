@@ -73,7 +73,7 @@ namespace ParkourRunner.Scripts.Managers {
 			get {
 				float distance           = Mathf.Clamp(((int) DistanceRun / 10), 1f, Mathf.Infinity);
 				int   cost               = (StaticConst.InitialReviveCost + (int) distance / 10) * (_revives + 1);
-				float distanceCostFactor = 0.15f;
+				float distanceCostFactor;
 
 				if (distance <= 50)
 					distanceCostFactor = 0.18f;

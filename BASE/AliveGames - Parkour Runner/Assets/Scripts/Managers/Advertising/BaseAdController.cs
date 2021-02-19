@@ -21,6 +21,7 @@ namespace Managers.Advertising {
 		public abstract void ShowBanner();
 		public abstract void ShowBottomBanner();
 		public abstract void HideBottomBanner();
+		public abstract void HideBanner();
 		public abstract void ShowRewardedVideo();
 		public abstract void ShowNonSkippableVideo();
 

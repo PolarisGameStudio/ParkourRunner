@@ -205,6 +205,7 @@ namespace Managers {
 
 		[PunRPC]
 		public void StartGame() {
+			HUDManager.Instance.CollectedBonusActivator.ShowPanel();
 			SendStartEvent();
 			GameIsStarted = true;
 			MultiplayerUI.Instance.ShowPosition();

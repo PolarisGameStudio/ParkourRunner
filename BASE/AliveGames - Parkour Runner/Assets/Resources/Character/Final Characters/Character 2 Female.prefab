@@ -7568,7 +7568,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3121708677688322361}
   - component: {fileID: 5379012379357411742}
-  - component: {fileID: -1858539369325784344}
+  - component: {fileID: 1959576008970878506}
   m_Layer: 0
   m_Name: Character 2 Female
   m_TagString: Untagged
@@ -7606,7 +7606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 3064649556921695606}
---- !u!114 &-1858539369325784344
+--- !u!114 &1959576008970878506
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7615,7 +7615,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3121708677688322342}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c223413fd650846c1b3c07959a4429ef, type: 3}
+  m_Script: {fileID: 11500000, guid: 364f2e1814fda114191b07ee0dc7b0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _kind: 1

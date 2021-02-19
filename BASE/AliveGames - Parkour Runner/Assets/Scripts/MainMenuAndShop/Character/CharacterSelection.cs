@@ -4,131 +4,134 @@ using UnityEngine.UI;
 using AEngine;
 using Managers;
 
-public class CharacterSelection : MonoBehaviour
-{
-    public static event Action<CharacterKinds> OnSelectCharacter;
-    public static event Action<int> OnNotEnoughCoins;
-    private static CharacterKinds _currentSelection;
+public class CharacterSelection : MonoBehaviour {
+	public static event Action<CharacterKinds> OnSelectCharacter;
+	public static event Action<int>            OnNotEnoughCoins;
+	private static CharacterKinds              _currentSelection;
 
-    [SerializeField] private CharacterKinds _kind;
-    [SerializeField] private GameObject _activeSelection;
-    [SerializeField] private GameObject _selectedSelection;
-    [SerializeField] private GameObject _disableSelection;
+	[SerializeField] private CharacterKinds _kind;
+	[SerializeField] private GameObject     _activeSelection;
+	[SerializeField] private GameObject     _selectedSelection;
+	[SerializeField] private GameObject     _disableSelection;
 
-    [Header("Buy block")]
-    [SerializeField] private Text _priceText;
-    [SerializeField] private GameObject _priceBlock;
-    [SerializeField] private GameObject _lockBlock;
-    [SerializeField] private GameObject _selectCaption;
-    [SerializeField] private GameObject _buyCaption;
-    [SerializeField] private Button _button;
+	[Header("Buy block")] [SerializeField] private Text       _priceText;
+	[SerializeField]                       private GameObject _priceBlock;
+	[SerializeField]                       private GameObject _lockBlock;
+	[SerializeField]                       private GameObject _selectCaption;
+	[SerializeField]                       private GameObject _buyCaption;
+	[SerializeField]                       private GameObject _forRewardCaption;
+	[SerializeField]                       private Button     _button;
 
-    private CharactersData.Data _data;
-    private Wallet _wallet;
+	private CharactersData.Data _data;
+	private Wallet              _wallet;
 
-    private void Awake()
-    {
-        _data = CharactersData.GetCharacterData(_kind);
-        _priceText.text = _data.price.ToString();
 
-        _priceBlock.SetActive(!_data.Bought);
-        _selectCaption.SetActive(_data.Bought);
+	private void Awake() {
+		_data           = CharactersData.GetCharacterData(_kind);
+		_priceText.text = _data.price.ToString();
 
-        _wallet = Wallet.Instance;
-    }
+		_priceBlock.SetActive(!_data.Bought);
+		_selectCaption.SetActive(_data.Bought);
 
-    private void OnEnable()
-    {
-        OnSelectCharacter -= OnSelectCharacterHandle;
-        OnSelectCharacter += OnSelectCharacterHandle;
+		_wallet = Wallet.Instance;
+	}
 
-        if (CharactersData.CurrentCharacter == _kind)
-            OnSelectCharacter.SafeInvoke(_kind);
-    }
 
-    private void OnDisable()
-    {
-        OnSelectCharacter -= OnSelectCharacterHandle;
-    }
+	private void OnEnable() {
+		OnSelectCharacter -= OnSelectCharacterHandle;
+		OnSelectCharacter += OnSelectCharacterHandle;
 
-    private void Start()
-    {
-        if (CharactersData.CurrentCharacter == _kind)
-        {
-            _currentSelection = _kind;
-            OnSelectCharacter.SafeInvoke(_kind);
-        }
-    }
+		if (CharactersData.CurrentCharacter == _kind)
+			OnSelectCharacter.SafeInvoke(_kind);
+	}
 
-    private void RefreshSelection(CharacterKinds kind)
-    {
-        if (_currentSelection == _kind)
-        {
-            _selectedSelection.SetActive(true);
-            _activeSelection.SetActive(false);
-            _disableSelection.SetActive(false);
-        }
-        else
-        {
-            _selectedSelection.SetActive(false);
-            _activeSelection.SetActive(CharactersData.CurrentCharacter == _kind);
-            _disableSelection.SetActive(!_activeSelection.activeSelf);
-        }
 
-        _priceBlock.SetActive(!_data.Bought);
-        _lockBlock.SetActive(!_data.Bought);
-        _buyCaption.SetActive(!_data.Bought);
-        //_button.interactable = _data.Bought || _wallet.AllCoins >= _data.price;
+	private void OnDisable() {
+		OnSelectCharacter -= OnSelectCharacterHandle;
+	}
 
-        _selectCaption.SetActive(_data.Bought);
-    }
 
-    public void OnSelectButtonClick()
-    {
-        if (_currentSelection != _kind)
-            AudioManager.Instance.PlaySound(Sounds.Tap);
+	private void Start() {
+		if (CharactersData.CurrentCharacter == _kind) {
+			_currentSelection = _kind;
+			OnSelectCharacter.SafeInvoke(_kind);
+		}
+	}
 
-        _currentSelection = _kind;
 
-        if (_data.Bought)
-        {
-            PlayerPrefs.SetString(CharactersData.CHARACTER_KEY, _kind.ToString());
-            PlayerPrefs.Save();
-        }
+	private void RefreshSelection(CharacterKinds kind) {
+		if (_currentSelection == _kind) {
+			_selectedSelection.SetActive(true);
+			_activeSelection.SetActive(false);
+			_disableSelection.SetActive(false);
+		}
+		else {
+			_selectedSelection.SetActive(false);
+			_activeSelection.SetActive(CharactersData.CurrentCharacter == _kind);
+			_disableSelection.SetActive(!_activeSelection.activeSelf);
+		}
 
-        OnSelectCharacter.SafeInvoke(_kind);
-    }
+		_priceBlock.SetActive(!_data.Bought && !_data.BuyForRewardedAd);
+		_lockBlock.SetActive(!_data.Bought);
+		_buyCaption.SetActive(!_data.Bought && !_data.BuyForRewardedAd);
+		_forRewardCaption.SetActive(!_data.Bought && _data.BuyForRewardedAd);
+		//_button.interactable = _data.Bought || _wallet.AllCoins >= _data.price;
 
-    public void OnBuyButtonClick()
-    {
-        if (!_data.Bought && _wallet.SpendCoins(_data.price))
-        {
-            AudioManager.Instance.PlaySound(Sounds.ShopSlot);
+		_selectCaption.SetActive(_data.Bought);
+	}
 
-            PlayerPrefs.SetString(CharactersData.CHARACTER_KEY, _kind.ToString());
-            PlayerPrefs.Save();
 
-            _currentSelection = _kind;
-            _data.Bought = true;
+	public void OnSelectButtonClick() {
+		if (_currentSelection != _kind)
+			AudioManager.Instance.PlaySound(Sounds.Tap);
 
-            OnSelectCharacter.SafeInvoke(_kind);
+		_currentSelection = _kind;
 
-            AppsFlyerManager.ShopBuySkin(_kind.ToString());
-        }
-        else
-        {
-            if (_data.Bought)
-                OnSelectButtonClick();
-            else
-            {
-                AudioManager.Instance.PlaySound(Sounds.Tap);
-                OnNotEnoughCoins.SafeInvoke(Mathf.Abs(_wallet.AllCoins - _data.price));
-            }
-        }
-    }
+		if (_data.Bought) {
+			PlayerPrefs.SetString(CharactersData.CHARACTER_KEY, _kind.ToString());
+			PlayerPrefs.Save();
+		}
 
-    private void OnSelectCharacterHandle(CharacterKinds kind)
-    {
-        RefreshSelection(kind);
-    }
+		OnSelectCharacter.SafeInvoke(_kind);
+	}
+
+
+	public void OnBuyButtonClick() {
+		if (!_data.Bought) {
+			if (_data.BuyForRewardedAd) {
+				if(AdManager.EnableAds) AdManager.Instance.ShowRewardedVideo(BuySkin, null, null);
+				else BuySkin();
+			}
+			else if (_wallet.SpendCoins(_data.price)) {
+				BuySkin();
+			}
+			else {
+				AudioManager.Instance.PlaySound(Sounds.Tap);
+				OnNotEnoughCoins.SafeInvoke(Mathf.Abs(_wallet.AllCoins - _data.price));
+			}
+		}
+		else {
+			OnSelectButtonClick();
+		}
+	}
+
+
+	private void BuySkin() {
+		AudioManager.Instance.PlaySound(Sounds.ShopSlot);
+
+		PlayerPrefs.SetString(CharactersData.CHARACTER_KEY, _kind.ToString());
+		PlayerPrefs.Save();
+
+		_currentSelection = _kind;
+		_data.Bought      = true;
+
+		OnSelectCharacter.SafeInvoke(_kind);
+
+		AppsFlyerManager.ShopBuySkin(_kind.ToString());
+	}
+
+
+	private void OnSelectCharacterHandle(CharacterKinds kind) {
+		RefreshSelection(kind);
+	}
 }

@@ -2471,7 +2471,7 @@ Transform:
   - {fileID: 4633794428557144}
   - {fileID: 4243970320055968}
   - {fileID: 4330818676612870}
-  - {fileID: 5831089555515160648}
+  - {fileID: 7096766338117013755}
   m_Father: {fileID: 4282740383442002}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7874,7 +7874,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4282740383442002}
   - component: {fileID: 6046835192809805938}
-  - component: {fileID: -9210781437025423281}
+  - component: {fileID: 3977774920075417475}
   m_Layer: 0
   m_Name: Character 5 Male
   m_TagString: Untagged
@@ -7912,7 +7912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 4177175685879006}
---- !u!114 &-9210781437025423281
+--- !u!114 &3977774920075417475
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7921,7 +7921,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1341017572398072}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c223413fd650846c1b3c07959a4429ef, type: 3}
+  m_Script: {fileID: 11500000, guid: 364f2e1814fda114191b07ee0dc7b0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _kind: 0
@@ -31667,7 +31667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64a41d120e01bcf4aa6ebb3f908d627f, type: 3}
---- !u!224 &5831089555515160648 stripped
+--- !u!224 &7096766338117013755 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3643683043141658787, guid: 64a41d120e01bcf4aa6ebb3f908d627f,
     type: 3}

@@ -449,6 +449,7 @@ namespace RootMotion.Dynamics {
 
 		private void Initiate() {
 			initiated = false;
+			print("Initiate");
 
 			// Find the target root
 			if (muscles.Length > 0 && muscles[0].target != null && targetRoot == null) targetRoot = FindTargetRootRecursive(muscles[0].target);

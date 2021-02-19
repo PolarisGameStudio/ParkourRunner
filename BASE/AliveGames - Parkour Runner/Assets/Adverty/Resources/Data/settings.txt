@@ -1,0 +1,41 @@
+{
+    //General
+    "adSessionDuration": 300,
+
+    //Checks
+    "angleSpan": 0.3263518,
+    "durationBestCase": 1,
+    "durationWorstCase": 3,
+    "minimumAllowedBlockingOpacity": 0.5,
+    "vrMinimalOverlapArea": 0.00076,
+    "vrMaximumOverlapArea": 0.002,
+    "arMinimalOverlapArea": 0.002,
+    "arMaximumOverlapArea": 0.01,
+    "vrMaxMinOverlapDifference": 0.00124,
+    "arMaxMinOverlapDifference": 0.043,
+    "minimumLightFactor": 0.3,
+    "maximumLightFactor": 1.9,
+    "upperBound": 0.5,
+
+    //watermark
+    "playButtonScale": 0.2,
+    "watermarkFontName": "Arial.ttf",
+    "watermarkFontSize": 24,
+    "watermarkTextPadding": 0.25,
+    "watermarkHeightRatio": 0.083,
+
+    //HTML
+    "animatedHtmlUpdateInterval": 0.2,
+    "staticHtmlUpdateInterval": 3,
+    "webViewsLoadCountLimit": 1,
+    "loadHtmlTimeout": 20,
+
+    // added in 2.0.0
+    "checkInterval": 0.125,
+    "overlapToVisibilityRatio": 3,
+    "postImpressiuonSummaryInterval": 60,
+    "availableToSendLogs" : false
+
+    // removed in 2.0.0
+    // "minimumAllowedVisiblePoints": 4,
+}

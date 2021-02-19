@@ -17,43 +17,59 @@ MonoBehaviour:
     targetPrefab: {fileID: 3070306367729319591, guid: 2cc5090ef8d5e504a976da9c455436cd,
       type: 3}
     price: 0
+    BuyForRewardedAd: 0
   - kind: 1
     targetPrefab: {fileID: 1940844430891434, guid: c2c217f9871476349928ffd0731c1e75,
       type: 3}
     price: 500
+    BuyForRewardedAd: 1
   - kind: 2
     targetPrefab: {fileID: 8640276261815160452, guid: 4df3f61f61dbd1e4d8a1eaa3c9abb29f,
       type: 3}
     price: 5000
+    BuyForRewardedAd: 1
   - kind: 3
     targetPrefab: {fileID: 1118312441368620, guid: e0e8092cd02d9ce43941eb6e9d10e4a7,
       type: 3}
     price: 5000
+    BuyForRewardedAd: 0
   - kind: 4
     targetPrefab: {fileID: 3121708677688322342, guid: 8d9faa20be731094598f6019f953da98,
       type: 3}
     price: 5000
+    BuyForRewardedAd: 0
   - kind: 5
     targetPrefab: {fileID: 1698895100710470, guid: 52d3c95c8d05247468f8a2ec759793c6,
       type: 3}
     price: 5000
+    BuyForRewardedAd: 0
   - kind: 6
     targetPrefab: {fileID: 4217380908478401953, guid: 7b38236dab5817a498e9a8a909a06b86,
       type: 3}
     price: 5000
+    BuyForRewardedAd: 0
   - kind: 7
     targetPrefab: {fileID: 1700147077245726, guid: 6c108b9b9c790e6488b6983239c9b726,
       type: 3}
     price: 7500
+    BuyForRewardedAd: 0
   - kind: 8
     targetPrefab: {fileID: 9191156142175915964, guid: 14914c76ecf3c474d9b535582ae2008e,
       type: 3}
     price: 7500
+    BuyForRewardedAd: 0
   - kind: 9
     targetPrefab: {fileID: 1341017572398072, guid: d3af0379417976d43aeb5f91c4641ee2,
       type: 3}
     price: 12000
+    BuyForRewardedAd: 0
   - kind: 10
     targetPrefab: {fileID: 7752255578127293354, guid: 2608effbe38a25d43b7109e6469076c9,
       type: 3}
     price: 12000
+    BuyForRewardedAd: 0
+  - kind: 11
+    targetPrefab: {fileID: 5660007118753174485, guid: 163c13298950c934b84681f02a253511,
+      type: 3}
+    price: 15000
+    BuyForRewardedAd: 0

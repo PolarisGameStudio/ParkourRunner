@@ -365,6 +365,7 @@ namespace ParkourRunner.Scripts.Player.InvectorMods {
 
 		public void Revive() {
 			PuppetMaster.state = PuppetMaster.State.Alive;
+			HUDManager.Instance.CollectedBonusActivator.ShowPanel();
 		}
 
 

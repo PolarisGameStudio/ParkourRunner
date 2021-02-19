@@ -57,6 +57,16 @@ public class CollectedBonusActivator : MonoBehaviour {
 	}
 
 
+	public void ShowPanel() {
+		gameObject.SetActive(true);
+	}
+
+
+	public void HidePanel() {
+		gameObject.SetActive(false);
+	}
+
+
 	private void BlockActivate() {
 		foreach (var bonusCell in Bonuses) {
 			bonusCell.CanvasGroup.alpha        = 0.5f;

@@ -75,7 +75,7 @@ public class ParkourCamera : MonoBehaviour
 
 	    if (SetOffsetAtStart)
 	    {
-	        Offset = -_puppetMaster.muscles[0].transform.position + transform.position;
+	        Offset = -_puppetMaster.muscles[0].target.position + transform.position;
         }
 
         CreateFpsCam();
@@ -149,7 +149,7 @@ public class ParkourCamera : MonoBehaviour
 
 
     private void CreateFpsCam() {
-        _headTarget = _puppetMaster.muscles[11].transform;
+        _headTarget = _puppetMaster.muscles[11].target;
         // _headTarget = ParkourThirdPersonController.instance.Head.transform;
 
         _fpsCam     = new GameObject("FPS Cam").transform;
@@ -173,7 +173,7 @@ public class ParkourCamera : MonoBehaviour
 
         foreach (var muscle in _puppetMaster.muscles)
         {
-            var musclePos = muscle.transform.position;
+            var musclePos = muscle.target.position;
             pos += musclePos;
         }
 

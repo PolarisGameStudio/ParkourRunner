@@ -59,6 +59,11 @@ public class UnityAdController : BaseAdController
     }
 
 
+    public override void HideBanner() {
+        throw new System.NotImplementedException();
+    }
+
+
     public override void ShowRewardedVideo() {
         throw new System.NotImplementedException();
     }

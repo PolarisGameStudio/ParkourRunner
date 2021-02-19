@@ -13536,7 +13536,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9191156142175915939}
   - component: {fileID: 2195809463499267844}
-  - component: {fileID: -2265987216023105726}
+  - component: {fileID: 6701935837411856139}
   m_Layer: 0
   m_Name: Character 4 Female
   m_TagString: Untagged
@@ -13574,7 +13574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 9104256276370971628}
---- !u!114 &-2265987216023105726
+--- !u!114 &6701935837411856139
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13583,7 +13583,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9191156142175915964}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c223413fd650846c1b3c07959a4429ef, type: 3}
+  m_Script: {fileID: 11500000, guid: 364f2e1814fda114191b07ee0dc7b0fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _kind: 1
@@ -13949,7 +13949,7 @@ Transform:
   - {fileID: 9191156143477939260}
   - {fileID: 9191156143530684757}
   - {fileID: 9191156142857275763}
-  - {fileID: 1240186200138208177}
+  - {fileID: 2569005254926859010}
   m_Father: {fileID: 9191156142175915939}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31608,7 +31608,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64a41d120e01bcf4aa6ebb3f908d627f, type: 3}
---- !u!224 &1240186200138208177 stripped
+--- !u!224 &2569005254926859010 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3643683043141658787, guid: 64a41d120e01bcf4aa6ebb3f908d627f,
     type: 3}

@@ -21,12 +21,14 @@ public class Wallet : MonoSingleton<Wallet>
 
 
     public void Update() {
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.KeypadPlus)) {
             AddCoins(1000, WalletMode.Global);
         }
         if (Input.GetKeyDown(KeyCode.Minus)) {
             AddCoins(-1000, WalletMode.Global);
         }
+#endif
     }
 
 

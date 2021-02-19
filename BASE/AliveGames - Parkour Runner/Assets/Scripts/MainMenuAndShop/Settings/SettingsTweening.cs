@@ -31,6 +31,7 @@ public class SettingsTweening : MonoBehaviour
     [SerializeField] private float _controlBackgroundDuration;
 
     [Space] [SerializeField] private GameObject StarterPackObject;
+    [SerializeField] private GameObject LikeButton, FreeCoinsButton;
 
     public bool IsOpend { get; private set; }
     public bool IsInProcess { get; private set; }
@@ -52,6 +53,8 @@ public class SettingsTweening : MonoBehaviour
 
             AudioManager.Instance.PlaySound(Sounds.ShopSlot);
             StarterPackObject.SetActive(false);
+            LikeButton.SetActive(false);
+            FreeCoinsButton.SetActive(false);
             // AdManager.Instance.HideBottomBanner();
         }
     }
@@ -64,6 +67,8 @@ public class SettingsTweening : MonoBehaviour
         RemoveListenersOfSettings();
         ClosePrevious(_vibrationsBtn, _musicBtn);
         StarterPackObject.SetActive(StarterPack.CanBuy);
+        LikeButton.SetActive(!GiveLike.Liked);
+        FreeCoinsButton.SetActive(true);
 
         AudioManager.Instance.PlaySound(Sounds.ShopSlot);
     }

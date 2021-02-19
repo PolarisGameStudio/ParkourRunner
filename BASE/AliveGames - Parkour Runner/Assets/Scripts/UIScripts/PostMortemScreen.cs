@@ -29,14 +29,14 @@ public class PostMortemScreen : MonoBehaviour
 
     private GameManager _gm;
     private AdManager _ad;
-    private bool _adSeen; //Игрок уже смотрел рекламу?
+    public static bool AdSeen; //Игрок уже смотрел рекламу?
     private bool _stopTimer = false;
     private bool _isRateMeMode;
 
     private AudioManager _audio;
 
-    private void Start()
-    {
+    private void Start() {
+        AdSeen = false;
         _gm = GameManager.Instance;
         _ad = AdManager.Instance;
         _audio = AudioManager.Instance;
@@ -47,6 +47,7 @@ public class PostMortemScreen : MonoBehaviour
     public void Show()
     {
         _revive.Show(ReviveResultCallback);
+        HUDManager.Instance.CollectedBonusActivator.ShowPanel();
     }
 
     private void ReviveResultCallback(ReviveDialogController.Results result)
@@ -85,6 +86,7 @@ public class PostMortemScreen : MonoBehaviour
         print("Ad is ended. Revive...");
         Revive();
         _ad.SkipAdInOrder();
+        AdSeen = true;
         _stopTimer = false;
     }
 

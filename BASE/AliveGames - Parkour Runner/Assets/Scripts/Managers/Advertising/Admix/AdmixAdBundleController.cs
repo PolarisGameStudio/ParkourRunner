@@ -1,10 +1,13 @@
 using System;
+using Adverty;
+using Adverty.AdUnit;
 using UnityEngine;
 
 namespace Managers.Advertising.Admix {
 	public class AdmixAdBundleController : MonoBehaviour {
 		private static           AdmixAdBundleController Instance;
 		[SerializeField] private AdmixAdBundle[]         Bundles;
+		[SerializeField] private GameUnit GameUnitPrefab;
 
 		private int _lastUsedBundle = -1;
 
@@ -21,12 +24,20 @@ namespace Managers.Advertising.Admix {
 			var bundle = Instance.Bundles[Instance._lastUsedBundle];
 
 			if (banner1X2) {
-				bundle.Banner1X2.SetPositionAndRotation(banner1X2.position, banner1X2.rotation);
-				bundle.Banner1X2.localScale = banner1X2.localScale;
+				// bundle.Banner1X2.SetPositionAndRotation(banner1X2.position, banner1X2.rotation);
+				// bundle.Banner1X2.localScale = banner1X2.localScale;
+				var gameUnitObject = Instantiate(Instance.GameUnitPrefab, banner1X2.position, banner1X2.rotation);
+				var gameUnit       = gameUnitObject.GetComponent<GameUnit>();
+				gameUnit.GameUnitConfiguration.MeshData.Ratio = MeshData.UnitRatio.Portrait;
+				gameUnit.GameUnitConfiguration.MeshData.Size = 2f;
 			}
 			if (banner6X5) {
-				bundle.Banner6X5.SetPositionAndRotation(banner6X5.position, banner6X5.rotation);
-				bundle.Banner6X5.localScale = banner6X5.localScale;
+				// bundle.Banner6X5.SetPositionAndRotation(banner6X5.position, banner6X5.rotation);
+				// bundle.Banner6X5.localScale = banner6X5.localScale;
+
+				var gameUnitObject = Instantiate(Instance.GameUnitPrefab, banner6X5.position, banner6X5.rotation);
+				var gameUnit = gameUnitObject.GetComponent<GameUnit>();
+				gameUnit.GameUnitConfiguration.MeshData.Size = 4f;
 			}
 			if (banner32X5) {
 				bundle.Banner32X5.SetPositionAndRotation(banner32X5.position, banner32X5.rotation);

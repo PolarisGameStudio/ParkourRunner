@@ -21,7 +21,7 @@ public class SelectLevelTypeMenu : Menu
         sequence.Insert(0.1f, _backButtonAnim.Show());
         sequence.OnComplete(() =>
         {
-            // AdManager.Instance.ShowBottomBanner();
+            AdManager.Instance.ShowBottomBanner();
         });
     }
 
@@ -37,7 +37,7 @@ public class SelectLevelTypeMenu : Menu
         {
             FinishHide(callback);
         });
-        // AdManager.Instance.HideBottomBanner();
+        AdManager.Instance.HideBottomBanner();
     }
 
     private void OpenGame()

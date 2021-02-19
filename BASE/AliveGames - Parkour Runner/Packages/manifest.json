@@ -1,7 +1,5 @@
 {
   "dependencies": {
-    "com.google.firebase.app": "6.15.2",
-    "com.google.firebase.auth": "6.15.2",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.2d.tilemap": "1.0.0",
     "com.unity.analytics": "3.3.2",

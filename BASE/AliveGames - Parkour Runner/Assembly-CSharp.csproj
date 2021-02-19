@@ -28,7 +28,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_2019_2_18;UNITY_2019_2;UNITY_2019;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_INCLUDE_TESTS;UNITY_PURCHASING;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;INCLUDE_DYNAMIC_GI;ENABLE_MONO_BDWGC;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;ENABLE_VIDEO;ENABLE_RUNTIME_GI;ENABLE_GAMECENTER;ENABLE_NETWORK;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_IOS_NATIVE_CRASH_REPORTING;ENABLE_IOS_ON_DEMAND_RESOURCES;ENABLE_IOS_APP_SLICING;PLAYERCONNECTION_LISTENS_FIXED_PORT;DEBUGGER_LISTENS_FIXED_PORT;PLATFORM_SUPPORTS_ADS_ID;SUPPORT_ENVIRONMENT_VARIABLES;PLATFORM_SUPPORTS_PROFILER;ENABLE_ENGINE_CODE_STRIPPING;PLATFORM_HAS_NO_SUPPORT_FOR_BUCKET_ALLOCATOR;STRICTCPP_NEW_DELETE_SIGNATURES;HAS_NEON_SKINNING;UNITY_GFX_USE_PLATFORM_VSYNC;UNITY_INPUT_SIMULATE_EVENTS;PLATFORM_ALWAYS_USES_STDOUT_FOR_LOG;ENABLE_CRUNCH_TEXTURE_COMPRESSION;UNITY_ASTC_ONLY_DECOMPRESS;ENABLE_ONSCREEN_KEYBOARD;SUPPORTS_GRANULAR_MODULE_REGISTRATION;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;PLATFORM_IOS;UNITY_IOS;PLATFORM_IPHONE;UNITY_IPHONE;UNITY_IPHONE_API;SUPPORT_MULTIPLE_DISPLAYS;ENABLE_VR;ENABLE_AR;UNITY_HAS_GOOGLEVR;ENABLE_SPATIALTRACKING;ENABLE_MONO;NET_4_6;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;CROSS_PLATFORM_INPUT;UNITY_POST_PROCESSING_STACK_V2;PHOTON_UNITY_NETWORKING;PUN_2_0_OR_NEWER;PUN_2_OR_NEWER;MOBILE_INPUT;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_2019_2_18;UNITY_2019_2;UNITY_2019;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_INCLUDE_TESTS;UNITY_PURCHASING;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;INCLUDE_DYNAMIC_GI;ENABLE_MONO_BDWGC;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;ENABLE_VIDEO;PLATFORM_ANDROID;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_EVENT_QUEUE;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_VR;ENABLE_AR;UNITY_HAS_GOOGLEVR;UNITY_HAS_TANGO;ENABLE_SPATIALTRACKING;ENABLE_RUNTIME_PERMISSIONS;ENABLE_ENGINE_CODE_STRIPPING;UNITY_ASTC_ONLY_DECOMPRESS;ANDROID_USE_SWAPPY;ENABLE_ONSCREEN_KEYBOARD;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;CROSS_PLATFORM_INPUT;UNITY_POST_PROCESSING_STACK_V2;PHOTON_UNITY_NETWORKING;PUN_2_0_OR_NEWER;PUN_2_OR_NEWER;MOBILE_INPUT;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -54,7 +54,7 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Unity/VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
-    <UnityBuildTarget>iOS:9</UnityBuildTarget>
+    <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2019.2.18f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
@@ -63,9 +63,6 @@
     </Reference>
     <Reference Include="UnityEditor">
       <HintPath>D:\Program Files\Unity Editors\2019.2.18f1\Editor\Data\Managed/UnityEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp">
-      <HintPath>D:\Program Files\Unity Editors\2019.2.18f1\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\Microsoft.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions">
       <HintPath>D:\Program Files\Unity Editors\2019.2.18f1\Editor\Data\PlaybackEngines/iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -79,26 +76,59 @@
     <Compile Include="Assets\Adinmo\Scripts\AdinmoCompatibility.cs" />
     <Compile Include="Assets\Adinmo\Scripts\AdinmoDialog.cs" />
     <Compile Include="Assets\Adinmo\Scripts\AdinmoTexture.cs" />
-    <Compile Include="Assets\Appodeal\Api\Appodeal.cs" />
-    <Compile Include="Assets\Appodeal\AppodealDemo\AppodealDemo.cs" />
-    <Compile Include="Assets\Appodeal\Common\IAppodealAdsClient.cs" />
-    <Compile Include="Assets\Appodeal\Common\IBannerAdListener.cs" />
-    <Compile Include="Assets\Appodeal\Common\IInterstitialAdListener.cs" />
-    <Compile Include="Assets\Appodeal\Common\IMrecAdListener.cs" />
-    <Compile Include="Assets\Appodeal\Common\INonSkippableVideoAdListener.cs" />
-    <Compile Include="Assets\Appodeal\Common\IPermissionGrantedListener.cs" />
-    <Compile Include="Assets\Appodeal\Common\IRewardedVideoAdListener.cs" />
-    <Compile Include="Assets\Appodeal\Platforms\Android\AndroidAppodealClient.cs" />
-    <Compile Include="Assets\Appodeal\Platforms\Android\AppodealBannerCallbacks.cs" />
-    <Compile Include="Assets\Appodeal\Platforms\Android\AppodealInterstitialCallbacks.cs" />
-    <Compile Include="Assets\Appodeal\Platforms\Android\AppodealMrecCallbacks.cs" />
-    <Compile Include="Assets\Appodeal\Platforms\Android\AppodealNonSkippableVideoCallbacks.cs" />
-    <Compile Include="Assets\Appodeal\Platforms\Android\AppodealPermissionCallbacks.cs" />
-    <Compile Include="Assets\Appodeal\Platforms\Android\AppodealRewardedVideoCallbacks.cs" />
-    <Compile Include="Assets\Appodeal\Platforms\AppodealAdsClientFactory.cs" />
-    <Compile Include="Assets\Appodeal\Platforms\Dummy\DummyClient.cs" />
-    <Compile Include="Assets\Appodeal\Platforms\iOS\AppodealAdsClient.cs" />
-    <Compile Include="Assets\Appodeal\Platforms\iOS\AppodealObjCBridge.cs" />
+    <Compile Include="Assets\Adverty\Scripts\PlatformSpecific\AndroidMessageSystem.cs" />
+    <Compile Include="Assets\Adverty\Scripts\PlatformSpecific\AndroidNativeDebug.cs" />
+    <Compile Include="Assets\Adverty\Scripts\PlatformSpecific\AndroidNativeLogger.cs" />
+    <Compile Include="Assets\Adverty\Scripts\PlatformSpecific\AndroidRenderingPlugin.cs" />
+    <Compile Include="Assets\Adverty\Scripts\PlatformSpecific\AndroidVideoPlayerPlugin.cs" />
+    <Compile Include="Assets\Adverty\Scripts\PlatformSpecific\AndroidWebViewPlugin.cs" />
+    <Compile Include="Assets\Adverty\Scripts\PlatformSpecific\AndroidWebViewTexturePlugin.cs" />
+    <Compile Include="Assets\Adverty\Scripts\PlatformSpecific\IosMessageSystem.cs" />
+    <Compile Include="Assets\Adverty\Scripts\PlatformSpecific\IosNativeDebug.cs" />
+    <Compile Include="Assets\Adverty\Scripts\PlatformSpecific\IosNativeLogger.cs" />
+    <Compile Include="Assets\Adverty\Scripts\PlatformSpecific\IosNativeUtils.cs" />
+    <Compile Include="Assets\Adverty\Scripts\PlatformSpecific\IOSVideoTexture.cs" />
+    <Compile Include="Assets\Adverty\Scripts\PlatformSpecific\IOSWebView.cs" />
+    <Compile Include="Assets\Adverty\Scripts\PlatformSpecific\IOSWebViewTexture.cs" />
+    <Compile Include="Assets\Adverty\Scripts\PlatformSpecific\IosWebViewTexturePlugin.cs" />
+    <Compile Include="Assets\Adverty\Scripts\PlatformSpecific\NativeAssemblyGetter.cs" />
+    <Compile Include="Assets\Adverty\Scripts\PlatformSpecific\OsxNativeUtils.cs" />
+    <Compile Include="Assets\Adverty\Scripts\PlatformSpecific\SystemVersion.cs" />
+    <Compile Include="Assets\Adverty\Scripts\Samples\InitializeAdvertySDK.cs" />
+    <Compile Include="Assets\Adverty\Scripts\Samples\MainMenuSampleScript.cs" />
+    <Compile Include="Assets\Adverty\Scripts\Samples\MenuUnitClickHandler.cs" />
+    <Compile Include="Assets\Adverty\Scripts\Samples\UserDataCollectorManager.cs" />
+    <Compile Include="Assets\Appodeal\Api\Appodeal\Appodeal.cs" />
+    <Compile Include="Assets\Appodeal\Api\ConsentManager\ConsentManager.cs" />
+    <Compile Include="Assets\Appodeal\Common\Appodeal\IAppodealAdsClient.cs" />
+    <Compile Include="Assets\Appodeal\Common\Appodeal\IBannerAdListener.cs" />
+    <Compile Include="Assets\Appodeal\Common\Appodeal\IInterstitialAdListener.cs" />
+    <Compile Include="Assets\Appodeal\Common\Appodeal\IMrecAdListener.cs" />
+    <Compile Include="Assets\Appodeal\Common\Appodeal\INonSkippableVideoAdListener.cs" />
+    <Compile Include="Assets\Appodeal\Common\Appodeal\IPermissionGrantedListener.cs" />
+    <Compile Include="Assets\Appodeal\Common\Appodeal\IRewardedVideoAdListener.cs" />
+    <Compile Include="Assets\Appodeal\Common\ConsentManager\IConsentFormListener.cs" />
+    <Compile Include="Assets\Appodeal\Common\ConsentManager\IConsentInfoUpdateListener.cs" />
+    <Compile Include="Assets\Appodeal\Common\ConsentManager\IConsentManager.cs" />
+    <Compile Include="Assets\Appodeal\Demo\Scripts\AppodealDemo.cs" />
+    <Compile Include="Assets\Appodeal\Platforms\Appodeal\Android\AndroidAppodealClient.cs" />
+    <Compile Include="Assets\Appodeal\Platforms\Appodeal\Android\AppodealBannerCallbacks.cs" />
+    <Compile Include="Assets\Appodeal\Platforms\Appodeal\Android\AppodealInterstitialCallbacks.cs" />
+    <Compile Include="Assets\Appodeal\Platforms\Appodeal\Android\AppodealMrecCallbacks.cs" />
+    <Compile Include="Assets\Appodeal\Platforms\Appodeal\Android\AppodealNonSkippableVideoCallbacks.cs" />
+    <Compile Include="Assets\Appodeal\Platforms\Appodeal\Android\AppodealPermissionCallbacks.cs" />
+    <Compile Include="Assets\Appodeal\Platforms\Appodeal\Android\AppodealRewardedVideoCallbacks.cs" />
+    <Compile Include="Assets\Appodeal\Platforms\Appodeal\AppodealAdsClientFactory.cs" />
+    <Compile Include="Assets\Appodeal\Platforms\Appodeal\Dummy\DummyClient.cs" />
+    <Compile Include="Assets\Appodeal\Platforms\Appodeal\iOS\AppodealAdsClient.cs" />
+    <Compile Include="Assets\Appodeal\Platforms\Appodeal\iOS\AppodealObjCBridge.cs" />
+    <Compile Include="Assets\Appodeal\Platforms\ConsentManager\Android\AndroidConsentManagerClient.cs" />
+    <Compile Include="Assets\Appodeal\Platforms\ConsentManager\Android\ConsentFormCallbacks.cs" />
+    <Compile Include="Assets\Appodeal\Platforms\ConsentManager\Android\ConsentInfoUpdateCallbacks.cs" />
+    <Compile Include="Assets\Appodeal\Platforms\ConsentManager\ConsentManagerClientFactory.cs" />
+    <Compile Include="Assets\Appodeal\Platforms\ConsentManager\Dummy\Dummy.cs" />
+    <Compile Include="Assets\Appodeal\Platforms\ConsentManager\iOS\ConsentManagerObjCBridge.cs" />
+    <Compile Include="Assets\Appodeal\Platforms\ConsentManager\iOS\iOSConsentManagerClient.cs" />
     <Compile Include="Assets\AppsFlyer\AFInAppEvents.cs" />
     <Compile Include="Assets\AppsFlyer\AFMiniJSON.cs" />
     <Compile Include="Assets\AppsFlyer\AppsFlyer.cs" />
@@ -109,18 +139,6 @@
     <Compile Include="Assets\AppsFlyer\IAppsFlyerUserInvite.cs" />
     <Compile Include="Assets\AppsFlyer\IAppsFlyerValidateReceipt.cs" />
     <Compile Include="Assets\Art Assets\Models\HeroicTraversal\SmoothFollow.cs" />
-    <Compile Include="Assets\ConsentManager\Api\ConsentManager.cs" />
-    <Compile Include="Assets\ConsentManager\Common\IConsentFormListener.cs" />
-    <Compile Include="Assets\ConsentManager\Common\IConsentInfoUpdateListener.cs" />
-    <Compile Include="Assets\ConsentManager\Common\IConsentManager.cs" />
-    <Compile Include="Assets\ConsentManager\ConsentManagerDemo\Scripts\ConsentManagerDemo.cs" />
-    <Compile Include="Assets\ConsentManager\Platforms\Android\AndroidConsentManagerClient.cs" />
-    <Compile Include="Assets\ConsentManager\Platforms\Android\ConsentFormCallbacks.cs" />
-    <Compile Include="Assets\ConsentManager\Platforms\Android\ConsentInfoUpdateCallbacks.cs" />
-    <Compile Include="Assets\ConsentManager\Platforms\ConsentManagerClientFactory.cs" />
-    <Compile Include="Assets\ConsentManager\Platforms\Dummy\Dummy.cs" />
-    <Compile Include="Assets\ConsentManager\Platforms\iOS\ConsentManagerObjCBridge.cs" />
-    <Compile Include="Assets\ConsentManager\Platforms\iOS\iOSConsentManagerClient.cs" />
     <Compile Include="Assets\External Assets\A-Engine\Code Manager\CodeManager.cs" />
     <Compile Include="Assets\External Assets\A-Engine\Code\AudioManager\AudioBlock.cs" />
     <Compile Include="Assets\External Assets\A-Engine\Code\AudioManager\AudioData.cs" />
@@ -345,58 +363,6 @@
     <Compile Include="Assets\External Assets\VolumetricLines\Scripts\VolumetricLineStripBehavior.cs" />
     <Compile Include="Assets\External Assets\VolumetricLines\Scripts\VolumetricLineVertexData.cs" />
     <Compile Include="Assets\External Assets\VolumetricLines\Scripts\VolumetricMultiLineBehavior.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\AdapterStatus.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\AdErrorEventArgs.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\AdFailedToLoadEventArgs.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\AdLoader.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\AdPosition.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\AdRequest.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\AdSize.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\BannerView.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\CustomNativeEventArgs.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\CustomNativeTemplateAd.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\Gender.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\InitializationStatus.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\InterstitialAd.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\Mediation\MediationExtras.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\MobileAds.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\Reward.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\RewardBasedVideoAd.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\RewardedAd.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Api\ServerSideVerificationOptions.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Common\DummyClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Common\IAdLoaderClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Common\IBannerClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Common\ICustomNativeTemplateClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Common\IInitializationStatusClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Common\IInterstitialClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Common\IMobileAdsClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Common\IRewardBasedVideoAdClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Common\IRewardedAdClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Common\MobileAdsEventExecutor.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Common\RewardedAdDummyClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Common\Utils.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\Android\AdLoaderClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\Android\BannerClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\Android\CustomNativeTemplateClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\Android\InitializationStatusClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\Android\InterstitialClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\Android\MobileAdsClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\Android\RewardBasedVideoAdClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\Android\RewardedAdClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\Android\Utils.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\GoogleMobileAdsClientFactory.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\AdLoaderClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\BannerClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\CustomNativeTemplateClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\Externs.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\InitializationStatusClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\InterstitialClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\MobileAdsClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\MonoPInvokeCallbackAttribute.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\RewardBasedVideoAdClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\RewardedAdClient.cs" />
-    <Compile Include="Assets\GoogleMobileAds\Platforms\iOS\Utils.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\Achievement.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\CommonStatusCodes.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\CommonTypes.cs" />
@@ -472,6 +438,7 @@
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\IgnoreUiRaycastWhenInactive.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\NamePickGui.cs" />
     <Compile Include="Assets\Photon\PhotonRealtime\Demos\DemoLoadBalancing\ConnectAndJoinRandomLb.cs" />
+    <Compile Include="Assets\Scripts\AdinmoBanner.cs" />
     <Compile Include="Assets\Scripts\ADTester.cs" />
     <Compile Include="Assets\Scripts\Analytics\AppsFlyer\ExitFromRun.cs" />
     <Compile Include="Assets\Scripts\Analytics\DistanceAnalitycsEvent.cs" />
@@ -484,8 +451,8 @@
     <Compile Include="Assets\Scripts\Enemy\EnemyBotController.cs" />
     <Compile Include="Assets\Scripts\Enemy\LaserWeapon.cs" />
     <Compile Include="Assets\Scripts\Enemy\Weapon.cs" />
-    <Compile Include="Assets\Scripts\AdinmoBanner.cs" />
     <Compile Include="Assets\Scripts\Gameplay UI\CollectedBonusActivator.cs" />
+    <Compile Include="Assets\Scripts\Gameplay UI\DoubleCoinsButton.cs" />
     <Compile Include="Assets\Scripts\Gameplay UI\PauseAd.cs" />
     <Compile Include="Assets\Scripts\Gameplay UI\ResultDialogController.cs" />
     <Compile Include="Assets\Scripts\Gameplay UI\ReviveDialogController.cs" />
@@ -528,8 +495,10 @@
     <Compile Include="Assets\Scripts\Managers\Advertising\Admix\AdmixAdBundleController.cs" />
     <Compile Include="Assets\Scripts\Managers\Advertising\Admix\AdmixLevelBlock.cs" />
     <Compile Include="Assets\Scripts\Managers\Advertising\AdMobController.cs" />
+    <Compile Include="Assets\Scripts\Managers\Advertising\AdvertyInitializer.cs" />
     <Compile Include="Assets\Scripts\Managers\Advertising\AppodealAdController.cs" />
     <Compile Include="Assets\Scripts\Managers\Advertising\BaseAdController.cs" />
+    <Compile Include="Assets\Scripts\Managers\Advertising\EnableAdObject.cs" />
     <Compile Include="Assets\Scripts\Managers\Advertising\UnityAdController.cs" />
     <Compile Include="Assets\Scripts\Managers\AppleGameCenterManager.cs" />
     <Compile Include="Assets\Scripts\Managers\AppManager.cs" />
@@ -564,6 +533,7 @@
     <Compile Include="Assets\Scripts\Menu\Multiplayer\PlayerRow.cs" />
     <Compile Include="Assets\Scripts\Menu\Multiplayer\RoomController.cs" />
     <Compile Include="Assets\Scripts\Menu\Multiplayer\RoomRow.cs" />
+    <Compile Include="Assets\Scripts\Menu\OfferwallButton.cs" />
     <Compile Include="Assets\Scripts\Menu\Quests\QuestMenu.cs" />
     <Compile Include="Assets\Scripts\Menu\Select Level Menu\LevelItem.cs" />
     <Compile Include="Assets\Scripts\Menu\Select Level Menu\SelectLevelMenu.cs" />
@@ -638,6 +608,7 @@
     <Compile Include="Assets\Scripts\Quests\Tasks\WatchAdsTask.cs" />
     <Compile Include="Assets\Scripts\ReloadScene.cs" />
     <Compile Include="Assets\Scripts\SpeedEffectPivot.cs" />
+    <Compile Include="Assets\Scripts\TapjoyController.cs" />
     <Compile Include="Assets\Scripts\Track\AnimationByTrigger.cs" />
     <Compile Include="Assets\Scripts\Track\BaseAnimatorController.cs" />
     <Compile Include="Assets\Scripts\Track\DistanceAnimation.cs" />
@@ -694,16 +665,28 @@
     <Compile Include="Assets\SimpleLocalization\LocalizedDropdown.cs" />
     <Compile Include="Assets\SimpleLocalization\LocalizedText.cs" />
     <Compile Include="Assets\SimpleLocalization\Sheet.cs" />
+    <Compile Include="Assets\Tapjoy\TapjoyCallbacksSample.cs" />
+    <Compile Include="Assets\Tapjoy\TapjoyUnityInit.cs" />
+    <Compile Include="Assets\TapjoySample\Scripts\EventExample.cs" />
+    <Compile Include="Assets\TapjoySample\Scripts\PlacementExample.cs" />
+    <Compile Include="Assets\TapjoySample\Scripts\TapjoySample.cs" />
+    <Compile Include="Assets\TapjoySample\Scripts\UserExample.cs" />
     <Compile Include="Assets\unity-ui-extensions\Scripts\Effects\UIParticleSystem.cs" />
     <None Include="Assets\External Assets\Invector-3rdPersonController\Melee Combat\README_Melee.txt" />
+    <None Include="Assets\Adverty\Resources\Shaders\AdShader.shader" />
     <None Include="Assets\External Assets\VolumetricLines\Shaders\_StripShader.cginc" />
+    <None Include="Assets\Adverty\Resources\Shaders\AdUnlitShader.shader" />
+    <None Include="Assets\Adverty\Resources\Data\settings.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\Photon\PhotonLibs\changes-library.txt" />
     <None Include="Assets\Art Assets\Effects\Mine Explosion Effect\Shaders\SurfaceShader_VC.shader" />
     <None Include="Assets\Photon\PhotonUnityNetworking\link.xml" />
+    <None Include="Assets\Adverty\Resources\Data\Guide.txt" />
     <None Include="Assets\Resources\A-Engine\Configuration\AudioConfiguration.xml" />
     <None Include="Assets\Application Store Settings\Keystore\Keystore Data.txt" />
+    <None Include="Assets\Adverty\Resources\Shaders\WatermarkShader.shader" />
+    <None Include="Assets\Adverty\Resources\ComputeShaders\VisibilityCheckCS.compute" />
     <None Include="Assets\Flames Of The Phoenix\READ_ME.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\Appodeal\InternalResources\remove_list.xml" />
@@ -714,8 +697,10 @@
     <None Include="Assets\External Assets\Invector-3rdPersonController\ItemManager\3D Models\Materials\UIOnTopShader.shader" />
     <None Include="Assets\GooglePlayGames\Plugins\Android\GooglePlayGamesManifest.plugin\AndroidManifest.xml" />
     <None Include="Assets\External Assets\Invector-3rdPersonController\Basic Locomotion\Scripts\XInput\Plugins\MITLicense.txt" />
+    <None Include="Assets\Adverty\Resources\Shaders\VisibilityCheckStencilShader.shader" />
     <None Include="Assets\External Assets\Invector-3rdPersonController\Shooter\Resources\AlphaMask.shader" />
     <None Include="Assets\Art Assets\Effects\1_LowPRunner\BONUSES\Shield\NewShader.shader" />
+    <None Include="Assets\Adverty\Resources\Shaders\AndroidExternalTextureCopy.shader" />
     <None Include="Assets\External Assets\VolumetricLines\Shaders\Strip-Additive.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
@@ -724,11 +709,13 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\Adverty\Resources\Shaders\UIDrawOnTop.shader" />
     <None Include="Assets\Admix\AdmixAssets\Plugins\Android\ReadMe-proguard-webview.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\Art Assets\Animations\Pk Acro\Animation Times\PK_Acro.txt" />
     <None Include="Assets\External Assets\VolumetricLines\Shaders\Fast-AlphaBlended.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\FacebookSDK\link.xml" />
     <None Include="Assets\External Assets\Invector-3rdPersonController\Basic Locomotion\README_Basic.txt" />
     <None Include="Assets\External Assets\VolumetricLines\Shaders\Strip-AlphaBlended.shader" />
     <None Include="Assets\Art Assets\Effects\ALL\GeometryFXParticles\Scripts\ParticleAlphaBlendStroke.shader" />
@@ -965,17 +952,41 @@
     <Reference Include="UnityEngine.XRModule">
       <HintPath>D:/Program Files/Unity Editors/2019.2.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
     </Reference>
+    <Reference Include="AdinmoPlugin">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Adinmo/Plugins/AdinmoPlugin.dll</HintPath>
+    </Reference>
     <Reference Include="Admix.Editor">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Admix/DLL/Admix.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Admix.Core">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Admix/DLL/Windows/x86_64/UEditor/Admix.Core.dll</HintPath>
     </Reference>
+    <Reference Include="AdvertyDirectory">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Adverty/Plugins/AdvertyDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="AdvertySDK">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Adverty/Plugins/AdvertySDK.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJson">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Adverty/Plugins/LitJson.dll</HintPath>
+    </Reference>
     <Reference Include="DOTween">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/External Assets/Demigiant/DOTween/DOTween.dll</HintPath>
     </Reference>
     <Reference Include="XInputDotNetPure">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/External Assets/Invector-3rdPersonController/Basic Locomotion/Scripts/XInput/Plugins/x86/XInputDotNetPure.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook.Unity">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/FacebookSDK/Plugins/Facebook.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook.Unity.Gameroom">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/FacebookSDK/Plugins/Gameroom/Facebook.Unity.Gameroom.dll</HintPath>
+    </Reference>
+    <Reference Include="FacebookNamedPipeClient">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/FacebookSDK/Plugins/Gameroom/FacebookNamedPipeClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook.Unity.Settings">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/FacebookSDK/Plugins/Settings/Facebook.Unity.Settings.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Compat">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Parse/Plugins/dotNet45/Unity.Compat.dll</HintPath>
@@ -1019,20 +1030,23 @@
     <Reference Include="winrt">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Plugins/UnityPurchasing/winrt/winrt.dll</HintPath>
     </Reference>
+    <Reference Include="Tapjoy">
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Tapjoy/Tapjoy.dll</HintPath>
+    </Reference>
     <Reference Include="Firebase.App">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Library/PackageCache/com.google.firebase.app@6.15.2/Firebase/Plugins/Firebase.App.dll</HintPath>
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Library/PackageCache/com.google.firebase.app@7.0.2/Firebase/Plugins/Firebase.App.dll</HintPath>
     </Reference>
     <Reference Include="Firebase.Platform">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Library/PackageCache/com.google.firebase.app@6.15.2/Firebase/Plugins/Firebase.Platform.dll</HintPath>
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Library/PackageCache/com.google.firebase.app@7.0.2/Firebase/Plugins/Firebase.Platform.dll</HintPath>
     </Reference>
     <Reference Include="Firebase.TaskExtension">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Library/PackageCache/com.google.firebase.app@6.15.2/Firebase/Plugins/Firebase.TaskExtension.dll</HintPath>
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Library/PackageCache/com.google.firebase.app@7.0.2/Firebase/Plugins/Firebase.TaskExtension.dll</HintPath>
     </Reference>
     <Reference Include="Google.MiniJson">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Library/PackageCache/com.google.firebase.app@6.15.2/Firebase/Plugins/Google.MiniJson.dll</HintPath>
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Library/PackageCache/com.google.firebase.app@7.0.2/Firebase/Plugins/Google.MiniJson.dll</HintPath>
     </Reference>
     <Reference Include="Firebase.Auth">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Library/PackageCache/com.google.firebase.auth@6.15.2/Firebase/Plugins/Firebase.Auth.dll</HintPath>
+      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Library/PackageCache/com.google.firebase.auth@7.0.2/Firebase/Plugins/Firebase.Auth.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
@@ -1045,9 +1059,6 @@
     </Reference>
     <Reference Include="UnityEngine.Purchasing">
       <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Library/PackageCache/com.unity.purchasing@2.0.6/UnityEngine.Purchasing.dll</HintPath>
-    </Reference>
-    <Reference Include="AdinmoPlugin">
-      <HintPath>D:/Unity/Projects/ParkourRunner/BASE/AliveGames - Parkour Runner/Assets/Adinmo/Plugins/AdinmoPlugin.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>D:/Program Files/Unity Editors/2019.2.18f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

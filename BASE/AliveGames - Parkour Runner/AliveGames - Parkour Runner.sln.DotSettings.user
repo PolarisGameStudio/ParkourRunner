@@ -9,4 +9,5 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="D:\Unity\Projects\ParkourRunner\BASE\AliveGames - Parkour Runner\Assets\Adinmo\Plugins\AdinmoPlugin.dll" /&gt;&#xD;
   &lt;Assembly Path="D:\Unity\Projects\ParkourRunner\BASE\AliveGames - Parkour Runner\Assets\Admix\DLL\Windows\x86_64\UEditor\Admix.Core.dll" /&gt;&#xD;
+  &lt;Assembly Path="D:\Unity\Projects\ParkourRunner\BASE\AliveGames - Parkour Runner\Assets\Adverty\Plugins\AdvertySDK.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>

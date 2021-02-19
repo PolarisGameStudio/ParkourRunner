@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +22,19 @@ public class SceneLoader : MonoBehaviour {
         else {
             StartCoroutine(AsyncLoad());
         }
+
+        if (AdManager.EnableAds) {
+            AdManager.Instance.ShowBanner();
+            AdManager.Instance.ShowBottomBanner();
+        }
     }
+
+
+    private void OnDestroy() {
+        AdManager.Instance.HideBanner();
+        AdManager.Instance.HideBottomBanner();
+    }
+
 
     private void Update()
     {
